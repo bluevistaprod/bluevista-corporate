@@ -77,3 +77,7 @@
 ## Bugs à Corriger
 - [x] Afficher les vidéos dans la page Portfolio/Réalisations
 - [x] Identifier et supprimer les sections dupliquées sur la page d'accueil (métriques dupliquées en base de données - supprimées)
+
+
+## Améliorations UX
+- [x] Mettre la vidéo Hero en fond avec autoplay et mute

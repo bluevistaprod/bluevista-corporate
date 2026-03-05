@@ -5,7 +5,6 @@ import { Footer } from "@/components/Footer";
 import { Button } from "@/components/ui/button";
 import { trpc } from "@/lib/trpc";
 import { ChevronRight, Play } from "lucide-react";
-import { VideoPlayer } from "@/components/VideoPlayer";
 
 export default function Home() {
   const { language, domain, isLoaded, t } = useI18n();
@@ -54,12 +53,23 @@ export default function Home() {
       <Header />
 
       {/* HERO SECTION */}
-      <section className="relative h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-black overflow-hidden">
-        {/* Background video effect */}
-        <div className="absolute inset-0 bg-black/40"></div>
+      <section className="relative h-screen overflow-hidden">
+        {/* Background Video */}
+        <div className="absolute inset-0">
+          <iframe
+            src="https://player.vimeo.com/video/1072209644?autoplay=1&muted=1&loop=1&background=1"
+            className="w-full h-full"
+            frameBorder="0"
+            allow="autoplay; muted"
+            style={{ pointerEvents: 'none' }}
+          />
+        </div>
+
+        {/* Overlay */}
+        <div className="absolute inset-0 bg-black/50"></div>
 
         {/* Content */}
-        <div className="relative h-full flex flex-col items-center justify-center text-center px-4">
+        <div className="relative h-full flex flex-col items-center justify-center text-center px-4 z-10">
           <div className="max-w-3xl">
             <h1 className="text-5xl md:text-7xl font-bold text-white mb-6 leading-tight">
               {t("home.hero_baseline")}
@@ -76,15 +86,6 @@ export default function Home() {
                   </span>
                 </Button>
               </a>
-            </div>
-
-            {/* Showreel Video */}
-            <div className="mt-12 max-w-3xl mx-auto">
-              <VideoPlayer
-                videoUrl="https://player.vimeo.com/video/1072209644"
-                title="Bluevista - Showreel 2025"
-                className="shadow-2xl"
-              />
             </div>
           </div>
         </div>
