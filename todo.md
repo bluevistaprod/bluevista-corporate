@@ -62,3 +62,6 @@
 - [x] Intégrer images dans pages (accueil, portfolio, témoignages)
 - [ ] Intégrer vidéos (showreel, témoignages)
 - [ ] Optimiser images (lazy loading, compression)
+
+## Bugs & Corrections
+- [x] Corriger erreur de balises <a> imbriquées dans Home.tsx
