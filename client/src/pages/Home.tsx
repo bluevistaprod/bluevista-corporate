@@ -5,6 +5,7 @@ import { Footer } from "@/components/Footer";
 import { Button } from "@/components/ui/button";
 import { trpc } from "@/lib/trpc";
 import { ChevronRight, Play } from "lucide-react";
+import { VideoPlayer } from "@/components/VideoPlayer";
 
 export default function Home() {
   const { language, domain, isLoaded, t } = useI18n();
@@ -75,14 +76,15 @@ export default function Home() {
                   </span>
                 </Button>
               </a>
-              <Button
-                size="lg"
-                variant="outline"
-                className="text-white border-white hover:bg-white/10"
-              >
-                <Play size={20} className="mr-2" />
-                Voir le Showreel
-              </Button>
+            </div>
+
+            {/* Showreel Video */}
+            <div className="mt-12 max-w-3xl mx-auto">
+              <VideoPlayer
+                videoUrl="https://player.vimeo.com/video/1072209644"
+                title="Bluevista - Showreel 2025"
+                className="shadow-2xl"
+              />
             </div>
           </div>
         </div>

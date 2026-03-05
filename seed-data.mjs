@@ -20,6 +20,7 @@ const projects = [
     sector: "tourisme",
     projectType: "Publicité",
     imageUrl: "https://d2xsxph8kpxj0f.cloudfront.net/310519663405351247/HJdMFahbvq3VamEnwkCWwG/fubiztalks1_c5bd604e.jpg",
+    videoUrl: "https://vimeo.com/bluevista",
     domain: "com",
     featured: true,
   },
@@ -31,6 +32,7 @@ const projects = [
     sector: "industrie",
     projectType: "Motion Design",
     imageUrl: "https://d2xsxph8kpxj0f.cloudfront.net/310519663405351247/HJdMFahbvq3VamEnwkCWwG/Voeux2020-3_1ba21b96.jpg",
+    videoUrl: "https://player.vimeo.com/video/1072209644",
     domain: "com",
     featured: true,
   },
@@ -42,6 +44,7 @@ const projects = [
     sector: "bancaire",
     projectType: "Film Corporate",
     imageUrl: "https://d2xsxph8kpxj0f.cloudfront.net/310519663405351247/HJdMFahbvq3VamEnwkCWwG/group_dc8b55dd.png",
+    videoUrl: "https://vimeo.com/bluevista",
     domain: "com",
     featured: true,
   },
@@ -53,6 +56,7 @@ const projects = [
     sector: "pharmaceutique",
     projectType: "Animation 3D",
     imageUrl: "https://d2xsxph8kpxj0f.cloudfront.net/310519663405351247/HJdMFahbvq3VamEnwkCWwG/Logo_BLUEVISTA_2023_00dd6f48.png",
+    videoUrl: "https://vimeo.com/bluevista",
     domain: "com",
     featured: false,
   },
@@ -69,6 +73,7 @@ const testimonials = [
     domain: "com",
     featured: true,
     imageUrl: "https://d2xsxph8kpxj0f.cloudfront.net/310519663405351247/HJdMFahbvq3VamEnwkCWwG/group-150x150_72b19b4a.png",
+    videoUrl: "https://vimeo.com/bluevista",
   },
   {
     clientName: "Jean Martin",
@@ -79,6 +84,7 @@ const testimonials = [
     domain: "com",
     featured: true,
     imageUrl: "https://d2xsxph8kpxj0f.cloudfront.net/310519663405351247/HJdMFahbvq3VamEnwkCWwG/group-300x300_6433c4c1.png",
+    videoUrl: "https://vimeo.com/bluevista",
   },
   {
     clientName: "Sophie Bernard",
@@ -89,6 +95,7 @@ const testimonials = [
     domain: "com",
     featured: true,
     imageUrl: "https://d2xsxph8kpxj0f.cloudfront.net/310519663405351247/HJdMFahbvq3VamEnwkCWwG/group-150x150_72b19b4a.png",
+    videoUrl: "https://vimeo.com/bluevista",
   },
 ];
 
@@ -127,8 +134,8 @@ try {
   console.log("📁 Insertion des projets...");
   for (const project of projects) {
     await connection.execute(
-      `INSERT INTO projects (title_fr, title_en, description_fr, description_en, sector, project_type, image_url, domain, featured, createdAt, updatedAt)
-       VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, NOW(), NOW())`,
+      `INSERT INTO projects (title_fr, title_en, description_fr, description_en, sector, project_type, image_url, video_url, domain, featured, createdAt, updatedAt)
+       VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, NOW(), NOW())`,
       [
         project.titleFr,
         project.titleEn,
@@ -137,6 +144,7 @@ try {
         project.sector,
         project.projectType,
         project.imageUrl,
+        project.videoUrl,
         project.domain,
         project.featured ? 1 : 0,
       ]
@@ -148,8 +156,8 @@ try {
   console.log("💬 Insertion des témoignages...");
   for (const testimonial of testimonials) {
     await connection.execute(
-      `INSERT INTO testimonials (client_name, client_company, content_fr, content_en, rating, domain, featured, image_url, createdAt, updatedAt)
-       VALUES (?, ?, ?, ?, ?, ?, ?, ?, NOW(), NOW())`,
+      `INSERT INTO testimonials (client_name, client_company, content_fr, content_en, rating, domain, featured, image_url, video_url, createdAt, updatedAt)
+       VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, NOW(), NOW())`,
       [
         testimonial.clientName,
         testimonial.clientCompany,
@@ -159,6 +167,7 @@ try {
         testimonial.domain,
         testimonial.featured ? 1 : 0,
         testimonial.imageUrl,
+        testimonial.videoUrl || "https://vimeo.com/bluevista",
       ]
     );
   }

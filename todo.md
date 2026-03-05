@@ -65,3 +65,10 @@
 
 ## Bugs & Corrections
 - [x] Corriger erreur de balises <a> imbriquées dans Home.tsx
+
+## Intégration Vidéos Vimeo
+- [x] Extraire URLs Vimeo du site actuel
+- [x] Ajouter vidéos aux projets du portfolio
+- [x] Ajouter vidéos aux témoignages clients
+- [x] Créer composant lecteur vidéo responsive
+- [x] Ajouter showreel vidéo à la page d'accueil
