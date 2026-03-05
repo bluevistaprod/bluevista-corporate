@@ -5,14 +5,20 @@ import { Route, Switch } from "wouter";
 import ErrorBoundary from "./components/ErrorBoundary";
 import { ThemeProvider } from "./contexts/ThemeContext";
 import Home from "./pages/Home";
+import About from "./pages/About";
+import Portfolio from "./pages/Portfolio";
+import Contact from "./pages/Contact";
+import OfferDetail from "./pages/OfferDetail";
 
 function Router() {
-  // make sure to consider if you need authentication for certain routes
   return (
     <Switch>
-      <Route path={"/"} component={Home} />
-      <Route path={"/404"} component={NotFound} />
-      {/* Final fallback route */}
+      <Route path="/" component={Home} />
+      <Route path="/agency" component={About} />
+      <Route path="/portfolio" component={Portfolio} />
+      <Route path="/offers/:type" component={OfferDetail} />
+      <Route path="/contact" component={Contact} />
+      <Route path="/404" component={NotFound} />
       <Route component={NotFound} />
     </Switch>
   );

@@ -1,0 +1,16 @@
+{
+  "name": "Blue Vista Productions",
+  "short_name": "Blue Vista",
+  "description": "Agence de communication, événementiel et immersion depuis plus de 20 ans",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#2563eb",
+  "icons": [
+    {
+      "src": "/favicon.ico",
+      "sizes": "64x64",
+      "type": "image/x-icon"
+    }
+  ]
+}

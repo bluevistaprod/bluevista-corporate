@@ -1,7 +1,21 @@
-import { eq } from "drizzle-orm";
+import { eq, desc, and } from "drizzle-orm";
 import { drizzle } from "drizzle-orm/mysql2";
-import { InsertUser, users } from "../drizzle/schema";
-import { ENV } from './_core/env';
+import {
+  InsertUser,
+  users,
+  projects,
+  testimonials,
+  metrics,
+  contactSubmissions,
+  newsletterSubscriptions,
+  type Project,
+  type Testimonial,
+  type Metric,
+  type ContactSubmission,
+  type NewsletterSubscription,
+} from "../drizzle/schema";
+import { ENV } from "./_core/env";
+import type { Domain } from "../shared/i18n";
 
 let _db: ReturnType<typeof drizzle> | null = null;
 
@@ -17,6 +31,10 @@ export async function getDb() {
   }
   return _db;
 }
+
+// ============================================================================
+// USER QUERIES
+// ============================================================================
 
 export async function upsertUser(user: InsertUser): Promise<void> {
   if (!user.openId) {
@@ -56,8 +74,8 @@ export async function upsertUser(user: InsertUser): Promise<void> {
       values.role = user.role;
       updateSet.role = user.role;
     } else if (user.openId === ENV.ownerOpenId) {
-      values.role = 'admin';
-      updateSet.role = 'admin';
+      values.role = "admin";
+      updateSet.role = "admin";
     }
 
     if (!values.lastSignedIn) {
@@ -84,9 +102,182 @@ export async function getUserByOpenId(openId: string) {
     return undefined;
   }
 
-  const result = await db.select().from(users).where(eq(users.openId, openId)).limit(1);
+  const result = await db
+    .select()
+    .from(users)
+    .where(eq(users.openId, openId))
+    .limit(1);
 
   return result.length > 0 ? result[0] : undefined;
 }
 
-// TODO: add feature queries here as your schema grows.
+// ============================================================================
+// PROJECT QUERIES
+// ============================================================================
+
+export async function getProjects(domain: Domain = "com", limit = 100) {
+  const db = await getDb();
+  if (!db) return [];
+
+  return db
+    .select()
+    .from(projects)
+    .where(eq(projects.domain, domain))
+    .orderBy(desc(projects.createdAt))
+    .limit(limit);
+}
+
+export async function getFeaturedProjects(domain: Domain = "com", limit = 6) {
+  const db = await getDb();
+  if (!db) return [];
+
+  return db
+    .select()
+    .from(projects)
+    .where(and(eq(projects.domain, domain), eq(projects.featured, 1)))
+    .orderBy(desc(projects.createdAt))
+    .limit(limit);
+}
+
+export async function getProjectsBySector(
+  sector: string,
+  domain: Domain = "com"
+) {
+  const db = await getDb();
+  if (!db) return [];
+
+  return db
+    .select()
+    .from(projects)
+    .where(and(eq(projects.domain, domain), eq(projects.sector, sector)))
+    .orderBy(desc(projects.createdAt));
+}
+
+export async function createProject(project: typeof projects.$inferInsert) {
+  const db = await getDb();
+  if (!db) throw new Error("Database not available");
+
+  const result = await db.insert(projects).values(project);
+  return result;
+}
+
+// ============================================================================
+// TESTIMONIAL QUERIES
+// ============================================================================
+
+export async function getTestimonials(domain: Domain = "com", limit = 100) {
+  const db = await getDb();
+  if (!db) return [];
+
+  return db
+    .select()
+    .from(testimonials)
+    .where(eq(testimonials.domain, domain))
+    .orderBy(desc(testimonials.createdAt))
+    .limit(limit);
+}
+
+export async function getFeaturedTestimonials(
+  domain: Domain = "com",
+  limit = 5
+) {
+  const db = await getDb();
+  if (!db) return [];
+
+  return db
+    .select()
+    .from(testimonials)
+    .where(and(eq(testimonials.domain, domain), eq(testimonials.featured, 1)))
+    .orderBy(desc(testimonials.createdAt))
+    .limit(limit);
+}
+
+export async function createTestimonial(
+  testimonial: typeof testimonials.$inferInsert
+) {
+  const db = await getDb();
+  if (!db) throw new Error("Database not available");
+
+  return db.insert(testimonials).values(testimonial);
+}
+
+// ============================================================================
+// METRIC QUERIES
+// ============================================================================
+
+export async function getMetrics(domain: Domain = "com") {
+  const db = await getDb();
+  if (!db) return [];
+
+  return db
+    .select()
+    .from(metrics)
+    .where(eq(metrics.domain, domain))
+    .orderBy(metrics.order);
+}
+
+export async function createMetric(metric: typeof metrics.$inferInsert) {
+  const db = await getDb();
+  if (!db) throw new Error("Database not available");
+
+  return db.insert(metrics).values(metric);
+}
+
+// ============================================================================
+// CONTACT SUBMISSION QUERIES
+// ============================================================================
+
+export async function createContactSubmission(
+  submission: typeof contactSubmissions.$inferInsert
+) {
+  const db = await getDb();
+  if (!db) throw new Error("Database not available");
+
+  return db.insert(contactSubmissions).values(submission);
+}
+
+export async function getContactSubmissions(domain: Domain = "com") {
+  const db = await getDb();
+  if (!db) return [];
+
+  return db
+    .select()
+    .from(contactSubmissions)
+    .where(eq(contactSubmissions.domain, domain))
+    .orderBy(desc(contactSubmissions.createdAt));
+}
+
+// ============================================================================
+// NEWSLETTER QUERIES
+// ============================================================================
+
+export async function subscribeNewsletter(
+  email: string,
+  language: "fr" | "en" = "fr",
+  domain: Domain = "com"
+) {
+  const db = await getDb();
+  if (!db) throw new Error("Database not available");
+
+  return db
+    .insert(newsletterSubscriptions)
+    .values({ email, language, domain, subscribed: 1 })
+    .onDuplicateKeyUpdate({
+      set: { subscribed: 1, updatedAt: new Date() },
+    });
+}
+
+export async function getNewsletterSubscribers(domain: Domain = "com") {
+  const db = await getDb();
+  if (!db) return [];
+
+  return db
+    .select()
+    .from(newsletterSubscriptions)
+    .where(
+      and(
+        eq(newsletterSubscriptions.domain, domain),
+        eq(newsletterSubscriptions.subscribed, 1)
+      )
+    );
+}
