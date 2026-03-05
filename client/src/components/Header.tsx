@@ -13,7 +13,7 @@ export function Header() {
     { key: "nav.agency", href: "/agency" },
     { key: "nav.offers", href: "/offers" },
     { key: "nav.portfolio", href: "/portfolio" },
-    { key: "nav.blog", href: "/blog" },
+    { key: "nav.news", href: "/actualites" },
     { key: "nav.contact", href: "/contact" },
   ];
 

@@ -85,3 +85,9 @@
 - [x] Ajouter preload hints pour les ressources critiques
 - [ ] Optimiser les images (WebP, lazy loading)
 - [ ] Implémenter code splitting par route
+
+
+## Nouvelles Tâches
+- [x] Remplir la page Offres avec les 3 piliers détaillés
+- [x] Renommer la page Blog en Actualités
+- [x] Extraire et intégrer les actualités de l'ancien site

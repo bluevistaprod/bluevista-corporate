@@ -9,14 +9,19 @@ import About from "./pages/About";
 import Portfolio from "./pages/Portfolio";
 import Contact from "./pages/Contact";
 import OfferDetail from "./pages/OfferDetail";
+import Offers from "./pages/Offers";
+import News from "./pages/News";
 
 function Router() {
   return (
     <Switch>
       <Route path="/" component={Home} />
       <Route path="/agency" component={About} />
-      <Route path="/portfolio" component={Portfolio} />
+      <Route path="/offers" component={Offers} />
       <Route path="/offers/:type" component={OfferDetail} />
+      <Route path="/portfolio" component={Portfolio} />
+      <Route path="/actualites" component={News} />
+      <Route path="/news" component={News} />
       <Route path="/contact" component={Contact} />
       <Route path="/404" component={NotFound} />
       <Route component={NotFound} />
