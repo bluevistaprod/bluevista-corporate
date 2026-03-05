@@ -22,22 +22,18 @@ export function Header() {
       <div className="container mx-auto px-4 py-4">
         <div className="flex items-center justify-between">
           {/* Logo */}
-          <Link href="/">
-            <a className="flex items-center gap-2 font-bold text-xl text-blue-600 hover:text-blue-700 transition">
-              <div className="w-8 h-8 bg-blue-600 rounded-full flex items-center justify-center text-white text-sm font-bold">
-                BV
-              </div>
-              <span>Blue Vista</span>
-            </a>
+          <Link href="/" className="flex items-center gap-2 font-bold text-xl text-blue-600 hover:text-blue-700 transition">
+            <div className="w-8 h-8 bg-blue-600 rounded-full flex items-center justify-center text-white text-sm font-bold">
+              BV
+            </div>
+            <span>Blue Vista</span>
           </Link>
 
           {/* Desktop Navigation */}
           <nav className="hidden md:flex items-center gap-8">
             {navItems.map((item) => (
-              <Link key={item.key} href={item.href}>
-                <a className="text-gray-700 hover:text-blue-600 transition font-medium text-sm">
-                  {t(item.key)}
-                </a>
+              <Link key={item.key} href={item.href} className="text-gray-700 hover:text-blue-600 transition font-medium text-sm">
+                {t(item.key)}
               </Link>
             ))}
           </nav>
@@ -67,9 +63,9 @@ export function Header() {
               </button>
             </div>
 
-            <Link href="/contact">
-              <Button className="hidden md:inline-flex bg-blue-600 hover:bg-blue-700">
-                {t("contact.title")}
+            <Link href="/contact" className="hidden md:inline-flex">
+              <Button asChild className="bg-blue-600 hover:bg-blue-700">
+                <span>{t("contact.title")}</span>
               </Button>
             </Link>
 
@@ -87,18 +83,18 @@ export function Header() {
         {isMenuOpen && (
           <nav className="md:hidden mt-4 pb-4 border-t border-gray-200 pt-4 flex flex-col gap-3">
             {navItems.map((item) => (
-              <Link key={item.key} href={item.href}>
-                <a
-                  className="text-gray-700 hover:text-blue-600 transition font-medium"
-                  onClick={() => setIsMenuOpen(false)}
-                >
-                  {t(item.key)}
-                </a>
+              <Link 
+                key={item.key} 
+                href={item.href} 
+                className="text-gray-700 hover:text-blue-600 transition font-medium"
+                onClick={() => setIsMenuOpen(false)}
+              >
+                {t(item.key)}
               </Link>
             ))}
-            <Link href="/contact">
-              <Button className="w-full bg-blue-600 hover:bg-blue-700">
-                {t("contact.title")}
+            <Link href="/contact" className="block">
+              <Button asChild className="w-full bg-blue-600 hover:bg-blue-700">
+                <span>{t("contact.title")}</span>
               </Button>
             </Link>
           </nav>
