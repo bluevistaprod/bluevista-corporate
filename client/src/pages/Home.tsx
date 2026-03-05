@@ -3,6 +3,7 @@ import { useI18n } from "@/hooks/useI18n";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { Button } from "@/components/ui/button";
+import { HeroVideo } from "@/components/HeroVideo";
 import { trpc } from "@/lib/trpc";
 import { ChevronRight, Play } from "lucide-react";
 
@@ -54,16 +55,8 @@ export default function Home() {
 
       {/* HERO SECTION */}
       <section className="relative h-screen overflow-hidden">
-        {/* Background Video */}
-        <div className="absolute inset-0">
-          <iframe
-            src="https://player.vimeo.com/video/1072209644?autoplay=1&muted=1&loop=1&background=1"
-            className="w-full h-full"
-            frameBorder="0"
-            allow="autoplay; muted"
-            style={{ pointerEvents: 'none' }}
-          />
-        </div>
+        {/* Background Video - Optimized with lazy loading */}
+        <HeroVideo videoId="1072209644" title="Bluevista - Showreel 2025" />
 
         {/* Overlay */}
         <div className="absolute inset-0 bg-black/50"></div>

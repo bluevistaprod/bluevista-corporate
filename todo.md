@@ -81,3 +81,7 @@
 
 ## Améliorations UX
 - [x] Mettre la vidéo Hero en fond avec autoplay et mute
+- [x] Optimiser le chargement de la vidéo Hero (lazy loading, placeholder, réduction qualité)
+- [x] Ajouter preload hints pour les ressources critiques
+- [ ] Optimiser les images (WebP, lazy loading)
+- [ ] Implémenter code splitting par route
