@@ -67,10 +67,12 @@ export default function Home() {
               Agence de communication, événementiel et immersion depuis plus de 20 ans.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <a href="/offers">
-                <Button size="lg" className="bg-blue-600 hover:bg-blue-700 text-white">
-                  {t("home.hero_cta")}
-                  <ChevronRight className="ml-2" size={20} />
+              <a href="/offers" className="inline-block">
+                <Button asChild size="lg" className="bg-blue-600 hover:bg-blue-700 text-white">
+                  <span>
+                    {t("home.hero_cta")}
+                    <ChevronRight className="ml-2" size={20} />
+                  </span>
                 </Button>
               </a>
               <Button
@@ -110,10 +112,12 @@ export default function Home() {
                   <p className="text-gray-600 mb-4">
                     {t(`${pillar.key}.promise`)}
                   </p>
-                  <a href={pillar.href}>
-                    <Button variant="outline" className="w-full">
-                      {t("home.learn_more")}
-                      <ChevronRight className="ml-2" size={16} />
+                  <a href={pillar.href} className="block">
+                    <Button asChild variant="outline" className="w-full">
+                      <span>
+                        {t("home.learn_more")}
+                        <ChevronRight className="ml-2" size={16} />
+                      </span>
                     </Button>
                   </a>
                 </div>
@@ -250,10 +254,12 @@ export default function Home() {
             </div>
 
             <div className="text-center">
-              <a href="/portfolio">
-                <Button size="lg" variant="outline">
-                  {t("home.learn_more")}
-                  <ChevronRight className="ml-2" size={20} />
+              <a href="/portfolio" className="inline-block">
+                <Button asChild size="lg" variant="outline">
+                  <span>
+                    {t("home.learn_more")}
+                    <ChevronRight className="ml-2" size={20} />
+                  </span>
                 </Button>
               </a>
             </div>
@@ -268,10 +274,12 @@ export default function Home() {
           <p className="text-xl text-blue-100 mb-8 max-w-2xl mx-auto">
             Contactez-nous pour discuter de votre projet et découvrir comment nous pouvons vous aider.
           </p>
-          <a href="/contact">
-            <Button size="lg" className="bg-white text-blue-600 hover:bg-gray-100">
-              {t("home.quote_cta")}
-              <ChevronRight className="ml-2" size={20} />
+          <a href="/contact" className="inline-block">
+            <Button asChild size="lg" className="bg-white text-blue-600 hover:bg-gray-100">
+              <span>
+                {t("home.quote_cta")}
+                <ChevronRight className="ml-2" size={20} />
+              </span>
             </Button>
           </a>
         </div>
