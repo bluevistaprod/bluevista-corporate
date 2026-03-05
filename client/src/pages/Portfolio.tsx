@@ -3,6 +3,7 @@ import { useI18n } from "@/hooks/useI18n";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { Button } from "@/components/ui/button";
+import { VideoPlayer } from "@/components/VideoPlayer";
 import { trpc } from "@/lib/trpc";
 
 const SECTORS = ["industrie", "bancaire", "pharmaceutique", "tourisme"];
@@ -74,7 +75,16 @@ export default function Portfolio() {
                   key={project.id}
                   className="group overflow-hidden rounded-lg shadow-lg hover:shadow-xl transition"
                 >
-                  {project.imageUrl && (
+                  {project.videoUrl ? (
+                    <div className="h-64 overflow-hidden bg-gray-200">
+                      <VideoPlayer
+                        videoUrl={project.videoUrl}
+                        title={language === "fr" ? project.titleFr : project.titleEn}
+                        thumbnail={project.imageUrl || undefined}
+                        className="h-full"
+                      />
+                    </div>
+                  ) : project.imageUrl ? (
                     <div className="h-64 overflow-hidden bg-gray-200">
                       <img
                         src={project.imageUrl}
@@ -82,7 +92,7 @@ export default function Portfolio() {
                         className="w-full h-full object-cover group-hover:scale-105 transition duration-300"
                       />
                     </div>
-                  )}
+                  ) : null}
                   <div className="p-6 bg-white">
                     <h3 className="font-bold text-gray-900 mb-2 text-lg">
                       {language === "fr" ? project.titleFr : project.titleEn}

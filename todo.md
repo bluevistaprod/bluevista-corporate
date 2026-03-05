@@ -72,3 +72,8 @@
 - [x] Ajouter vidéos aux témoignages clients
 - [x] Créer composant lecteur vidéo responsive
 - [x] Ajouter showreel vidéo à la page d'accueil
+
+
+## Bugs à Corriger
+- [x] Afficher les vidéos dans la page Portfolio/Réalisations
+- [ ] Identifier et supprimer les sections dupliquées sur la page d'accueil (à investiguer avec l'utilisateur)
