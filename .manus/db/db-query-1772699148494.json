@@ -1,0 +1,30 @@
+{
+  "query": "SELECT label_fr, value, COUNT(*) as count FROM metrics GROUP BY label_fr, value HAVING COUNT(*) > 1;",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway04.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 88yLpdrkBbhoMQ3.root --database HJdMFahbvq3VamEnwkCWwG --execute SELECT label_fr, value, COUNT(*) as count FROM metrics GROUP BY label_fr, value HAVING COUNT(*) > 1;",
+  "rows": [
+    {
+      "label_fr": "Clients Satisfaits",
+      "value": "200+",
+      "count": "2"
+    },
+    {
+      "label_fr": "Projets Réalisés",
+      "value": "500+",
+      "count": "2"
+    },
+    {
+      "label_fr": "Années d'Expérience",
+      "value": "20+",
+      "count": "2"
+    },
+    {
+      "label_fr": "Augmentation Ventes",
+      "value": "30%",
+      "count": "2"
+    }
+  ],
+  "messages": [],
+  "stdout": "label_fr\tvalue\tcount\nClients Satisfaits\t200+\t2\nProjets Réalisés\t500+\t2\nAnnées d'Expérience\t20+\t2\nAugmentation Ventes\t30%\t2\n",
+  "stderr": "",
+  "execution_time_ms": 356
+}

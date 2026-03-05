@@ -1,0 +1,9 @@
+{
+  "query": "DELETE FROM metrics WHERE id NOT IN (SELECT MIN(id) FROM metrics GROUP BY label_fr, value);",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway04.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 88yLpdrkBbhoMQ3.root --database HJdMFahbvq3VamEnwkCWwG --execute DELETE FROM metrics WHERE id NOT IN (SELECT MIN(id) FROM metrics GROUP BY label_fr, value);",
+  "rows": [],
+  "messages": [],
+  "stdout": "",
+  "stderr": "",
+  "execution_time_ms": 350
+}
