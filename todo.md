@@ -53,3 +53,12 @@
 - [ ] Vérification SEO
 - [ ] Optimisation performances
 - [ ] Déploiement et configuration domaines
+
+
+## Contenu Visuel
+- [x] Extraire images du site actuel
+- [ ] Extraire vidéos du site actuel
+- [x] Uploader visuels sur CDN
+- [x] Intégrer images dans pages (accueil, portfolio, témoignages)
+- [ ] Intégrer vidéos (showreel, témoignages)
+- [ ] Optimiser images (lazy loading, compression)
