@@ -22,12 +22,13 @@ export function Header() {
       <div className="container mx-auto px-4 py-4">
         <div className="flex items-center justify-between">
           {/* Logo */}
-          <Link href="/" className="flex items-center gap-2 font-bold text-xl text-blue-600 hover:text-blue-700 transition">
+          <Link href="/" className="flex items-center gap-2 font-bold text-xl text-blue-600 hover:text-blue-700 transition flex-shrink-0">
             <img 
               src="https://d2xsxph8kpxj0f.cloudfront.net/310519663405351247/HJdMFahbvq3VamEnwkCWwG/bluevista_logo_text_07d6ef3d.png" 
               alt="Blue Vista Logo"
-              className="h-12 w-auto"
+              className="h-12 w-auto flex-shrink-0"
               loading="lazy"
+              style={{ aspectRatio: '3/1' }}
             />
           </Link>
 

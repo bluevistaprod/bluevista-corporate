@@ -68,7 +68,7 @@ export function HeroVideo({ videoId, title }: HeroVideoProps) {
           allow="autoplay; muted"
           title={title}
           onLoad={handleIframeLoad}
-          style={{ pointerEvents: 'none' }}
+          style={{ pointerEvents: 'none', objectFit: 'cover' }}
         />
       )}
     </div>
