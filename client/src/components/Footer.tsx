@@ -37,9 +37,10 @@ export function Footer() {
           <div>
             <div className="flex items-center gap-2 mb-4">
               <img 
-                src="https://d2xsxph8kpxj0f.cloudfront.net/310519663405351247/HJdMFahbvq3VamEnwkCWwG/bluevista_logo_5da5b3f3.png" 
+                src="https://d2xsxph8kpxj0f.cloudfront.net/310519663405351247/HJdMFahbvq3VamEnwkCWwG/bluevista_logo_round_8ba25f07.png" 
                 alt="Blue Vista Logo"
-                className="h-8 w-auto"
+                className="h-12 w-12"
+                loading="lazy"
               />
             </div>
             <p className="text-sm text-gray-400">
