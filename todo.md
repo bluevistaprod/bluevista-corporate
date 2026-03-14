@@ -91,3 +91,9 @@
 - [x] Remplir la page Offres avec les 3 piliers détaillés
 - [x] Renommer la page Blog en Actualités
 - [x] Extraire et intégrer les actualités de l'ancien site
+
+
+## Branding & Logo
+- [x] Remplacer le logo BV par le vrai logo Blue Vista dans Header
+- [x] Remplacer le logo BV par le vrai logo Blue Vista dans Footer
+- [x] Renommer "nav.news" en "nav.actualites" dans les traductions

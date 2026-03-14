@@ -13,7 +13,7 @@ export function Header() {
     { key: "nav.agency", href: "/agency" },
     { key: "nav.offers", href: "/offers" },
     { key: "nav.portfolio", href: "/portfolio" },
-    { key: "nav.news", href: "/actualites" },
+    { key: "nav.actualites", href: "/actualites" },
     { key: "nav.contact", href: "/contact" },
   ];
 
@@ -23,10 +23,11 @@ export function Header() {
         <div className="flex items-center justify-between">
           {/* Logo */}
           <Link href="/" className="flex items-center gap-2 font-bold text-xl text-blue-600 hover:text-blue-700 transition">
-            <div className="w-8 h-8 bg-blue-600 rounded-full flex items-center justify-center text-white text-sm font-bold">
-              BV
-            </div>
-            <span>Blue Vista</span>
+            <img 
+              src="https://d2xsxph8kpxj0f.cloudfront.net/310519663405351247/HJdMFahbvq3VamEnwkCWwG/bluevista_logo_5da5b3f3.png" 
+              alt="Blue Vista Logo"
+              className="h-10 w-auto"
+            />
           </Link>
 
           {/* Desktop Navigation */}

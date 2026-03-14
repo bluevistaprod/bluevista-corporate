@@ -36,10 +36,11 @@ export function Footer() {
           {/* Brand */}
           <div>
             <div className="flex items-center gap-2 mb-4">
-              <div className="w-8 h-8 bg-blue-600 rounded-full flex items-center justify-center text-white text-sm font-bold">
-                BV
-              </div>
-              <span className="font-bold text-white">Blue Vista</span>
+              <img 
+                src="https://d2xsxph8kpxj0f.cloudfront.net/310519663405351247/HJdMFahbvq3VamEnwkCWwG/bluevista_logo_5da5b3f3.png" 
+                alt="Blue Vista Logo"
+                className="h-8 w-auto"
+              />
             </div>
             <p className="text-sm text-gray-400">
               Agence de communication, événementiel et immersion depuis plus de 20 ans.

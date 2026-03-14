@@ -19,7 +19,7 @@ export const translations = {
     agency: { fr: "L'Agence", en: "About" },
     offers: { fr: "Offres", en: "Services" },
     portfolio: { fr: "Réalisations", en: "Portfolio" },
-    blog: { fr: "Blog", en: "Blog" },
+    actualites: { fr: "Actualités", en: "News" },
     contact: { fr: "Contact", en: "Contact" },
   },
 
