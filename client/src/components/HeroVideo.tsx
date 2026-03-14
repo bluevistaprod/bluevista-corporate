@@ -8,6 +8,7 @@ interface HeroVideoProps {
 /**
  * Composant optimisé pour afficher une vidéo Vimeo en arrière-plan
  * Utilise Intersection Observer pour lazy loading et améliore les performances
+ * Force le crop de la vidéo pour couvrir tout l'espace sans bandes grises
  */
 export function HeroVideo({ videoId, title }: HeroVideoProps) {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -57,20 +58,31 @@ export function HeroVideo({ videoId, title }: HeroVideoProps) {
         <div className="absolute inset-0 bg-gradient-to-br from-gray-900 via-gray-800 to-black animate-pulse" />
       )}
 
-      {/* Lazy-loaded iframe */}
-      {isVisible && (
-        <iframe
-          src={`https://player.vimeo.com/video/${videoId}?autoplay=1&muted=1&loop=1&background=1&h=1080`}
-          className={`w-full h-full transition-opacity duration-500 ${
-            isLoaded ? 'opacity-100' : 'opacity-0'
-          }`}
-          frameBorder="0"
-          allow="autoplay; muted"
-          title={title}
-          onLoad={handleIframeLoad}
-          style={{ pointerEvents: 'none', objectFit: 'cover' }}
-        />
-      )}
+      {/* Video wrapper - force crop to fill container */}
+      <div className="absolute inset-0 overflow-hidden">
+        {/* Lazy-loaded iframe - scaled to cover entire container */}
+        {isVisible && (
+          <iframe
+            src={`https://player.vimeo.com/video/${videoId}?autoplay=1&muted=1&loop=1&background=1&h=1440&portrait=false&title=false&byline=false`}
+            className={`transition-opacity duration-500 ${
+              isLoaded ? 'opacity-100' : 'opacity-0'
+            }`}
+            frameBorder="0"
+            allow="autoplay; muted"
+            title={title}
+            onLoad={handleIframeLoad}
+            style={{
+              pointerEvents: 'none',
+              position: 'absolute',
+              top: 0,
+              left: 0,
+              width: '100%',
+              height: '100%',
+              objectFit: 'cover',
+            }}
+          />
+        )}
+      </div>
     </div>
   );
 }
