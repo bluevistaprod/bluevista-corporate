@@ -7,8 +7,7 @@ interface HeroVideoProps {
 
 /**
  * Composant optimisé pour afficher une vidéo Vimeo en arrière-plan
- * Utilise Intersection Observer pour lazy loading et améliore les performances
- * Force le crop de la vidéo pour couvrir tout l'espace sans bandes grises
+ * Force le remplissage complet du conteneur sans bandes grises
  */
 export function HeroVideo({ videoId, title }: HeroVideoProps) {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -20,14 +19,13 @@ export function HeroVideo({ videoId, title }: HeroVideoProps) {
       ([entry]) => {
         if (entry.isIntersecting) {
           setIsVisible(true);
-          // Unobserve after video is visible to avoid re-triggering
           if (containerRef.current) {
             observer.unobserve(containerRef.current);
           }
         }
       },
       {
-        rootMargin: '50px', // Start loading 50px before entering viewport
+        rootMargin: '50px',
       }
     );
 
@@ -74,11 +72,13 @@ export function HeroVideo({ videoId, title }: HeroVideoProps) {
             style={{
               pointerEvents: 'none',
               position: 'absolute',
-              top: 0,
-              left: 0,
-              width: '100%',
-              height: '100%',
-              objectFit: 'cover',
+              top: '50%',
+              left: '50%',
+              width: '130%',
+              height: '130%',
+              transform: 'translate(-50%, -50%)',
+              minWidth: '130%',
+              minHeight: '130%',
             }}
           />
         )}
