@@ -55,8 +55,11 @@ export default function Home() {
 
       {/* HERO SECTION */}
       <section className="relative h-screen overflow-hidden">
-        {/* Background Video - Optimized with lazy loading */}
-        <HeroVideo videoId="1072209644" title="Bluevista - Showreel 2025" />
+        {/* Background Video - HTML5 video for perfect fill without letterboxing */}
+        <HeroVideo 
+          title="Bluevista - Showreel 2025" 
+          videoUrl="https://files.manuscdn.com/user_upload_by_module/session_file/310519663405351247/zLztsxSjfhtBNWAZ.mp4"
+        />
 
         {/* Overlay */}
         <div className="absolute inset-0 bg-black/50"></div>
