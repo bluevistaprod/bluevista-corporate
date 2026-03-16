@@ -3,7 +3,6 @@ import { useI18n } from "@/hooks/useI18n";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { Button } from "@/components/ui/button";
-import { VideoPlayer } from "@/components/VideoPlayer";
 import { trpc } from "@/lib/trpc";
 
 const SECTORS = ["industrie", "bancaire", "pharmaceutique", "tourisme"];
@@ -71,28 +70,38 @@ export default function Portfolio() {
           {filteredProjects.length > 0 ? (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
               {filteredProjects.map((project) => (
-                <div
+                <a
                   key={project.id}
-                  className="group overflow-hidden rounded-lg shadow-lg hover:shadow-xl transition"
+                  href={`/portfolio/${project.id}`}
+                  className="group overflow-hidden rounded-lg shadow-lg hover:shadow-xl transition block cursor-pointer"
                 >
-                  {project.videoUrl ? (
-                    <div className="h-64 overflow-hidden bg-gray-200">
-                      <VideoPlayer
-                        videoUrl={project.videoUrl}
-                        title={language === "fr" ? project.titleFr : project.titleEn}
-                        thumbnail={project.imageUrl || undefined}
-                        className="h-full"
-                      />
-                    </div>
-                  ) : project.imageUrl ? (
-                    <div className="h-64 overflow-hidden bg-gray-200">
+                  {/* Thumbnail with play button for videos */}
+                  <div className="h-64 overflow-hidden bg-gray-200 relative">
+                    {project.imageUrl ? (
                       <img
                         src={project.imageUrl}
                         alt={language === "fr" ? project.titleFr : project.titleEn}
                         className="w-full h-full object-cover group-hover:scale-105 transition duration-300"
                       />
-                    </div>
-                  ) : null}
+                    ) : (
+                      <div className="w-full h-full bg-gradient-to-br from-gray-300 to-gray-400 flex items-center justify-center">
+                        <span className="text-white text-sm">Projet</span>
+                      </div>
+                    )}
+                    
+                    {/* Play button overlay for videos */}
+                    {project.videoUrl && (
+                      <div className="absolute inset-0 bg-black/20 group-hover:bg-black/40 transition flex items-center justify-center">
+                        <div className="w-12 h-12 bg-white rounded-full flex items-center justify-center">
+                          <svg className="w-6 h-6 text-blue-600 ml-1" fill="currentColor" viewBox="0 0 20 20">
+                            <path d="M6.3 2.841A1.5 1.5 0 004 4.11V15.89a1.5 1.5 0 002.3 1.269l9.344-5.89a1.5 1.5 0 000-2.538L6.3 2.84z" />
+                          </svg>
+                        </div>
+                      </div>
+                    )}
+                  </div>
+
+                  {/* Project info */}
                   <div className="p-6 bg-white">
                     <h3 className="font-bold text-gray-900 mb-2 text-lg">
                       {language === "fr" ? project.titleFr : project.titleEn}
@@ -105,11 +114,11 @@ export default function Portfolio() {
                         {project.projectType}
                       </span>
                     </div>
-                    <p className="text-gray-700 text-sm">
+                    <p className="text-gray-700 text-sm line-clamp-2">
                       {language === "fr" ? project.descriptionFr : project.descriptionEn}
                     </p>
                   </div>
-                </div>
+                </a>
               ))}
             </div>
           ) : (

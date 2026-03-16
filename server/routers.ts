@@ -7,6 +7,7 @@ import {
   getProjects,
   getFeaturedProjects,
   getProjectsBySector,
+  getProjectById,
   createProject,
   getTestimonials,
   getFeaturedTestimonials,
@@ -78,6 +79,19 @@ export const appRouter = router({
       )
       .query(async ({ input }) => {
         return getProjectsBySector(input.sector, input.domain as Domain);
+      }),
+
+    /**
+     * Get project by ID
+     */
+    getById: publicProcedure
+      .input(
+        z.object({
+          id: z.string(),
+        })
+      )
+      .query(async ({ input }) => {
+        return getProjectById(parseInt(input.id));
       }),
 
     /**

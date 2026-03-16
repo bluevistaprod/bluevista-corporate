@@ -139,6 +139,19 @@ export async function getFeaturedProjects(domain: Domain = "com", limit = 6) {
     .limit(limit);
 }
 
+export async function getProjectById(id: number) {
+  const db = await getDb();
+  if (!db) return null;
+
+  const result = await db
+    .select()
+    .from(projects)
+    .where(eq(projects.id, id))
+    .limit(1);
+
+  return result.length > 0 ? result[0] : null;
+}
+
 export async function getProjectsBySector(
   sector: string,
   domain: Domain = "com"

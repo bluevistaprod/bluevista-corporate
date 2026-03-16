@@ -51,7 +51,7 @@ export default function About() {
         <div className="container mx-auto px-4">
           <h1 className="text-5xl font-bold mb-4">{t("about.title")}</h1>
           <p className="text-xl text-gray-300">
-            Découvrez l'histoire et les valeurs de Blue Vista Productions
+            Découvrez l'histoire et les valeurs de Bluevista Production
           </p>
         </div>
       </section>

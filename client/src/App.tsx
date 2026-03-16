@@ -7,6 +7,7 @@ import { ThemeProvider } from "./contexts/ThemeContext";
 import Home from "./pages/Home";
 import About from "./pages/About";
 import Portfolio from "./pages/Portfolio";
+import ProjectDetail from "./pages/ProjectDetail";
 import Contact from "./pages/Contact";
 import OfferDetail from "./pages/OfferDetail";
 import Offers from "./pages/Offers";
@@ -20,6 +21,7 @@ function Router() {
       <Route path="/offers" component={Offers} />
       <Route path="/offers/:type" component={OfferDetail} />
       <Route path="/portfolio" component={Portfolio} />
+      <Route path="/portfolio/:id" component={ProjectDetail} />
       <Route path="/actualites" component={News} />
       <Route path="/news" component={News} />
       <Route path="/contact" component={Contact} />

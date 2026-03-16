@@ -97,3 +97,9 @@
 - [x] Remplacer le logo BV par le vrai logo Blue Vista dans Header
 - [x] Remplacer le logo BV par le vrai logo Blue Vista dans Footer
 - [x] Renommer "nav.news" en "nav.actualites" dans les traductions
+
+## Système de Détail des Réalisations
+- [ ] Modifier page Portfolio pour afficher miniatures sans lecteur vidéo
+- [ ] Créer page de détail pour chaque réalisation
+- [ ] Ajouter description et contexte à chaque réalisation
+- [ ] Implémenter routing dynamique pour les réalisations

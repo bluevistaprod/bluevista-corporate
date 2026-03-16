@@ -148,6 +148,24 @@ export const translations = {
     },
   },
 
+  // Project detail page
+  project: {
+    notFound: { fr: "Projet non trouvé", en: "Project not found" },
+    about: { fr: "À propos du projet", en: "About the project" },
+    details: { fr: "Détails du projet", en: "Project details" },
+    sector: { fr: "Secteur", en: "Sector" },
+    type: { fr: "Type de projet", en: "Project type" },
+    year: { fr: "Année", en: "Year" },
+    relatedProjects: { fr: "Projets connexes", en: "Related projects" },
+    noRelatedProjects: { fr: "Aucun projet connexe", en: "No related projects" },
+  },
+
+  // Common
+  common: {
+    backToPortfolio: { fr: "Retour au portfolio", en: "Back to portfolio" },
+    contactUs: { fr: "Nous contacter", en: "Contact us" },
+  },
+
   // Footer
   footer: {
     rights: {
