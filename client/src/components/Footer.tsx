@@ -44,13 +44,13 @@ export function Footer() {
               />
             </div>
             <p className="text-sm text-gray-400">
-              Agence de communication, événementiel et immersion depuis plus de 20 ans.
+              Agence de création de contenu com et marketing, événementiel et immersion depuis 2004.
             </p>
           </div>
 
           {/* Locations */}
           <div>
-            <h3 className="font-bold text-white mb-4">Nos Implantations</h3>
+            <h3 className="font-bold text-white mb-4">Nos agences</h3>
             <div className="space-y-4">
               {locations.map((location) => (
                 <div key={location.city} className="text-sm">
@@ -76,7 +76,7 @@ export function Footer() {
 
           {/* Social & Contact */}
           <div>
-            <h3 className="font-bold text-white mb-4">Nous Suivre</h3>
+            <h3 className="font-bold text-white mb-4">Suivez-nous</h3>
             <div className="flex gap-4 mb-6">
               {socialLinks.map((social) => {
                 const Icon = social.icon;
@@ -98,8 +98,8 @@ export function Footer() {
             <div className="space-y-2 text-sm">
               <div className="flex items-center gap-2">
                 <Mail size={16} className="text-blue-400" />
-                <a href="mailto:contact@bluevista.com" className="hover:text-blue-400 transition">
-                  contact@bluevista.com
+                <a href="mailto:contact@bluevistaprod.com" className="hover:text-blue-400 transition">
+                  contact@bluevistaprod.com
                 </a>
               </div>
             </div>
@@ -108,7 +108,7 @@ export function Footer() {
 
         {/* Bottom */}
         <div className="border-t border-gray-800 pt-8 flex flex-col md:flex-row justify-between items-center text-sm text-gray-400">
-          <p>&copy; 2024 Blue Vista Productions. {t("footer.rights")}.</p>
+          <p>&copy; 2026 Bluevista Production. {t("footer.rights")}.</p>
           <div className="flex gap-6 mt-4 md:mt-0">
             <a href="/legal" className="hover:text-blue-400 transition">{t("footer.legal")}</a>
             <a href="/privacy" className="hover:text-blue-400 transition">{t("footer.privacy")}</a>

@@ -71,7 +71,7 @@ export default function Home() {
               {t("home.hero_baseline")}
             </h1>
             <p className="text-xl text-gray-300 mb-8 max-w-2xl mx-auto">
-              Agence de communication, événementiel et immersion depuis plus de 20 ans.
+              Agence de création de contenu com et marketing, événementiel et immersion
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <a href="/offers" className="inline-block">
