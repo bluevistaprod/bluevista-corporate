@@ -51,7 +51,7 @@ export default function About() {
         <div className="container mx-auto px-4">
           <h1 className="text-5xl font-bold mb-4">{t("about.title")}</h1>
           <p className="text-xl text-gray-300">
-            Découvrez l'histoire et les valeurs de Bluevista Production
+            {t("about.subtitle")}
           </p>
         </div>
       </section>
@@ -65,7 +65,7 @@ export default function About() {
               {t("about.philosophy_text")}
             </p>
             <p className="text-gray-700 text-lg leading-relaxed">
-              Depuis plus de 20 ans, nous avons eu l'occasion de travailler pour des secteurs très variés : l'industrie, le secteur bancaire, le pharmaceutique ou encore le tourisme. La fidélité de nos clients est notre plus grande fierté.
+              {t("about.philosophy_text_2")}
             </p>
           </div>
         </div>
@@ -78,19 +78,26 @@ export default function About() {
 
           <div className="max-w-3xl">
             <p className="text-gray-700 text-lg mb-8">
-              L'agence est composée d'une équipe polyvalente de professionnels du secteur audiovisuel et multimédia :
+              {t("about.team_description")}
             </p>
 
             <div className="grid grid-cols-2 md:grid-cols-3 gap-4 mb-8">
-              {teamRoles.map((role) => (
-                <div key={role} className="bg-white p-4 rounded-lg shadow-md">
-                  <p className="font-bold text-gray-900">{role}</p>
+              {[
+                { key: "about.cameraman", label: "cameraman" },
+                { key: "about.editor", label: "editor" },
+                { key: "about.designer", label: "designer" },
+                { key: "about.director", label: "director" },
+                { key: "about.graphic_designer", label: "graphic_designer" },
+                { key: "about.developer", label: "developer" },
+              ].map((role) => (
+                <div key={role.label} className="bg-white p-4 rounded-lg shadow-md">
+                  <p className="font-bold text-gray-900">{t(role.key)}</p>
                 </div>
               ))}
             </div>
 
             <p className="text-gray-700 text-lg">
-              Notre agence vidéo a la capacité d'adapter aussi bien la taille de ses équipes que leur spécialité via notre réseau de partenaires développé tout au long de notre existence. Ces équipes, c'est avant tout des créatifs qui forment une « boite de prod » complète et réactive.
+              {t("about.team_description_2")}
             </p>
           </div>
         </div>
@@ -111,7 +118,7 @@ export default function About() {
 
                 {location.isHeadquarters && (
                   <div className="inline-block bg-blue-100 text-blue-700 px-3 py-1 rounded-full text-sm font-medium mb-4">
-                    Siège social
+                    {t("about.headquarters")}
                   </div>
                 )}
 

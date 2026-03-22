@@ -113,6 +113,10 @@ export const translations = {
   // About
   about: {
     title: { fr: "À Propos", en: "About Us" },
+    subtitle: {
+      fr: "Découvrez l'histoire et les valeurs de Bluevista Production",
+      en: "Discover the story and values of Bluevista Production",
+    },
     philosophy: {
       fr: "Notre Philosophie",
       en: "Our Philosophy",
@@ -121,11 +125,30 @@ export const translations = {
       fr: "La philosophie de notre agence de communication vidéo est d'appréhender les dernières innovations technologiques afin de les mettre au service de la création et du design. Depuis plus de 20 ans, nous imaginons et réalisons des contenus vidéo variés.",
       en: "The philosophy of our video communication agency is to understand the latest technological innovations in order to put them at the service of creation and design. For over 20 years, we have imagined and created varied video content.",
     },
+    philosophy_text_2: {
+      fr: "Depuis plus de 20 ans, nous avons eu l'occasion de travailler pour des secteurs très variés : l'industrie, le secteur bancaire, le pharmaceutique ou encore le tourisme. La fidélité de nos clients est notre plus grande fierté.",
+      en: "For over 20 years, we have had the opportunity to work for a wide variety of sectors: industry, banking, pharmaceuticals and tourism. The loyalty of our clients is our greatest pride.",
+    },
     team: { fr: "Notre Équipe", en: "Our Team" },
+    team_description: {
+      fr: "L'agence est composée d'une équipe polyvalente de professionnels du secteur audiovisuel et multimédia :",
+      en: "The agency is composed of a versatile team of professionals in the audiovisual and multimedia sector:",
+    },
+    team_description_2: {
+      fr: "Notre agence vidéo a la capacité d'adapter aussi bien la taille de ses équipes que leur spécialité via notre réseau de partenaires développé tout au long de notre existence. Ces équipes, c'est avant tout des créatifs qui forment une « boite de prod » complète et réactive.",
+      en: "Our video agency has the ability to adapt both the size of its teams and their specialty through our network of partners developed throughout our existence. These teams are above all creatives who form a complete and reactive 'production company'.",
+    },
     locations: { fr: "Nos Implantations", en: "Our Locations" },
+    headquarters: { fr: "Siège social", en: "Headquarters" },
     lyon: { fr: "Lyon", en: "Lyon" },
     paris: { fr: "Paris", en: "Paris" },
     geneva: { fr: "Genève", en: "Geneva" },
+    cameraman: { fr: "Cadreurs", en: "Cameramen" },
+    editor: { fr: "Monteurs", en: "Editors" },
+    designer: { fr: "Concepteurs", en: "Designers" },
+    director: { fr: "Réalisateurs", en: "Directors" },
+    graphic_designer: { fr: "Infographistes", en: "Graphic Designers" },
+    developer: { fr: "Développeurs", en: "Developers" },
   },
 
   // Contact & Forms
@@ -158,6 +181,114 @@ export const translations = {
     year: { fr: "Année", en: "Year" },
     relatedProjects: { fr: "Projets connexes", en: "Related projects" },
     noRelatedProjects: { fr: "Aucun projet connexe", en: "No related projects" },
+  },
+
+  // Offers
+  offers: {
+    title: { fr: "Nos Offres Créatives", en: "Our Creative Services" },
+    subtitle: {
+      fr: "Trois piliers stratégiques pour transformer votre communication en résultats concrets",
+      en: "Three strategic pillars to transform your communication into tangible results",
+    },
+    communication_title: { fr: "Communication & Marketing", en: "Communication & Marketing" },
+    communication_description: {
+      fr: "Amplifiez votre visibilité et vos ventes grâce à des contenus vidéo percutants",
+      en: "Amplify your visibility and sales with impactful video content",
+    },
+    event_title: { fr: "Événementiel", en: "Events" },
+    event_description: {
+      fr: "Captez, diffusez et immortalisez vos événements en haute qualité",
+      en: "Capture, broadcast and immortalize your events in high quality",
+    },
+    immersion_title: { fr: "Immersion & Technologie", en: "Immersion & Technology" },
+    immersion_description: {
+      fr: "Explorez les frontières de la création avec la réalité virtuelle et le metaverse",
+      en: "Explore the frontiers of creation with virtual reality and the metaverse",
+    },
+    services_included: { fr: "Services inclus", en: "Included Services" },
+    benefits: { fr: "Bénéfices", en: "Benefits" },
+    request_quote: { fr: "Demander un devis", en: "Request a Quote" },
+    creative_process: { fr: "Notre Processus Créatif", en: "Our Creative Process" },
+    conception: { fr: "Conception", en: "Design" },
+    conception_desc: {
+      fr: "Nous écoutons, analysons et créons un concept unique adapté à vos objectifs",
+      en: "We listen, analyze and create a unique concept tailored to your objectives",
+    },
+    preproduction: { fr: "Pré-production", en: "Pre-production" },
+    preproduction_desc: {
+      fr: "Planning détaillé, casting, repérages et préparation logistique complète",
+      en: "Detailed planning, casting, location scouting and complete logistics preparation",
+    },
+    production: { fr: "Production", en: "Production" },
+    production_desc: {
+      fr: "Tournage professionnel avec équipes expertes et équipements dernière génération",
+      en: "Professional shooting with expert teams and state-of-the-art equipment",
+    },
+    postproduction: { fr: "Post-production", en: "Post-production" },
+    postproduction_desc: {
+      fr: "Montage, color grading, effets spéciaux et optimisation pour tous les formats",
+      en: "Editing, color grading, special effects and optimization for all formats",
+    },
+    why_choose_us: { fr: "Pourquoi Choisir Blue Vista ?", en: "Why Choose Blue Vista?" },
+    expertise: { fr: "20+ ans d'expertise", en: "20+ years of expertise" },
+    expertise_desc: {
+      fr: "Depuis 2004, nous créons des contenus vidéo pour les plus grandes marques",
+      en: "Since 2004, we have created video content for the biggest brands",
+    },
+    multiregional: { fr: "Présence multi-régionale", en: "Multi-regional presence" },
+    multiregional_desc: {
+      fr: "Agences à Lyon, Paris et Genève pour vous servir au plus proche",
+      en: "Offices in Lyon, Paris and Geneva to serve you locally",
+    },
+    technology: { fr: "Technologie de pointe", en: "Cutting-edge technology" },
+    technology_desc: {
+      fr: "Équipements dernière génération et expertise en technologies émergentes",
+      en: "State-of-the-art equipment and expertise in emerging technologies",
+    },
+    creative_team: { fr: "Équipe créative", en: "Creative Team" },
+    creative_team_desc: {
+      fr: "Réalisateurs, monteurs, infographistes et développeurs polyvalents",
+      en: "Directors, editors, graphic designers and versatile developers",
+    },
+    measurable_results: { fr: "Résultats mesurables", en: "Measurable Results" },
+    measurable_results_desc: {
+      fr: "Nos vidéos génèrent +30% de visibilité et augmentent les conversions",
+      en: "Our videos generate +30% visibility and increase conversions",
+    },
+    personalized_approach: { fr: "Approche personnalisée", en: "Personalized Approach" },
+    personalized_approach_desc: {
+      fr: "Chaque projet est unique et reçoit une attention créative particulière",
+      en: "Each project is unique and receives special creative attention",
+    },
+    ready_to_transform: {
+      fr: "Prêt à transformer votre communication ?",
+      en: "Ready to transform your communication?",
+    },
+    contact_for_quote: {
+      fr: "Contactez-nous pour discuter de votre projet et recevoir un devis personnalisé",
+      en: "Contact us to discuss your project and receive a personalized quote",
+    },
+  },
+
+  // News
+  news: {
+    title: { fr: "Actualités & Réalisations", en: "News & Projects" },
+    subtitle: {
+      fr: "Découvrez nos derniers projets, innovations et success stories",
+      en: "Discover our latest projects, innovations and success stories",
+    },
+    all_articles: { fr: "Tous les articles", en: "All articles" },
+    read_more: { fr: "Lire la suite", en: "Read more" },
+    no_articles: {
+      fr: "Aucun article trouvé dans cette catégorie",
+      en: "No articles found in this category",
+    },
+    project_in_mind: { fr: "Vous avez un projet en tête ?", en: "Do you have a project in mind?" },
+    contact_us_news: {
+      fr: "Contactez-nous pour discuter de votre idée et voir comment nous pouvons la concrétiser",
+      en: "Contact us to discuss your idea and see how we can make it happen",
+    },
+    contact_button: { fr: "Nous Contacter", en: "Contact Us" },
   },
 
   // Common

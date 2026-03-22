@@ -131,10 +131,10 @@ export default function News() {
       <section className="bg-gradient-to-br from-gray-900 to-gray-800 text-white py-20">
         <div className="container mx-auto px-4">
           <h1 className="text-5xl md:text-6xl font-bold mb-6">
-            Actualités & Réalisations
+            {t("news.title")}
           </h1>
           <p className="text-xl text-gray-300 max-w-2xl">
-            Découvrez nos derniers projets, innovations et success stories
+            {t("news.subtitle")}
           </p>
         </div>
       </section>
@@ -153,7 +153,7 @@ export default function News() {
                     : "bg-white text-gray-700 border-2 border-gray-300 hover:border-blue-600"
                 }`}
               >
-                {category === "all" ? "Tous les articles" : category}
+                {category === "all" ? t("news.all_articles") : category}
               </button>
             ))}
           </div>
@@ -194,7 +194,7 @@ export default function News() {
                     href="#"
                     className="inline-flex items-center text-blue-600 font-medium hover:text-blue-700 transition-colors"
                   >
-                    Lire la suite
+                    {t("news.read_more")}
                     <ChevronRight size={18} className="ml-1" />
                   </a>
                 </div>
@@ -205,7 +205,7 @@ export default function News() {
           {filteredArticles.length === 0 && (
             <div className="text-center py-12">
               <p className="text-gray-500 text-lg">
-                Aucun article trouvé dans cette catégorie
+                {t("news.no_articles")}
               </p>
             </div>
           )}
@@ -216,14 +216,14 @@ export default function News() {
       <section className="bg-gradient-to-r from-blue-600 to-blue-700 text-white py-16">
         <div className="container mx-auto px-4 text-center">
           <h2 className="text-4xl font-bold mb-6">
-            Vous avez un projet en tête ?
+            {t("news.project_in_mind")}
           </h2>
           <p className="text-xl text-blue-100 mb-8 max-w-2xl mx-auto">
-            Contactez-nous pour discuter de votre idée et voir comment nous pouvons la concrétiser
+            {t("news.contact_us_news")}
           </p>
           <a href="/contact" className="inline-block">
             <button className="bg-white text-blue-600 px-8 py-3 rounded-lg font-bold hover:bg-gray-100 transition-colors inline-flex items-center gap-2">
-              Nous Contacter
+              {t("news.contact_button")}
               <ChevronRight size={20} />
             </button>
           </a>

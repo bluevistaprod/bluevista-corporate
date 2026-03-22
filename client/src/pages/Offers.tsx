@@ -81,10 +81,10 @@ export default function Offers() {
       <section className="bg-gradient-to-br from-gray-900 to-gray-800 text-white py-20">
         <div className="container mx-auto px-4">
           <h1 className="text-5xl md:text-6xl font-bold mb-6">
-            Nos Offres Créatives
+            {t("offers.title")}
           </h1>
           <p className="text-xl text-gray-300 max-w-2xl">
-            Trois piliers stratégiques pour transformer votre communication en résultats concrets
+            {t("offers.subtitle")}
           </p>
         </div>
       </section>
@@ -114,7 +114,7 @@ export default function Offers() {
                   <div className="mb-8">
                     <h3 className="font-bold text-gray-900 mb-4 flex items-center gap-2">
                       <Zap size={18} className="text-blue-600" />
-                      Services inclus
+                      {t("offers.services_included")}
                     </h3>
                     <ul className="space-y-2">
                       {pillar.services.map((service, idx) => (
@@ -130,7 +130,7 @@ export default function Offers() {
                   <div className="mb-8">
                     <h3 className="font-bold text-gray-900 mb-4 flex items-center gap-2">
                       <Lightbulb size={18} className="text-green-600" />
-                      Bénéfices
+                      {t("offers.benefits")}
                     </h3>
                     <ul className="space-y-2">
                       {pillar.benefits.map((benefit, idx) => (
@@ -146,7 +146,7 @@ export default function Offers() {
                   <a href="/contact" className="block">
                     <Button asChild className="w-full bg-blue-600 hover:bg-blue-700">
                       <span>
-                        Demander un devis
+                        {t("offers.request_quote")}
                         <ChevronRight className="ml-2" size={18} />
                       </span>
                     </Button>
@@ -162,38 +162,38 @@ export default function Offers() {
       <section className="py-20 bg-white">
         <div className="container mx-auto px-4">
           <h2 className="text-4xl font-bold text-center mb-16 text-gray-900">
-            Notre Processus Créatif
+            {t("offers.creative_process")}
           </h2>
 
           <div className="grid md:grid-cols-4 gap-8">
             {[
               {
                 step: "1",
-                title: "Conception",
-                description: "Nous écoutons, analysons et créons un concept unique adapté à vos objectifs",
+                titleKey: "offers.conception",
+                descKey: "offers.conception_desc",
               },
               {
                 step: "2",
-                title: "Pré-production",
-                description: "Planning détaillé, casting, repérages et préparation logistique complète",
+                titleKey: "offers.preproduction",
+                descKey: "offers.preproduction_desc",
               },
               {
                 step: "3",
-                title: "Production",
-                description: "Tournage professionnel avec équipes expertes et équipements dernière génération",
+                titleKey: "offers.production",
+                descKey: "offers.production_desc",
               },
               {
                 step: "4",
-                title: "Post-production",
-                description: "Montage, color grading, effets spéciaux et optimisation pour tous les formats",
+                titleKey: "offers.postproduction",
+                descKey: "offers.postproduction_desc",
               },
             ].map((item) => (
               <div key={item.step} className="text-center">
                 <div className="w-16 h-16 bg-blue-600 text-white rounded-full flex items-center justify-center text-2xl font-bold mx-auto mb-4">
                   {item.step}
                 </div>
-                <h3 className="text-xl font-bold text-gray-900 mb-3">{item.title}</h3>
-                <p className="text-gray-700 text-sm">{item.description}</p>
+                <h3 className="text-xl font-bold text-gray-900 mb-3">{t(item.titleKey)}</h3>
+                <p className="text-gray-700 text-sm">{t(item.descKey)}</p>
               </div>
             ))}
           </div>
@@ -204,46 +204,46 @@ export default function Offers() {
       <section className="py-20 bg-gray-50">
         <div className="container mx-auto px-4">
           <h2 className="text-4xl font-bold text-center mb-16 text-gray-900">
-            Pourquoi Choisir Blue Vista ?
+            {t("offers.why_choose_us")}
           </h2>
 
           <div className="grid md:grid-cols-3 gap-8">
             {[
               {
                 icon: "🏆",
-                title: "20+ ans d'expertise",
-                description: "Depuis 2004, nous créons des contenus vidéo pour les plus grandes marques",
+                titleKey: "offers.expertise",
+                descKey: "offers.expertise_desc",
               },
               {
                 icon: "🌍",
-                title: "Présence multi-régionale",
-                description: "Agences à Lyon, Paris et Genève pour vous servir au plus proche",
+                titleKey: "offers.multiregional",
+                descKey: "offers.multiregional_desc",
               },
               {
                 icon: "🚀",
-                title: "Technologie de pointe",
-                description: "Équipements dernière génération et expertise en technologies émergentes",
+                titleKey: "offers.technology",
+                descKey: "offers.technology_desc",
               },
               {
                 icon: "👥",
-                title: "Équipe créative",
-                description: "Réalisateurs, monteurs, infographistes et développeurs polyvalents",
+                titleKey: "offers.creative_team",
+                descKey: "offers.creative_team_desc",
               },
               {
-                icon: "📊",
-                title: "Résultats mesurables",
-                description: "Nos vidéos génèrent +30% de visibilité et augmentent les conversions",
+                icon: "📋",
+                titleKey: "offers.measurable_results",
+                descKey: "offers.measurable_results_desc",
               },
               {
                 icon: "💡",
-                title: "Approche personnalisée",
-                description: "Chaque projet est unique et reçoit une attention créative particulière",
+                titleKey: "offers.personalized_approach",
+                descKey: "offers.personalized_approach_desc",
               },
             ].map((item, idx) => (
               <div key={idx} className="bg-white p-8 rounded-lg shadow-md hover:shadow-lg transition-shadow">
                 <div className="text-4xl mb-4">{item.icon}</div>
-                <h3 className="text-xl font-bold text-gray-900 mb-3">{item.title}</h3>
-                <p className="text-gray-700">{item.description}</p>
+                <h3 className="text-xl font-bold text-gray-900 mb-3">{t(item.titleKey)}</h3>
+                <p className="text-gray-700">{t(item.descKey)}</p>
               </div>
             ))}
           </div>
@@ -254,15 +254,15 @@ export default function Offers() {
       <section className="bg-gradient-to-r from-blue-600 to-blue-700 text-white py-16">
         <div className="container mx-auto px-4 text-center">
           <h2 className="text-4xl font-bold mb-6">
-            Prêt à transformer votre communication ?
+            {t("offers.ready_to_transform")}
           </h2>
           <p className="text-xl text-blue-100 mb-8 max-w-2xl mx-auto">
-            Contactez-nous pour discuter de votre projet et recevoir un devis personnalisé
+            {t("offers.contact_for_quote")}
           </p>
           <a href="/contact" className="inline-block">
             <Button asChild size="lg" className="bg-white text-blue-600 hover:bg-gray-100">
               <span>
-                Demander un Devis
+                {t("offers.request_quote")}
                 <ChevronRight className="ml-2" size={20} />
               </span>
             </Button>
