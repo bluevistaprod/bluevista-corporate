@@ -97,15 +97,26 @@ export default function ProjectDetail() {
         {project.videoUrl && (
           <div className="mb-12">
             <div className="aspect-video rounded-lg overflow-hidden bg-gray-900">
-              <video
-                autoPlay
-                controls
-                className="w-full h-full"
-                style={{ objectFit: 'cover' }}
-              >
-                <source src={project.videoUrl} type="video/mp4" />
-                Your browser does not support the video tag.
-              </video>
+              {project.videoUrl.includes('vimeo.com') ? (
+                <iframe
+                  src={project.videoUrl.replace('vimeo.com', 'player.vimeo.com/video').replace(/\/$/, '')}
+                  className="w-full h-full"
+                  frameBorder="0"
+                  allow="autoplay; fullscreen; picture-in-picture"
+                  allowFullScreen
+                  title={title}
+                />
+              ) : (
+                <video
+                  autoPlay
+                  controls
+                  className="w-full h-full"
+                  style={{ objectFit: 'cover' }}
+                >
+                  <source src={project.videoUrl} type="video/mp4" />
+                  Your browser does not support the video tag.
+                </video>
+              )}
             </div>
           </div>
         )}

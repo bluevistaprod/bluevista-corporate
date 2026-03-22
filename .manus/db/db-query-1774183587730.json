@@ -1,0 +1,19 @@
+{
+  "query": "SELECT id, title_fr, description_fr FROM projects WHERE title_fr LIKE '%Showreel%' LIMIT 1;",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway04.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 88yLpdrkBbhoMQ3.root --database HJdMFahbvq3VamEnwkCWwG --execute SELECT id, title_fr, description_fr FROM projects WHERE title_fr LIKE '%Showreel%' LIMIT 1;",
+  "rows": [
+    {
+      "id": "30003",
+      "title_fr": "bluevista | Showreel 2025",
+      "description_fr": "Bluevista a le plaisir de vous présenter son nouveau showreel !"
+    }
+  ],
+  "messages": [
+    "Une agence vidéo créative pour votre communication, votre image, vos challenges & vos projets, même les plus ambitieux : Motion Design, Animation 3D, Vidéo aérienne/Drone, Réalité Virtuelle/Vidéo 360°, Mapping, Studio fond vert/Compositing, Film d'entreprise, FOOH… le tout en moins de 2 minutes.",
+    "Comme toujours, toute l'équipe de Bluevista se réjouit de vous offrir le meilleur de ses savoir-faire.",
+    "Bon visionnage de notre showreel agence vidéo 2025."
+  ],
+  "stdout": "id\ttitle_fr\tdescription_fr\n30003\tbluevista | Showreel 2025\tBluevista a le plaisir de vous présenter son nouveau showreel !\n\nUne agence vidéo créative pour votre communication, votre image, vos challenges & vos projets, même les plus ambitieux : Motion Design, Animation 3D, Vidéo aérienne/Drone, Réalité Virtuelle/Vidéo 360°, Mapping, Studio fond vert/Compositing, Film d'entreprise, FOOH… le tout en moins de 2 minutes.\n\nComme toujours, toute l'équipe de Bluevista se réjouit de vous offrir le meilleur de ses savoir-faire.\n\nBon visionnage de notre showreel agence vidéo 2025.\n",
+  "stderr": "",
+  "execution_time_ms": 56
+}
