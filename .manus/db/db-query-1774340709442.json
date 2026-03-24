@@ -1,0 +1,15 @@
+{
+  "query": "SELECT id, title_fr, description_fr FROM projects WHERE id = 60031 LIMIT 1;",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway04.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 88yLpdrkBbhoMQ3.root --database HJdMFahbvq3VamEnwkCWwG --execute SELECT id, title_fr, description_fr FROM projects WHERE id = 60031 LIMIT 1;",
+  "rows": [
+    {
+      "id": "60031",
+      "title_fr": "GF – Customer Services vidéo promotionnelle 3D",
+      "description_fr": "Réalisation d'un film de présentation du service Customer Service de GF Machining Solutions. Client : https://www.gfms.com/country_FR/fr.html GF est un constructeur historique de machine d'usinage de précision. GF nous fait confiance pour retranscrire les différents éléments de son service client. Cela résulte par une vidéo tourné en fond vert et faite en animation 3D. Les deux sont assemblés (compositing)."
+    }
+  ],
+  "messages": [],
+  "stdout": "id\ttitle_fr\tdescription_fr\n60031\tGF – Customer Services vidéo promotionnelle 3D\tRéalisation d'un film de présentation du service Customer Service de GF Machining Solutions. Client : https://www.gfms.com/country_FR/fr.html GF est un constructeur historique de machine d'usinage de précision. GF nous fait confiance pour retranscrire les différents éléments de son service client. Cela résulte par une vidéo tourné en fond vert et faite en animation 3D. Les deux sont assemblés (compositing).\n",
+  "stderr": "",
+  "execution_time_ms": 67
+}

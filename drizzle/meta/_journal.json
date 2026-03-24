@@ -15,6 +15,13 @@
       "when": 1772696942881,
       "tag": "0001_chief_chimera",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "5",
+      "when": 1774340200948,
+      "tag": "0002_minor_apocalypse",
+      "breakpoints": true
     }
   ]
 }

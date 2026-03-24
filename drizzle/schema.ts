@@ -34,6 +34,8 @@ export const projects = mysqlTable("projects", {
   titleEn: varchar("title_en", { length: 255 }).notNull(),
   descriptionFr: text("description_fr"),
   descriptionEn: text("description_en"),
+  clientName: varchar("client_name", { length: 255 }),
+  clientUrl: varchar("client_url", { length: 512 }),
   sector: varchar("sector", { length: 64 }).notNull(), // industrie, bancaire, pharmaceutique, tourisme
   projectType: varchar("project_type", { length: 64 }).notNull(), // video, photo, motion, event, etc.
   imageUrl: varchar("image_url", { length: 512 }),

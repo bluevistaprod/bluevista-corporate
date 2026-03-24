@@ -174,6 +174,37 @@ export async function createProject(project: typeof projects.$inferInsert) {
   return result;
 }
 
+export async function createProjectsBulk(projectsList: (typeof projects.$inferInsert)[]) {
+  const db = await getDb();
+  if (!db) throw new Error("Database not available");
+
+  // Insert in batches of 50 to avoid query size limits
+  const batchSize = 50;
+  for (let i = 0; i < projectsList.length; i += batchSize) {
+    const batch = projectsList.slice(i, i + batchSize);
+    await db.insert(projects).values(batch);
+  }
+  
+  return { inserted: projectsList.length };
+}
+
+export async function updateProject(
+  id: number,
+  updates: Partial<typeof projects.$inferInsert>
+) {
+  const db = await getDb();
+  if (!db) throw new Error("Database not available");
+
+  return db.update(projects).set(updates).where(eq(projects.id, id));
+}
+
+export async function deleteProject(id: number) {
+  const db = await getDb();
+  if (!db) throw new Error("Database not available");
+
+  return db.delete(projects).where(eq(projects.id, id));
+}
+
 // ============================================================================
 // TESTIMONIAL QUERIES
 // ============================================================================

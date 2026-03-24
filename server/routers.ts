@@ -9,6 +9,9 @@ import {
   getProjectsBySector,
   getProjectById,
   createProject,
+  createProjectsBulk,
+  updateProject,
+  deleteProject,
   getTestimonials,
   getFeaturedTestimonials,
   createTestimonial,
@@ -117,6 +120,76 @@ export const appRouter = router({
           throw new Error("Unauthorized");
         }
         return createProject(input);
+      }),
+
+    /**
+     * Create multiple projects in bulk (admin only)
+     */
+    createBulk: protectedProcedure
+      .input(
+        z.array(
+          z.object({
+            titleFr: z.string(),
+            titleEn: z.string(),
+            descriptionFr: z.string().optional(),
+            descriptionEn: z.string().optional(),
+            sector: z.string(),
+            projectType: z.string(),
+            imageUrl: z.string().optional(),
+            videoUrl: z.string().optional(),
+            featured: z.number().default(0),
+            domain: z.enum(["com", "ch"]).default("com"),
+          })
+        )
+      )
+      .mutation(async ({ input, ctx }) => {
+        if (ctx.user?.role !== "admin") {
+          throw new Error("Unauthorized");
+        }
+        return createProjectsBulk(input);
+      }),
+
+    /**
+     * Update project (admin only)
+     */
+    update: protectedProcedure
+      .input(
+        z.object({
+          id: z.number(),
+          titleFr: z.string().optional(),
+          titleEn: z.string().optional(),
+          descriptionFr: z.string().optional(),
+          descriptionEn: z.string().optional(),
+          clientName: z.string().optional(),
+          clientUrl: z.string().optional(),
+          sector: z.string().optional(),
+          projectType: z.string().optional(),
+          videoUrl: z.string().optional(),
+          featured: z.number().optional(),
+        })
+      )
+      .mutation(async ({ input, ctx }) => {
+        if (ctx.user?.role !== "admin") {
+          throw new Error("Unauthorized");
+        }
+        const { id, ...updates } = input;
+        return updateProject(id, updates);
+      }),
+
+    /**
+     * Delete project (admin only)
+     */
+    delete: protectedProcedure
+      .input(
+        z.object({
+          id: z.number(),
+        })
+      )
+      .mutation(async ({ input, ctx }) => {
+        if (ctx.user?.role !== "admin") {
+          throw new Error("Unauthorized");
+        }
+        return deleteProject(input.id);
       }),
   }),
 
