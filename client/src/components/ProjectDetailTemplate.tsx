@@ -71,16 +71,32 @@ export const ProjectDetailTemplate: React.FC<ProjectDetailTemplateProps> = ({
 
   const { descStart, clientUrl, descEnd } = parseDescription(description);
 
-  // Extraire l'ID Vimeo de l'URL
-  const extractVimeoId = (url: string) => {
-    const match = url.match(/vimeo\.com\/(\d+)/);
-    return match ? match[1] : null;
+  // Extraire l'ID Vimeo ou YouTube de l'URL
+  const extractVideoInfo = (url: string) => {
+    // Vimeo
+    const vimeoMatch = url.match(/vimeo\.com\/(\d+)/);
+    if (vimeoMatch) {
+      return {
+        type: 'vimeo',
+        id: vimeoMatch[1],
+        embedUrl: `https://player.vimeo.com/video/${vimeoMatch[1]}`
+      };
+    }
+    
+    // YouTube
+    const youtubeMatch = url.match(/(?:youtube\.com\/watch\?v=|youtu\.be\/)([a-zA-Z0-9_-]+)/);
+    if (youtubeMatch) {
+      return {
+        type: 'youtube',
+        id: youtubeMatch[1],
+        embedUrl: `https://www.youtube.com/embed/${youtubeMatch[1]}`
+      };
+    }
+    
+    return null;
   };
 
-  const vimeoId = project.videoUrl ? extractVimeoId(project.videoUrl) : null;
-  const vimeoEmbedUrl = vimeoId
-    ? `https://player.vimeo.com/video/${vimeoId}`
-    : null;
+  const videoInfo = project.videoUrl ? extractVideoInfo(project.videoUrl) : null;
 
   // Formater l'année depuis createdAt
   const year = project.createdAt
@@ -97,10 +113,10 @@ export const ProjectDetailTemplate: React.FC<ProjectDetailTemplateProps> = ({
           {/* Contenu principal */}
           <div className="lg:col-span-2">
             {/* Video Player */}
-            {vimeoEmbedUrl && (
+            {videoInfo && (
               <div className="mb-8 aspect-video bg-black rounded-lg overflow-hidden">
                 <iframe
-                  src={vimeoEmbedUrl}
+                  src={videoInfo.embedUrl}
                   width="100%"
                   height="100%"
                   frameBorder="0"
@@ -199,13 +215,7 @@ export const ProjectDetailTemplate: React.FC<ProjectDetailTemplateProps> = ({
                   </div>
                 )}
 
-                {/* Year */}
-                <div>
-                  <p className="text-xs text-muted-foreground mb-2 uppercase">
-                    {language === 'en' ? 'Year' : 'Année'}
-                  </p>
-                  <p className="text-sm font-medium text-card-foreground">{year}</p>
-                </div>
+
               </div>
 
               {/* Back Button */}
