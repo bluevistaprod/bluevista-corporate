@@ -3,6 +3,7 @@ import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Streamdown } from 'streamdown';
 import { useI18n } from '@/hooks/useI18n';
+import { useLocation } from 'wouter';
 
 interface ProjectData {
   id: number;
@@ -42,6 +43,7 @@ export const ProjectDetailTemplate: React.FC<ProjectDetailTemplateProps> = ({
   isLoading = false,
 }) => {
   const { language } = useI18n();
+  const [, setLocation] = useLocation();
 
   if (isLoading) {
     return <div className="animate-pulse">Chargement...</div>;
@@ -106,6 +108,17 @@ export const ProjectDetailTemplate: React.FC<ProjectDetailTemplateProps> = ({
   return (
     <div className="min-h-screen bg-background">
       <div className="container mx-auto px-4 py-12">
+        {/* Bouton Retour en haut */}
+        <div className="mb-6">
+          <Button
+            variant="ghost"
+            className="text-blue-600 dark:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-950"
+            onClick={() => setLocation('/portfolio')}
+          >
+            ← {language === 'en' ? 'Back to Portfolio' : 'Retour aux réalisations'}
+          </Button>
+        </div>
+
         {/* Titre */}
         <h1 className="text-4xl font-bold mb-8 text-foreground">{title}</h1>
 
@@ -222,7 +235,7 @@ export const ProjectDetailTemplate: React.FC<ProjectDetailTemplateProps> = ({
               <Button
                 variant="outline"
                 className="w-full mt-8"
-                onClick={() => window.history.back()}
+                onClick={() => setLocation('/portfolio')}
               >
                 {language === 'en' ? '← Back to Portfolio' : '← Retour au Portfolio'}
               </Button>
