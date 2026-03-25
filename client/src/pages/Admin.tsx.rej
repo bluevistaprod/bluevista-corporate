@@ -1,0 +1,29 @@
+--- client/src/pages/Admin.tsx
++++ client/src/pages/Admin.tsx
+@@ -4,7 +4,7 @@ import { Button } from '@/components/ui/button';
+ import { Input } from '@/components/ui/input';
+ import { Card } from '@/components/ui/card';
+ import { Badge } from '@/components/ui/badge';
+-import { useAuth } from '@/hooks/useAuth';
++import { useAuth } from '@/_core/hooks/useAuth';
+ import { useLocation } from 'wouter';
+ 
+ export const Admin: React.FC = () => {
+@@ -48,7 +48,7 @@ export const Admin: React.FC = () => {
+ 
+   // Filter projects by search term
+   const filteredProjects = useMemo(() => {
+-    return projects.filter(p =>
++    return projects.filter((p: any) =>
+       p.titleFr.toLowerCase().includes(searchTerm.toLowerCase()) ||
+       p.clientName?.toLowerCase().includes(searchTerm.toLowerCase())
+     );
+@@ -121,7 +121,7 @@ export const Admin: React.FC = () => {
+               </thead>
+               <tbody>
+-                {filteredProjects.map((project) => (
++                {filteredProjects.map((project: any) => (
+                   <tr key={project.id} className="border-b hover:bg-muted/50">
+                     <td className="p-4">
+                       {editingId === project.id ? (
+ 

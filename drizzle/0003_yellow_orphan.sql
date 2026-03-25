@@ -1,0 +1,1 @@
+ALTER TABLE `projects` ADD `status` enum('draft','published') DEFAULT 'published' NOT NULL;

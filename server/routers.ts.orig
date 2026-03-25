@@ -4,7 +4,6 @@ import { systemRouter } from "./_core/systemRouter";
 import { publicProcedure, router, protectedProcedure } from "./_core/trpc";
 import { z } from "zod";
 import {
-  getDb,
   getProjects,
   getFeaturedProjects,
   getProjectsBySector,
@@ -167,9 +166,7 @@ export const appRouter = router({
           sector: z.string().optional(),
           projectType: z.string().optional(),
           videoUrl: z.string().optional(),
-          imageUrl: z.string().optional(),
           featured: z.number().optional(),
-          status: z.enum(["draft", "published"]).optional(),
         })
       )
       .mutation(async ({ input, ctx }) => {
@@ -178,32 +175,6 @@ export const appRouter = router({
         }
         const { id, ...updates } = input;
         return updateProject(id, updates);
-      }),
-
-    /**
-     * Get all projects including drafts (admin only)
-     */
-    getAllAdmin: protectedProcedure
-      .input(
-        z.object({
-          domain: z.enum(["com", "ch"]).default("com"),
-          limit: z.number().default(500),
-        })
-      )
-      .query(async ({ input, ctx }) => {
-        if (ctx.user?.role !== "admin") {
-          throw new Error("Unauthorized");
-        }
-        const db = await getDb();
-        if (!db) return [];
-        const { eq, desc } = await import("drizzle-orm");
-        const { projects } = await import("../drizzle/schema");
-        return db
-          .select()
-          .from(projects)
-          .where(eq(projects.domain, input.domain))
-          .orderBy(desc(projects.createdAt))
-          .limit(input.limit);
       }),
 
     /**
@@ -272,7 +243,6 @@ export const appRouter = router({
           rating: z.number().default(5),
           featured: z.number().default(0),
           domain: z.enum(["com", "ch"]).default("com"),
-          status: z.enum(["draft", "published"]).default("published"),
         })
       )
       .mutation(async ({ input, ctx }) => {
@@ -419,35 +389,6 @@ export const appRouter = router({
         // TODO: Send welcome email
 
         return { success: true };
-      }),
-  }),
-
-  // ============================================================================
-  // UPLOAD PROCEDURES
-  // ============================================================================
-
-  upload: router({
-    /**
-     * Upload project thumbnail (admin only)
-     */
-    thumbnail: protectedProcedure
-      .input(
-        z.object({
-          projectId: z.number(),
-          base64: z.string(),
-          fileName: z.string(),
-        })
-      )
-      .mutation(async ({ input, ctx }) => {
-        if (ctx.user?.role !== "admin") {
-          throw new Error("Unauthorized");
-        }
-        const { storagePut } = await import("./storage");
-        const buffer = Buffer.from(input.base64, "base64");
-        const fileKey = `projects/${input.projectId}/${input.fileName}`;
-        const { url } = await storagePut(fileKey, buffer, "image/jpeg");
-        await updateProject(input.projectId, { imageUrl: url });
-        return { success: true, url };
       }),
   }),
 });

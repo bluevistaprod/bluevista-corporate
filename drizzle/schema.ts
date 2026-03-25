@@ -42,6 +42,7 @@ export const projects = mysqlTable("projects", {
   videoUrl: varchar("video_url", { length: 512 }),
   featured: int("featured").default(0),
   domain: varchar("domain", { length: 64 }).default("com"), // com ou ch
+  status: mysqlEnum("status", ["draft", "published"]).default("published").notNull(),
   createdAt: timestamp("createdAt").defaultNow().notNull(),
   updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
 });
