@@ -121,42 +121,85 @@ const AdminContent: React.FC = () => {
           <div className="text-center py-8">Chargement...</div>
         ) : (
           <div className="overflow-x-auto">
-            <table className="w-full border-collapse">
+            <table className="w-full border-collapse text-sm">
               <thead>
                 <tr className="border-b bg-muted">
-                  <th className="text-left p-4">Titre</th>
-                  <th className="text-left p-4">Client</th>
-                  <th className="text-left p-4">Miniature</th>
-                  <th className="text-left p-4">Statut</th>
-                  <th className="text-left p-4">Actions</th>
+                  <th className="text-left p-2">Titre</th>
+                  <th className="text-left p-2">Client</th>
+                  <th className="text-left p-2">URL Client</th>
+                  <th className="text-left p-2">Description</th>
+                  <th className="text-left p-2">Description 2</th>
+                  <th className="text-left p-2">Miniature</th>
+                  <th className="text-left p-2">Statut</th>
+                  <th className="text-left p-2">Actions</th>
                 </tr>
               </thead>
               <tbody>
                 {filteredProjects.map((project: any) => (
                   <tr key={project.id} className="border-b hover:bg-muted/50">
-                    <td className="p-4">
+                    <td className="p-2">
                       {editingId === project.id ? (
                         <Input
                           value={editData.titleFr}
                           onChange={(e) => setEditData({ ...editData, titleFr: e.target.value })}
-                          className="w-full"
+                          className="w-full text-xs"
+                          placeholder="Titre"
                         />
                       ) : (
-                        project.titleFr
+                        <span className="text-xs">{project.titleFr}</span>
                       )}
                     </td>
-                    <td className="p-4">
+                    <td className="p-2">
                       {editingId === project.id ? (
                         <Input
                           value={editData.clientName || ''}
                           onChange={(e) => setEditData({ ...editData, clientName: e.target.value })}
-                          className="w-full"
+                          className="w-full text-xs"
+                          placeholder="Client"
                         />
                       ) : (
-                        project.clientName || '-'
+                        <span className="text-xs">{project.clientName || '-'}</span>
                       )}
                     </td>
-                    <td className="p-4">
+                    <td className="p-2">
+                      {editingId === project.id ? (
+                        <Input
+                          value={editData.clientUrl || ''}
+                          onChange={(e) => setEditData({ ...editData, clientUrl: e.target.value })}
+                          className="w-full text-xs"
+                          placeholder="URL"
+                        />
+                      ) : (
+                        <span className="text-xs truncate max-w-[100px]">{project.clientUrl || '-'}</span>
+                      )}
+                    </td>
+                    <td className="p-2">
+                      {editingId === project.id ? (
+                        <textarea
+                          value={editData.descriptionFr || ''}
+                          onChange={(e) => setEditData({ ...editData, descriptionFr: e.target.value })}
+                          className="w-full text-xs border rounded p-1"
+                          rows={2}
+                          placeholder="Description"
+                        />
+                      ) : (
+                        <span className="text-xs truncate max-w-[150px] block">{project.descriptionFr ? project.descriptionFr.substring(0, 50) + '...' : '-'}</span>
+                      )}
+                    </td>
+                    <td className="p-2">
+                      {editingId === project.id ? (
+                        <textarea
+                          value={editData.description2Fr || ''}
+                          onChange={(e) => setEditData({ ...editData, description2Fr: e.target.value })}
+                          className="w-full text-xs border rounded p-1"
+                          rows={2}
+                          placeholder="Description 2"
+                        />
+                      ) : (
+                        <span className="text-xs truncate max-w-[150px] block">{project.description2Fr ? project.description2Fr.substring(0, 50) + '...' : '-'}</span>
+                      )}
+                    </td>
+                    <td className="p-2">
                       {uploadingId === project.id ? (
                         <div className="w-12 h-12 bg-gray-200 rounded flex items-center justify-center">
                           <span className="text-xs">{uploadProgress[project.id] || 0}%</span>
@@ -178,7 +221,7 @@ const AdminContent: React.FC = () => {
                           </label>
                         </div>
                       ) : (
-                        <label className="text-muted-foreground text-sm cursor-pointer hover:underline">
+                        <label className="text-muted-foreground text-xs cursor-pointer hover:underline">
                           <input
                             type="file"
                             accept="image/*"
@@ -188,33 +231,34 @@ const AdminContent: React.FC = () => {
                               if (file) handleFileUpload(project.id, file);
                             }}
                           />
-                          Ajouter image
+                          Ajouter
                         </label>
                       )}
                     </td>
-                    <td className="p-4">
+                    <td className="p-2">
                       {editingId === project.id ? (
                         <select
                           value={editData.status || 'published'}
                           onChange={(e) => setEditData({ ...editData, status: e.target.value })}
-                          className="border rounded px-2 py-1"
+                          className="border rounded px-2 py-1 text-xs"
                         >
                           <option value="draft">Brouillon</option>
                           <option value="published">Publié</option>
                         </select>
                       ) : (
-                        <Badge variant={project.status === 'draft' ? 'secondary' : 'default'}>
+                        <Badge variant={project.status === 'draft' ? 'secondary' : 'default'} className="text-xs">
                           {project.status === 'draft' ? 'Brouillon' : 'Publié'}
                         </Badge>
                       )}
                     </td>
-                    <td className="p-4 space-x-2">
+                    <td className="p-2 space-x-1">
                       {editingId === project.id ? (
                         <>
                           <Button
                             size="sm"
                             onClick={handleSave}
                             disabled={updateMutation.isPending}
+                            className="text-xs"
                           >
                             Enregistrer
                           </Button>
@@ -222,6 +266,7 @@ const AdminContent: React.FC = () => {
                             size="sm"
                             variant="outline"
                             onClick={() => setEditingId(null)}
+                            className="text-xs"
                           >
                             Annuler
                           </Button>
@@ -232,6 +277,7 @@ const AdminContent: React.FC = () => {
                             size="sm"
                             variant="outline"
                             onClick={() => handleEdit(project)}
+                            className="text-xs"
                           >
                             Éditer
                           </Button>
@@ -240,6 +286,7 @@ const AdminContent: React.FC = () => {
                             variant="destructive"
                             onClick={() => handleDelete(project.id)}
                             disabled={deleteMutation.isPending}
+                            className="text-xs"
                           >
                             Supprimer
                           </Button>

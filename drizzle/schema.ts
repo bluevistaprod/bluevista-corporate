@@ -34,6 +34,8 @@ export const projects = mysqlTable("projects", {
   titleEn: varchar("title_en", { length: 255 }).notNull(),
   descriptionFr: text("description_fr"),
   descriptionEn: text("description_en"),
+  description2Fr: text("description2_fr"),
+  description2En: text("description2_en"),
   clientName: varchar("client_name", { length: 255 }),
   clientUrl: varchar("client_url", { length: 512 }),
   sector: varchar("sector", { length: 64 }).notNull(), // industrie, bancaire, pharmaceutique, tourisme
@@ -49,6 +51,20 @@ export const projects = mysqlTable("projects", {
 
 export type Project = typeof projects.$inferSelect;
 export type InsertProject = typeof projects.$inferInsert;
+
+/**
+ * Admin credentials table for /g40mconnect login
+ */
+export const adminCredentials = mysqlTable("admin_credentials", {
+  id: int("id").autoincrement().primaryKey(),
+  username: varchar("username", { length: 255 }).notNull().unique(),
+  passwordHash: varchar("password_hash", { length: 255 }).notNull(),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+  updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
+});
+
+export type AdminCredential = typeof adminCredentials.$inferSelect;
+export type InsertAdminCredential = typeof adminCredentials.$inferInsert;
 
 /**
  * Testimonials/Client references table
