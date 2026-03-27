@@ -430,6 +430,95 @@ export const appRouter = router({
   // UPLOAD PROCEDURES
   // ============================================================================
 
+  translate: router({
+    /**
+     * Translate a single project description (admin only)
+     */
+    project: protectedProcedure
+      .input(
+        z.object({
+          projectId: z.number(),
+        })
+      )
+      .mutation(async ({ input, ctx }) => {
+        if (ctx.user?.role !== "admin") {
+          throw new Error("Unauthorized");
+        }
+        
+        const project = await getProjectById(input.projectId);
+        if (!project) {
+          throw new Error("Project not found");
+        }
+        
+        const { invokeLLM } = await import("./_core/llm");
+        
+        // Translate title
+        const titleResponse = await invokeLLM({
+          messages: [
+            {
+              role: "system",
+              content: "You are a professional translator. Translate French text to English. Keep the translation concise and professional. Only return the translation, nothing else."
+            },
+            {
+              role: "user",
+              content: `Translate this French title to English:\n${project.titleFr}`
+            }
+          ]
+        });
+        const titleContent = titleResponse.choices[0].message.content;
+        const titleEn = typeof titleContent === 'string' ? titleContent.trim() : '';
+        
+        // Translate description
+        const descResponse = await invokeLLM({
+          messages: [
+            {
+              role: "system",
+              content: "You are a professional translator. Translate French text to English. Keep the translation concise and professional. Only return the translation, nothing else."
+            },
+            {
+              role: "user",
+              content: `Translate this French description to English:\n${project.descriptionFr}`
+            }
+          ]
+        });
+        const descContent = descResponse.choices[0].message.content;
+        const descriptionEn = typeof descContent === 'string' ? descContent.trim() : '';
+        
+        // Translate description2 if exists
+        let description2En = null;
+        if (project.description2Fr && project.description2Fr !== "-") {
+          const desc2Response = await invokeLLM({
+            messages: [
+              {
+                role: "system",
+                content: "You are a professional translator. Translate French text to English. Keep the translation concise and professional. Only return the translation, nothing else."
+              },
+              {
+                role: "user",
+                content: `Translate this French text to English:\n${project.description2Fr}`
+              }
+            ]
+          });
+          const desc2Content = desc2Response.choices[0].message.content;
+          description2En = typeof desc2Content === 'string' ? desc2Content.trim() : null;
+        }
+        
+        // Update project with translations
+        await updateProject(input.projectId, {
+          titleEn,
+          descriptionEn,
+          description2En
+        });
+        
+        return {
+          success: true,
+          titleEn,
+          descriptionEn,
+          description2En
+        };
+      }),
+  }),
+
   upload: router({
     /**
      * Upload project thumbnail (admin only)

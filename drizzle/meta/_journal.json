@@ -36,6 +36,13 @@
       "when": 1774424854197,
       "tag": "0004_large_otto_octavius",
       "breakpoints": true
+    },
+    {
+      "idx": 5,
+      "version": "5",
+      "when": 1774633951129,
+      "tag": "0005_skinny_magneto",
+      "breakpoints": true
     }
   ]
 }

@@ -1,344 +1,351 @@
-import React, { useState, useMemo } from 'react';
+'use client';
+
+import { useState } from 'react';
+import { trpc } from '@/lib/trpc';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { Badge } from '@/components/ui/badge';
-import { trpc } from '@/lib/trpc';
-import { useAuth } from '@/_core/hooks/useAuth';
+import { Textarea } from '@/components/ui/textarea';
 import { useLocation } from 'wouter';
 
-// Separate component for the admin content to avoid hook ordering issues
-const AdminContent: React.FC = () => {
+type Language = 'fr' | 'en';
+
+export default function AdminPage() {
   const [, setLocation] = useLocation();
-  const [searchTerm, setSearchTerm] = useState('');
+  const [language, setLanguage] = useState<Language>('fr');
+  const [searchQuery, setSearchQuery] = useState('');
   const [editingId, setEditingId] = useState<number | null>(null);
   const [editData, setEditData] = useState<any>({});
-  const [uploadingId, setUploadingId] = useState<number | null>(null);
-  const [uploadProgress, setUploadProgress] = useState<{ [key: number]: number }>({});
 
-  // Fetch all projects including drafts
-  const { data: projects = [], isLoading, refetch } = trpc.portfolio.getAllAdmin.useQuery({
-    domain: 'com',
-    limit: 500,
-  });
+  const projectsQuery = trpc.portfolio.getAllAdmin.useQuery({ domain: 'com', limit: 500 });
+  const updateMutation = trpc.portfolio.update.useMutation();
+  const deleteMutation = trpc.portfolio.delete.useMutation();
+  const uploadMutation = trpc.upload.thumbnail.useMutation();
+  const translateMutation = trpc.translate.project.useMutation();
 
-  const updateMutation = trpc.portfolio.update.useMutation({
-    onSuccess: () => {
-      refetch();
-      setEditingId(null);
-    },
-  });
-
-  const deleteMutation = trpc.portfolio.delete.useMutation({
-    onSuccess: () => {
-      refetch();
-    },
-  });
-
-  const uploadMutation = trpc.upload.thumbnail.useMutation({
-    onSuccess: () => {
-      refetch();
-      setUploadingId(null);
-      setUploadProgress({});
-    },
-  });
-
-  // Filter projects by search term
-  const filteredProjects = useMemo(() => {
-    return projects.filter((p: any) =>
-      p.titleFr.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      p.clientName?.toLowerCase().includes(searchTerm.toLowerCase())
+  const projects = projectsQuery.data || [];
+  const filteredProjects = projects.filter(p => {
+    const titleField = language === 'fr' ? p.titleFr : p.titleEn;
+    return (
+      (titleField?.toLowerCase().includes(searchQuery.toLowerCase()) || false) ||
+      (p.clientName?.toLowerCase().includes(searchQuery.toLowerCase()) || false)
     );
-  }, [projects, searchTerm]);
+  });
 
   const handleEdit = (project: any) => {
     setEditingId(project.id);
-    setEditData(project);
+    setEditData({
+      titleFr: project.titleFr,
+      titleEn: project.titleEn,
+      descriptionFr: project.descriptionFr,
+      descriptionEn: project.descriptionEn,
+      description2Fr: project.description2Fr,
+      description2En: project.description2En,
+      clientName: project.clientName,
+      clientUrl: project.clientUrl,
+      status: project.status,
+      visibleFr: project.visibleFr,
+      visibleEn: project.visibleEn,
+    });
   };
 
   const handleSave = async () => {
     if (!editingId) return;
-    await updateMutation.mutateAsync({
-      id: editingId,
-      ...editData,
-    });
-  };
-
-  const handleDelete = async (id: number) => {
-    if (confirm('Êtes-vous sûr de vouloir supprimer cette réalisation ?')) {
-      await deleteMutation.mutateAsync({ id });
+    try {
+      await updateMutation.mutateAsync({
+        id: editingId,
+        ...editData,
+      });
+      setEditingId(null);
+      projectsQuery.refetch();
+    } catch (error) {
+      console.error('Error updating project:', error);
     }
   };
 
-  const handleFileUpload = async (projectId: number, file: File) => {
-    if (!file) return;
+  const handleDelete = async (id: number) => {
+    if (confirm('Are you sure you want to delete this project?')) {
+      try {
+        await deleteMutation.mutateAsync({ id });
+        projectsQuery.refetch();
+      } catch (error) {
+        console.error('Error deleting project:', error);
+      }
+    }
+  };
 
-    setUploadingId(projectId);
-    setUploadProgress({ [projectId]: 0 });
-
+  const handleTranslate = async (projectId: number) => {
     try {
-      // Read file as base64
+      await translateMutation.mutateAsync({ projectId });
+      projectsQuery.refetch();
+    } catch (error) {
+      console.error('Error translating project:', error);
+    }
+  };
+
+  const handleImageUpload = async (projectId: number, file: File) => {
+    try {
       const reader = new FileReader();
       reader.onload = async (e) => {
         const base64 = (e.target?.result as string).split(',')[1];
-        setUploadProgress({ [projectId]: 50 });
-
         await uploadMutation.mutateAsync({
           projectId,
           base64,
           fileName: file.name,
         });
-
-        setUploadProgress({ [projectId]: 100 });
+        projectsQuery.refetch();
       };
       reader.readAsDataURL(file);
     } catch (error) {
-      console.error('Upload failed:', error);
-      setUploadingId(null);
-      setUploadProgress({});
+      console.error('Error uploading image:', error);
     }
   };
 
+  if (!projectsQuery.data) {
+    return <div className="p-8">Loading...</div>;
+  }
+
   return (
-    <div className="min-h-screen bg-background">
-      <div className="container mx-auto px-4 py-8">
+    <div className="min-h-screen bg-gray-50 p-8">
+      <div className="max-w-7xl mx-auto">
+        {/* Header */}
         <div className="flex justify-between items-center mb-8">
           <h1 className="text-3xl font-bold">Administration - Réalisations</h1>
-          <Button onClick={() => setLocation('/admin/create')}>+ Nouvelle réalisation</Button>
+          <div className="flex items-center gap-4">
+            {/* Language Switch */}
+            <div className="flex gap-2 bg-white rounded-lg p-2 border">
+              <button
+                onClick={() => setLanguage('fr')}
+                className={`px-4 py-2 rounded font-medium transition ${
+                  language === 'fr'
+                    ? 'bg-blue-500 text-white'
+                    : 'text-gray-600 hover:bg-gray-100'
+                }`}
+              >
+                FR
+              </button>
+              <button
+                onClick={() => setLanguage('en')}
+                className={`px-4 py-2 rounded font-medium transition ${
+                  language === 'en'
+                    ? 'bg-blue-500 text-white'
+                    : 'text-gray-600 hover:bg-gray-100'
+                }`}
+              >
+                EN
+              </button>
+            </div>
+          </div>
         </div>
 
-        {/* Search Bar */}
+        {/* Search */}
         <div className="mb-6">
           <Input
+            type="text"
             placeholder="Rechercher par titre ou client..."
-            value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
             className="w-full"
           />
         </div>
 
-        {/* Projects Table */}
-        {isLoading ? (
-          <div className="text-center py-8">Chargement...</div>
-        ) : (
-          <div className="overflow-x-auto">
-            <table className="w-full border-collapse text-sm">
-              <thead>
-                <tr className="border-b bg-muted">
-                  <th className="text-left p-2">Titre</th>
-                  <th className="text-left p-2">Client</th>
-                  <th className="text-left p-2">URL Client</th>
-                  <th className="text-left p-2">Description</th>
-                  <th className="text-left p-2">Description 2</th>
-                  <th className="text-left p-2">Miniature</th>
-                  <th className="text-left p-2">Statut</th>
-                  <th className="text-left p-2">Actions</th>
-                </tr>
-              </thead>
-              <tbody>
-                {filteredProjects.map((project: any) => (
-                  <tr key={project.id} className="border-b hover:bg-muted/50">
-                    <td className="p-2">
-                      {editingId === project.id ? (
+        {/* Table */}
+        <div className="bg-white rounded-lg shadow overflow-x-auto">
+          <table className="w-full">
+            <thead className="bg-gray-100 border-b">
+              <tr>
+                <th className="px-6 py-3 text-left text-sm font-semibold">
+                  {language === 'fr' ? 'Titre' : 'Title'}
+                </th>
+                <th className="px-6 py-3 text-left text-sm font-semibold">Client</th>
+                <th className="px-6 py-3 text-left text-sm font-semibold">URL Client</th>
+                <th className="px-6 py-3 text-left text-sm font-semibold">
+                  {language === 'fr' ? 'Description' : 'Description'}
+                </th>
+                <th className="px-6 py-3 text-left text-sm font-semibold">
+                  {language === 'fr' ? 'Miniature' : 'Thumbnail'}
+                </th>
+                <th className="px-6 py-3 text-left text-sm font-semibold">
+                  {language === 'fr' ? 'Visible' : 'Visible'}
+                </th>
+                <th className="px-6 py-3 text-left text-sm font-semibold">
+                  {language === 'fr' ? 'Statut' : 'Status'}
+                </th>
+                <th className="px-6 py-3 text-left text-sm font-semibold">
+                  {language === 'fr' ? 'Actions' : 'Actions'}
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              {filteredProjects.map((project) => (
+                <tr key={project.id} className="border-b hover:bg-gray-50">
+                  {editingId === project.id ? (
+                    <>
+                      <td className="px-6 py-4">
                         <Input
-                          value={editData.titleFr}
-                          onChange={(e) => setEditData({ ...editData, titleFr: e.target.value })}
-                          className="w-full text-xs"
-                          placeholder="Titre"
+                          value={language === 'fr' ? editData.titleFr : editData.titleEn}
+                          onChange={(e) =>
+                            setEditData({
+                              ...editData,
+                              [language === 'fr' ? 'titleFr' : 'titleEn']: e.target.value,
+                            })
+                          }
+                          className="w-full"
                         />
-                      ) : (
-                        <span className="text-xs">{project.titleFr}</span>
-                      )}
-                    </td>
-                    <td className="p-2">
-                      {editingId === project.id ? (
+                      </td>
+                      <td className="px-6 py-4">
                         <Input
-                          value={editData.clientName || ''}
-                          onChange={(e) => setEditData({ ...editData, clientName: e.target.value })}
-                          className="w-full text-xs"
-                          placeholder="Client"
+                          value={editData.clientName}
+                          onChange={(e) =>
+                            setEditData({ ...editData, clientName: e.target.value })
+                          }
+                          className="w-full"
                         />
-                      ) : (
-                        <span className="text-xs">{project.clientName || '-'}</span>
-                      )}
-                    </td>
-                    <td className="p-2">
-                      {editingId === project.id ? (
+                      </td>
+                      <td className="px-6 py-4">
                         <Input
-                          value={editData.clientUrl || ''}
-                          onChange={(e) => setEditData({ ...editData, clientUrl: e.target.value })}
-                          className="w-full text-xs"
-                          placeholder="URL"
+                          value={editData.clientUrl}
+                          onChange={(e) =>
+                            setEditData({ ...editData, clientUrl: e.target.value })
+                          }
+                          className="w-full"
                         />
-                      ) : (
-                        <span className="text-xs truncate max-w-[100px]">{project.clientUrl || '-'}</span>
-                      )}
-                    </td>
-                    <td className="p-2">
-                      {editingId === project.id ? (
-                        <textarea
-                          value={editData.descriptionFr || ''}
-                          onChange={(e) => setEditData({ ...editData, descriptionFr: e.target.value })}
-                          className="w-full text-xs border rounded p-1"
+                      </td>
+                      <td className="px-6 py-4">
+                        <Textarea
+                          value={language === 'fr' ? editData.descriptionFr : editData.descriptionEn}
+                          onChange={(e) =>
+                            setEditData({
+                              ...editData,
+                              [language === 'fr' ? 'descriptionFr' : 'descriptionEn']: e.target.value,
+                            })
+                          }
+                          className="w-full text-sm"
                           rows={2}
-                          placeholder="Description"
                         />
-                      ) : (
-                        <span className="text-xs truncate max-w-[150px] block">{project.descriptionFr ? project.descriptionFr.substring(0, 50) + '...' : '-'}</span>
-                      )}
-                    </td>
-                    <td className="p-2">
-                      {editingId === project.id ? (
-                        <textarea
-                          value={editData.description2Fr || ''}
-                          onChange={(e) => setEditData({ ...editData, description2Fr: e.target.value })}
-                          className="w-full text-xs border rounded p-1"
-                          rows={2}
-                          placeholder="Description 2"
+                      </td>
+                      <td className="px-6 py-4">
+                        <span className="text-sm text-gray-500">-</span>
+                      </td>
+                      <td className="px-6 py-4">
+                        <input
+                          type="checkbox"
+                          checked={language === 'fr' ? editData.visibleFr : editData.visibleEn}
+                          onChange={(e) =>
+                            setEditData({
+                              ...editData,
+                              [language === 'fr' ? 'visibleFr' : 'visibleEn']: e.target.checked ? 1 : 0,
+                            })
+                          }
                         />
-                      ) : (
-                        <span className="text-xs truncate max-w-[150px] block">{project.description2Fr ? project.description2Fr.substring(0, 50) + '...' : '-'}</span>
-                      )}
-                    </td>
-                    <td className="p-2">
-                      {uploadingId === project.id ? (
-                        <div className="w-12 h-12 bg-gray-200 rounded flex items-center justify-center">
-                          <span className="text-xs">{uploadProgress[project.id] || 0}%</span>
-                        </div>
-                      ) : project.imageUrl ? (
-                        <div className="relative group">
-                          <img src={project.imageUrl} alt={project.titleFr} className="h-12 w-12 object-cover rounded" />
-                          <label className="absolute inset-0 bg-black bg-opacity-50 rounded opacity-0 group-hover:opacity-100 flex items-center justify-center cursor-pointer transition">
-                            <input
-                              type="file"
-                              accept="image/*"
-                              className="hidden"
-                              onChange={(e) => {
-                                const file = e.target.files?.[0];
-                                if (file) handleFileUpload(project.id, file);
-                              }}
-                            />
-                            <span className="text-white text-xs">Changer</span>
-                          </label>
-                        </div>
-                      ) : (
-                        <label className="text-muted-foreground text-xs cursor-pointer hover:underline">
-                          <input
-                            type="file"
-                            accept="image/*"
-                            className="hidden"
-                            onChange={(e) => {
-                              const file = e.target.files?.[0];
-                              if (file) handleFileUpload(project.id, file);
-                            }}
-                          />
-                          Ajouter
-                        </label>
-                      )}
-                    </td>
-                    <td className="p-2">
-                      {editingId === project.id ? (
+                      </td>
+                      <td className="px-6 py-4">
                         <select
-                          value={editData.status || 'published'}
-                          onChange={(e) => setEditData({ ...editData, status: e.target.value })}
-                          className="border rounded px-2 py-1 text-xs"
+                          value={editData.status}
+                          onChange={(e) =>
+                            setEditData({ ...editData, status: e.target.value })
+                          }
+                          className="border rounded px-2 py-1"
                         >
                           <option value="draft">Brouillon</option>
                           <option value="published">Publié</option>
                         </select>
-                      ) : (
-                        <Badge variant={project.status === 'draft' ? 'secondary' : 'default'} className="text-xs">
-                          {project.status === 'draft' ? 'Brouillon' : 'Publié'}
-                        </Badge>
-                      )}
-                    </td>
-                    <td className="p-2 space-x-1">
-                      {editingId === project.id ? (
-                        <>
-                          <Button
-                            size="sm"
-                            onClick={handleSave}
-                            disabled={updateMutation.isPending}
-                            className="text-xs"
-                          >
-                            Enregistrer
-                          </Button>
-                          <Button
-                            size="sm"
-                            variant="outline"
-                            onClick={() => setEditingId(null)}
-                            className="text-xs"
-                          >
-                            Annuler
-                          </Button>
-                        </>
-                      ) : (
-                        <>
-                          <Button
-                            size="sm"
-                            variant="outline"
-                            onClick={() => handleEdit(project)}
-                            className="text-xs"
-                          >
-                            Éditer
-                          </Button>
-                          <Button
-                            size="sm"
-                            variant="destructive"
-                            onClick={() => handleDelete(project.id)}
-                            disabled={deleteMutation.isPending}
-                            className="text-xs"
-                          >
-                            Supprimer
-                          </Button>
-                        </>
-                      )}
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-        )}
-
-        {filteredProjects.length === 0 && !isLoading && (
-          <div className="text-center py-8 text-muted-foreground">
-            Aucune réalisation trouvée
-          </div>
-        )}
+                      </td>
+                      <td className="px-6 py-4 flex gap-2">
+                        <Button
+                          size="sm"
+                          onClick={handleSave}
+                          className="bg-green-500 hover:bg-green-600"
+                        >
+                          Enregistrer
+                        </Button>
+                        <Button
+                          size="sm"
+                          variant="outline"
+                          onClick={() => setEditingId(null)}
+                        >
+                          Annuler
+                        </Button>
+                      </td>
+                    </>
+                  ) : (
+                    <>
+                      <td className="px-6 py-4 text-sm font-medium">
+                        {language === 'fr' ? project.titleFr : project.titleEn}
+                      </td>
+                      <td className="px-6 py-4 text-sm">{project.clientName}</td>
+                      <td className="px-6 py-4 text-sm">
+                        {project.clientUrl && (
+                          <a href={project.clientUrl} target="_blank" rel="noopener noreferrer" className="text-blue-500 hover:underline">
+                            Lien
+                          </a>
+                        )}
+                      </td>
+                      <td className="px-6 py-4 text-sm">
+                        {language === 'fr'
+                          ? project.descriptionFr?.substring(0, 50) + '...'
+                          : project.descriptionEn?.substring(0, 50) + '...'}
+                      </td>
+                      <td className="px-6 py-4">
+                        <label className="cursor-pointer inline-block">
+                          <input
+                            type="file"
+                            accept="image/*"
+                            onChange={(e) => {
+                              if (e.target.files?.[0]) {
+                                handleImageUpload(project.id, e.target.files[0]);
+                              }
+                            }}
+                            className="hidden"
+                          />
+                          <span className="text-blue-500 hover:underline">Ajouter</span>
+                        </label>
+                      </td>
+                      <td className="px-6 py-4 text-sm">
+                        <span className="text-xs">
+                          {language === 'fr' ? project.visibleFr ? '✓ FR' : '✗ FR' : project.visibleEn ? '✓ EN' : '✗ EN'}
+                        </span>
+                      </td>
+                      <td className="px-6 py-4 text-sm">
+                        <span className={`px-2 py-1 rounded text-xs font-medium ${
+                          project.status === 'published'
+                            ? 'bg-green-100 text-green-800'
+                            : 'bg-yellow-100 text-yellow-800'
+                        }`}>
+                          {project.status === 'published' ? 'Publié' : 'Brouillon'}
+                        </span>
+                      </td>
+                      <td className="px-6 py-4 flex gap-2">
+                        <Button
+                          size="sm"
+                          onClick={() => handleEdit(project)}
+                          className="bg-blue-500 hover:bg-blue-600"
+                        >
+                          Éditer
+                        </Button>
+                        <Button
+                          size="sm"
+                          onClick={() => handleTranslate(project.id)}
+                          className="bg-purple-500 hover:bg-purple-600"
+                          disabled={translateMutation.isPending}
+                        >
+                          {translateMutation.isPending ? 'Traduction...' : 'Traduire'}
+                        </Button>
+                        <Button
+                          size="sm"
+                          variant="destructive"
+                          onClick={() => handleDelete(project.id)}
+                        >
+                          Supprimer
+                        </Button>
+                      </td>
+                    </>
+                  )}
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
       </div>
     </div>
   );
-};
-
-// Main component with auth check
-export const Admin: React.FC = () => {
-  const { user } = useAuth();
-  const [, setLocation] = useLocation();
-
-  // Redirect if not admin
-  if (!user) {
-    return (
-      <div className="min-h-screen bg-background flex items-center justify-center">
-        <div className="text-center">
-          <h1 className="text-2xl font-bold mb-4">Connexion requise</h1>
-          <p className="text-muted-foreground mb-6">Veuillez vous connecter pour accéder à l'administration.</p>
-          <Button onClick={() => setLocation('/')}>Retour à l'accueil</Button>
-        </div>
-      </div>
-    );
-  }
-
-  if (user.role !== 'admin') {
-    return (
-      <div className="min-h-screen bg-background flex items-center justify-center">
-        <div className="text-center">
-          <h1 className="text-2xl font-bold mb-4">Accès refusé</h1>
-          <p className="text-muted-foreground mb-6">Vous n'avez pas les permissions pour accéder à cette page.</p>
-          <Button onClick={() => setLocation('/')}>Retour à l'accueil</Button>
-        </div>
-      </div>
-    );
-  }
-
-  return <AdminContent />;
-};
+}

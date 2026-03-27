@@ -45,6 +45,8 @@ export const projects = mysqlTable("projects", {
   featured: int("featured").default(0),
   domain: varchar("domain", { length: 64 }).default("com"), // com ou ch
   status: mysqlEnum("status", ["draft", "published"]).default("published").notNull(),
+  visibleFr: int("visible_fr").default(1).notNull(), // visible on FR site
+  visibleEn: int("visible_en").default(1).notNull(), // visible on EN site
   createdAt: timestamp("createdAt").defaultNow().notNull(),
   updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
 });

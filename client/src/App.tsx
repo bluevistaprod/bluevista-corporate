@@ -13,7 +13,7 @@ import Contact from "./pages/Contact";
 import OfferDetail from "./pages/OfferDetail";
 import Offers from "./pages/Offers";
 import News from "./pages/News";
-import { Admin } from "./pages/Admin";
+import Admin from "./pages/Admin";
 import { AdminLogin } from "./pages/AdminLogin";
 
 function Router() {
