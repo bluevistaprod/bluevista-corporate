@@ -1,14 +1,15 @@
-import { useI18n } from "@/hooks/useI18n";
 import { useState } from "react";
 import { ChevronRight } from "lucide-react";
 import { trpc } from "@/lib/trpc";
 import { useLocation } from "wouter";
 import { Footer } from "@/components/Footer";
+import { Header } from "@/components/Header";
+import { useI18n } from "@/hooks/useI18n";
 
 export default function News() {
   const { t, language } = useI18n();
   const [, setLocation] = useLocation();
-  const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
+  const [selectedCategory, setSelectedCategory] = useState<string>("all");
   const [searchTerm, setSearchTerm] = useState("");
 
   // Fetch news from database
@@ -38,6 +39,7 @@ export default function News() {
 
   return (
     <div className="min-h-screen bg-white">
+      <Header />
       {/* Hero Section */}
       <section className="bg-gradient-to-br from-gray-900 to-gray-800 text-white py-20">
         <div className="container mx-auto px-4">

@@ -23,12 +23,15 @@ let _db: ReturnType<typeof drizzle> | null = null;
 
 // Lazily create the drizzle instance so local tooling can run without a DB.
 export async function getDb() {
-  if (!_db && process.env.DATABASE_URL) {
-    try {
-      _db = drizzle(process.env.DATABASE_URL);
-    } catch (error) {
-      console.warn("[Database] Failed to connect:", error);
-      _db = null;
+  if (!_db) {
+    const dbUrl = process.env.DATABASE_URL || ENV.databaseUrl;
+    if (dbUrl) {
+      try {
+        _db = drizzle(dbUrl);
+      } catch (error) {
+        console.warn("[Database] Failed to connect:", error);
+        _db = null;
+      }
     }
   }
   return _db;
@@ -336,10 +339,11 @@ export async function getAllNews(domain: Domain = "com", limit = 100) {
   const db = await getDb();
   if (!db) return [];
 
+  // Always filter by visible_fr = 1 for now (can be extended for language-specific visibility)
   return db
     .select()
     .from(news)
-    .where(and(eq(news.domain, domain), eq(news.status, "published")))
+    .where(and(eq(news.domain, domain), eq(news.status, "published"), eq(news.visibleFr, 1)))
     .orderBy(desc(news.createdAt))
     .limit(limit);
 }

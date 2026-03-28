@@ -1,0 +1,45 @@
+{
+  "query": "SELECT id, title_fr, status, visible_fr, domain FROM news LIMIT 10;",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway04.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 88yLpdrkBbhoMQ3.root --database HJdMFahbvq3VamEnwkCWwG --execute SELECT id, title_fr, status, visible_fr, domain FROM news LIMIT 10;",
+  "rows": [
+    {
+      "id": "1",
+      "title_fr": "bluevista - Le motion design, c'est quoi ?",
+      "status": "published",
+      "visible_fr": "1",
+      "domain": "com"
+    },
+    {
+      "id": "2",
+      "title_fr": "STANN. - Application de gestion d'entreprise",
+      "status": "published",
+      "visible_fr": "1",
+      "domain": "com"
+    },
+    {
+      "id": "3",
+      "title_fr": "BARPI : Prévention d'accidents industriels",
+      "status": "published",
+      "visible_fr": "1",
+      "domain": "com"
+    },
+    {
+      "id": "4",
+      "title_fr": "Le Métaverse bluevista : le blueverse",
+      "status": "published",
+      "visible_fr": "1",
+      "domain": "com"
+    },
+    {
+      "id": "5",
+      "title_fr": "Showroom Virtuel GF Machining Solutions",
+      "status": "published",
+      "visible_fr": "1",
+      "domain": "com"
+    }
+  ],
+  "messages": [],
+  "stdout": "id\ttitle_fr\tstatus\tvisible_fr\tdomain\n1\tbluevista - Le motion design, c'est quoi ?\tpublished\t1\tcom\n2\tSTANN. - Application de gestion d'entreprise\tpublished\t1\tcom\n3\tBARPI : Prévention d'accidents industriels\tpublished\t1\tcom\n4\tLe Métaverse bluevista : le blueverse\tpublished\t1\tcom\n5\tShowroom Virtuel GF Machining Solutions\tpublished\t1\tcom\n",
+  "stderr": "",
+  "execution_time_ms": 55
+}

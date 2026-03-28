@@ -567,7 +567,9 @@ export const appRouter = router({
         })
       )
       .query(async ({ input }) => {
-        return getAllNews(input.domain as Domain, input.limit);
+        const result = await getAllNews(input.domain as Domain, input.limit);
+        console.log("[tRPC] news.getAll called with domain:", input.domain, "result count:", result.length);
+        return result;
       }),
 
     /**
