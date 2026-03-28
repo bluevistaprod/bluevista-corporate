@@ -52,9 +52,16 @@ export default function AdminPage() {
   const handleSave = async () => {
     if (!editingId) return;
     try {
+      // Convert null values to undefined for optional fields
+      const cleanData = Object.fromEntries(
+        Object.entries(editData).map(([key, value]) => [
+          key,
+          value === null || value === '' ? undefined : value,
+        ])
+      );
       await updateMutation.mutateAsync({
         id: editingId,
-        ...editData,
+        ...cleanData,
       });
       setEditingId(null);
       projectsQuery.refetch();
