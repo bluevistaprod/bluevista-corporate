@@ -143,3 +143,30 @@ export const newsletterSubscriptions = mysqlTable("newsletter_subscriptions", {
 
 export type NewsletterSubscription = typeof newsletterSubscriptions.$inferSelect;
 export type InsertNewsletterSubscription = typeof newsletterSubscriptions.$inferInsert;
+
+/**
+ * News/Articles table
+ */
+export const news = mysqlTable("news", {
+  id: int("id").autoincrement().primaryKey(),
+  titleFr: varchar("title_fr", { length: 255 }).notNull(),
+  titleEn: varchar("title_en", { length: 255 }).notNull(),
+  slugFr: varchar("slug_fr", { length: 255 }).notNull().unique(),
+  slugEn: varchar("slug_en", { length: 255 }).notNull().unique(),
+  contentFr: text("content_fr"),
+  contentEn: text("content_en"),
+  excerptFr: text("excerpt_fr"),
+  excerptEn: text("excerpt_en"),
+  imageUrl: varchar("image_url", { length: 512 }),
+  category: varchar("category", { length: 64 }).notNull(), // Animation 3D, Corporate, Interview, Motion Design, Publicité, Reportage, etc.
+  status: mysqlEnum("status", ["draft", "published"]).default("published").notNull(),
+  visibleFr: int("visible_fr").default(1).notNull(),
+  visibleEn: int("visible_en").default(1).notNull(),
+  featured: int("featured").default(0),
+  domain: varchar("domain", { length: 64 }).default("com"),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+  updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
+});
+
+export type News = typeof news.$inferSelect;
+export type InsertNews = typeof news.$inferInsert;

@@ -1,0 +1,23 @@
+CREATE TABLE `news` (
+	`id` int AUTO_INCREMENT NOT NULL,
+	`title_fr` varchar(255) NOT NULL,
+	`title_en` varchar(255) NOT NULL,
+	`slug_fr` varchar(255) NOT NULL,
+	`slug_en` varchar(255) NOT NULL,
+	`content_fr` text,
+	`content_en` text,
+	`excerpt_fr` text,
+	`excerpt_en` text,
+	`image_url` varchar(512),
+	`category` varchar(64) NOT NULL,
+	`status` enum('draft','published') NOT NULL DEFAULT 'published',
+	`visible_fr` int NOT NULL DEFAULT 1,
+	`visible_en` int NOT NULL DEFAULT 1,
+	`featured` int DEFAULT 0,
+	`domain` varchar(64) DEFAULT 'com',
+	`createdAt` timestamp NOT NULL DEFAULT (now()),
+	`updatedAt` timestamp NOT NULL DEFAULT (now()) ON UPDATE CURRENT_TIMESTAMP,
+	CONSTRAINT `news_id` PRIMARY KEY(`id`),
+	CONSTRAINT `news_slug_fr_unique` UNIQUE(`slug_fr`),
+	CONSTRAINT `news_slug_en_unique` UNIQUE(`slug_en`)
+);

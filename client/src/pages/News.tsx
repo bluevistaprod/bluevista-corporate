@@ -1,111 +1,24 @@
-import { Header } from "@/components/Header";
-import { Footer } from "@/components/Footer";
 import { useI18n } from "@/hooks/useI18n";
 import { useState } from "react";
 import { ChevronRight } from "lucide-react";
+import { trpc } from "@/lib/trpc";
+import { useLocation } from "wouter";
+import { Footer } from "@/components/Footer";
 
 export default function News() {
-  const { t } = useI18n();
-  const [selectedCategory, setSelectedCategory] = useState("all");
+  const { t, language } = useI18n();
+  const [, setLocation] = useLocation();
+  const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
+  const [searchTerm, setSearchTerm] = useState("");
 
-  const articles = [
-    {
-      id: 1,
-      title: "bluevista - Le motion design, c'est quoi ?",
-      category: "Motion Design",
-      date: "Février 2024",
-      image: "https://www.bluevistaprod.com/wp-content/uploads/2024/02/motion-renard-768x432.png",
-      excerpt: "Découvrez les secrets du motion design et comment il peut transformer votre communication",
-    },
-    {
-      id: 2,
-      title: "STANN. - Application de gestion d'entreprise",
-      category: "Corporate",
-      date: "Octobre 2023",
-      image: "https://www.bluevistaprod.com/wp-content/uploads/2023/10/Stan-1-768x432.png",
-      excerpt: "Un projet innovant pour simplifier la gestion d'entreprise avec une vidéo explicative percutante",
-    },
-    {
-      id: 3,
-      title: "BARPI : Prévention d'accidents industriels",
-      category: "Corporate",
-      date: "Octobre 2023",
-      image: "https://www.bluevistaprod.com/wp-content/uploads/2023/10/BARPI_9-768x432.jpg",
-      excerpt: "Sensibilisation aux risques industriels à travers une vidéo de prévention engageante",
-    },
-    {
-      id: 4,
-      title: "MASE Rhône Alpes : Motions pédagogiques",
-      category: "Animation 3D",
-      date: "Octobre 2023",
-      image: "https://www.bluevistaprod.com/wp-content/uploads/2023/10/MASE-MAD-1-768x432.png",
-      excerpt: "Série de motions design pour l'apprentissage de normes de sécurité industrielles",
-    },
-    {
-      id: 5,
-      title: "Le Métaverse bluevista : le blueverse",
-      category: "Vidéo 360 / VR",
-      date: "Octobre 2023",
-      image: "https://www.bluevistaprod.com/wp-content/uploads/2023/10/blueverse-7-768x432.png",
-      excerpt: "Plongez dans notre univers métaverse immersif et interactif",
-    },
-    {
-      id: 6,
-      title: "Showroom Virtuel GF Machining Solutions",
-      category: "Vidéo 360 / VR",
-      date: "Octobre 2023",
-      image: "https://www.bluevistaprod.com/wp-content/uploads/2023/10/Showroom–GF_Machining.png",
-      excerpt: "Expérience immersive pour découvrir les solutions de GF Machining en réalité virtuelle",
-    },
-    {
-      id: 7,
-      title: "Artcurial : Mapping 20ans",
-      category: "Vidéomapping",
-      date: "Janvier 2024",
-      image: "https://www.bluevistaprod.com/wp-content/uploads/2024/01/EDAC0BE9-5BEF-45B0-A4.png",
-      excerpt: "Projection vidéomapping spectaculaire pour célébrer 20 ans d'Artcurial",
-    },
-    {
-      id: 8,
-      title: "Mécénat : Club Lyon La Duchère",
-      category: "Reportage",
-      date: "Octobre 2023",
-      image: "https://www.bluevistaprod.com/wp-content/uploads/2023/10/LaDuchere-1-768x575.png",
-      excerpt: "Reportage vidéo sur les actions sociales du Club Lyon La Duchère",
-    },
-    {
-      id: 9,
-      title: "Equita Lyon : Dailynews",
-      category: "Reportage",
-      date: "Octobre 2023",
-      image: "https://www.bluevistaprod.com/wp-content/uploads/2023/10/Equita-6-768x432.png",
-      excerpt: "Couverture quotidienne vidéo du salon Equita Lyon",
-    },
-    {
-      id: 10,
-      title: "VERCORS : LES CHEMINS DE LA LIBERTE",
-      category: "Reportage",
-      date: "Octobre 2023",
-      image: "https://www.bluevistaprod.com/wp-content/uploads/2023/10/230929-PNR-VERCORS.png",
-      excerpt: "Documentaire vidéo sur les chemins historiques du Vercors",
-    },
-    {
-      id: 11,
-      title: "Bluevista vidéo Showreel 2023",
-      category: "Motion Design",
-      date: "Octobre 2023",
-      image: "https://www.bluevistaprod.com/wp-content/uploads/2023/10/230221-BV-Showreel2023.png",
-      excerpt: "Découvrez nos meilleures réalisations de l'année 2023",
-    },
-    {
-      id: 12,
-      title: "SANTOS I-GRIND : Le Moulin à Café",
-      category: "Publicité",
-      date: "Octobre 2023",
-      image: "https://www.bluevistaprod.com/wp-content/uploads/2023/10/231010-REVEALGrinderS.png",
-      excerpt: "Campagne publicitaire innovante pour le moulin à café Santos",
-    },
-  ];
+  // Fetch news from database
+  const newsQuery = trpc.news.getAll.useQuery({
+    domain: "com",
+    limit: 100,
+  });
+
+  const articles = newsQuery.data || [];
+
 
   const categories = [
     "all",
@@ -125,8 +38,6 @@ export default function News() {
 
   return (
     <div className="min-h-screen bg-white">
-      <Header />
-
       {/* Hero Section */}
       <section className="bg-gradient-to-br from-gray-900 to-gray-800 text-white py-20">
         <div className="container mx-auto px-4">
@@ -172,8 +83,8 @@ export default function News() {
                 {/* Image */}
                 <div className="relative overflow-hidden h-48 bg-gray-200">
                   <img
-                    src={article.image}
-                    alt={article.title}
+                    src={article.imageUrl || 'https://via.placeholder.com/400x225'}
+                    alt={language === 'fr' ? article.titleFr : article.titleEn}
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                     loading="lazy"
                   />
@@ -184,19 +95,19 @@ export default function News() {
 
                 {/* Content */}
                 <div className="p-6">
-                  <p className="text-sm text-gray-500 mb-2">{article.date}</p>
+                  <p className="text-sm text-gray-500 mb-2">{new Date(article.createdAt).toLocaleDateString('fr-FR')}</p>
                   <h3 className="text-xl font-bold text-gray-900 mb-3 group-hover:text-blue-600 transition-colors">
-                    {article.title}
+                    {language === 'fr' ? article.titleFr : article.titleEn}
                   </h3>
-                  <p className="text-gray-700 text-sm mb-4">{article.excerpt}</p>
+                  <p className="text-gray-700 text-sm mb-4">{language === 'fr' ? (article.excerptFr || article.contentFr?.substring(0, 150)) : (article.excerptEn || article.contentEn?.substring(0, 150))}</p>
 
-                  <a
-                    href="#"
+                  <button
+                    onClick={() => setLocation(`/news/${language === 'fr' ? article.slugFr : article.slugEn}`)}
                     className="inline-flex items-center text-blue-600 font-medium hover:text-blue-700 transition-colors"
                   >
                     {t("news.read_more")}
                     <ChevronRight size={18} className="ml-1" />
-                  </a>
+                  </button>
                 </div>
               </article>
             ))}

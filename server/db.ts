@@ -8,11 +8,13 @@ import {
   metrics,
   contactSubmissions,
   newsletterSubscriptions,
+  news,
   type Project,
   type Testimonial,
   type Metric,
   type ContactSubmission,
   type NewsletterSubscription,
+  type News,
 } from "../drizzle/schema";
 import { ENV } from "./_core/env";
 import type { Domain } from "../shared/i18n";
@@ -324,4 +326,92 @@ export async function getNewsletterSubscribers(domain: Domain = "com") {
         eq(newsletterSubscriptions.subscribed, 1)
       )
     );
+}
+
+// ============================================================================
+// NEWS/ARTICLES QUERIES
+// ============================================================================
+
+export async function getAllNews(domain: Domain = "com", limit = 100) {
+  const db = await getDb();
+  if (!db) return [];
+
+  return db
+    .select()
+    .from(news)
+    .where(and(eq(news.domain, domain), eq(news.status, "published")))
+    .orderBy(desc(news.createdAt))
+    .limit(limit);
+}
+
+export async function getAllNewsAdmin(domain: Domain = "com", limit = 500) {
+  const db = await getDb();
+  if (!db) return [];
+
+  return db
+    .select()
+    .from(news)
+    .where(eq(news.domain, domain))
+    .orderBy(desc(news.createdAt))
+    .limit(limit);
+}
+
+export async function getNewsBySlug(slug: string, language: "fr" | "en" = "fr") {
+  const db = await getDb();
+  if (!db) return null;
+
+  const slugField = language === "fr" ? news.slugFr : news.slugEn;
+  const result = await db
+    .select()
+    .from(news)
+    .where(and(eq(slugField, slug), eq(news.status, "published")))
+    .limit(1);
+
+  return result[0] || null;
+}
+
+export async function getNewsByCategory(
+  category: string,
+  domain: Domain = "com",
+  limit = 50
+) {
+  const db = await getDb();
+  if (!db) return [];
+
+  return db
+    .select()
+    .from(news)
+    .where(
+      and(
+        eq(news.domain, domain),
+        eq(news.category, category),
+        eq(news.status, "published")
+      )
+    )
+    .orderBy(desc(news.createdAt))
+    .limit(limit);
+}
+
+export async function createNews(article: typeof news.$inferInsert) {
+  const db = await getDb();
+  if (!db) throw new Error("Database not available");
+
+  return db.insert(news).values(article);
+}
+
+export async function updateNews(
+  id: number,
+  updates: Partial<typeof news.$inferInsert>
+) {
+  const db = await getDb();
+  if (!db) throw new Error("Database not available");
+
+  return db.update(news).set(updates).where(eq(news.id, id));
+}
+
+export async function deleteNews(id: number) {
+  const db = await getDb();
+  if (!db) throw new Error("Database not available");
+
+  return db.delete(news).where(eq(news.id, id));
 }

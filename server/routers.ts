@@ -21,6 +21,13 @@ import {
   createContactSubmission,
   getContactSubmissions,
   subscribeNewsletter,
+  getAllNews,
+  getAllNewsAdmin,
+  getNewsBySlug,
+  getNewsByCategory,
+  createNews,
+  updateNews,
+  deleteNews,
 } from "./db";
 import type { Domain } from "@shared/i18n";
 
@@ -541,6 +548,148 @@ export const appRouter = router({
         const { url } = await storagePut(fileKey, buffer, "image/jpeg");
         await updateProject(input.projectId, { imageUrl: url });
         return { success: true, url };
+      }),
+  }),
+
+  // ============================================================================
+  // NEWS/ARTICLES PROCEDURES
+  // ============================================================================
+
+  news: router({
+    /**
+     * Get all published news
+     */
+    getAll: publicProcedure
+      .input(
+        z.object({
+          domain: z.enum(["com", "ch"]).default("com"),
+          limit: z.number().default(100),
+        })
+      )
+      .query(async ({ input }) => {
+        return getAllNews(input.domain as Domain, input.limit);
+      }),
+
+    /**
+     * Get news by slug
+     */
+    getBySlug: publicProcedure
+      .input(
+        z.object({
+          slug: z.string(),
+          language: z.enum(["fr", "en"]).default("fr"),
+        })
+      )
+      .query(async ({ input }) => {
+        return getNewsBySlug(input.slug, input.language);
+      }),
+
+    /**
+     * Get news by category
+     */
+    getByCategory: publicProcedure
+      .input(
+        z.object({
+          category: z.string(),
+          domain: z.enum(["com", "ch"]).default("com"),
+          limit: z.number().default(50),
+        })
+      )
+      .query(async ({ input }) => {
+        return getNewsByCategory(input.category, input.domain as Domain, input.limit);
+      }),
+
+    /**
+     * Get all news (admin only, including drafts)
+     */
+    getAllAdmin: protectedProcedure
+      .input(
+        z.object({
+          domain: z.enum(["com", "ch"]).default("com"),
+        })
+      )
+      .query(async ({ input, ctx }) => {
+        if (ctx.user?.role !== "admin") {
+          throw new Error("Unauthorized");
+        }
+        return getAllNewsAdmin(input.domain as Domain);
+      }),
+
+    /**
+     * Create news (admin only)
+     */
+    create: protectedProcedure
+      .input(
+        z.object({
+          titleFr: z.string(),
+          titleEn: z.string(),
+          slugFr: z.string(),
+          slugEn: z.string(),
+          contentFr: z.string(),
+          contentEn: z.string(),
+          excerptFr: z.string().optional(),
+          excerptEn: z.string().optional(),
+          imageUrl: z.string().optional(),
+          category: z.string(),
+          status: z.enum(["draft", "published"]).default("published"),
+          visibleFr: z.number().default(1),
+          visibleEn: z.number().default(1),
+          featured: z.number().default(0),
+          domain: z.enum(["com", "ch"]).default("com"),
+        })
+      )
+      .mutation(async ({ input, ctx }) => {
+        if (ctx.user?.role !== "admin") {
+          throw new Error("Unauthorized");
+        }
+        return createNews(input);
+      }),
+
+    /**
+     * Update news (admin only)
+     */
+    update: protectedProcedure
+      .input(
+        z.object({
+          id: z.number(),
+          titleFr: z.string().optional(),
+          titleEn: z.string().optional(),
+          slugFr: z.string().optional(),
+          slugEn: z.string().optional(),
+          contentFr: z.string().optional(),
+          contentEn: z.string().optional(),
+          excerptFr: z.string().optional(),
+          excerptEn: z.string().optional(),
+          imageUrl: z.string().optional(),
+          category: z.string().optional(),
+          status: z.enum(["draft", "published"]).optional(),
+          visibleFr: z.number().optional(),
+          visibleEn: z.number().optional(),
+          featured: z.number().optional(),
+        })
+      )
+      .mutation(async ({ input, ctx }) => {
+        if (ctx.user?.role !== "admin") {
+          throw new Error("Unauthorized");
+        }
+        const { id, ...updates } = input;
+        return updateNews(id, updates);
+      }),
+
+    /**
+     * Delete news (admin only)
+     */
+    delete: protectedProcedure
+      .input(
+        z.object({
+          id: z.number(),
+        })
+      )
+      .mutation(async ({ input, ctx }) => {
+        if (ctx.user?.role !== "admin") {
+          throw new Error("Unauthorized");
+        }
+        return deleteNews(input.id);
       }),
   }),
 });

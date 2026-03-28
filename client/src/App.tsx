@@ -13,6 +13,7 @@ import Contact from "./pages/Contact";
 import OfferDetail from "./pages/OfferDetail";
 import Offers from "./pages/Offers";
 import News from "./pages/News";
+import NewsDetail from "./pages/NewsDetail";
 import Admin from "./pages/Admin";
 import { AdminLogin } from "./pages/AdminLogin";
 
@@ -27,6 +28,7 @@ function Router() {
       <Route path="/portfolio/:id" component={ProjectDetail} />
       <Route path="/actualites" component={News} />
       <Route path="/news" component={News} />
+      <Route path="/news/:slug" component={NewsDetail} />
       <Route path="/contact" component={Contact} />
       <Route path="/admin" component={Admin} />
       <Route path="/g40mconnect" component={AdminLogin} />

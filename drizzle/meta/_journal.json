@@ -43,6 +43,13 @@
       "when": 1774633951129,
       "tag": "0005_skinny_magneto",
       "breakpoints": true
+    },
+    {
+      "idx": 6,
+      "version": "5",
+      "when": 1774684478547,
+      "tag": "0006_fearless_manta",
+      "breakpoints": true
     }
   ]
 }
