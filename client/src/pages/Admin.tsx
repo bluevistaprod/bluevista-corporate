@@ -15,6 +15,7 @@ export default function AdminPage() {
   const [searchQuery, setSearchQuery] = useState('');
   const [editingId, setEditingId] = useState<number | null>(null);
   const [editData, setEditData] = useState<any>({});
+  const [translatingId, setTranslatingId] = useState<number | null>(null);
 
   const projectsQuery = trpc.portfolio.getAllAdmin.useQuery({ domain: 'com', limit: 500 });
   const updateMutation = trpc.portfolio.update.useMutation();
@@ -75,10 +76,13 @@ export default function AdminPage() {
 
   const handleTranslate = async (projectId: number) => {
     try {
+      setTranslatingId(projectId);
       await translateMutation.mutateAsync({ projectId });
       projectsQuery.refetch();
     } catch (error) {
       console.error('Error translating project:', error);
+    } finally {
+      setTranslatingId(null);
     }
   };
 
@@ -326,9 +330,9 @@ export default function AdminPage() {
                           size="sm"
                           onClick={() => handleTranslate(project.id)}
                           className="bg-purple-500 hover:bg-purple-600"
-                          disabled={translateMutation.isPending}
+                          disabled={translatingId === project.id}
                         >
-                          {translateMutation.isPending ? 'Traduction...' : 'Traduire'}
+                          {translatingId === project.id ? 'Traduction...' : 'Traduire'}
                         </Button>
                         <Button
                           size="sm"
