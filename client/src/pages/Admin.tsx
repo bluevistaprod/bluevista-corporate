@@ -235,7 +235,11 @@ export default function AdminPage() {
                         />
                       </td>
                       <td className="px-6 py-4">
-                        <span className="text-sm text-gray-500">-</span>
+                        {project.imageUrl ? (
+                          <img src={project.imageUrl} alt="Thumbnail" className="h-12 w-12 object-cover rounded" />
+                        ) : (
+                          <span className="text-sm text-gray-500">-</span>
+                        )}
                       </td>
                       <td className="px-6 py-4">
                         <input
@@ -297,19 +301,24 @@ export default function AdminPage() {
                           : project.descriptionEn?.substring(0, 50) + '...'}
                       </td>
                       <td className="px-6 py-4">
-                        <label className="cursor-pointer inline-block">
-                          <input
-                            type="file"
-                            accept="image/*"
-                            onChange={(e) => {
-                              if (e.target.files?.[0]) {
-                                handleImageUpload(project.id, e.target.files[0]);
-                              }
-                            }}
-                            className="hidden"
-                          />
-                          <span className="text-blue-500 hover:underline">Ajouter</span>
-                        </label>
+                        <div className="flex items-center gap-2">
+                          {project.imageUrl && (
+                            <img src={project.imageUrl} alt="Thumbnail" className="h-12 w-12 object-cover rounded" />
+                          )}
+                          <label className="cursor-pointer inline-block">
+                            <input
+                              type="file"
+                              accept="image/*"
+                              onChange={(e) => {
+                                if (e.target.files?.[0]) {
+                                  handleImageUpload(project.id, e.target.files[0]);
+                                }
+                              }}
+                              className="hidden"
+                            />
+                            <span className="text-blue-500 hover:underline">{project.imageUrl ? 'Changer' : 'Ajouter'}</span>
+                          </label>
+                        </div>
                       </td>
                       <td className="px-6 py-4 text-sm">
                         <span className="text-xs">
