@@ -1,59 +1,78 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useI18n } from "@/hooks/useI18n";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
-import { Button } from "@/components/ui/button";
-import { trpc } from "@/lib/trpc";
-import { toast } from "sonner";
+import { MapPin, Phone, Mail } from "lucide-react";
 
 export default function Contact() {
   const { language, domain, isLoaded, t } = useI18n();
-  const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    phone: "",
-    company: "",
-    subject: "",
-    message: "",
-    type: "contact" as "contact" | "devis",
-  });
+  const [activeTab, setActiveTab] = useState<"devis" | "recrutement" | "stage">("devis");
 
-  const submitMutation = trpc.contact.submit.useMutation({
-    onSuccess: () => {
-      toast.success(t("contact.form_success"));
-      setFormData({
-        name: "",
-        email: "",
-        phone: "",
-        company: "",
-        subject: "",
-        message: "",
-        type: "contact",
-      });
-    },
-    onError: () => {
-      toast.error(t("contact.form_error"));
-    },
-  });
-
-  const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
-  ) => {
-    const { name, value } = e.target;
-    setFormData((prev) => ({ ...prev, [name]: value }));
-  };
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    submitMutation.mutate({
-      ...formData,
-      domain: domain as "com" | "ch",
-    });
-  };
+  // Load Podio form script in iframe to isolate it
+  useEffect(() => {
+    const container = document.getElementById("podio-form-container");
+    if (container) {
+      container.innerHTML = `
+        <script src="https://podio.com/webforms/4233499/330872.js"><\/script>
+        <script type="text/javascript">
+          if (typeof _podioWebForm !== 'undefined') {
+            _podioWebForm.render("330872");
+          }
+        <\/script>
+        <noscript>
+          <a href="https://podio.com/webforms/4233499/330872" target="_blank">
+            ${language === "fr" ? "Veuillez remplir le formulaire" : "Please fill out the form"}
+          </a>
+        </noscript>
+      `;
+    }
+  }, [activeTab, language]);
 
   if (!isLoaded) {
     return <div className="min-h-screen flex items-center justify-center">Chargement...</div>;
   }
+
+  const tabs = [
+    {
+      id: "devis",
+      label: language === "fr" ? "Demande de devis" : "Request a quote",
+    },
+    {
+      id: "recrutement",
+      label: language === "fr" ? "Recrutement" : "Recruitment",
+    },
+    {
+      id: "stage",
+      label: language === "fr" ? "Stage" : "Internship",
+    },
+  ];
+
+  const locations = [
+    {
+      name: language === "fr" ? "Lyon (Siège social)" : "Lyon (Headquarters)",
+      address: "8 rue Jean Élysée Dupuy",
+      city: "69410 Champagne-au-Mont-d'Or",
+      phone: "+33 (0)4 72 34 51 89",
+      lat: 45.8404,
+      lng: 4.8251,
+    },
+    {
+      name: "Paris",
+      address: "92 Avenue Victor Hugo",
+      city: "92100 Boulogne-Billancourt",
+      phone: "+33 (0)1 83 64 58 96",
+      lat: 48.8355,
+      lng: 2.2399,
+    },
+    {
+      name: "Genève",
+      address: "Bd Georges-Favon 43",
+      city: "1204 Genève, Suisse",
+      phone: "+41 (0)22 519 28 48",
+      lat: 46.2044,
+      lng: 6.1432,
+    },
+  ];
 
   return (
     <div className="min-h-screen bg-white">
@@ -62,9 +81,13 @@ export default function Contact() {
       {/* Hero */}
       <section className="bg-gradient-to-r from-gray-900 to-gray-800 text-white py-20">
         <div className="container mx-auto px-4">
-          <h1 className="text-5xl font-bold mb-4">{t("contact.title")}</h1>
+          <h1 className="text-5xl font-bold mb-4">
+            {language === "fr" ? "Nous contacter" : "Contact Us"}
+          </h1>
           <p className="text-xl text-gray-300">
-            Nous sommes à votre écoute pour discuter de votre projet
+            {language === "fr"
+              ? "Nous sommes à votre écoute pour discuter de votre projet"
+              : "We're here to discuss your project"}
           </p>
         </div>
       </section>
@@ -72,161 +95,79 @@ export default function Contact() {
       {/* Contact Section */}
       <section className="py-20">
         <div className="container mx-auto px-4">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
-            {/* Form */}
-            <div>
-              <h2 className="text-3xl font-bold mb-8 text-gray-900">Envoyez-nous un message</h2>
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
+            {/* Left: Form with Tabs */}
+            <div className="lg:col-span-2">
+              <h2 className="text-3xl font-bold mb-8 text-gray-900">
+                {language === "fr" ? "Envoyez-nous un message" : "Send us a message"}
+              </h2>
 
-              <form onSubmit={handleSubmit} className="space-y-6">
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">
-                      {t("contact.form_name")}
-                    </label>
-                    <input
-                      type="text"
-                      name="name"
-                      value={formData.name}
-                      onChange={handleChange}
-                      required
-                      className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                      placeholder="Votre nom"
-                    />
-                  </div>
-
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">
-                      {t("contact.form_email")}
-                    </label>
-                    <input
-                      type="email"
-                      name="email"
-                      value={formData.email}
-                      onChange={handleChange}
-                      required
-                      className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                      placeholder="votre@email.com"
-                    />
-                  </div>
-                </div>
-
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">
-                      {t("contact.form_phone")}
-                    </label>
-                    <input
-                      type="tel"
-                      name="phone"
-                      value={formData.phone}
-                      onChange={handleChange}
-                      className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                      placeholder="+33 1 23 45 67 89"
-                    />
-                  </div>
-
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">
-                      {t("contact.form_company")}
-                    </label>
-                    <input
-                      type="text"
-                      name="company"
-                      value={formData.company}
-                      onChange={handleChange}
-                      className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                      placeholder="Votre entreprise"
-                    />
-                  </div>
-                </div>
-
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
-                    Type de demande
-                  </label>
-                  <select
-                    name="type"
-                    value={formData.type}
-                    onChange={handleChange}
-                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              {/* Tabs */}
+              <div className="flex gap-2 mb-8 border-b border-gray-200 flex-wrap">
+                {tabs.map((tab) => (
+                  <button
+                    key={tab.id}
+                    onClick={() => setActiveTab(tab.id as "devis" | "recrutement" | "stage")}
+                    className={`px-4 py-3 font-medium border-b-2 transition text-sm md:text-base ${
+                      activeTab === tab.id
+                        ? "border-blue-600 text-blue-600"
+                        : "border-transparent text-gray-600 hover:text-gray-900"
+                    }`}
                   >
-                    <option value="contact">Demande d'information</option>
-                    <option value="devis">Demande de devis</option>
-                  </select>
-                </div>
+                    {tab.label}
+                  </button>
+                ))}
+              </div>
 
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
-                    {t("contact.form_subject")}
-                  </label>
-                  <input
-                    type="text"
-                    name="subject"
-                    value={formData.subject}
-                    onChange={handleChange}
-                    required
-                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                    placeholder="Sujet de votre demande"
-                  />
+              {/* Podio Form Container */}
+              <div className="bg-gray-50 p-6 rounded-lg min-h-96 border border-gray-200">
+                <div id="podio-form-container" className="podio-form-wrapper">
+                  <p className="text-gray-600 text-center py-8">
+                    {language === "fr"
+                      ? "Chargement du formulaire..."
+                      : "Loading form..."}
+                  </p>
                 </div>
+              </div>
 
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
-                    {t("contact.form_message")}
-                  </label>
-                  <textarea
-                    name="message"
-                    value={formData.message}
-                    onChange={handleChange}
-                    required
-                    rows={6}
-                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                    placeholder="Décrivez votre projet..."
-                  />
-                </div>
-
-                <Button
-                  type="submit"
-                  disabled={submitMutation.isPending}
-                  className="w-full bg-blue-600 hover:bg-blue-700 text-white"
-                >
-                  {submitMutation.isPending ? "Envoi en cours..." : t("contact.form_submit")}
-                </Button>
-              </form>
+              {/* Alternative: Simple Form Fallback */}
+              <div className="mt-8 p-6 bg-blue-50 rounded-lg border border-blue-200">
+                <p className="text-sm text-gray-600">
+                  {language === "fr"
+                    ? "Si le formulaire ne s'affiche pas, veuillez nous contacter directement par email ou téléphone."
+                    : "If the form doesn't display, please contact us directly by email or phone."}
+                </p>
+              </div>
             </div>
 
-            {/* Contact Info */}
+            {/* Right: Contact Info */}
             <div>
-              <h2 className="text-3xl font-bold mb-8 text-gray-900">Nos coordonnées</h2>
+              <h2 className="text-3xl font-bold mb-8 text-gray-900">
+                {language === "fr" ? "Nos coordonnées" : "Our Contact Info"}
+              </h2>
 
               <div className="space-y-8">
-                {/* Lyon */}
-                <div>
-                  <h3 className="font-bold text-lg text-gray-900 mb-2">Lyon (Siège social)</h3>
-                  <p className="text-gray-600 mb-1">8 rue Jean Élysée Dupuy</p>
-                  <p className="text-gray-600 mb-1">69410 Champagne-au-Mont-d'Or</p>
-                  <p className="text-gray-600 font-medium">+33 (0)4 72 34 51 89</p>
-                </div>
-
-                {/* Paris */}
-                <div>
-                  <h3 className="font-bold text-lg text-gray-900 mb-2">Paris</h3>
-                  <p className="text-gray-600 mb-1">92 Avenue Victor Hugo</p>
-                  <p className="text-gray-600 mb-1">92100 Boulogne-Billancourt</p>
-                  <p className="text-gray-600 font-medium">+33 (0)1 83 64 58 96</p>
-                </div>
-
-                {/* Genève */}
-                <div>
-                  <h3 className="font-bold text-lg text-gray-900 mb-2">Genève</h3>
-                  <p className="text-gray-600 mb-1">Bd Georges-Favon 43</p>
-                  <p className="text-gray-600 mb-1">1204 Genève, Suisse</p>
-                  <p className="text-gray-600 font-medium">+41 (0)22 519 28 48</p>
-                </div>
+                {locations.map((location, index) => (
+                  <div key={index}>
+                    <h3 className="font-bold text-lg text-gray-900 mb-3 flex items-center gap-2">
+                      <MapPin className="w-5 h-5 text-blue-600 flex-shrink-0" />
+                      {location.name}
+                    </h3>
+                    <p className="text-gray-600 mb-1 ml-7">{location.address}</p>
+                    <p className="text-gray-600 mb-2 ml-7">{location.city}</p>
+                    <p className="text-gray-600 font-medium ml-7 flex items-center gap-2">
+                      <Phone className="w-4 h-4 text-blue-600 flex-shrink-0" />
+                      {location.phone}
+                    </p>
+                  </div>
+                ))}
 
                 {/* Email */}
                 <div className="pt-8 border-t border-gray-200">
-                  <h3 className="font-bold text-lg text-gray-900 mb-2">Email</h3>
+                  <h3 className="font-bold text-lg text-gray-900 mb-3 flex items-center gap-2">
+                    <Mail className="w-5 h-5 text-blue-600 flex-shrink-0" />
+                    {language === "fr" ? "Email" : "Email"}
+                  </h3>
                   <a
                     href="mailto:contact@bluevista.com"
                     className="text-blue-600 hover:text-blue-700 font-medium"
@@ -240,7 +181,57 @@ export default function Contact() {
         </div>
       </section>
 
+      {/* Google Map Section */}
+      <section className="py-20 bg-gray-50">
+        <div className="container mx-auto px-4">
+          <h2 className="text-3xl font-bold mb-12 text-center text-gray-900">
+            {language === "fr" ? "Nos bureaux" : "Our Offices"}
+          </h2>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {locations.map((location, index) => (
+              <div key={index} className="bg-white rounded-lg overflow-hidden shadow-lg">
+                {/* Map Iframe */}
+                <div className="w-full h-64 bg-gray-200">
+                  <iframe
+                    width="100%"
+                    height="100%"
+                    style={{ border: 0 }}
+                    loading="lazy"
+                    allowFullScreen
+                    referrerPolicy="no-referrer-when-downgrade"
+                    src={`https://www.google.com/maps/embed/v1/place?key=AIzaSyDxT0xo8IltNKWB53R-4GewQIHPbXHrz9s&q=${encodeURIComponent(
+                      location.address + " " + location.city
+                    )}`}
+                  ></iframe>
+                </div>
+
+                {/* Location Info */}
+                <div className="p-6">
+                  <h3 className="font-bold text-lg text-gray-900 mb-3">{location.name}</h3>
+                  <p className="text-gray-600 mb-1">{location.address}</p>
+                  <p className="text-gray-600 mb-3">{location.city}</p>
+                  <a
+                    href={`tel:${location.phone.replace(/\s/g, "")}`}
+                    className="text-blue-600 hover:text-blue-700 font-medium"
+                  >
+                    {location.phone}
+                  </a>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
       <Footer />
+
+      {/* Load Podio script at the end to avoid conflicts */}
+      <script
+        src="https://podio.com/webforms/4233499/330872.js"
+        async
+        defer
+      ></script>
     </div>
   );
 }
