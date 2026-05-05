@@ -236,12 +236,20 @@ export default function Offers() {
                   </div>
 
                   {/* CTA */}
-                  <a href="/contact" className="inline-block">
-                    <Button className={`${offer.accentColor} hover:opacity-90 text-white text-base py-3 px-8`}>
-                      {language === "fr" ? "Demander un devis" : "Request a Quote"}
-                      <ChevronRight className="ml-2" size={18} />
-                    </Button>
-                  </a>
+                  <div className="flex gap-4">
+                    <a href={`/offers/${offer.id === 'communication' ? 'communication' : offer.id === 'event' ? 'events' : 'immersion'}`} className="inline-block">
+                      <Button className="bg-gray-200 hover:bg-gray-300 text-gray-900 text-base py-3 px-8">
+                        {language === "fr" ? "En savoir plus" : "Learn More"}
+                        <ChevronRight className="ml-2" size={18} />
+                      </Button>
+                    </a>
+                    <a href="/contact" className="inline-block">
+                      <Button className={`${offer.accentColor} hover:opacity-90 text-white text-base py-3 px-8`}>
+                        {language === "fr" ? "Demander un devis" : "Request a Quote"}
+                        <ChevronRight className="ml-2" size={18} />
+                      </Button>
+                    </a>
+                  </div>
                 </div>
               </div>
             </div>

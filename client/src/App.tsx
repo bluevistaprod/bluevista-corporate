@@ -12,6 +12,9 @@ import ProjectDetail from "./pages/ProjectDetail";
 import Contact from "./pages/Contact";
 import OfferDetail from "./pages/OfferDetail";
 import Offers from "./pages/Offers";
+import OfferCommunication from "./pages/OfferCommunication";
+import OfferEvents from "./pages/OfferEvents";
+import OfferImmersion from "./pages/OfferImmersion";
 import News from "./pages/News";
 import NewsDetail from "./pages/NewsDetail";
 import Admin from "./pages/Admin";
@@ -24,6 +27,9 @@ function Router() {
       <Route path="/" component={Home} />
       <Route path="/agency" component={About} />
       <Route path="/offers" component={Offers} />
+      <Route path="/offers/communication" component={OfferCommunication} />
+      <Route path="/offers/events" component={OfferEvents} />
+      <Route path="/offers/immersion" component={OfferImmersion} />
       <Route path="/offers/:type" component={OfferDetail} />
       <Route path="/portfolio" component={Portfolio} />
       <Route path="/portfolio/:id" component={ProjectDetail} />
