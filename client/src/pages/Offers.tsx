@@ -157,40 +157,38 @@ export default function Offers() {
       </section>
 
       {/* Offers Section */}
-      <section className="py-24 bg-gray-50">
+      <section className="py-32 bg-gray-50">
         <div className="container mx-auto px-4">
           {offers.map((offer, index) => (
-            <div key={offer.id} className="mb-32 last:mb-0">
+            <div key={offer.id} className="mb-48 last:mb-0">
               {/* Section Title */}
-              <div className="mb-16">
-                <h2 className="text-5xl font-bold text-gray-900">
-                  {offer.id === "communication"
+              <h2 className="text-5xl font-bold text-gray-900 mb-20 leading-tight">
+                {offer.id === "communication"
+                  ? language === "fr"
+                    ? "Communication & Marketing"
+                    : "Communication & Marketing"
+                  : offer.id === "event"
                     ? language === "fr"
-                      ? "Communication & Marketing"
-                      : "Communication & Marketing"
-                    : offer.id === "event"
-                      ? language === "fr"
-                        ? "Événementiel"
-                        : "Events"
-                      : language === "fr"
-                        ? "Immersion"
-                        : "Immersion"}
-                </h2>
-              </div>
+                      ? "Événementiel"
+                      : "Events"
+                    : language === "fr"
+                      ? "Immersion"
+                      : "Immersion"}
+              </h2>
 
-              {/* Alternating layout */}
+              {/* Alternating layout with proper alignment */}
               <div
-                className={`grid md:grid-cols-2 gap-12 items-center ${
+                className={`grid md:grid-cols-2 gap-20 items-start ${
                   index % 2 === 1 ? "md:grid-flow-dense" : ""
                 }`}
               >
                 {/* Image */}
                 <div className={index % 2 === 1 ? "md:col-start-2" : ""}>
-                  <div className="rounded-lg overflow-hidden shadow-xl">
+                  <div className="rounded-lg overflow-hidden shadow-2xl">
                     <img
                       src={offer.image}
                       alt={language === "fr" ? offer.titleFr : offer.titleEn}
-                      className="w-full h-auto object-cover"
+                      className="w-full h-96 object-cover"
                     />
                   </div>
                 </div>
@@ -198,8 +196,8 @@ export default function Offers() {
                 {/* Content */}
                 <div className={index % 2 === 1 ? "md:col-start-1" : ""}>
                   {/* Problem Section */}
-                  <div className="mb-8">
-                    <div className={`inline-block ${offer.accentColor} text-white px-4 py-2 rounded-full text-sm font-semibold mb-4`}>
+                  <div className="mb-12">
+                    <div className={`inline-block ${offer.accentColor} text-white px-4 py-2 rounded-full text-sm font-semibold mb-6`}>
                       {language === "fr" ? "LE DÉFI" : "THE CHALLENGE"}
                     </div>
                     <p className="text-gray-700 text-lg leading-relaxed">
@@ -208,21 +206,21 @@ export default function Offers() {
                   </div>
 
                   {/* Benefit Section */}
-                  <div className="mb-8">
-                    <h2 className="text-4xl font-bold text-gray-900 mb-4">
+                  <div className="mb-12">
+                    <h3 className="text-3xl font-bold text-gray-900 mb-4 leading-tight">
                       {language === "fr" ? offer.titleFr : offer.titleEn}
-                    </h2>
+                    </h3>
                     <p className="text-lg text-gray-700 leading-relaxed">
                       {language === "fr" ? offer.benefitFr : offer.benefitEn}
                     </p>
                   </div>
 
                   {/* Services */}
-                  <div className="mb-8">
-                    <h3 className="text-xl font-bold text-gray-900 mb-4">
+                  <div className="mb-12">
+                    <h4 className="text-xl font-bold text-gray-900 mb-6">
                       {language === "fr" ? "Nos services" : "Our services"}
-                    </h3>
-                    <ul className="space-y-3">
+                    </h4>
+                    <ul className="space-y-4">
                       {(language === "fr" ? offer.servicesFr : offer.servicesEn).map(
                         (service, idx) => (
                           <li key={idx} className="flex items-start gap-3">
@@ -230,7 +228,7 @@ export default function Offers() {
                               size={20}
                               className={`${offer.accentColor.replace("bg-", "text-")} flex-shrink-0 mt-1`}
                             />
-                            <span className="text-gray-700">{service}</span>
+                            <span className="text-gray-700 leading-relaxed">{service}</span>
                           </li>
                         )
                       )}
@@ -239,7 +237,7 @@ export default function Offers() {
 
                   {/* CTA */}
                   <a href="/contact" className="inline-block">
-                    <Button className={`${offer.accentColor} hover:opacity-90 text-white`}>
+                    <Button className={`${offer.accentColor} hover:opacity-90 text-white text-base py-3 px-8`}>
                       {language === "fr" ? "Demander un devis" : "Request a Quote"}
                       <ChevronRight className="ml-2" size={18} />
                     </Button>
@@ -252,10 +250,10 @@ export default function Offers() {
       </section>
 
       {/* Creative Process Section */}
-      <section className="py-24 bg-white">
+      <section className="py-32 bg-white">
         <div className="container mx-auto px-4">
-          <div className="text-center mb-16">
-            <h2 className="text-5xl font-bold text-gray-900 mb-6">
+          <div className="text-center mb-20">
+            <h2 className="text-5xl font-bold text-gray-900 mb-6 leading-tight">
               {language === "fr"
                 ? "Notre Processus Créatif"
                 : "Our Creative Process"}
@@ -276,7 +274,7 @@ export default function Offers() {
                 )}
 
                 {/* Card */}
-                <div className="relative bg-white border-2 border-blue-600 rounded-lg p-8 text-center hover:shadow-lg transition-shadow">
+                <div className="relative bg-white border-2 border-blue-600 rounded-lg p-8 text-center hover:shadow-lg transition-shadow h-full">
                   <div className="w-12 h-12 bg-blue-600 text-white rounded-full flex items-center justify-center text-xl font-bold mx-auto mb-4">
                     {idx + 1}
                   </div>
@@ -294,9 +292,9 @@ export default function Offers() {
       </section>
 
       {/* Why Choose Us Section */}
-      <section className="py-24 bg-gray-50">
+      <section className="py-32 bg-gray-50">
         <div className="container mx-auto px-4">
-          <h2 className="text-4xl font-bold text-center mb-16 text-gray-900">
+          <h2 className="text-4xl font-bold text-center mb-20 text-gray-900 leading-tight">
             {language === "fr"
               ? "Pourquoi Choisir Blue Vista ?"
               : "Why Choose Blue Vista?"}
@@ -353,11 +351,8 @@ export default function Offers() {
                   "Each project is unique and receives special creative and strategic attention.",
               },
             ].map((item, idx) => (
-              <div
-                key={idx}
-                className="bg-white p-8 rounded-lg shadow-md hover:shadow-lg transition-shadow"
-              >
-                <h3 className="text-xl font-bold text-gray-900 mb-3">
+              <div key={idx} className="bg-white rounded-lg p-8 shadow-md hover:shadow-lg transition-shadow">
+                <h3 className="text-xl font-bold text-gray-900 mb-4">
                   {language === "fr" ? item.titleFr : item.titleEn}
                 </h3>
                 <p className="text-gray-700 leading-relaxed">
@@ -369,8 +364,8 @@ export default function Offers() {
         </div>
       </section>
 
-      {/* Final CTA Section */}
-      <section className="bg-gradient-to-r from-blue-600 to-blue-700 text-white py-20">
+      {/* CTA Section */}
+      <section className="py-24 bg-gradient-to-r from-blue-600 to-blue-700 text-white">
         <div className="container mx-auto px-4 text-center">
           <h2 className="text-4xl font-bold mb-6">
             {language === "fr"
@@ -383,11 +378,9 @@ export default function Offers() {
               : "Contact us to discuss your project and receive a personalized quote."}
           </p>
           <a href="/contact" className="inline-block">
-            <Button asChild size="lg" className="bg-white text-blue-600 hover:bg-gray-100">
-              <span>
-                {language === "fr" ? "Demander un devis" : "Request a Quote"}
-                <ChevronRight className="ml-2" size={20} />
-              </span>
+            <Button className="bg-white text-blue-600 hover:bg-gray-100 text-base py-3 px-8">
+              {language === "fr" ? "Demander un devis" : "Request a Quote"}
+              <ChevronRight className="ml-2" size={18} />
             </Button>
           </a>
         </div>
