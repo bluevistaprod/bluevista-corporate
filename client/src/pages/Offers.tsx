@@ -161,6 +161,23 @@ export default function Offers() {
         <div className="container mx-auto px-4">
           {offers.map((offer, index) => (
             <div key={offer.id} className="mb-32 last:mb-0">
+              {/* Section Title */}
+              <div className="mb-16">
+                <h2 className="text-5xl font-bold text-gray-900">
+                  {offer.id === "communication"
+                    ? language === "fr"
+                      ? "Communication & Marketing"
+                      : "Communication & Marketing"
+                    : offer.id === "event"
+                      ? language === "fr"
+                        ? "Événementiel"
+                        : "Events"
+                      : language === "fr"
+                        ? "Immersion"
+                        : "Immersion"}
+                </h2>
+              </div>
+
               {/* Alternating layout */}
               <div
                 className={`grid md:grid-cols-2 gap-12 items-center ${
