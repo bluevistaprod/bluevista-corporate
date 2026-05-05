@@ -2,74 +2,135 @@ import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { Button } from "@/components/ui/button";
 import { useI18n } from "@/hooks/useI18n";
-import { ChevronRight, Zap, Users, Lightbulb } from "lucide-react";
+import { ChevronRight, ArrowRight } from "lucide-react";
 
 export default function Offers() {
-  const { t } = useI18n();
+  const { t, language } = useI18n();
 
-  const pillars = [
+  // Image URLs for each offer
+  const offerImages = {
+    communication: "https://d2xsxph8kpxj0f.cloudfront.net/310519663405351247/HJdMFahbvq3VamEnwkCWwG/offre-communication-marketing-iDsDxBYRZC7y4BrrJwnv8a.webp",
+    event: "https://d2xsxph8kpxj0f.cloudfront.net/310519663405351247/HJdMFahbvq3VamEnwkCWwG/offre-evenementiel-49kyautDAAq2aNjhepiGnu.webp",
+    immersion: "https://d2xsxph8kpxj0f.cloudfront.net/310519663405351247/HJdMFahbvq3VamEnwkCWwG/offre-immersion-LEXLDZaBYdRoZMvB677U2g.webp",
+  };
+
+  const offers = [
     {
       id: "communication",
-      title: "Communication & Marketing",
-      icon: "📢",
-      description: "Amplifiez votre visibilité et vos ventes grâce à des contenus vidéo percutants",
-      services: [
-        "Vidéos publicitaires et campagnes marketing",
-        "Films institutionnels et corporate",
-        "Vidéos produits et e-commerce",
-        "Contenus réseaux sociaux et TikTok",
-        "Motion design et animations",
-        "Testimonials clients et success stories",
+      titleFr: "Amplifiez votre présence et convertissez votre audience en clients",
+      titleEn: "Amplify your presence and convert your audience into customers",
+      problemFr: "Vous avez un message puissant, mais il se perd dans le bruit. Votre audience ne vous trouve pas, ne vous comprend pas, ou ne passe pas à l'action. Vos concurrents captent l'attention que vous méritez.",
+      problemEn: "You have a powerful message, but it gets lost in the noise. Your audience doesn't find you, doesn't understand you, or doesn't take action. Your competitors capture the attention you deserve.",
+      benefitFr: "Transformez votre communication en moteur de croissance. Nous créons une stratégie cohérente qui positionne votre marque, engage votre audience et génère des résultats mesurables.",
+      benefitEn: "Transform your communication into a growth engine. We create a coherent strategy that positions your brand, engages your audience and generates measurable results.",
+      servicesFr: [
+        "Podcasts & Audio : Production complète, montage, distribution",
+        "Réseaux sociaux : Contenus optimisés par plateforme, stratégie de publication",
+        "Motion design & Animation : Explainers, intros dynamiques, infographies",
+        "Documentaires & Reportages : Contenus longs-formes avec impact",
+        "Vidéomapping & Expériences : Créations immersives pour événements",
+        "Optimisation & Testing : A/B testing, variantes, amélioration continue",
       ],
-      benefits: [
-        "Augmente la visibilité de 30%+",
-        "Améliore le taux de conversion",
-        "Renforce l'identité de marque",
-        "Génère plus d'engagement",
+      servicesEn: [
+        "Podcasts & Audio: Complete production, editing, distribution",
+        "Social Media: Platform-optimized content, publishing strategy",
+        "Motion Design & Animation: Explainers, dynamic intros, infographics",
+        "Documentaries & Reports: Long-form impactful content",
+        "Videomapping & Experiences: Immersive creations for events",
+        "Optimization & Testing: A/B testing, variants, continuous improvement",
       ],
+      image: offerImages.communication,
       color: "from-blue-600 to-blue-400",
+      accentColor: "bg-blue-600",
     },
     {
       id: "event",
-      title: "Événementiel",
-      icon: "🎬",
-      description: "Captez, diffusez et immortalisez vos événements en haute qualité",
-      services: [
-        "Captation et diffusion live",
-        "Aftermovies et résumés vidéo",
-        "Streaming multiplateforme",
-        "Reportages événementiels",
-        "Vidéomapping et projections",
-        "Timelapse et drone footage",
+      titleFr: "Créez des événements inoubliables qui marquent les esprits",
+      titleEn: "Create unforgettable events that make a lasting impression",
+      problemFr: "Organiser un événement impactant demande une coordination complexe entre logistique, créativité et technologie. Vous risquez que votre événement soit oublié dès le lendemain, ou qu'il ne génère pas le ROI attendu.",
+      problemEn: "Organizing an impactful event requires complex coordination between logistics, creativity and technology. Your event risks being forgotten the next day, or failing to generate the expected ROI.",
+      benefitFr: "Transformez votre événement en expérience mémorable. De la conception créative à la couverture professionnelle, nous créons des moments qui renforcent votre marque, génèrent du buzz et maximisent votre ROI.",
+      benefitEn: "Transform your event into a memorable experience. From creative design to professional coverage, we create moments that strengthen your brand, generate buzz and maximize your ROI.",
+      servicesFr: [
+        "Conception & Scénographie : Design créatif, agencement spatial, ambiance visuelle",
+        "Couverture professionnelle : Photographie, vidéo d'événement, streaming en direct",
+        "Vidéomapping & Projections : Installations immersives, mapping architectural",
+        "Événementiel virtuel & Hybride : Streaming de qualité, interaction digitale",
+        "Production & Coordination : Gestion complète, timing précis, logistique créative",
+        "Contenu post-événement : Montage highlights, reels sociaux, reportage complet",
       ],
-      benefits: [
-        "Audience étendue en direct",
-        "Contenu réutilisable long terme",
-        "Impact émotionnel maximal",
-        "Mémorabilité accrue",
+      servicesEn: [
+        "Design & Scenography: Creative design, spatial layout, visual atmosphere",
+        "Professional Coverage: Photography, event video, live streaming",
+        "Videomapping & Projections: Immersive installations, architectural mapping",
+        "Virtual & Hybrid Events: Quality streaming, digital interaction",
+        "Production & Coordination: Complete management, precise timing, creative logistics",
+        "Post-Event Content: Highlights editing, social reels, complete report",
       ],
+      image: offerImages.event,
       color: "from-purple-600 to-purple-400",
+      accentColor: "bg-purple-600",
     },
     {
       id: "immersion",
-      title: "Immersion & Technologie",
-      icon: "🌐",
-      description: "Explorez les frontières de la création avec la réalité virtuelle et le metaverse",
-      services: [
-        "Expériences de réalité virtuelle (VR)",
-        "Création de metaverse sur mesure",
-        "Vidéos 360° immersives",
-        "Animation 3D et modélisation",
-        "Showrooms virtuels interactifs",
-        "Expériences immersives événementielles",
+      titleFr: "Plongez votre audience dans des mondes sans limites",
+      titleEn: "Immerse your audience in limitless worlds",
+      problemFr: "Vos clients veulent des expériences, pas juste du contenu. La réalité virtuelle et augmentée semblent complexes et coûteuses. Vous ne savez pas comment les utiliser pour créer un vrai différenciel compétitif.",
+      problemEn: "Your customers want experiences, not just content. Virtual and augmented reality seem complex and expensive. You don't know how to use them to create real competitive advantage.",
+      benefitFr: "Offrez à votre audience une expérience immersive qui la captive et la marque à jamais. Nous transformons votre vision en réalité virtuelle, augmentée ou 360°, créant des moments inoubliables et des résultats mesurables.",
+      benefitEn: "Offer your audience an immersive experience that captivates and marks them forever. We transform your vision into virtual reality, augmented reality or 360°, creating unforgettable moments and measurable results.",
+      servicesFr: [
+        "Réalité virtuelle (VR) : Expériences immersives interactives, visites virtuelles",
+        "Réalité augmentée (AR) : Filtres interactifs, expériences mobiles, catalogues 3D",
+        "Vidéo & Photographie 360° : Capture immersive, streaming 360°, visite virtuelle",
+        "Modélisation 3D & Animation : Environnements 3D, modèles interactifs",
+        "Expériences mixtes : Combinaison VR/AR/360° pour résultats maximaux",
+        "Plateforme & Distribution : Hébergement sécurisé, accès contrôlé, analytics",
       ],
-      benefits: [
-        "Expérience client révolutionnaire",
-        "Différenciation concurrentielle",
-        "Engagement mémoriel",
-        "Positionnement innovant",
+      servicesEn: [
+        "Virtual Reality (VR): Interactive immersive experiences, virtual tours",
+        "Augmented Reality (AR): Interactive filters, mobile experiences, 3D catalogs",
+        "360° Video & Photography: Immersive capture, 360° streaming, virtual tour",
+        "3D Modeling & Animation: 3D environments, interactive models",
+        "Mixed Experiences: Combination of VR/AR/360° for maximum results",
+        "Platform & Distribution: Secure hosting, controlled access, analytics",
       ],
-      color: "from-green-600 to-green-400",
+      image: offerImages.immersion,
+      color: "from-cyan-600 to-cyan-400",
+      accentColor: "bg-cyan-600",
+    },
+  ];
+
+  const processSteps = [
+    {
+      stepFr: "ÉCOUTE",
+      stepEn: "LISTEN",
+      descFr: "Nous écoutons vraiment. Vos objectifs, votre audience, vos contraintes - tout compte. C'est la fondation de chaque projet réussi.",
+      descEn: "We really listen. Your goals, your audience, your constraints - everything matters. This is the foundation of every successful project.",
+    },
+    {
+      stepFr: "STRATÉGIE",
+      stepEn: "STRATEGY",
+      descFr: "Nous définissons l'approche créative et technique optimale. Pas de prise de tête - juste une stratégie claire et actionnable.",
+      descEn: "We define the optimal creative and technical approach. No headaches - just clear and actionable strategy.",
+    },
+    {
+      stepFr: "CRÉATION",
+      stepEn: "CREATE",
+      descFr: "Notre équipe produit du contenu de haut niveau. Vidéos, podcasts, expériences immersives - tout avec excellence et passion.",
+      descEn: "Our team produces high-level content. Videos, podcasts, immersive experiences - all with excellence and passion.",
+    },
+    {
+      stepFr: "OPTIMISATION",
+      stepEn: "OPTIMIZE",
+      descFr: "Nous testons, mesurons et améliorons continuellement. Les données guident nos décisions créatives.",
+      descEn: "We test, measure and continuously improve. Data guides our creative decisions.",
+    },
+    {
+      stepFr: "IMPACT",
+      stepEn: "IMPACT",
+      descFr: "Nous mesurons les résultats réels. Vous voyez le ROI, pas juste les beaux chiffres - la vraie croissance.",
+      descEn: "We measure real results. You see the ROI, not just pretty numbers - real growth.",
     },
   ];
 
@@ -78,191 +139,236 @@ export default function Offers() {
       <Header />
 
       {/* Hero Section */}
-      <section className="bg-gradient-to-br from-gray-900 to-gray-800 text-white py-20">
+      <section className="bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 text-white py-24">
         <div className="container mx-auto px-4">
-          <h1 className="text-5xl md:text-6xl font-bold mb-6">
-            {t("offers.title")}
-          </h1>
-          <p className="text-xl text-gray-300 max-w-2xl">
-            {t("offers.subtitle")}
-          </p>
+          <div className="max-w-3xl">
+            <h1 className="text-5xl md:text-6xl font-bold mb-6 leading-tight">
+              {language === "fr"
+                ? "Trois offres créatives pour transformer votre communication"
+                : "Three creative services to transform your communication"}
+            </h1>
+            <p className="text-xl text-gray-300 mb-8">
+              {language === "fr"
+                ? "De la stratégie à la réalisation, nous créons des expériences qui convertissent."
+                : "From strategy to execution, we create experiences that convert."}
+            </p>
+          </div>
         </div>
       </section>
 
-      {/* Pillars Section */}
-      <section className="py-20 bg-gray-50">
+      {/* Offers Section */}
+      <section className="py-24 bg-gray-50">
         <div className="container mx-auto px-4">
-          <div className="grid md:grid-cols-3 gap-8">
-            {pillars.map((pillar) => (
+          {offers.map((offer, index) => (
+            <div key={offer.id} className="mb-32 last:mb-0">
+              {/* Alternating layout */}
               <div
-                key={pillar.id}
-                className="bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-2xl transition-shadow"
+                className={`grid md:grid-cols-2 gap-12 items-center ${
+                  index % 2 === 1 ? "md:grid-flow-dense" : ""
+                }`}
               >
-                {/* Header with gradient */}
-                <div className={`bg-gradient-to-r ${pillar.color} p-8 text-white`}>
-                  <div className="text-5xl mb-4">{pillar.icon}</div>
-                  <h2 className="text-2xl font-bold">{pillar.title}</h2>
+                {/* Image */}
+                <div className={index % 2 === 1 ? "md:col-start-2" : ""}>
+                  <div className="rounded-lg overflow-hidden shadow-xl">
+                    <img
+                      src={offer.image}
+                      alt={language === "fr" ? offer.titleFr : offer.titleEn}
+                      className="w-full h-auto object-cover"
+                    />
+                  </div>
                 </div>
 
                 {/* Content */}
-                <div className="p-8">
-                  <p className="text-gray-700 mb-6 font-medium">
-                    {pillar.description}
-                  </p>
+                <div className={index % 2 === 1 ? "md:col-start-1" : ""}>
+                  {/* Problem Section */}
+                  <div className="mb-8">
+                    <div className={`inline-block ${offer.accentColor} text-white px-4 py-2 rounded-full text-sm font-semibold mb-4`}>
+                      {language === "fr" ? "LE DÉFI" : "THE CHALLENGE"}
+                    </div>
+                    <p className="text-gray-700 text-lg leading-relaxed">
+                      {language === "fr" ? offer.problemFr : offer.problemEn}
+                    </p>
+                  </div>
+
+                  {/* Benefit Section */}
+                  <div className="mb-8">
+                    <h2 className="text-4xl font-bold text-gray-900 mb-4">
+                      {language === "fr" ? offer.titleFr : offer.titleEn}
+                    </h2>
+                    <p className="text-lg text-gray-700 leading-relaxed">
+                      {language === "fr" ? offer.benefitFr : offer.benefitEn}
+                    </p>
+                  </div>
 
                   {/* Services */}
                   <div className="mb-8">
-                    <h3 className="font-bold text-gray-900 mb-4 flex items-center gap-2">
-                      <Zap size={18} className="text-blue-600" />
-                      {t("offers.services_included")}
+                    <h3 className="text-xl font-bold text-gray-900 mb-4">
+                      {language === "fr" ? "Nos services" : "Our services"}
                     </h3>
-                    <ul className="space-y-2">
-                      {pillar.services.map((service, idx) => (
-                        <li key={idx} className="text-sm text-gray-700 flex items-start gap-2">
-                          <span className="text-blue-600 mt-1">✓</span>
-                          {service}
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-
-                  {/* Benefits */}
-                  <div className="mb-8">
-                    <h3 className="font-bold text-gray-900 mb-4 flex items-center gap-2">
-                      <Lightbulb size={18} className="text-green-600" />
-                      {t("offers.benefits")}
-                    </h3>
-                    <ul className="space-y-2">
-                      {pillar.benefits.map((benefit, idx) => (
-                        <li key={idx} className="text-sm text-gray-700 flex items-start gap-2">
-                          <span className="text-green-600 mt-1">→</span>
-                          {benefit}
-                        </li>
-                      ))}
+                    <ul className="space-y-3">
+                      {(language === "fr" ? offer.servicesFr : offer.servicesEn).map(
+                        (service, idx) => (
+                          <li key={idx} className="flex items-start gap-3">
+                            <ArrowRight
+                              size={20}
+                              className={`${offer.accentColor.replace("bg-", "text-")} flex-shrink-0 mt-1`}
+                            />
+                            <span className="text-gray-700">{service}</span>
+                          </li>
+                        )
+                      )}
                     </ul>
                   </div>
 
                   {/* CTA */}
-                  <a href="/contact" className="block">
-                    <Button asChild className="w-full bg-blue-600 hover:bg-blue-700">
-                      <span>
-                        {t("offers.request_quote")}
-                        <ChevronRight className="ml-2" size={18} />
-                      </span>
+                  <a href="/contact" className="inline-block">
+                    <Button className={`${offer.accentColor} hover:opacity-90 text-white`}>
+                      {language === "fr" ? "Demander un devis" : "Request a Quote"}
+                      <ChevronRight className="ml-2" size={18} />
                     </Button>
                   </a>
                 </div>
               </div>
-            ))}
-          </div>
+            </div>
+          ))}
         </div>
       </section>
 
-      {/* Process Section */}
-      <section className="py-20 bg-white">
+      {/* Creative Process Section */}
+      <section className="py-24 bg-white">
         <div className="container mx-auto px-4">
-          <h2 className="text-4xl font-bold text-center mb-16 text-gray-900">
-            {t("offers.creative_process")}
-          </h2>
+          <div className="text-center mb-16">
+            <h2 className="text-5xl font-bold text-gray-900 mb-6">
+              {language === "fr"
+                ? "Notre Processus Créatif"
+                : "Our Creative Process"}
+            </h2>
+            <p className="text-xl text-gray-600 max-w-2xl mx-auto">
+              {language === "fr"
+                ? "Les 5 étapes qui transforment votre vision en réalité"
+                : "The 5 steps that transform your vision into reality"}
+            </p>
+          </div>
 
-          <div className="grid md:grid-cols-4 gap-8">
-            {[
-              {
-                step: "1",
-                titleKey: "offers.conception",
-                descKey: "offers.conception_desc",
-              },
-              {
-                step: "2",
-                titleKey: "offers.preproduction",
-                descKey: "offers.preproduction_desc",
-              },
-              {
-                step: "3",
-                titleKey: "offers.production",
-                descKey: "offers.production_desc",
-              },
-              {
-                step: "4",
-                titleKey: "offers.postproduction",
-                descKey: "offers.postproduction_desc",
-              },
-            ].map((item) => (
-              <div key={item.step} className="text-center">
-                <div className="w-16 h-16 bg-blue-600 text-white rounded-full flex items-center justify-center text-2xl font-bold mx-auto mb-4">
-                  {item.step}
+          <div className="grid md:grid-cols-5 gap-6">
+            {processSteps.map((step, idx) => (
+              <div key={idx} className="relative">
+                {/* Connector line */}
+                {idx < processSteps.length - 1 && (
+                  <div className="hidden md:block absolute top-12 left-1/2 w-full h-1 bg-gradient-to-r from-blue-400 to-transparent"></div>
+                )}
+
+                {/* Card */}
+                <div className="relative bg-white border-2 border-blue-600 rounded-lg p-8 text-center hover:shadow-lg transition-shadow">
+                  <div className="w-12 h-12 bg-blue-600 text-white rounded-full flex items-center justify-center text-xl font-bold mx-auto mb-4">
+                    {idx + 1}
+                  </div>
+                  <h3 className="text-lg font-bold text-gray-900 mb-3">
+                    {language === "fr" ? step.stepFr : step.stepEn}
+                  </h3>
+                  <p className="text-sm text-gray-700 leading-relaxed">
+                    {language === "fr" ? step.descFr : step.descEn}
+                  </p>
                 </div>
-                <h3 className="text-xl font-bold text-gray-900 mb-3">{t(item.titleKey)}</h3>
-                <p className="text-gray-700 text-sm">{t(item.descKey)}</p>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Why Choose Us */}
-      <section className="py-20 bg-gray-50">
+      {/* Why Choose Us Section */}
+      <section className="py-24 bg-gray-50">
         <div className="container mx-auto px-4">
           <h2 className="text-4xl font-bold text-center mb-16 text-gray-900">
-            {t("offers.why_choose_us")}
+            {language === "fr"
+              ? "Pourquoi Choisir Blue Vista ?"
+              : "Why Choose Blue Vista?"}
           </h2>
 
           <div className="grid md:grid-cols-3 gap-8">
             {[
               {
-                icon: "🏆",
-                titleKey: "offers.expertise",
-                descKey: "offers.expertise_desc",
+                titleFr: "20+ ans d'expertise",
+                titleEn: "20+ years of expertise",
+                descFr:
+                  "Depuis 2004, nous créons des contenus vidéo pour les plus grandes marques et agences.",
+                descEn:
+                  "Since 2004, we have created video content for the biggest brands and agencies.",
               },
               {
-                icon: "🌍",
-                titleKey: "offers.multiregional",
-                descKey: "offers.multiregional_desc",
+                titleFr: "Équipe créative polyvalente",
+                titleEn: "Versatile creative team",
+                descFr:
+                  "Réalisateurs, monteurs, infographistes, développeurs - une boîte de prod complète et réactive.",
+                descEn:
+                  "Directors, editors, graphic designers, developers - a complete and reactive production company.",
               },
               {
-                icon: "🚀",
-                titleKey: "offers.technology",
-                descKey: "offers.technology_desc",
+                titleFr: "Présence multi-régionale",
+                titleEn: "Multi-regional presence",
+                descFr:
+                  "Agences à Lyon, Paris et Genève pour vous servir au plus proche de vos besoins.",
+                descEn:
+                  "Offices in Lyon, Paris and Geneva to serve you as close as possible to your needs.",
               },
               {
-                icon: "👥",
-                titleKey: "offers.creative_team",
-                descKey: "offers.creative_team_desc",
+                titleFr: "Technologie de pointe",
+                titleEn: "Cutting-edge technology",
+                descFr:
+                  "Équipements dernière génération et expertise en technologies émergentes (VR, AR, 360°).",
+                descEn:
+                  "State-of-the-art equipment and expertise in emerging technologies (VR, AR, 360°).",
               },
               {
-                icon: "📋",
-                titleKey: "offers.measurable_results",
-                descKey: "offers.measurable_results_desc",
+                titleFr: "Résultats mesurables",
+                titleEn: "Measurable results",
+                descFr:
+                  "Nos vidéos génèrent +30% de visibilité et augmentent les conversions de manière significative.",
+                descEn:
+                  "Our videos generate +30% visibility and significantly increase conversions.",
               },
               {
-                icon: "💡",
-                titleKey: "offers.personalized_approach",
-                descKey: "offers.personalized_approach_desc",
+                titleFr: "Approche personnalisée",
+                titleEn: "Personalized approach",
+                descFr:
+                  "Chaque projet est unique et reçoit une attention créative et stratégique particulière.",
+                descEn:
+                  "Each project is unique and receives special creative and strategic attention.",
               },
             ].map((item, idx) => (
-              <div key={idx} className="bg-white p-8 rounded-lg shadow-md hover:shadow-lg transition-shadow">
-                <div className="text-4xl mb-4">{item.icon}</div>
-                <h3 className="text-xl font-bold text-gray-900 mb-3">{t(item.titleKey)}</h3>
-                <p className="text-gray-700">{t(item.descKey)}</p>
+              <div
+                key={idx}
+                className="bg-white p-8 rounded-lg shadow-md hover:shadow-lg transition-shadow"
+              >
+                <h3 className="text-xl font-bold text-gray-900 mb-3">
+                  {language === "fr" ? item.titleFr : item.titleEn}
+                </h3>
+                <p className="text-gray-700 leading-relaxed">
+                  {language === "fr" ? item.descFr : item.descEn}
+                </p>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* CTA Section */}
-      <section className="bg-gradient-to-r from-blue-600 to-blue-700 text-white py-16">
+      {/* Final CTA Section */}
+      <section className="bg-gradient-to-r from-blue-600 to-blue-700 text-white py-20">
         <div className="container mx-auto px-4 text-center">
           <h2 className="text-4xl font-bold mb-6">
-            {t("offers.ready_to_transform")}
+            {language === "fr"
+              ? "Prêt à transformer votre communication ?"
+              : "Ready to transform your communication?"}
           </h2>
           <p className="text-xl text-blue-100 mb-8 max-w-2xl mx-auto">
-            {t("offers.contact_for_quote")}
+            {language === "fr"
+              ? "Contactez-nous pour discuter de votre projet et recevoir un devis personnalisé."
+              : "Contact us to discuss your project and receive a personalized quote."}
           </p>
           <a href="/contact" className="inline-block">
             <Button asChild size="lg" className="bg-white text-blue-600 hover:bg-gray-100">
               <span>
-                {t("offers.request_quote")}
+                {language === "fr" ? "Demander un devis" : "Request a Quote"}
                 <ChevronRight className="ml-2" size={20} />
               </span>
             </Button>
