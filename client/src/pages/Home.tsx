@@ -35,17 +35,17 @@ export default function Home() {
     {
       key: "pillars.communication",
       href: "/offers/communication",
-      color: "from-blue-500 to-blue-600",
+      image: "https://d2xsxph8kpxj0f.cloudfront.net/310519663405351247/HJdMFahbvq3VamEnwkCWwG/pillar-communication-MLKhhyunx5HRZFZ7oWQMpF.webp",
     },
     {
       key: "pillars.events",
       href: "/offers/events",
-      color: "from-purple-500 to-purple-600",
+      image: "https://d2xsxph8kpxj0f.cloudfront.net/310519663405351247/HJdMFahbvq3VamEnwkCWwG/pillar-events-efU3kzLkQaoZFh4Y9Me8Um.webp",
     },
     {
       key: "pillars.immersion",
       href: "/offers/immersion",
-      color: "from-pink-500 to-pink-600",
+      image: "https://d2xsxph8kpxj0f.cloudfront.net/310519663405351247/HJdMFahbvq3VamEnwkCWwG/pillar-immersion-iYDRR2kvYFMnQqVirentKB.webp",
     },
   ];
 
@@ -100,8 +100,14 @@ export default function Home() {
                 key={pillar.key}
                 className="bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition"
               >
-                {/* Gradient header */}
-                <div className={`h-40 bg-gradient-to-br ${pillar.color}`}></div>
+                {/* Image header */}
+                <div className="h-40 overflow-hidden bg-gray-200">
+                  <img
+                    src={pillar.image}
+                    alt={t(`${pillar.key}.title`)}
+                    className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
+                  />
+                </div>
 
                 {/* Content */}
                 <div className="p-6">
