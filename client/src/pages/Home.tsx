@@ -181,8 +181,8 @@ export default function Home() {
 
                 <p className="text-gray-700 text-lg mb-6 italic">
                   "{language === "fr"
-                    ? testimonials[activeTestimonial]?.contentFr
-                    : testimonials[activeTestimonial]?.contentEn}"
+                    ? testimonials[activeTestimonial]?.problem
+                    : testimonials[activeTestimonial]?.problem}"
                 </p>
 
                 {/* Stars */}

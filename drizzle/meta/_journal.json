@@ -50,6 +50,13 @@
       "when": 1774684478547,
       "tag": "0006_fearless_manta",
       "breakpoints": true
+    },
+    {
+      "idx": 7,
+      "version": "5",
+      "when": 1778621492137,
+      "tag": "0007_early_surge",
+      "breakpoints": true
     }
   ]
 }

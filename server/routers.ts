@@ -240,17 +240,33 @@ export const appRouter = router({
 
   testimonials: router({
     /**
-     * Get all testimonials
+     * Get all published testimonials
      */
     getAll: publicProcedure
       .input(
         z.object({
           domain: z.enum(["com", "ch"]).default("com"),
+          sector: z.enum(["communication", "events", "immersion"]).optional(),
           limit: z.number().default(100),
         })
       )
       .query(async ({ input }) => {
-        return getTestimonials(input.domain as Domain, input.limit);
+        const db = await getDb();
+        if (!db) return [];
+        const { eq, and } = await import("drizzle-orm");
+        const { testimonials } = await import("../drizzle/schema");
+        const conditions = [
+          eq(testimonials.domain, input.domain),
+          eq(testimonials.status, "published")
+        ];
+        if (input.sector) {
+          conditions.push(eq(testimonials.sector, input.sector));
+        }
+        return db
+          .select()
+          .from(testimonials)
+          .where(and(...conditions))
+          .limit(input.limit);
       }),
 
     /**
@@ -264,7 +280,152 @@ export const appRouter = router({
         })
       )
       .query(async ({ input }) => {
-        return getFeaturedTestimonials(input.domain as Domain, input.limit);
+        const db = await getDb();
+        if (!db) return [];
+        const { eq, and } = await import("drizzle-orm");
+        const { testimonials } = await import("../drizzle/schema");
+        return db
+          .select()
+          .from(testimonials)
+          .where(
+            and(
+              eq(testimonials.domain, input.domain),
+              eq(testimonials.status, "published"),
+              eq(testimonials.featured, 1)
+            )
+          )
+          .limit(input.limit);
+      }),
+
+    /**
+     * Submit a new testimonial (public)
+     */
+    submit: publicProcedure
+      .input(
+        z.object({
+          clientName: z.string().min(2),
+          clientTitle: z.string().optional(),
+          clientCompany: z.string().min(2),
+          clientEmail: z.string().email(),
+          clientPhone: z.string().optional(),
+          companyWebsite: z.string().url().optional(),
+          sector: z.enum(["communication", "events", "immersion"]),
+          projectType: z.string().min(2),
+          problem: z.string().min(10),
+          solution: z.string().min(10),
+          result: z.string().min(10),
+          rating: z.number().min(1).max(5).default(5),
+          allowWebsite: z.boolean().default(false),
+          allowGoogle: z.boolean().default(false),
+          allowTrustpilot: z.boolean().default(false),
+          allowSocial: z.boolean().default(false),
+          domain: z.enum(["com", "ch"]).default("com"),
+        })
+      )
+      .mutation(async ({ input }) => {
+        const db = await getDb();
+        if (!db) throw new Error("Database not available");
+        const { testimonials } = await import("../drizzle/schema");
+        await db.insert(testimonials).values({
+          clientName: input.clientName,
+          clientTitle: input.clientTitle || null,
+          clientCompany: input.clientCompany,
+          clientEmail: input.clientEmail,
+          clientPhone: input.clientPhone || null,
+          companyWebsite: input.companyWebsite || null,
+          sector: input.sector,
+          projectType: input.projectType,
+          problem: input.problem,
+          solution: input.solution,
+          result: input.result,
+          rating: input.rating,
+          status: "pending",
+          featured: 0,
+          allowWebsite: input.allowWebsite ? 1 : 0,
+          allowGoogle: input.allowGoogle ? 1 : 0,
+          allowTrustpilot: input.allowTrustpilot ? 1 : 0,
+          allowSocial: input.allowSocial ? 1 : 0,
+          domain: input.domain,
+        });
+        return { success: true };
+      }),
+
+    /**
+     * Get all testimonials (admin only)
+     */
+    getAllAdmin: protectedProcedure
+      .input(
+        z.object({
+          domain: z.enum(["com", "ch"]).default("com"),
+          status: z.enum(["pending", "approved", "published", "rejected"]).optional(),
+          limit: z.number().default(500),
+        })
+      )
+      .query(async ({ input, ctx }) => {
+        if (ctx.user?.role !== "admin") {
+          throw new Error("Unauthorized");
+        }
+        const db = await getDb();
+        if (!db) return [];
+        const { eq, and } = await import("drizzle-orm");
+        const { testimonials } = await import("../drizzle/schema");
+        const conditions = [eq(testimonials.domain, input.domain)];
+        if (input.status) {
+          conditions.push(eq(testimonials.status, input.status));
+        }
+        return db
+          .select()
+          .from(testimonials)
+          .where(and(...conditions))
+          .limit(input.limit);
+      }),
+
+    /**
+     * Approve testimonial (admin only)
+     */
+    approve: protectedProcedure
+      .input(
+        z.object({
+          id: z.number(),
+        })
+      )
+      .mutation(async ({ input, ctx }) => {
+        if (ctx.user?.role !== "admin") {
+          throw new Error("Unauthorized");
+        }
+        const db = await getDb();
+        if (!db) throw new Error("Database not available");
+        const { eq } = await import("drizzle-orm");
+        const { testimonials } = await import("../drizzle/schema");
+        await db
+          .update(testimonials)
+          .set({ status: "published", publishedAt: new Date() })
+          .where(eq(testimonials.id, input.id));
+        return { success: true };
+      }),
+
+    /**
+     * Reject testimonial (admin only)
+     */
+    reject: protectedProcedure
+      .input(
+        z.object({
+          id: z.number(),
+        })
+      )
+      .mutation(async ({ input, ctx }) => {
+        if (ctx.user?.role !== "admin") {
+          throw new Error("Unauthorized");
+        }
+        const db = await getDb();
+        if (!db) throw new Error("Database not available");
+        const { eq } = await import("drizzle-orm");
+        const { testimonials } = await import("../drizzle/schema");
+        await db
+          .update(testimonials)
+          .set({ status: "rejected" })
+          .where(eq(testimonials.id, input.id));
+        return { success: true };
       }),
 
     /**
@@ -274,23 +435,48 @@ export const appRouter = router({
       .input(
         z.object({
           clientName: z.string(),
-          clientRole: z.string().optional(),
-          clientCompany: z.string().optional(),
-          contentFr: z.string(),
-          contentEn: z.string(),
-          videoUrl: z.string().optional(),
-          imageUrl: z.string().optional(),
+          clientTitle: z.string().optional(),
+          clientCompany: z.string(),
+          clientEmail: z.string().email(),
+          clientPhone: z.string().optional(),
+          companyWebsite: z.string().optional(),
+          sector: z.enum(["communication", "events", "immersion"]),
+          projectType: z.string(),
+          problem: z.string(),
+          solution: z.string(),
+          result: z.string(),
           rating: z.number().default(5),
           featured: z.number().default(0),
           domain: z.enum(["com", "ch"]).default("com"),
-          status: z.enum(["draft", "published"]).default("published"),
+          status: z.enum(["pending", "approved", "published", "rejected"]).default("published"),
         })
       )
       .mutation(async ({ input, ctx }) => {
         if (ctx.user?.role !== "admin") {
           throw new Error("Unauthorized");
         }
-        return createTestimonial(input);
+        const db = await getDb();
+        if (!db) throw new Error("Database not available");
+        const { testimonials } = await import("../drizzle/schema");
+        await db.insert(testimonials).values({
+          clientName: input.clientName,
+          clientTitle: input.clientTitle || null,
+          clientCompany: input.clientCompany,
+          clientEmail: input.clientEmail,
+          clientPhone: input.clientPhone || null,
+          companyWebsite: input.companyWebsite || null,
+          sector: input.sector,
+          projectType: input.projectType,
+          problem: input.problem,
+          solution: input.solution,
+          result: input.result,
+          rating: input.rating,
+          featured: input.featured,
+          status: input.status,
+          domain: input.domain,
+          publishedAt: input.status === "published" ? new Date() : null,
+        });
+        return { success: true };
       }),
   }),
 
