@@ -20,6 +20,7 @@ import News from "./pages/News";
 import NewsDetail from "./pages/NewsDetail";
 import Admin from "./pages/Admin";
 import AdminNews from "./pages/AdminNews";
+import AdminTestimonials from "./pages/AdminTestimonials";
 import { AdminLogin } from "./pages/AdminLogin";
 
 function Router() {
@@ -41,6 +42,7 @@ function Router() {
       <Route path="/contact" component={Contact} />
       <Route path="/admin" component={Admin} />
       <Route path="/admin/news" component={AdminNews} />
+      <Route path="/admin/testimonials" component={AdminTestimonials} />
       <Route path="/g40mconnect" component={AdminLogin} />
       <Route path="/404" component={NotFound} />
       <Route component={NotFound} />
