@@ -5,7 +5,7 @@ import { Footer } from "@/components/Footer";
 import { Button } from "@/components/ui/button";
 import { HeroVideo } from "@/components/HeroVideo";
 import { trpc } from "@/lib/trpc";
-import { ChevronRight, Play } from "lucide-react";
+import { ChevronRight, Star, ArrowRight } from "lucide-react";
 
 export default function Home() {
   const { language, domain, isLoaded, t } = useI18n();
@@ -23,7 +23,7 @@ export default function Home() {
   );
 
   const { data: projects = [] } = trpc.portfolio.getFeatured.useQuery(
-    { domain: domain as "com" | "ch", limit: 6 },
+    { domain: domain as "com" | "ch", limit: 4 },
     { enabled: isLoaded }
   );
 
@@ -31,55 +31,84 @@ export default function Home() {
     return <div className="min-h-screen flex items-center justify-center">Chargement...</div>;
   }
 
-  const pillars = [
+  // Solutions data
+  const solutions = [
     {
-      key: "pillars.communication",
+      title: "Communication & Marketing",
+      description: "Stratégies de contenu et campagnes marketing qui génèrent des leads qualifiés et fidélisent votre audience.",
       href: "/offers/communication",
-      image: "https://d2xsxph8kpxj0f.cloudfront.net/310519663405351247/HJdMFahbvq3VamEnwkCWwG/pillar-communication-MLKhhyunx5HRZFZ7oWQMpF.webp",
+      icon: "📱"
     },
     {
-      key: "pillars.events",
+      title: "Événementiel",
+      description: "Expériences événementielles mémorables qui renforcent votre marque et créent du buzz authentique.",
       href: "/offers/events",
-      image: "https://d2xsxph8kpxj0f.cloudfront.net/310519663405351247/HJdMFahbvq3VamEnwkCWwG/pillar-events-efU3kzLkQaoZFh4Y9Me8Um.webp",
+      icon: "🎪"
     },
     {
-      key: "pillars.immersion",
+      title: "Immersion",
+      description: "Expériences immersives (VR/AR) qui transforment vos visiteurs en ambassadeurs de votre marque.",
       href: "/offers/immersion",
-      image: "https://d2xsxph8kpxj0f.cloudfront.net/310519663405351247/HJdMFahbvq3VamEnwkCWwG/pillar-immersion-iYDRR2kvYFMnQqVirentKB.webp",
+      icon: "🥽"
+    }
+  ];
+
+  // Business gains
+  const businessGains = [
+    {
+      metric: "+30%",
+      description: "Augmentation moyenne des ventes"
     },
+    {
+      metric: "200+",
+      description: "Clients satisfaits"
+    },
+    {
+      metric: "500+",
+      description: "Projets réussis"
+    },
+    {
+      metric: "20+",
+      description: "Années d'expertise"
+    }
+  ];
+
+  // Why us
+  const whyUs = [
+    {
+      title: "Équipe proche",
+      description: "Vous travaillez avec des experts passionnés qui comprennent vraiment votre business."
+    },
+    {
+      title: "Processus fluide",
+      description: "Une collaboration sans friction, de la conception à la livraison."
+    },
+    {
+      title: "Résultats mesurables",
+      description: "Chaque projet est piloté par des KPIs clairs et du reporting transparent."
+    }
   ];
 
   return (
     <div className="min-h-screen bg-white">
       <Header />
 
-      {/* HERO SECTION - PREMIUM V2 */}
+      {/* 1. HERO SECTION - PRESERVED */}
       <section className="relative h-screen overflow-hidden">
-        {/* Background Video */}
         <HeroVideo 
           title="Bluevista - Showreel 2025" 
           videoUrl="https://files.manuscdn.com/user_upload_by_module/session_file/310519663405351247/zLztsxSjfhtBNWAZ.mp4"
         />
-
-        {/* Premium Dark Overlay - Gradient for better text readability */}
         <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-black/50 to-black/60"></div>
-
-        {/* Content - Premium Layout */}
         <div className="relative h-full flex flex-col items-center justify-center text-center px-4 z-10">
           <div className="max-w-4xl space-y-8">
-            {/* Main Title - Premium Typography */}
             <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold text-white leading-tight tracking-tight">
               Transformez votre communication en résultats
             </h1>
-            
-            {/* Subtitle - Premium Style */}
             <p className="text-lg md:text-xl text-gray-100 max-w-3xl mx-auto leading-relaxed font-light">
               Agence de création de contenu, communication & marketing, événementiel et immersion.
             </p>
-            
-            {/* CTA Buttons - Premium Style */}
             <div className="flex flex-col sm:flex-row gap-6 justify-center pt-4">
-              {/* Primary Button - Blue */}
               <a href="/contact" className="inline-block">
                 <Button 
                   size="lg" 
@@ -89,8 +118,6 @@ export default function Home() {
                   <ChevronRight className="ml-2" size={20} />
                 </Button>
               </a>
-              
-              {/* Secondary Button - Transparent */}
               <a href="/portfolio" className="inline-block">
                 <Button 
                   variant="outline"
@@ -105,130 +132,160 @@ export default function Home() {
         </div>
       </section>
 
-      {/* 3 PILLARS SECTION */}
-      <section className="py-20 bg-gray-50">
+      {/* 2. NOS SOLUTIONS */}
+      <section className="py-24 bg-white">
         <div className="container mx-auto px-4">
-          <h2 className="text-4xl font-bold text-center mb-16 text-gray-900">
-            {t("home.pillars_title")}
-          </h2>
+          <div className="text-center mb-16">
+            <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">Nos Solutions</h2>
+            <p className="text-xl text-gray-600 max-w-2xl mx-auto">
+              Trois domaines d'expertise pour transformer votre communication en résultats concrets
+            </p>
+          </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {pillars.map((pillar) => (
-              <div
-                key={pillar.key}
-                className="bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition"
-              >
-                {/* Image header */}
-                <div className="h-40 overflow-hidden bg-gray-200">
-                  <img
-                    src={pillar.image}
-                    alt={t(`${pillar.key}.title`)}
-                    className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
-                  />
+            {solutions.map((solution, idx) => (
+              <a href={solution.href} key={idx} className="group">
+                <div className="h-full bg-gradient-to-br from-gray-50 to-gray-100 rounded-2xl p-8 hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 border border-gray-200">
+                  <div className="text-5xl mb-4">{solution.icon}</div>
+                  <h3 className="text-2xl font-bold text-gray-900 mb-3">{solution.title}</h3>
+                  <p className="text-gray-600 mb-6 leading-relaxed">{solution.description}</p>
+                  <div className="flex items-center text-blue-600 font-semibold group-hover:translate-x-2 transition-transform">
+                    En savoir plus <ArrowRight className="ml-2" size={20} />
+                  </div>
                 </div>
+              </a>
+            ))}
+          </div>
+        </div>
+      </section>
 
-                {/* Content */}
-                <div className="p-6">
-                  <h3 className="text-2xl font-bold text-gray-900 mb-3">
-                    {t(`${pillar.key}.title`)}
-                  </h3>
-                  <p className="text-gray-600 mb-4">
-                    {t(`${pillar.key}.promise`)}
-                  </p>
-                  <a href={pillar.href} className="block">
-                    <Button asChild variant="outline" className="w-full">
-                      <span>
-                        {t("home.learn_more")}
-                        <ChevronRight className="ml-2" size={16} />
-                      </span>
-                    </Button>
-                  </a>
-                </div>
+      {/* 3. VOS GAINS BUSINESS */}
+      <section className="py-24 bg-gradient-to-r from-blue-600 to-blue-800">
+        <div className="container mx-auto px-4">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl md:text-5xl font-bold text-white mb-4">Vos Gains Business</h2>
+            <p className="text-xl text-blue-100">
+              Les résultats concrets que nos clients obtiennent
+            </p>
+          </div>
+
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
+            {businessGains.map((gain, idx) => (
+              <div key={idx} className="text-center">
+                <div className="text-5xl md:text-6xl font-bold text-white mb-2">{gain.metric}</div>
+                <p className="text-blue-100">{gain.description}</p>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* KEY METRICS SECTION */}
-      {metrics.length > 0 && (
-        <section className="py-20 bg-white">
-          <div className="container mx-auto px-4">
-            <h2 className="text-4xl font-bold text-center mb-16 text-gray-900">
-              {t("home.key_metrics")}
-            </h2>
+      {/* 4. RÉALISATIONS PHARES */}
+      <section className="py-24 bg-white">
+        <div className="container mx-auto px-4">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">Réalisations Phares</h2>
+            <p className="text-xl text-gray-600 max-w-2xl mx-auto">
+              Une sélection de nos projets les plus impactants
+            </p>
+          </div>
 
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
-              {metrics.map((metric) => (
-                <div key={metric.id} className="text-center">
-                  <div className="text-4xl md:text-5xl font-bold text-blue-600 mb-2">
-                    {metric.value}
+          {projects.length > 0 ? (
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+              {projects.slice(0, 4).map((project, idx) => (
+                <a href={`/portfolio/${project.id}`} key={idx} className="group">
+                  <div className="relative overflow-hidden rounded-2xl h-80 bg-gradient-to-br from-gray-200 to-gray-300">
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent flex flex-col justify-end p-6">
+                      <h3 className="text-2xl font-bold text-white">{language === 'fr' ? project.titleFr : project.titleEn}</h3>
+                      <p className="text-gray-200 mt-2 line-clamp-2">{language === 'fr' ? project.descriptionFr : project.descriptionEn}</p>
+                    </div>
                   </div>
-                  <p className="text-gray-600">
-                    {language === "fr" ? metric.labelFr : metric.labelEn}
-                  </p>
-                </div>
+                </a>
               ))}
             </div>
+          ) : (
+            <div className="text-center py-12 text-gray-500">
+              Projets à venir...
+            </div>
+          )}
+
+          <div className="text-center mt-12">
+            <a href="/portfolio">
+              <Button size="lg" className="bg-blue-600 hover:bg-blue-700 text-white">
+                Voir tous les projets
+                <ChevronRight className="ml-2" size={20} />
+              </Button>
+            </a>
           </div>
-        </section>
-      )}
+        </div>
+      </section>
 
-      {/* TESTIMONIALS SECTION */}
+      {/* 5. POURQUOI BLUEVISTA */}
+      <section className="py-24 bg-gray-50">
+        <div className="container mx-auto px-4">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">Pourquoi Bluevista</h2>
+            <p className="text-xl text-gray-600 max-w-2xl mx-auto">
+              Notre approche pour transformer votre communication
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
+            {whyUs.map((item, idx) => (
+              <div key={idx} className="text-center">
+                <div className="w-16 h-16 bg-blue-600 rounded-full flex items-center justify-center mx-auto mb-6">
+                  <span className="text-2xl text-white font-bold">{idx + 1}</span>
+                </div>
+                <h3 className="text-2xl font-bold text-gray-900 mb-3">{item.title}</h3>
+                <p className="text-gray-600 leading-relaxed">{item.description}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* 6. ILS NOUS FONT CONFIANCE */}
       {testimonials.length > 0 && (
-        <section className="py-20 bg-gray-50">
+        <section className="py-24 bg-white">
           <div className="container mx-auto px-4">
-            <h2 className="text-4xl font-bold text-center mb-16 text-gray-900">
-              {t("home.testimonials")}
-            </h2>
+            <div className="text-center mb-16">
+              <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">Ils Nous Font Confiance</h2>
+              <p className="text-xl text-gray-600">
+                Les témoignages de nos clients satisfaits
+              </p>
+            </div>
 
+            {/* Testimonials Carousel */}
             <div className="max-w-3xl mx-auto">
-              {/* Testimonial card */}
-              <div className="bg-white rounded-lg shadow-lg p-8 mb-8">
-                <div className="flex items-center gap-4 mb-6">
-                  {testimonials[activeTestimonial]?.imageUrl && (
-                    <img
-                      src={testimonials[activeTestimonial].imageUrl}
-                      alt={testimonials[activeTestimonial].clientName}
-                      className="w-16 h-16 rounded-full object-cover"
-                    />
-                  )}
-                  <div>
-                    <p className="font-bold text-gray-900">
-                      {testimonials[activeTestimonial]?.clientName}
+              <div className="bg-gradient-to-br from-gray-50 to-gray-100 rounded-2xl p-8 md:p-12 border border-gray-200">
+                {testimonials[activeTestimonial] && (
+                  <div className="text-center">
+                    <div className="flex justify-center mb-4">
+                      {[...Array(5)].map((_, i) => (
+                        <Star key={i} size={24} className="text-yellow-400 fill-yellow-400" />
+                      ))}
+                    </div>
+                    <p className="text-xl text-gray-700 mb-6 italic">
+                      "{testimonials[activeTestimonial].problem}"
                     </p>
-                    <p className="text-sm text-gray-600">
-                      {testimonials[activeTestimonial]?.clientCompany}
+                    <p className="font-bold text-gray-900">
+                      {testimonials[activeTestimonial].clientName}
+                    </p>
+                    <p className="text-gray-600">
+                      {testimonials[activeTestimonial].clientCompany}
                     </p>
                   </div>
-                </div>
-
-                <p className="text-gray-700 text-lg mb-6 italic">
-                  "{language === "fr"
-                    ? testimonials[activeTestimonial]?.problem
-                    : testimonials[activeTestimonial]?.problem}"
-                </p>
-
-                {/* Stars */}
-                <div className="flex gap-1 mb-6">
-                  {Array.from({ length: testimonials[activeTestimonial]?.rating || 5 }).map(
-                    (_, i) => (
-                      <span key={i} className="text-yellow-400">
-                        ★
-                      </span>
-                    )
-                  )}
-                </div>
+                )}
               </div>
 
-              {/* Carousel dots */}
-              <div className="flex justify-center gap-2">
-                {testimonials.map((_, index) => (
+              {/* Navigation */}
+              <div className="flex justify-center gap-4 mt-8">
+                {testimonials.map((_, idx) => (
                   <button
-                    key={index}
-                    onClick={() => setActiveTestimonial(index)}
-                    className={`w-3 h-3 rounded-full transition ${
-                      index === activeTestimonial ? "bg-blue-600" : "bg-gray-300"
+                    key={idx}
+                    onClick={() => setActiveTestimonial(idx)}
+                    className={`w-3 h-3 rounded-full transition-all ${
+                      idx === activeTestimonial ? "bg-blue-600 w-8" : "bg-gray-300"
                     }`}
                   />
                 ))}
@@ -238,73 +295,50 @@ export default function Home() {
         </section>
       )}
 
-      {/* LATEST PROJECTS SECTION */}
-      {projects.length > 0 && (
-        <section className="py-20 bg-white">
-          <div className="container mx-auto px-4">
-            <h2 className="text-4xl font-bold text-center mb-16 text-gray-900">
-              {t("home.latest_projects")}
-            </h2>
-
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
-              {projects.map((project) => (
-                <div
-                  key={project.id}
-                  className="group overflow-hidden rounded-lg shadow-lg hover:shadow-xl transition"
-                >
-                  {project.imageUrl && (
-                    <div className="h-64 overflow-hidden bg-gray-200">
-                      <img
-                        src={project.imageUrl}
-                        alt={language === "fr" ? project.titleFr : project.titleEn}
-                        className="w-full h-full object-cover group-hover:scale-105 transition duration-300"
-                      />
-                    </div>
-                  )}
-                  <div className="p-6 bg-white">
-                    <h3 className="font-bold text-gray-900 mb-2">
-                      {language === "fr" ? project.titleFr : project.titleEn}
-                    </h3>
-                    <p className="text-sm text-gray-600 mb-4">
-                      {project.sector} • {project.projectType}
-                    </p>
-                    <p className="text-gray-700 text-sm line-clamp-2">
-                      {language === "fr" ? project.descriptionFr : project.descriptionEn}
-                    </p>
-                  </div>
+      {/* 7. CHIFFRES CLÉS */}
+      <section className="py-24 bg-gradient-to-r from-gray-900 to-gray-800">
+        <div className="container mx-auto px-4">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+            {metrics.map((metric, idx) => (
+              <div key={idx}>
+                <div className="text-4xl md:text-5xl font-bold text-blue-400 mb-2">
+                  {metric.value}
                 </div>
-              ))}
-            </div>
+                <p className="text-gray-300">{language === 'fr' ? metric.labelFr : metric.labelEn}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
 
-            <div className="text-center">
-              <a href="/portfolio" className="inline-block">
-                <Button asChild size="lg" variant="outline">
-                  <span>
-                    {t("home.learn_more")}
-                    <ChevronRight className="ml-2" size={20} />
-                  </span>
+      {/* 8. GRAND CTA FINAL */}
+      <section className="py-24 bg-white">
+        <div className="container mx-auto px-4">
+          <div className="max-w-3xl mx-auto text-center">
+            <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
+              Prêt à booster votre impact ?
+            </h2>
+            <p className="text-xl text-gray-600 mb-8">
+              Parlons de votre projet et découvrez comment nous pouvons transformer votre communication en résultats mesurables.
+            </p>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <a href="/contact">
+                <Button size="lg" className="bg-blue-600 hover:bg-blue-700 text-white px-8 py-6 text-lg font-semibold">
+                  Démarrer maintenant
+                  <ChevronRight className="ml-2" size={20} />
+                </Button>
+              </a>
+              <a href="/portfolio">
+                <Button 
+                  variant="outline" 
+                  size="lg" 
+                  className="border-2 border-blue-600 text-blue-600 hover:bg-blue-50 px-8 py-6 text-lg font-semibold"
+                >
+                  Voir nos réalisations
                 </Button>
               </a>
             </div>
           </div>
-        </section>
-      )}
-
-      {/* CTA SECTION */}
-      <section className="py-20 bg-gradient-to-r from-blue-600 to-blue-700 text-white">
-        <div className="container mx-auto px-4 text-center">
-          <h2 className="text-4xl font-bold mb-6">Prêt à transformer votre communication ?</h2>
-          <p className="text-xl text-blue-100 mb-8 max-w-2xl mx-auto">
-            Contactez-nous pour discuter de votre projet et découvrir comment nous pouvons vous aider.
-          </p>
-          <a href="/contact" className="inline-block">
-            <Button asChild size="lg" className="bg-white text-blue-600 hover:bg-gray-100">
-              <span>
-                {t("home.quote_cta")}
-                <ChevronRight className="ml-2" size={20} />
-              </span>
-            </Button>
-          </a>
         </div>
       </section>
 
