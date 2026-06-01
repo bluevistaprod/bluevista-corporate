@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useI18n } from "@/hooks/useI18n";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
@@ -10,12 +10,16 @@ import { ChevronRight, Star, ArrowRight, ChevronLeft } from "lucide-react";
 export default function Home() {
   const { language, domain, isLoaded, t } = useI18n();
   const [activeTestimonial, setActiveTestimonial] = useState(0);
-  const [parallaxOffset, setParallaxOffset] = useState(0);
+  const [parallaxY, setParallaxY] = useState(0);
 
-  // Handle parallax scroll
-  const handleScroll = (e: any) => {
-    setParallaxOffset(window.scrollY * 0.5);
-  };
+  // Handle parallax scroll effect
+  useEffect(() => {
+    const handleScroll = () => {
+      setParallaxY(window.scrollY * 0.5);
+    };
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   // Récupérer les données
   const { data: metrics = [] } = trpc.metrics.getAll.useQuery(
@@ -54,25 +58,25 @@ export default function Home() {
     }
   ];
 
-  // Solutions with CORRECTED premium images
+  // Solutions with REAL premium images
   const solutions = [
     {
       title: "Communication & Marketing",
       description: "Stratégies de contenu et campagnes marketing qui génèrent des leads qualifiés et fidélisent votre audience.",
       href: "/offers/communication",
-      image: "https://images.unsplash.com/photo-1552664730-d307ca884978?w=1000&h=700&fit=crop&q=85"
+      image: "https://images.unsplash.com/photo-1552664730-d307ca884978?w=600&h=500&fit=crop&q=90"
     },
     {
       title: "Événementiel",
       description: "Expériences événementielles mémorables qui renforcent votre marque et créent du buzz authentique.",
       href: "/offers/events",
-      image: "https://images.unsplash.com/photo-1540575467063-178f50002c4b?w=1000&h=700&fit=crop&q=85"
+      image: "https://images.unsplash.com/photo-1492684223066-81342ee5ff30?w=600&h=500&fit=crop&q=90"
     },
     {
       title: "Immersion",
       description: "Expériences immersives (VR/AR) qui transforment vos visiteurs en ambassadeurs de votre marque.",
       href: "/offers/immersion",
-      image: "https://images.unsplash.com/photo-1633356122544-f134324ef6db?w=1000&h=700&fit=crop&q=85"
+      image: "https://images.unsplash.com/photo-1617638924702-92f37fcb0f6d?w=600&h=500&fit=crop&q=90"
     }
   ];
 
@@ -93,7 +97,7 @@ export default function Home() {
   ];
 
   return (
-    <div className="min-h-screen bg-white" onScroll={handleScroll}>
+    <div className="min-h-screen bg-white">
       <Header />
 
       {/* 1. HERO SECTION - PRESERVED */}
@@ -135,9 +139,9 @@ export default function Home() {
         </div>
       </section>
 
-      {/* 2. NOS SOLUTIONS - WITH PARALLAX BACKGROUND IMAGE */}
+      {/* 2. NOS SOLUTIONS - WITH VISIBLE PARALLAX BACKGROUND */}
       <section className="relative py-32 overflow-hidden">
-        {/* Parallax background image */}
+        {/* PARALLAX BACKGROUND - VISIBLE */}
         <div 
           className="absolute inset-0 z-0"
           style={{
@@ -145,13 +149,13 @@ export default function Home() {
             backgroundSize: 'cover',
             backgroundPosition: 'center',
             backgroundAttachment: 'fixed',
-            transform: `translateY(${parallaxOffset}px)`,
-            opacity: 0.08
+            transform: `translateY(${parallaxY}px)`,
+            opacity: 0.25
           }}
         ></div>
 
-        {/* Gradient overlay */}
-        <div className="absolute inset-0 bg-gradient-to-b from-white via-white to-gray-50 z-0"></div>
+        {/* Dark overlay for readability */}
+        <div className="absolute inset-0 bg-gradient-to-b from-white/95 via-white/90 to-white/95 z-0"></div>
 
         {/* Content */}
         <div className="container mx-auto px-4 relative z-10">
@@ -165,20 +169,16 @@ export default function Home() {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
             {solutions.map((solution, idx) => (
               <a href={solution.href} key={idx} className="group h-full">
-                <div className="h-full bg-white rounded-3xl overflow-hidden shadow-xl hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-3 border border-gray-100 flex flex-col">
-                  {/* Premium Image with Overlay */}
+                <div className="h-full bg-white rounded-3xl overflow-hidden shadow-2xl hover:shadow-3xl transition-all duration-500 transform hover:-translate-y-4 border border-gray-100 flex flex-col">
+                  {/* REAL IMAGE - VISIBLE */}
                   <div className="relative h-80 overflow-hidden bg-gray-300">
                     <img 
                       src={solution.image}
                       alt={solution.title}
-                      className="w-full h-full object-cover group-hover:scale-125 transition-transform duration-700"
+                      className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
                       loading="lazy"
-                      onError={(e) => {
-                        // Fallback if image fails to load
-                        e.currentTarget.style.backgroundColor = '#e5e7eb';
-                      }}
                     />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
                   </div>
                   
                   {/* Content */}
@@ -276,9 +276,9 @@ export default function Home() {
         </div>
       </section>
 
-      {/* 4. RÉALISATIONS PHARES - WITH PARALLAX BACKGROUND */}
+      {/* 4. RÉALISATIONS PHARES - WITH VISIBLE PARALLAX BACKGROUND */}
       <section className="relative py-32 overflow-hidden">
-        {/* Parallax background image */}
+        {/* PARALLAX BACKGROUND - VISIBLE */}
         <div 
           className="absolute inset-0 z-0"
           style={{
@@ -286,13 +286,13 @@ export default function Home() {
             backgroundSize: 'cover',
             backgroundPosition: 'center',
             backgroundAttachment: 'fixed',
-            transform: `translateY(${parallaxOffset * 0.3}px)`,
-            opacity: 0.12
+            transform: `translateY(${parallaxY * 0.3}px)`,
+            opacity: 0.3
           }}
         ></div>
 
-        {/* Gradient overlay */}
-        <div className="absolute inset-0 bg-gradient-to-b from-white via-white to-gray-50 z-0"></div>
+        {/* Dark overlay */}
+        <div className="absolute inset-0 bg-gradient-to-b from-white/95 via-white/90 to-white/95 z-0"></div>
 
         {/* Content */}
         <div className="container mx-auto px-4 relative z-10">
@@ -307,7 +307,7 @@ export default function Home() {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
               {projects.slice(0, 4).map((project, idx) => (
                 <a href={`/portfolio/${project.id}`} key={idx} className="group">
-                  <div className="relative overflow-hidden rounded-3xl h-96 bg-gradient-to-br from-gray-200 to-gray-300 shadow-xl hover:shadow-2xl transition-all duration-500">
+                  <div className="relative overflow-hidden rounded-3xl h-96 bg-gradient-to-br from-gray-200 to-gray-300 shadow-2xl hover:shadow-3xl transition-all duration-500">
                     <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent flex flex-col justify-end p-8 group-hover:from-black/90 transition-all duration-500">
                       <h3 className="text-3xl font-bold text-white mb-2 group-hover:translate-y-0 translate-y-2 transition-transform duration-500">{language === 'fr' ? project.titleFr : project.titleEn}</h3>
                       <p className="text-gray-200 line-clamp-2 group-hover:text-gray-100 transition-colors">{language === 'fr' ? project.descriptionFr : project.descriptionEn}</p>
