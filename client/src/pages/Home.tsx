@@ -53,33 +53,51 @@ export default function Home() {
     <div className="min-h-screen bg-white">
       <Header />
 
-      {/* HERO SECTION */}
+      {/* HERO SECTION - PREMIUM V2 */}
       <section className="relative h-screen overflow-hidden">
-        {/* Background Video - HTML5 video for perfect fill without letterboxing */}
+        {/* Background Video */}
         <HeroVideo 
           title="Bluevista - Showreel 2025" 
           videoUrl="https://files.manuscdn.com/user_upload_by_module/session_file/310519663405351247/zLztsxSjfhtBNWAZ.mp4"
         />
 
-        {/* Overlay */}
-        <div className="absolute inset-0 bg-black/50"></div>
+        {/* Premium Dark Overlay - Gradient for better text readability */}
+        <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-black/50 to-black/60"></div>
 
-        {/* Content */}
+        {/* Content - Premium Layout */}
         <div className="relative h-full flex flex-col items-center justify-center text-center px-4 z-10">
-          <div className="max-w-3xl">
-            <h1 className="text-5xl md:text-7xl font-bold text-white mb-6 leading-tight">
-              {t("home.hero_baseline")}
+          <div className="max-w-4xl space-y-8">
+            {/* Main Title - Premium Typography */}
+            <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold text-white leading-tight tracking-tight">
+              Nous transformons votre communication en expériences qui génèrent du business concret.
             </h1>
-            <p className="text-xl text-gray-300 mb-8 max-w-2xl mx-auto">
-              Agence de création de contenu com et marketing, événementiel et immersion
+            
+            {/* Subtitle - Premium Style */}
+            <p className="text-lg md:text-xl text-gray-100 max-w-3xl mx-auto leading-relaxed font-light">
+              Communication, événementiel et immersion. Des solutions créatives, humaines et mesurables qui font réellement avancer vos objectifs business.
             </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <a href="/offers" className="inline-block">
-                <Button asChild size="lg" className="bg-blue-600 hover:bg-blue-700 text-white">
-                  <span>
-                    {t("home.hero_cta")}
-                    <ChevronRight className="ml-2" size={20} />
-                  </span>
+            
+            {/* CTA Buttons - Premium Style */}
+            <div className="flex flex-col sm:flex-row gap-6 justify-center pt-4">
+              {/* Primary Button - Blue */}
+              <a href="/contact" className="inline-block">
+                <Button 
+                  size="lg" 
+                  className="bg-blue-600 hover:bg-blue-700 text-white px-8 py-6 text-lg font-semibold rounded-lg shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105"
+                >
+                  Discutons de votre projet
+                  <ChevronRight className="ml-2" size={20} />
+                </Button>
+              </a>
+              
+              {/* Secondary Button - Transparent */}
+              <a href="/portfolio" className="inline-block">
+                <Button 
+                  variant="outline"
+                  size="lg" 
+                  className="border-2 border-white text-white hover:bg-white/10 px-8 py-6 text-lg font-semibold rounded-lg backdrop-blur-sm transition-all duration-300 hover:border-gray-200"
+                >
+                  Voir nos réalisations
                 </Button>
               </a>
             </div>
