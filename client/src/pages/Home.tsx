@@ -48,45 +48,25 @@ export default function Home() {
     }
   ];
 
-  // Solutions with premium images
+  // Solutions with premium images (high quality, realistic)
   const solutions = [
     {
       title: "Communication & Marketing",
       description: "Stratégies de contenu et campagnes marketing qui génèrent des leads qualifiés et fidélisent votre audience.",
       href: "/offers/communication",
-      image: "https://images.unsplash.com/photo-1552664730-d307ca884978?w=800&h=600&fit=crop"
+      image: "https://images.unsplash.com/photo-1552664730-d307ca884978?w=1000&h=700&fit=crop&q=80"
     },
     {
       title: "Événementiel",
       description: "Expériences événementielles mémorables qui renforcent votre marque et créent du buzz authentique.",
       href: "/offers/events",
-      image: "https://images.unsplash.com/photo-1519671482677-504be0ffbc9d?w=800&h=600&fit=crop"
+      image: "https://images.unsplash.com/photo-1519671482677-504be0ffbc9d?w=1000&h=700&fit=crop&q=80"
     },
     {
       title: "Immersion",
       description: "Expériences immersives (VR/AR) qui transforment vos visiteurs en ambassadeurs de votre marque.",
       href: "/offers/immersion",
-      image: "https://images.unsplash.com/photo-1633356122544-f134324ef6db?w=800&h=600&fit=crop"
-    }
-  ];
-
-  // Business gains
-  const businessGains = [
-    {
-      metric: "+30%",
-      description: "Augmentation moyenne des ventes"
-    },
-    {
-      metric: "200+",
-      description: "Clients satisfaits"
-    },
-    {
-      metric: "500+",
-      description: "Projets réussis"
-    },
-    {
-      metric: "20+",
-      description: "Années d'expertise"
+      image: "https://images.unsplash.com/photo-1633356122544-f134324ef6db?w=1000&h=700&fit=crop&q=80"
     }
   ];
 
@@ -149,33 +129,44 @@ export default function Home() {
         </div>
       </section>
 
-      {/* 2. NOS SOLUTIONS - WITH PREMIUM IMAGES */}
-      <section className="py-24 bg-white">
-        <div className="container mx-auto px-4">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">Nos Solutions</h2>
-            <p className="text-xl text-gray-600 max-w-2xl mx-auto">
+      {/* 2. NOS SOLUTIONS - PREMIUM DESIGN WITH PARALLAX EFFECT */}
+      <section className="py-32 bg-gradient-to-b from-white via-gray-50 to-white relative overflow-hidden">
+        {/* Subtle background pattern */}
+        <div className="absolute inset-0 opacity-5">
+          <div className="absolute top-0 right-0 w-96 h-96 bg-blue-400 rounded-full blur-3xl"></div>
+          <div className="absolute bottom-0 left-0 w-96 h-96 bg-purple-400 rounded-full blur-3xl"></div>
+        </div>
+
+        <div className="container mx-auto px-4 relative z-10">
+          <div className="text-center mb-20">
+            <h2 className="text-5xl md:text-6xl font-bold text-gray-900 mb-6">Nos Solutions</h2>
+            <p className="text-xl text-gray-600 max-w-2xl mx-auto leading-relaxed">
               Trois domaines d'expertise pour transformer votre communication en résultats concrets
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
             {solutions.map((solution, idx) => (
-              <a href={solution.href} key={idx} className="group">
-                <div className="h-full bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 border border-gray-200">
-                  {/* Premium Image */}
-                  <div className="relative h-64 overflow-hidden bg-gray-200">
+              <a href={solution.href} key={idx} className="group h-full">
+                <div className="h-full bg-white rounded-3xl overflow-hidden shadow-xl hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-3 border border-gray-100 flex flex-col">
+                  {/* Premium Image with Overlay */}
+                  <div className="relative h-80 overflow-hidden bg-gray-200">
                     <img 
                       src={solution.image}
                       alt={solution.title}
-                      className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                      className="w-full h-full object-cover group-hover:scale-125 transition-transform duration-700"
+                      loading="lazy"
                     />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
                   </div>
+                  
                   {/* Content */}
-                  <div className="p-8">
-                    <h3 className="text-2xl font-bold text-gray-900 mb-3">{solution.title}</h3>
-                    <p className="text-gray-600 mb-6 leading-relaxed">{solution.description}</p>
-                    <div className="flex items-center text-blue-600 font-semibold group-hover:translate-x-2 transition-transform">
+                  <div className="p-8 flex-1 flex flex-col justify-between">
+                    <div>
+                      <h3 className="text-2xl font-bold text-gray-900 mb-3 group-hover:text-blue-600 transition-colors">{solution.title}</h3>
+                      <p className="text-gray-600 mb-6 leading-relaxed text-base">{solution.description}</p>
+                    </div>
+                    <div className="flex items-center text-blue-600 font-semibold group-hover:translate-x-2 transition-transform duration-300">
                       En savoir plus <ArrowRight className="ml-2" size={20} />
                     </div>
                   </div>
@@ -186,60 +177,45 @@ export default function Home() {
         </div>
       </section>
 
-      {/* 3. VOS GAINS BUSINESS */}
-      <section className="py-24 bg-gradient-to-r from-blue-600 to-blue-800">
-        <div className="container mx-auto px-4">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl md:text-5xl font-bold text-white mb-4">Vos Gains Business</h2>
-            <p className="text-xl text-blue-100">
-              Les résultats concrets que nos clients obtiennent
-            </p>
-          </div>
-
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
-            {businessGains.map((gain, idx) => (
-              <div key={idx} className="text-center">
-                <div className="text-5xl md:text-6xl font-bold text-white mb-2">{gain.metric}</div>
-                <p className="text-blue-100">{gain.description}</p>
-              </div>
-            ))}
-          </div>
+      {/* 3. ILS NOUS ONT FAIT CONFIANCE - TESTIMONIALS (PREMIUM DESIGN) */}
+      <section className="py-32 bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 relative overflow-hidden">
+        {/* Animated background elements */}
+        <div className="absolute inset-0 opacity-10">
+          <div className="absolute top-20 left-10 w-72 h-72 bg-blue-400 rounded-full blur-3xl animate-pulse"></div>
+          <div className="absolute bottom-20 right-10 w-72 h-72 bg-purple-400 rounded-full blur-3xl animate-pulse"></div>
         </div>
-      </section>
 
-      {/* 4. ILS NOUS ONT FAIT CONFIANCE - TESTIMONIALS */}
-      <section className="py-24 bg-gray-50">
-        <div className="container mx-auto px-4">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
+        <div className="container mx-auto px-4 relative z-10">
+          <div className="text-center mb-20">
+            <h2 className="text-5xl md:text-6xl font-bold text-white mb-6">
               Ils nous ont fait confiance et ont boosté leurs résultats
             </h2>
-            <p className="text-xl text-gray-600 max-w-2xl mx-auto">
+            <p className="text-xl text-gray-300 max-w-2xl mx-auto leading-relaxed">
               Découvrez comment nos clients ont transformé leur communication en résultats business concrets.
             </p>
           </div>
 
           {/* Testimonials Carousel */}
           <div className="max-w-4xl mx-auto">
-            <div className="bg-white rounded-2xl p-8 md:p-12 shadow-lg border border-gray-200">
+            <div className="bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-md rounded-3xl p-10 md:p-16 shadow-2xl border border-white/20">
               {testimonials[activeTestimonial] && (
                 <div className="text-center">
-                  <div className="flex justify-center mb-6">
+                  <div className="flex justify-center mb-8">
                     {[...Array(5)].map((_, i) => (
-                      <Star key={i} size={24} className="text-yellow-400 fill-yellow-400" />
+                      <Star key={i} size={28} className="text-yellow-400 fill-yellow-400" />
                     ))}
                   </div>
-                  <p className="text-xl text-gray-700 mb-8 italic leading-relaxed">
+                  <p className="text-xl md:text-2xl text-white mb-10 italic leading-relaxed font-light">
                     "{testimonials[activeTestimonial].quote}"
                   </p>
-                  <div className="border-t border-gray-200 pt-6">
-                    <p className="font-bold text-gray-900 text-lg">
+                  <div className="border-t border-white/20 pt-8">
+                    <p className="font-bold text-white text-lg">
                       {testimonials[activeTestimonial].author}
                     </p>
-                    <p className="text-gray-600 mb-2">
+                    <p className="text-gray-300 mb-2">
                       {testimonials[activeTestimonial].title}
                     </p>
-                    <p className="text-blue-600 font-semibold">
+                    <p className="text-blue-400 font-semibold text-lg">
                       {testimonials[activeTestimonial].company}
                     </p>
                   </div>
@@ -248,67 +224,69 @@ export default function Home() {
             </div>
 
             {/* Navigation */}
-            <div className="flex justify-center items-center gap-6 mt-8">
+            <div className="flex justify-center items-center gap-8 mt-12">
               <button
                 onClick={() => setActiveTestimonial((prev) => (prev - 1 + testimonials.length) % testimonials.length)}
-                className="p-2 rounded-full border-2 border-blue-600 text-blue-600 hover:bg-blue-600 hover:text-white transition-all"
+                className="p-3 rounded-full border-2 border-white/40 text-white hover:bg-white/20 hover:border-white transition-all duration-300"
               >
-                <ChevronLeft size={24} />
+                <ChevronLeft size={28} />
               </button>
-              <div className="flex gap-3">
+              <div className="flex gap-4">
                 {testimonials.map((_, idx) => (
                   <button
                     key={idx}
                     onClick={() => setActiveTestimonial(idx)}
-                    className={`w-3 h-3 rounded-full transition-all ${
-                      idx === activeTestimonial ? "bg-blue-600 w-8" : "bg-gray-300"
+                    className={`rounded-full transition-all duration-300 ${
+                      idx === activeTestimonial 
+                        ? "bg-blue-500 w-10 h-3" 
+                        : "bg-white/30 w-3 h-3 hover:bg-white/50"
                     }`}
                   />
                 ))}
               </div>
               <button
                 onClick={() => setActiveTestimonial((prev) => (prev + 1) % testimonials.length)}
-                className="p-2 rounded-full border-2 border-blue-600 text-blue-600 hover:bg-blue-600 hover:text-white transition-all"
+                className="p-3 rounded-full border-2 border-white/40 text-white hover:bg-white/20 hover:border-white transition-all duration-300"
               >
-                <ChevronRight size={24} />
+                <ChevronRight size={28} />
               </button>
             </div>
           </div>
         </div>
       </section>
 
-      {/* 5. RÉALISATIONS PHARES */}
-      <section className="py-24 bg-white">
+      {/* 4. RÉALISATIONS PHARES - FULL WIDTH WITH PARALLAX */}
+      <section className="py-32 bg-white relative overflow-hidden">
         <div className="container mx-auto px-4">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">Réalisations Phares</h2>
-            <p className="text-xl text-gray-600 max-w-2xl mx-auto">
+          <div className="text-center mb-20">
+            <h2 className="text-5xl md:text-6xl font-bold text-gray-900 mb-6">Réalisations Phares</h2>
+            <p className="text-xl text-gray-600 max-w-2xl mx-auto leading-relaxed">
               Une sélection de nos projets les plus impactants
             </p>
           </div>
 
           {projects.length > 0 ? (
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
               {projects.slice(0, 4).map((project, idx) => (
                 <a href={`/portfolio/${project.id}`} key={idx} className="group">
-                  <div className="relative overflow-hidden rounded-2xl h-80 bg-gradient-to-br from-gray-200 to-gray-300">
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent flex flex-col justify-end p-6">
-                      <h3 className="text-2xl font-bold text-white">{language === 'fr' ? project.titleFr : project.titleEn}</h3>
-                      <p className="text-gray-200 mt-2 line-clamp-2">{language === 'fr' ? project.descriptionFr : project.descriptionEn}</p>
+                  <div className="relative overflow-hidden rounded-3xl h-96 bg-gradient-to-br from-gray-200 to-gray-300 shadow-xl hover:shadow-2xl transition-all duration-500">
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent flex flex-col justify-end p-8 group-hover:from-black/90 transition-all duration-500">
+                      <h3 className="text-3xl font-bold text-white mb-2 group-hover:translate-y-0 translate-y-2 transition-transform duration-500">{language === 'fr' ? project.titleFr : project.titleEn}</h3>
+                      <p className="text-gray-200 line-clamp-2 group-hover:text-gray-100 transition-colors">{language === 'fr' ? project.descriptionFr : project.descriptionEn}</p>
                     </div>
                   </div>
                 </a>
               ))}
             </div>
           ) : (
-            <div className="text-center py-12 text-gray-500">
+            <div className="text-center py-16 text-gray-500 text-lg">
               Projets à venir...
             </div>
           )}
 
-          <div className="text-center mt-12">
+          <div className="text-center mt-16">
             <a href="/portfolio">
-              <Button size="lg" className="bg-blue-600 hover:bg-blue-700 text-white">
+              <Button size="lg" className="bg-blue-600 hover:bg-blue-700 text-white px-10 py-6 text-lg font-semibold rounded-lg shadow-lg hover:shadow-xl transition-all">
                 Voir tous les projets
                 <ChevronRight className="ml-2" size={20} />
               </Button>
@@ -317,59 +295,75 @@ export default function Home() {
         </div>
       </section>
 
-      {/* 6. POURQUOI BLUEVISTA */}
-      <section className="py-24 bg-gray-50">
-        <div className="container mx-auto px-4">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">Pourquoi Bluevista</h2>
-            <p className="text-xl text-gray-600 max-w-2xl mx-auto">
+      {/* 5. POURQUOI BLUEVISTA - DARK SECTION */}
+      <section className="py-32 bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 relative overflow-hidden">
+        {/* Decorative elements */}
+        <div className="absolute inset-0 opacity-5">
+          <div className="absolute top-1/4 right-0 w-96 h-96 bg-blue-400 rounded-full blur-3xl"></div>
+          <div className="absolute bottom-1/4 left-0 w-96 h-96 bg-purple-400 rounded-full blur-3xl"></div>
+        </div>
+
+        <div className="container mx-auto px-4 relative z-10">
+          <div className="text-center mb-20">
+            <h2 className="text-5xl md:text-6xl font-bold text-white mb-6">Pourquoi Bluevista</h2>
+            <p className="text-xl text-gray-300 max-w-2xl mx-auto leading-relaxed">
               Notre approche pour transformer votre communication
             </p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
             {whyUs.map((item, idx) => (
-              <div key={idx} className="text-center">
-                <div className="w-16 h-16 bg-blue-600 rounded-full flex items-center justify-center mx-auto mb-6">
-                  <span className="text-2xl text-white font-bold">{idx + 1}</span>
+              <div key={idx} className="text-center group">
+                <div className="w-20 h-20 bg-gradient-to-br from-blue-500 to-blue-600 rounded-full flex items-center justify-center mx-auto mb-8 shadow-lg group-hover:shadow-2xl group-hover:scale-110 transition-all duration-300">
+                  <span className="text-3xl text-white font-bold">{idx + 1}</span>
                 </div>
-                <h3 className="text-2xl font-bold text-gray-900 mb-3">{item.title}</h3>
-                <p className="text-gray-600 leading-relaxed">{item.description}</p>
+                <h3 className="text-2xl font-bold text-white mb-4 group-hover:text-blue-400 transition-colors">{item.title}</h3>
+                <p className="text-gray-300 leading-relaxed text-lg">{item.description}</p>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* 7. CHIFFRES CLÉS */}
-      <section className="py-24 bg-gradient-to-r from-gray-900 to-gray-800">
-        <div className="container mx-auto px-4">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+      {/* 6. CHIFFRES CLÉS - PREMIUM STATS */}
+      <section className="py-32 bg-gradient-to-r from-blue-600 via-blue-700 to-blue-800 relative overflow-hidden">
+        {/* Animated background */}
+        <div className="absolute inset-0 opacity-10">
+          <div className="absolute top-0 right-1/4 w-96 h-96 bg-white rounded-full blur-3xl animate-pulse"></div>
+        </div>
+
+        <div className="container mx-auto px-4 relative z-10">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-12">
             {metrics.map((metric, idx) => (
-              <div key={idx}>
-                <div className="text-4xl md:text-5xl font-bold text-blue-400 mb-2">
+              <div key={idx} className="text-center group">
+                <div className="text-5xl md:text-6xl font-bold text-white mb-3 group-hover:scale-110 transition-transform duration-300">
                   {metric.value}
                 </div>
-                <p className="text-gray-300">{language === 'fr' ? metric.labelFr : metric.labelEn}</p>
+                <p className="text-blue-100 text-lg font-medium">{language === 'fr' ? metric.labelFr : metric.labelEn}</p>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* 8. GRAND CTA FINAL */}
-      <section className="py-24 bg-white">
-        <div className="container mx-auto px-4">
+      {/* 7. GRAND CTA FINAL - PREMIUM */}
+      <section className="py-32 bg-white relative overflow-hidden">
+        {/* Background decoration */}
+        <div className="absolute inset-0 opacity-5">
+          <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-blue-400 rounded-full blur-3xl"></div>
+        </div>
+
+        <div className="container mx-auto px-4 relative z-10">
           <div className="max-w-3xl mx-auto text-center">
-            <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
+            <h2 className="text-5xl md:text-6xl font-bold text-gray-900 mb-8">
               Prêt à booster votre impact ?
             </h2>
-            <p className="text-xl text-gray-600 mb-8">
+            <p className="text-xl text-gray-600 mb-12 leading-relaxed">
               Parlons de votre projet et découvrez comment nous pouvons transformer votre communication en résultats mesurables.
             </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <div className="flex flex-col sm:flex-row gap-6 justify-center">
               <a href="/contact">
-                <Button size="lg" className="bg-blue-600 hover:bg-blue-700 text-white px-8 py-6 text-lg font-semibold">
+                <Button size="lg" className="bg-blue-600 hover:bg-blue-700 text-white px-10 py-6 text-lg font-semibold rounded-lg shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105">
                   Démarrer maintenant
                   <ChevronRight className="ml-2" size={20} />
                 </Button>
@@ -378,7 +372,7 @@ export default function Home() {
                 <Button 
                   variant="outline" 
                   size="lg" 
-                  className="border-2 border-blue-600 text-blue-600 hover:bg-blue-50 px-8 py-6 text-lg font-semibold"
+                  className="border-2 border-blue-600 text-blue-600 hover:bg-blue-50 px-10 py-6 text-lg font-semibold rounded-lg transition-all duration-300"
                 >
                   Voir nos réalisations
                 </Button>
