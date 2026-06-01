@@ -147,11 +147,12 @@ export default function Home() {
           backgroundSize: 'cover',
           backgroundPosition: 'center',
           backgroundAttachment: 'fixed',
-          backgroundRepeat: 'no-repeat'
+          backgroundRepeat: 'no-repeat',
+          filter: 'blur(2px)'
         }}
       >
-        {/* Dark overlay for readability */}
-        <div className="absolute inset-0 bg-gradient-to-b from-white/98 via-white/95 to-white/98 z-0"></div>
+        {/* Light overlay for readability */}
+        <div className="absolute inset-0 bg-gradient-to-b from-white/85 via-white/80 to-white/85 z-0"></div>
 
         {/* Content */}
         <div className="container mx-auto px-4 relative z-10">
@@ -280,11 +281,12 @@ export default function Home() {
           backgroundSize: 'cover',
           backgroundPosition: 'center',
           backgroundAttachment: 'fixed',
-          backgroundRepeat: 'no-repeat'
+          backgroundRepeat: 'no-repeat',
+          filter: 'blur(2px)'
         }}
       >
-        {/* Dark overlay for readability */}
-        <div className="absolute inset-0 bg-gradient-to-b from-white/98 via-white/95 to-white/98 z-0"></div>
+        {/* Light overlay for readability */}
+        <div className="absolute inset-0 bg-gradient-to-b from-white/85 via-white/80 to-white/85 z-0"></div>
 
         {/* Content */}
         <div className="container mx-auto px-4 relative z-10">
