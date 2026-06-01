@@ -10,6 +10,12 @@ import { ChevronRight, Star, ArrowRight, ChevronLeft } from "lucide-react";
 export default function Home() {
   const { language, domain, isLoaded, t } = useI18n();
   const [activeTestimonial, setActiveTestimonial] = useState(0);
+  const [parallaxOffset, setParallaxOffset] = useState(0);
+
+  // Handle parallax scroll
+  const handleScroll = (e: any) => {
+    setParallaxOffset(window.scrollY * 0.5);
+  };
 
   // Récupérer les données
   const { data: metrics = [] } = trpc.metrics.getAll.useQuery(
@@ -48,25 +54,25 @@ export default function Home() {
     }
   ];
 
-  // Solutions with premium images (high quality, realistic)
+  // Solutions with CORRECTED premium images
   const solutions = [
     {
       title: "Communication & Marketing",
       description: "Stratégies de contenu et campagnes marketing qui génèrent des leads qualifiés et fidélisent votre audience.",
       href: "/offers/communication",
-      image: "https://images.unsplash.com/photo-1552664730-d307ca884978?w=1000&h=700&fit=crop&q=80"
+      image: "https://images.unsplash.com/photo-1552664730-d307ca884978?w=1000&h=700&fit=crop&q=85"
     },
     {
       title: "Événementiel",
       description: "Expériences événementielles mémorables qui renforcent votre marque et créent du buzz authentique.",
       href: "/offers/events",
-      image: "https://images.unsplash.com/photo-1519671482677-504be0ffbc9d?w=1000&h=700&fit=crop&q=80"
+      image: "https://images.unsplash.com/photo-1540575467063-178f50002c4b?w=1000&h=700&fit=crop&q=85"
     },
     {
       title: "Immersion",
       description: "Expériences immersives (VR/AR) qui transforment vos visiteurs en ambassadeurs de votre marque.",
       href: "/offers/immersion",
-      image: "https://images.unsplash.com/photo-1633356122544-f134324ef6db?w=1000&h=700&fit=crop&q=80"
+      image: "https://images.unsplash.com/photo-1633356122544-f134324ef6db?w=1000&h=700&fit=crop&q=85"
     }
   ];
 
@@ -87,7 +93,7 @@ export default function Home() {
   ];
 
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-white" onScroll={handleScroll}>
       <Header />
 
       {/* 1. HERO SECTION - PRESERVED */}
@@ -129,14 +135,25 @@ export default function Home() {
         </div>
       </section>
 
-      {/* 2. NOS SOLUTIONS - PREMIUM DESIGN WITH PARALLAX EFFECT */}
-      <section className="py-32 bg-gradient-to-b from-white via-gray-50 to-white relative overflow-hidden">
-        {/* Subtle background pattern */}
-        <div className="absolute inset-0 opacity-5">
-          <div className="absolute top-0 right-0 w-96 h-96 bg-blue-400 rounded-full blur-3xl"></div>
-          <div className="absolute bottom-0 left-0 w-96 h-96 bg-purple-400 rounded-full blur-3xl"></div>
-        </div>
+      {/* 2. NOS SOLUTIONS - WITH PARALLAX BACKGROUND IMAGE */}
+      <section className="relative py-32 overflow-hidden">
+        {/* Parallax background image */}
+        <div 
+          className="absolute inset-0 z-0"
+          style={{
+            backgroundImage: 'url(https://images.unsplash.com/photo-1552664730-d307ca884978?w=1920&h=1080&fit=crop&q=80)',
+            backgroundSize: 'cover',
+            backgroundPosition: 'center',
+            backgroundAttachment: 'fixed',
+            transform: `translateY(${parallaxOffset}px)`,
+            opacity: 0.08
+          }}
+        ></div>
 
+        {/* Gradient overlay */}
+        <div className="absolute inset-0 bg-gradient-to-b from-white via-white to-gray-50 z-0"></div>
+
+        {/* Content */}
         <div className="container mx-auto px-4 relative z-10">
           <div className="text-center mb-20">
             <h2 className="text-5xl md:text-6xl font-bold text-gray-900 mb-6">Nos Solutions</h2>
@@ -150,12 +167,16 @@ export default function Home() {
               <a href={solution.href} key={idx} className="group h-full">
                 <div className="h-full bg-white rounded-3xl overflow-hidden shadow-xl hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-3 border border-gray-100 flex flex-col">
                   {/* Premium Image with Overlay */}
-                  <div className="relative h-80 overflow-hidden bg-gray-200">
+                  <div className="relative h-80 overflow-hidden bg-gray-300">
                     <img 
                       src={solution.image}
                       alt={solution.title}
                       className="w-full h-full object-cover group-hover:scale-125 transition-transform duration-700"
                       loading="lazy"
+                      onError={(e) => {
+                        // Fallback if image fails to load
+                        e.currentTarget.style.backgroundColor = '#e5e7eb';
+                      }}
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
                   </div>
@@ -255,9 +276,26 @@ export default function Home() {
         </div>
       </section>
 
-      {/* 4. RÉALISATIONS PHARES - FULL WIDTH WITH PARALLAX */}
-      <section className="py-32 bg-white relative overflow-hidden">
-        <div className="container mx-auto px-4">
+      {/* 4. RÉALISATIONS PHARES - WITH PARALLAX BACKGROUND */}
+      <section className="relative py-32 overflow-hidden">
+        {/* Parallax background image */}
+        <div 
+          className="absolute inset-0 z-0"
+          style={{
+            backgroundImage: 'url(https://images.unsplash.com/photo-1540575467063-178f50002c4b?w=1920&h=1080&fit=crop&q=80)',
+            backgroundSize: 'cover',
+            backgroundPosition: 'center',
+            backgroundAttachment: 'fixed',
+            transform: `translateY(${parallaxOffset * 0.3}px)`,
+            opacity: 0.12
+          }}
+        ></div>
+
+        {/* Gradient overlay */}
+        <div className="absolute inset-0 bg-gradient-to-b from-white via-white to-gray-50 z-0"></div>
+
+        {/* Content */}
+        <div className="container mx-auto px-4 relative z-10">
           <div className="text-center mb-20">
             <h2 className="text-5xl md:text-6xl font-bold text-gray-900 mb-6">Réalisations Phares</h2>
             <p className="text-xl text-gray-600 max-w-2xl mx-auto leading-relaxed">
