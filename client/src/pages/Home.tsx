@@ -86,16 +86,16 @@ export default function Home() {
   // Why us
   const whyUs = [
     {
-      title: "Équipe proche",
-      description: "Vous travaillez avec des experts passionnés qui comprennent vraiment votre business."
+      title: "Une équipe proche qui comprend vraiment votre business",
+      description: "Vous travaillez avec des experts passionnés qui prennent le temps d'analyser vos enjeux avant de proposer la moindre solution. Pas de brief impersonnel, une vraie collaboration."
     },
     {
-      title: "Processus fluide",
-      description: "Une collaboration sans friction, de la conception à la livraison."
+      title: "Un processus fluide de la stratégie à la livraison",
+      description: "Du premier atelier à la mise en ligne, tout est clair, transparent et sans friction. Vous savez toujours où vous en êtes, sans mauvaise surprise."
     },
     {
-      title: "Résultats mesurables",
-      description: "Chaque projet est piloté par des KPIs clairs et du reporting transparent."
+      title: "Des résultats mesurables et orientés business",
+      description: "Chaque projet est piloté avec des objectifs concrets (leads, engagement, notoriété, ventes). Nous mesurons l'impact et vous donnons un reporting clair."
     }
   ];
 
@@ -355,10 +355,10 @@ export default function Home() {
         </div>
 
         <div className="container mx-auto px-4 relative z-10">
-          <div className="text-center mb-20">
-            <h2 className="text-5xl md:text-6xl font-bold text-white mb-6">Pourquoi Bluevista</h2>
-            <p className="text-xl text-gray-300 max-w-2xl mx-auto leading-relaxed">
-              Notre approche pour transformer votre communication
+          <div className="text-center mb-24">
+            <h2 className="text-5xl md:text-6xl font-bold text-white mb-8">Pourquoi choisir Bluevista ?</h2>
+            <p className="text-xl text-gray-300 max-w-3xl mx-auto leading-relaxed">
+              Nous ne faisons pas que produire du contenu. Nous orchestrons des expériences qui transforment vraiment votre communication en résultats business concrets.
             </p>
           </div>
 
