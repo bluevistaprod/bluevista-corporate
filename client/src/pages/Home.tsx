@@ -140,22 +140,21 @@ export default function Home() {
       </section>
 
       {/* 2. NOS SOLUTIONS - WITH REAL PARALLAX BACKGROUND */}
-      <section 
-        className="relative py-32 overflow-hidden"
-        style={{
+      <section className="relative py-32 overflow-hidden">
+        {/* Blurred background image */}
+        <div className="absolute inset-0 z-0" style={{
           backgroundImage: 'url(https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=1920&h=1080&fit=crop&q=80)',
           backgroundSize: 'cover',
           backgroundPosition: 'center',
           backgroundAttachment: 'fixed',
           backgroundRepeat: 'no-repeat',
-          filter: 'blur(2px)'
-        }}
-      >
+          filter: 'blur(3px)'
+        }}></div>
         {/* Light overlay for readability */}
-        <div className="absolute inset-0 bg-gradient-to-b from-white/85 via-white/80 to-white/85 z-0"></div>
+        <div className="absolute inset-0 bg-gradient-to-b from-white/85 via-white/80 to-white/85 z-[1]"></div>
 
         {/* Content */}
-        <div className="container mx-auto px-4 relative z-10">
+        <div className="container mx-auto px-4 relative z-[2]">
           <div className="text-center mb-20">
             <h2 className="text-5xl md:text-6xl font-bold text-gray-900 mb-6">Nos Solutions</h2>
             <p className="text-xl text-gray-600 max-w-2xl mx-auto leading-relaxed">
@@ -274,22 +273,21 @@ export default function Home() {
       </section>
 
       {/* 4. RÉALISATIONS PHARES - WITH REAL PARALLAX BACKGROUND */}
-      <section 
-        className="relative py-32 overflow-hidden"
-        style={{
+      <section className="relative py-32 overflow-hidden">
+        {/* Blurred background image */}
+        <div className="absolute inset-0 z-0" style={{
           backgroundImage: 'url(https://images.unsplash.com/photo-1552664730-d307ca884978?w=1920&h=1080&fit=crop&q=80)',
           backgroundSize: 'cover',
           backgroundPosition: 'center',
           backgroundAttachment: 'fixed',
           backgroundRepeat: 'no-repeat',
-          filter: 'blur(2px)'
-        }}
-      >
+          filter: 'blur(3px)'
+        }}></div>
         {/* Light overlay for readability */}
-        <div className="absolute inset-0 bg-gradient-to-b from-white/85 via-white/80 to-white/85 z-0"></div>
+        <div className="absolute inset-0 bg-gradient-to-b from-white/85 via-white/80 to-white/85 z-[1]"></div>
 
         {/* Content */}
-        <div className="container mx-auto px-4 relative z-10">
+        <div className="container mx-auto px-4 relative z-[2]">
           <div className="text-center mb-20">
             <h2 className="text-5xl md:text-6xl font-bold text-gray-900 mb-6">Réalisations Phares</h2>
             <p className="text-xl text-gray-600 max-w-2xl mx-auto leading-relaxed">
