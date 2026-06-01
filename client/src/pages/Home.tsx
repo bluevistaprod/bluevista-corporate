@@ -5,7 +5,7 @@ import { Footer } from "@/components/Footer";
 import { Button } from "@/components/ui/button";
 import { HeroVideo } from "@/components/HeroVideo";
 import { trpc } from "@/lib/trpc";
-import { ChevronRight, Star, ArrowRight } from "lucide-react";
+import { ChevronRight, Star, ArrowRight, ChevronLeft } from "lucide-react";
 
 export default function Home() {
   const { language, domain, isLoaded, t } = useI18n();
@@ -14,11 +14,6 @@ export default function Home() {
   // Récupérer les données
   const { data: metrics = [] } = trpc.metrics.getAll.useQuery(
     { domain: domain as "com" | "ch" },
-    { enabled: isLoaded }
-  );
-
-  const { data: testimonials = [] } = trpc.testimonials.getFeatured.useQuery(
-    { domain: domain as "com" | "ch", limit: 5 },
     { enabled: isLoaded }
   );
 
@@ -31,25 +26,47 @@ export default function Home() {
     return <div className="min-h-screen flex items-center justify-center">Chargement...</div>;
   }
 
-  // Solutions data
+  // Hardcoded testimonials
+  const testimonials = [
+    {
+      company: "KOESIO",
+      quote: "Grâce à Bluevista, notre convention 2024 a été un vrai succès. L'aftermovie et les contenus immersifs ont généré un engagement exceptionnel et nous ont permis de renforcer notre image de marque. Un vrai retour sur investissement.",
+      author: "Yanniv Bettane",
+      title: "Directeur Marketing"
+    },
+    {
+      company: "IRISOLARIS",
+      quote: "Bluevista a su transformer notre communication corporate en véritables expériences. Les vidéos et le contenu immersif ont nettement augmenté notre visibilité et notre attractivité auprès de nos partenaires. Résultat concret : +35% de leads qualifiés.",
+      author: "Direction Communication",
+      title: "Direction Communication"
+    },
+    {
+      company: "UNIHA",
+      quote: "Les vœux 2025 et les vidéos institutionnelles réalisées par Bluevista ont marqué les esprits. Une agence réactive, créative et surtout orientée résultats. Nous travaillons ensemble depuis plusieurs années en toute confiance.",
+      author: "Direction Générale",
+      title: "Direction Générale"
+    }
+  ];
+
+  // Solutions with premium images
   const solutions = [
     {
       title: "Communication & Marketing",
       description: "Stratégies de contenu et campagnes marketing qui génèrent des leads qualifiés et fidélisent votre audience.",
       href: "/offers/communication",
-      icon: "📱"
+      image: "https://images.unsplash.com/photo-1552664730-d307ca884978?w=800&h=600&fit=crop"
     },
     {
       title: "Événementiel",
       description: "Expériences événementielles mémorables qui renforcent votre marque et créent du buzz authentique.",
       href: "/offers/events",
-      icon: "🎪"
+      image: "https://images.unsplash.com/photo-1519671482677-504be0ffbc9d?w=800&h=600&fit=crop"
     },
     {
       title: "Immersion",
       description: "Expériences immersives (VR/AR) qui transforment vos visiteurs en ambassadeurs de votre marque.",
       href: "/offers/immersion",
-      icon: "🥽"
+      image: "https://images.unsplash.com/photo-1633356122544-f134324ef6db?w=800&h=600&fit=crop"
     }
   ];
 
@@ -132,7 +149,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* 2. NOS SOLUTIONS */}
+      {/* 2. NOS SOLUTIONS - WITH PREMIUM IMAGES */}
       <section className="py-24 bg-white">
         <div className="container mx-auto px-4">
           <div className="text-center mb-16">
@@ -145,12 +162,22 @@ export default function Home() {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {solutions.map((solution, idx) => (
               <a href={solution.href} key={idx} className="group">
-                <div className="h-full bg-gradient-to-br from-gray-50 to-gray-100 rounded-2xl p-8 hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 border border-gray-200">
-                  <div className="text-5xl mb-4">{solution.icon}</div>
-                  <h3 className="text-2xl font-bold text-gray-900 mb-3">{solution.title}</h3>
-                  <p className="text-gray-600 mb-6 leading-relaxed">{solution.description}</p>
-                  <div className="flex items-center text-blue-600 font-semibold group-hover:translate-x-2 transition-transform">
-                    En savoir plus <ArrowRight className="ml-2" size={20} />
+                <div className="h-full bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 border border-gray-200">
+                  {/* Premium Image */}
+                  <div className="relative h-64 overflow-hidden bg-gray-200">
+                    <img 
+                      src={solution.image}
+                      alt={solution.title}
+                      className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                    />
+                  </div>
+                  {/* Content */}
+                  <div className="p-8">
+                    <h3 className="text-2xl font-bold text-gray-900 mb-3">{solution.title}</h3>
+                    <p className="text-gray-600 mb-6 leading-relaxed">{solution.description}</p>
+                    <div className="flex items-center text-blue-600 font-semibold group-hover:translate-x-2 transition-transform">
+                      En savoir plus <ArrowRight className="ml-2" size={20} />
+                    </div>
                   </div>
                 </div>
               </a>
@@ -180,7 +207,77 @@ export default function Home() {
         </div>
       </section>
 
-      {/* 4. RÉALISATIONS PHARES */}
+      {/* 4. ILS NOUS ONT FAIT CONFIANCE - TESTIMONIALS */}
+      <section className="py-24 bg-gray-50">
+        <div className="container mx-auto px-4">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
+              Ils nous ont fait confiance et ont boosté leurs résultats
+            </h2>
+            <p className="text-xl text-gray-600 max-w-2xl mx-auto">
+              Découvrez comment nos clients ont transformé leur communication en résultats business concrets.
+            </p>
+          </div>
+
+          {/* Testimonials Carousel */}
+          <div className="max-w-4xl mx-auto">
+            <div className="bg-white rounded-2xl p-8 md:p-12 shadow-lg border border-gray-200">
+              {testimonials[activeTestimonial] && (
+                <div className="text-center">
+                  <div className="flex justify-center mb-6">
+                    {[...Array(5)].map((_, i) => (
+                      <Star key={i} size={24} className="text-yellow-400 fill-yellow-400" />
+                    ))}
+                  </div>
+                  <p className="text-xl text-gray-700 mb-8 italic leading-relaxed">
+                    "{testimonials[activeTestimonial].quote}"
+                  </p>
+                  <div className="border-t border-gray-200 pt-6">
+                    <p className="font-bold text-gray-900 text-lg">
+                      {testimonials[activeTestimonial].author}
+                    </p>
+                    <p className="text-gray-600 mb-2">
+                      {testimonials[activeTestimonial].title}
+                    </p>
+                    <p className="text-blue-600 font-semibold">
+                      {testimonials[activeTestimonial].company}
+                    </p>
+                  </div>
+                </div>
+              )}
+            </div>
+
+            {/* Navigation */}
+            <div className="flex justify-center items-center gap-6 mt-8">
+              <button
+                onClick={() => setActiveTestimonial((prev) => (prev - 1 + testimonials.length) % testimonials.length)}
+                className="p-2 rounded-full border-2 border-blue-600 text-blue-600 hover:bg-blue-600 hover:text-white transition-all"
+              >
+                <ChevronLeft size={24} />
+              </button>
+              <div className="flex gap-3">
+                {testimonials.map((_, idx) => (
+                  <button
+                    key={idx}
+                    onClick={() => setActiveTestimonial(idx)}
+                    className={`w-3 h-3 rounded-full transition-all ${
+                      idx === activeTestimonial ? "bg-blue-600 w-8" : "bg-gray-300"
+                    }`}
+                  />
+                ))}
+              </div>
+              <button
+                onClick={() => setActiveTestimonial((prev) => (prev + 1) % testimonials.length)}
+                className="p-2 rounded-full border-2 border-blue-600 text-blue-600 hover:bg-blue-600 hover:text-white transition-all"
+              >
+                <ChevronRight size={24} />
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* 5. RÉALISATIONS PHARES */}
       <section className="py-24 bg-white">
         <div className="container mx-auto px-4">
           <div className="text-center mb-16">
@@ -220,7 +317,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* 5. POURQUOI BLUEVISTA */}
+      {/* 6. POURQUOI BLUEVISTA */}
       <section className="py-24 bg-gray-50">
         <div className="container mx-auto px-4">
           <div className="text-center mb-16">
@@ -243,57 +340,6 @@ export default function Home() {
           </div>
         </div>
       </section>
-
-      {/* 6. ILS NOUS FONT CONFIANCE */}
-      {testimonials.length > 0 && (
-        <section className="py-24 bg-white">
-          <div className="container mx-auto px-4">
-            <div className="text-center mb-16">
-              <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">Ils Nous Font Confiance</h2>
-              <p className="text-xl text-gray-600">
-                Les témoignages de nos clients satisfaits
-              </p>
-            </div>
-
-            {/* Testimonials Carousel */}
-            <div className="max-w-3xl mx-auto">
-              <div className="bg-gradient-to-br from-gray-50 to-gray-100 rounded-2xl p-8 md:p-12 border border-gray-200">
-                {testimonials[activeTestimonial] && (
-                  <div className="text-center">
-                    <div className="flex justify-center mb-4">
-                      {[...Array(5)].map((_, i) => (
-                        <Star key={i} size={24} className="text-yellow-400 fill-yellow-400" />
-                      ))}
-                    </div>
-                    <p className="text-xl text-gray-700 mb-6 italic">
-                      "{testimonials[activeTestimonial].problem}"
-                    </p>
-                    <p className="font-bold text-gray-900">
-                      {testimonials[activeTestimonial].clientName}
-                    </p>
-                    <p className="text-gray-600">
-                      {testimonials[activeTestimonial].clientCompany}
-                    </p>
-                  </div>
-                )}
-              </div>
-
-              {/* Navigation */}
-              <div className="flex justify-center gap-4 mt-8">
-                {testimonials.map((_, idx) => (
-                  <button
-                    key={idx}
-                    onClick={() => setActiveTestimonial(idx)}
-                    className={`w-3 h-3 rounded-full transition-all ${
-                      idx === activeTestimonial ? "bg-blue-600 w-8" : "bg-gray-300"
-                    }`}
-                  />
-                ))}
-              </div>
-            </div>
-          </div>
-        </section>
-      )}
 
       {/* 7. CHIFFRES CLÉS */}
       <section className="py-24 bg-gradient-to-r from-gray-900 to-gray-800">
