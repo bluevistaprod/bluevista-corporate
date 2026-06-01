@@ -69,12 +69,12 @@ export default function Home() {
           <div className="max-w-4xl space-y-8">
             {/* Main Title - Premium Typography */}
             <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold text-white leading-tight tracking-tight">
-              Nous transformons votre communication en expériences qui génèrent du business concret.
+              Transformez votre communication en résultats
             </h1>
             
             {/* Subtitle - Premium Style */}
             <p className="text-lg md:text-xl text-gray-100 max-w-3xl mx-auto leading-relaxed font-light">
-              Communication, événementiel et immersion. Des solutions créatives, humaines et mesurables qui font réellement avancer vos objectifs business.
+              Agence de création de contenu, communication & marketing, événementiel et immersion.
             </p>
             
             {/* CTA Buttons - Premium Style */}
