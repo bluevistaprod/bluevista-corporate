@@ -143,7 +143,7 @@ export default function Home() {
       <section 
         className="relative py-32 overflow-hidden"
         style={{
-          backgroundImage: 'url(https://images.unsplash.com/photo-1552664730-d307ca884978?w=1920&h=1080&fit=crop&q=80)',
+          backgroundImage: 'url(https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=1920&h=1080&fit=crop&q=80)',
           backgroundSize: 'cover',
           backgroundPosition: 'center',
           backgroundAttachment: 'fixed',
@@ -276,7 +276,7 @@ export default function Home() {
       <section 
         className="relative py-32 overflow-hidden"
         style={{
-          backgroundImage: 'url(https://images.unsplash.com/photo-1540575467063-178f50002c4b?w=1920&h=1080&fit=crop&q=80)',
+          backgroundImage: 'url(https://images.unsplash.com/photo-1552664730-d307ca884978?w=1920&h=1080&fit=crop&q=80)',
           backgroundSize: 'cover',
           backgroundPosition: 'center',
           backgroundAttachment: 'fixed',
