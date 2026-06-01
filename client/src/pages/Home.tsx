@@ -5,7 +5,7 @@ import { Footer } from "@/components/Footer";
 import { Button } from "@/components/ui/button";
 import { HeroVideo } from "@/components/HeroVideo";
 import { trpc } from "@/lib/trpc";
-import { ChevronRight, Star, ArrowRight, ChevronLeft } from "lucide-react";
+import { ChevronRight, Star, ArrowRight, ChevronLeft, Play } from "lucide-react";
 
 export default function Home() {
   const { language, domain, isLoaded, t } = useI18n();
@@ -42,19 +42,22 @@ export default function Home() {
       company: "KOESIO",
       quote: "Grâce à Bluevista, notre convention 2024 a été un vrai succès. L'aftermovie et les contenus immersifs ont généré un engagement exceptionnel et nous ont permis de renforcer notre image de marque. Un vrai retour sur investissement.",
       author: "Yanniv Bettane",
-      title: "Directeur Marketing"
+      title: "Directeur Marketing",
+      photo: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=500&h=500&fit=crop&q=80"
     },
     {
       company: "IRISOLARIS",
       quote: "Bluevista a su transformer notre communication corporate en véritables expériences. Les vidéos et le contenu immersif ont nettement augmenté notre visibilité et notre attractivité auprès de nos partenaires. Résultat concret : +35% de leads qualifiés.",
       author: "Direction Communication",
-      title: "Direction Communication"
+      title: "Direction Communication",
+      photo: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=500&h=500&fit=crop&q=80"
     },
     {
       company: "UNIHA",
       quote: "Les vœux 2025 et les vidéos institutionnelles réalisées par Bluevista ont marqué les esprits. Une agence réactive, créative et surtout orientée résultats. Nous travaillons ensemble depuis plusieurs années en toute confiance.",
       author: "Direction Générale",
-      title: "Direction Générale"
+      title: "Direction Générale",
+      photo: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=500&h=500&fit=crop&q=80"
     }
   ];
 
@@ -214,27 +217,45 @@ export default function Home() {
 
           {/* Testimonials Carousel */}
           <div className="max-w-4xl mx-auto">
-            <div className="bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-md rounded-3xl p-10 md:p-16 shadow-2xl border border-white/20">
+            <div className="bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-md rounded-3xl overflow-hidden shadow-2xl border border-white/20">
               {testimonials[activeTestimonial] && (
-                <div className="text-center">
-                  <div className="flex justify-center mb-8">
-                    {[...Array(5)].map((_, i) => (
-                      <Star key={i} size={28} className="text-yellow-400 fill-yellow-400" />
-                    ))}
+                <div className="flex flex-col md:flex-row">
+                  {/* Interview Photo with Play Button */}
+                  <div className="relative w-full md:w-2/5 h-80 md:h-auto bg-gradient-to-br from-gray-400 to-gray-500 flex-shrink-0">
+                    <img 
+                      src={testimonials[activeTestimonial].photo || 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=500&h=500&fit=crop&q=80'}
+                      alt={testimonials[activeTestimonial].author}
+                      className="w-full h-full object-cover"
+                    />
+                    {/* Play Button Overlay */}
+                    <div className="absolute inset-0 bg-black/40 flex items-center justify-center hover:bg-black/50 transition-all duration-300 cursor-pointer group">
+                      <div className="w-20 h-20 bg-blue-500 rounded-full flex items-center justify-center group-hover:bg-blue-600 group-hover:scale-110 transition-all duration-300 shadow-lg">
+                        <Play size={32} className="text-white fill-white ml-1" />
+                      </div>
+                    </div>
                   </div>
-                  <p className="text-xl md:text-2xl text-white mb-10 italic leading-relaxed font-light">
-                    "{testimonials[activeTestimonial].quote}"
-                  </p>
-                  <div className="border-t border-white/20 pt-8">
-                    <p className="font-bold text-white text-lg">
-                      {testimonials[activeTestimonial].author}
+                  
+                  {/* Testimonial Content */}
+                  <div className="p-10 md:p-12 w-full md:w-3/5 flex flex-col justify-center">
+                    <div className="flex justify-center md:justify-start mb-6">
+                      {[...Array(5)].map((_, i) => (
+                        <Star key={i} size={24} className="text-yellow-400 fill-yellow-400" />
+                      ))}
+                    </div>
+                    <p className="text-lg md:text-xl text-white mb-8 italic leading-relaxed font-light">
+                      "{testimonials[activeTestimonial].quote}"
                     </p>
-                    <p className="text-gray-300 mb-2">
-                      {testimonials[activeTestimonial].title}
-                    </p>
-                    <p className="text-blue-400 font-semibold text-lg">
-                      {testimonials[activeTestimonial].company}
-                    </p>
+                    <div className="border-t border-white/20 pt-6">
+                      <p className="font-bold text-white text-lg">
+                        {testimonials[activeTestimonial].author}
+                      </p>
+                      <p className="text-gray-300 mb-2">
+                        {testimonials[activeTestimonial].title}
+                      </p>
+                      <p className="text-blue-400 font-semibold text-lg">
+                        {testimonials[activeTestimonial].company}
+                      </p>
+                    </div>
                   </div>
                 </div>
               )}
@@ -296,8 +317,8 @@ export default function Home() {
           </div>
 
           {projects.length > 0 ? (
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
-              {projects.slice(0, 4).map((project, idx) => (
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
+              {projects.slice(0, 3).map((project, idx) => (
                 <a href={`/portfolio/${project.id}`} key={idx} className="group">
                   <div className="relative overflow-hidden rounded-3xl h-96 bg-gradient-to-br from-gray-200 to-gray-300 shadow-2xl hover:shadow-3xl transition-all duration-500">
                     <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent flex flex-col justify-end p-8 group-hover:from-black/90 transition-all duration-500">

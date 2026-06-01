@@ -139,7 +139,7 @@ export async function getFeaturedProjects(domain: Domain = "com", limit = 6) {
   return db
     .select()
     .from(projects)
-    .where(and(eq(projects.domain, domain), eq(projects.featured, 1)))
+    .where(eq(projects.domain, domain))
     .orderBy(desc(projects.createdAt))
     .limit(limit);
 }
