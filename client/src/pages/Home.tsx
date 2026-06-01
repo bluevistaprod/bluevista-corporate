@@ -139,22 +139,18 @@ export default function Home() {
         </div>
       </section>
 
-      {/* 2. NOS SOLUTIONS - WITH PARALLAX BACKGROUND IMAGE */}
-      <section className="relative py-32 overflow-hidden">
-        {/* PARALLAX BACKGROUND - VRAIE IMAGE VISIBLE */}
-        <div 
-          className="absolute inset-0 z-0"
-          style={{
-            backgroundImage: 'url(https://images.unsplash.com/photo-1552664730-d307ca884978?w=1920&h=1080&fit=crop&q=80)',
-            backgroundSize: 'cover',
-            backgroundPosition: 'center',
-            backgroundAttachment: 'fixed',
-            transform: `translateY(${parallaxY}px)`,
-            opacity: 0.15
-          }}
-        ></div>
-
-        {/* Overlay for readability */}
+      {/* 2. NOS SOLUTIONS - WITH REAL PARALLAX BACKGROUND */}
+      <section 
+        className="relative py-32 overflow-hidden"
+        style={{
+          backgroundImage: 'url(https://images.unsplash.com/photo-1552664730-d307ca884978?w=1920&h=1080&fit=crop&q=80)',
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+          backgroundAttachment: 'fixed',
+          backgroundRepeat: 'no-repeat'
+        }}
+      >
+        {/* Dark overlay for readability */}
         <div className="absolute inset-0 bg-gradient-to-b from-white/98 via-white/95 to-white/98 z-0"></div>
 
         {/* Content */}
@@ -276,22 +272,18 @@ export default function Home() {
         </div>
       </section>
 
-      {/* 4. RÉALISATIONS PHARES - WITH PARALLAX BACKGROUND */}
-      <section className="relative py-32 overflow-hidden">
-        {/* PARALLAX BACKGROUND - VRAIE IMAGE VISIBLE */}
-        <div 
-          className="absolute inset-0 z-0"
-          style={{
-            backgroundImage: 'url(https://images.unsplash.com/photo-1540575467063-178f50002c4b?w=1920&h=1080&fit=crop&q=80)',
-            backgroundSize: 'cover',
-            backgroundPosition: 'center',
-            backgroundAttachment: 'fixed',
-            transform: `translateY(${parallaxY * 0.3}px)`,
-            opacity: 0.2
-          }}
-        ></div>
-
-        {/* Overlay */}
+      {/* 4. RÉALISATIONS PHARES - WITH REAL PARALLAX BACKGROUND */}
+      <section 
+        className="relative py-32 overflow-hidden"
+        style={{
+          backgroundImage: 'url(https://images.unsplash.com/photo-1540575467063-178f50002c4b?w=1920&h=1080&fit=crop&q=80)',
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+          backgroundAttachment: 'fixed',
+          backgroundRepeat: 'no-repeat'
+        }}
+      >
+        {/* Dark overlay for readability */}
         <div className="absolute inset-0 bg-gradient-to-b from-white/98 via-white/95 to-white/98 z-0"></div>
 
         {/* Content */}
