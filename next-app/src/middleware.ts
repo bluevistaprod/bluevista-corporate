@@ -34,5 +34,5 @@ export const config = {
   // ressources internes de Next, API, fichiers du dossier public.
   // `apercu` est exclu : ce sont les pages de travail sur la direction
   // artistique, volontairement hors du système de langues.
-  matcher: ["/((?!_next|api|media|apercu|favicon.ico|robots.txt|sitemap.xml).*)"],
+  matcher: ["/((?!_next|api|media|apercu|planche|favicon.ico|robots.txt|sitemap.xml).*)"],
 };
