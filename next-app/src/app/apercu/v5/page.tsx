@@ -554,6 +554,18 @@ export default function V5() {
         Les trois implantations y sont écrites en clair : c'est aussi ce qui
         nourrit le référencement local sur Lyon, Paris et Genève.
       */}
+      {/*
+        ⛔ NE JAMAIS ÉCRIRE « bureau commercial » POUR PARIS NI GENÈVE.
+        Décision de Giz, 02/08/2026. Le mémoire technique le dit en interne,
+        mais ça n'a rien à faire sur le site : ces deux villes portent des
+        pages qui comptent parmi ses meilleurs actifs de référencement
+        (« studio animation 3D Paris », « réalisation vidéo Genève »), et les
+        présenter comme de simples points de vente les affaiblirait.
+
+        La règle : on cite les villes SANS les qualifier — c'est exact et ça ne
+        déclasse rien. Ce qui reste interdit, à l'inverse, c'est d'affirmer
+        qu'il y a des STUDIOS à Paris ou à Genève : ce serait faux.
+      */}
       <footer style={{ background: SOMBRE_PROFOND, color: "#fff" }}>
         <div className="mx-auto grid max-w-[1500px] gap-14 px-8 py-20 lg:grid-cols-[1.2fr_1fr_1fr_1fr]">
           <div>
@@ -566,9 +578,9 @@ export default function V5() {
           </div>
 
           {[
-            ["Lyon — studios & siège", ["8 rue Jean Élysée Dupuy", "69410 Champagne-au-Mont-d’Or", "+33 (0)4 72 34 51 89"]],
-            ["Paris — bureau commercial", ["92 avenue Victor Hugo", "92100 Boulogne-Billancourt"]],
-            ["Genève — bureau commercial", ["bluevista.ch", "Suisse romande"]],
+            ["Lyon — siège social", ["8 rue Jean Élysée Dupuy", "69410 Champagne-au-Mont-d’Or", "+33 (0)4 72 34 51 89"]],
+            ["Paris", ["92 avenue Victor Hugo", "92100 Boulogne-Billancourt"]],
+            ["Genève", ["bluevista.ch", "Suisse romande"]],
           ].map(([ville, lignes]) => (
             <div key={ville as string}>
               <div className="text-[13px] font-bold uppercase tracking-[0.16em]" style={{ color: BLEU_CLAIR }}>
