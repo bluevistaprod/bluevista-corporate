@@ -342,7 +342,66 @@ export default function V5() {
         </div>
       </section>
 
-      {/* ⑤ CLAIR SOUTENU — même camp, autre chapitre ────────────────── */}
+      {/* ⑤ NOIR — les coulisses ─────────────────────────────────────────
+          Photos choisies par Giz dans le groupe WhatsApp « Validation RS » :
+          l'équipe en tournage, sur grue, en interview, sur un événement, et
+          le décor de « La Boîte à Questions ».
+
+          Ce n'est pas de l'illustration : c'est ce qui prouve son troisième
+          différenciateur, « une équipe proche qui comprend vraiment votre
+          business ». On ne l'affirme plus, on le montre.
+
+          ⚠️ Images recompressées par WhatsApp (1800 px). Suffisant à cette
+          taille ; à remplacer par les originaux avant la mise en ligne.
+      */}
+      <section style={{ background: NOIR, color: "#fff" }}>
+        <div className="mx-auto max-w-[1500px] px-8 pb-14 pt-24">
+          <SurTitre sombre>Dans les coulisses</SurTitre>
+          <h2 className="max-w-3xl text-[clamp(2.4rem,5.4vw,4.5rem)] font-bold leading-[1.02] tracking-[-0.02em]">
+            Une équipe, pas un prestataire.
+          </h2>
+        </div>
+
+        <div className="grid gap-px sm:grid-cols-2 lg:grid-cols-4">
+          {[
+            ["/media/coulisses-grue.jpg", "Tournage sur grue en extérieur"],
+            ["/media/coulisses-interview.jpg", "Interview filmée sur stand"],
+            ["/media/coulisses-tournage.jpg", "Équipe en tournage"],
+            ["/media/coulisses-event.jpg", "Captation événementielle"],
+          ].map(([src, alt]) => (
+            <figure
+              key={src}
+              role="img"
+              aria-label={alt}
+              className="aspect-[3/4] bg-cover bg-center"
+              style={{ backgroundImage: `url('${src}')` }}
+            />
+          ))}
+        </div>
+
+        <div className="mx-auto grid max-w-[1500px] items-center gap-14 px-8 py-24 lg:grid-cols-2">
+          <figure
+            role="img"
+            aria-label="Le décor du plateau La Boîte à Questions"
+            className="aspect-[4/3] rounded-md bg-cover bg-center"
+            style={{ backgroundImage: "url('/media/studio-plateau.jpg')" }}
+          />
+          <div>
+            <div className="text-[15px] font-bold uppercase tracking-[0.16em]" style={{ color: BLEU_CLAIR }}>
+              Notre studio
+            </div>
+            <h3 className="mt-5 text-[clamp(1.6rem,3vw,2.4rem)] font-bold leading-[1.1] tracking-tight">
+              Un plateau à nous, à Lyon.
+            </h3>
+            <p className="mt-6 max-w-lg leading-relaxed text-white/65">
+              Décors montés sur mesure, éclairage, régie et post-production sur
+              place. De l’idée au montage final, sans intermédiaire.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* ⑥ CLAIR SOUTENU — même camp, autre chapitre ────────────────── */}
       <section style={{ background: CLAIR_SOUTENU }}>
         <div className="mx-auto max-w-[1500px] px-8 py-24">
           <SurTitre>Pourquoi nous</SurTitre>
@@ -395,7 +454,7 @@ export default function V5() {
         </div>
       </section>
 
-      {/* ⑥ SOMBRE — l'appel final ───────────────────────────────────── */}
+      {/* ⑦ SOMBRE — l'appel final ───────────────────────────────────── */}
       <section style={{ background: SOMBRE, color: "#fff" }} className="py-28 text-center">
         <h2 className="mx-auto max-w-3xl px-8 text-[clamp(2rem,4.4vw,3.4rem)] font-bold leading-[1.05] tracking-[-0.02em]">
           Transformez votre communication en{" "}
