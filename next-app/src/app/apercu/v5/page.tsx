@@ -28,39 +28,91 @@ import { BLEU, BLEU_CLAIR, CLAIR, CLAIR_SOUTENU, NOIR, SOMBRE } from "../_palett
  *    site d'agence vidéo revient à cacher ce qu'on vend, et le parallaxe
  *    dégrade les indicateurs de performance que Google mesure. À la place :
  *    des bandes d'image plein cadre, recadrées serré, sans effet.
+ *
+ * ⛔⛔ CHIFFRES : AUCUN CHIFFRE DE PERFORMANCE SUR CETTE PAGE, ET C'EST VOLONTAIRE.
+ *    Alerte de Giz le 01/08/2026 : « attention les chiffres sortent de nulle
+ *    part ». Vérification faite, il avait raison, et le problème dépasse un
+ *    chiffre isolé : la maquette Manus contient +200%, +45%, +40%, +35%, +30%,
+ *    +25%, « 50k téléchargements », « 4.7/5 » — et un témoignage attribué à une
+ *    personne NOMMÉE chez un client RÉEL, illustré par une photo de banque
+ *    d'images. Rien de tout cela n'est sourcé.
+ *    Seuls chiffres autorisés ici : « depuis 2004 » et « 145 films », ce dernier
+ *    étant le nombre de lignes de realisations_final_updatedgiz.csv, donc
+ *    vérifiable. Tout autre chiffre doit venir du client, par écrit.
  */
 
+/**
+ * Les trois piliers.
+ *
+ * Retour de Giz : « ce n'est pas assez explicite ». C'était juste — le NOM du
+ * pilier était l'élément le plus petit de la carte, et rien ne disait ce que
+ * le pilier CONTIENT. Deux corrections : le nom devient l'élément dominant, et
+ * la liste de services apparaît. Cette liste vient de son offres_content_v2.md,
+ * elle n'est pas inventée.
+ */
 const OFFRES = [
   {
     nom: "Communication & Marketing",
     accroche: "Amplifiez votre présence et convertissez votre audience en clients",
     probleme:
       "Vous avez un message puissant, mais il se perd dans le bruit. Votre audience ne vous trouve pas, ne vous comprend pas, ou ne passe pas à l’action.",
-    benefice:
-      "Transformez votre communication en moteur de croissance. Nous créons une stratégie cohérente qui positionne votre marque, engage votre audience et génère des résultats mesurables.",
+    services: [
+      "Podcasts & audio",
+      "Réseaux sociaux",
+      "Motion design & animation",
+      "Documentaires & reportages",
+      "Vidéomapping & expériences",
+      "Optimisation & testing",
+    ],
     cta: "Demander une consultation",
-    image: "/media/ref-ssp.jpg",
+    image: "/media/pilier-communication.jpg",
   },
   {
     nom: "Événementiel",
     accroche: "Créez des événements inoubliables qui marquent les esprits",
     probleme:
       "Organiser un événement impactant demande une coordination complexe. Vous risquez qu’il soit oublié dès le lendemain, ou qu’il ne génère pas le ROI attendu.",
-    benefice:
-      "De la conception créative à la couverture professionnelle, nous créons des moments qui renforcent votre marque, génèrent du buzz et maximisent votre ROI.",
+    services: [
+      "Conception & scénographie",
+      "Couverture professionnelle",
+      "Vidéomapping & projections",
+      "Événementiel virtuel & hybride",
+      "Production & coordination",
+      "Contenu post-événement",
+    ],
     cta: "Planifier votre événement",
-    image: "/media/ref-clasquin.jpg",
+    image: "/media/pilier-evenementiel.jpg",
   },
   {
     nom: "Immersion",
     accroche: "Plongez votre audience dans des mondes sans limites",
     probleme:
       "Vos clients veulent des expériences, pas juste du contenu. La réalité virtuelle semble complexe et coûteuse, et son intérêt reste flou.",
-    benefice:
-      "Nous transformons votre vision en réalité virtuelle, augmentée ou 360°, créant des moments inoubliables et des résultats mesurables.",
+    services: [
+      "Réalité virtuelle (VR)",
+      "Réalité augmentée (AR)",
+      "Vidéo & photographie 360°",
+      "Modélisation 3D & animation",
+      "Expériences mixtes",
+      "Plateforme & distribution",
+    ],
     cta: "Découvrir nos solutions immersives",
-    image: "/media/ref-berliet.jpg",
+    image: "/media/pilier-immersion.jpg",
   },
+];
+
+/**
+ * Le processus, en cinq phases — écrit par Giz dans offres_content_v2.md.
+ * Il vient nourrir « Pourquoi Bluevista », que Giz jugeait « très pauvre »,
+ * SANS recourir au moindre chiffre de performance : voir la note en tête de
+ * fichier sur les chiffres inventés.
+ */
+const PROCESSUS = [
+  ["Écoute", "Audit de votre marque, analyse de votre audience, définition des objectifs."],
+  ["Stratégie", "Positionnement, messages clés, calendrier de contenu, choix des canaux."],
+  ["Création", "Production des contenus, itérations sur vos retours, respect des délais."],
+  ["Optimisation", "Tests et variantes, ajustements fondés sur les données de performance."],
+  ["Impact", "Suivi, reporting et ajustements réguliers, dans la durée."],
 ];
 
 const CAS = [
@@ -79,10 +131,10 @@ const DIFFERENCE = [
 function SurTitre({ children, sombre = false }: { children: string; sombre?: boolean }) {
   return (
     <div
-      className="mb-6 flex items-center gap-4 text-[13px] font-bold uppercase tracking-[0.22em]"
+      className="mb-7 flex items-center gap-4 text-[15px] font-bold uppercase tracking-[0.16em]"
       style={{ color: sombre ? BLEU_CLAIR : BLEU }}
     >
-      <span className="inline-block h-px w-10" style={{ background: sombre ? BLEU_CLAIR : BLEU }} />
+      <span className="inline-block h-[3px] w-12 rounded-full" style={{ background: sombre ? BLEU_CLAIR : BLEU }} />
       {children}
     </div>
   );
@@ -182,7 +234,7 @@ export default function V5() {
       <section style={{ background: NOIR, color: "#fff" }}>
         <div className="mx-auto max-w-[1500px] px-8 pb-4 pt-24">
           <SurTitre sombre>Nos preuves</SurTitre>
-          <h2 className="max-w-3xl text-[clamp(1.9rem,4vw,3.25rem)] font-bold leading-[1.05] tracking-tight">
+          <h2 className="max-w-3xl text-[clamp(2.4rem,5.4vw,4.5rem)] font-bold leading-[1.02] tracking-[-0.02em]">
             Ce que ça a changé, chez eux.
           </h2>
           <p className="mt-5 max-w-xl text-lg text-white/60">{DIFFERENCE[0]}.</p>
@@ -227,7 +279,7 @@ export default function V5() {
       {/* ④ CLAIR — l'offre. Le changement de fond marque le chapitre. ─ */}
       <section className="mx-auto max-w-[1500px] px-8 py-28">
         <SurTitre>Nos offres</SurTitre>
-        <h2 className="max-w-3xl text-[clamp(1.9rem,4vw,3.25rem)] font-bold leading-[1.05] tracking-tight">
+        <h2 className="max-w-3xl text-[clamp(2.4rem,5.4vw,4.5rem)] font-bold leading-[1.02] tracking-[-0.02em]">
           Nos 3 piliers stratégiques
         </h2>
 
@@ -238,17 +290,42 @@ export default function V5() {
               className={`grid items-center gap-14 lg:grid-cols-2 ${i % 2 ? "lg:[&>figure]:order-first" : ""}`}
             >
               <div>
-                <div className="text-[13px] font-bold uppercase tracking-[0.2em]" style={{ color: BLEU }}>
-                  {o.nom}
+                {/*
+                  Le NOM du pilier est désormais l'élément dominant. Il était
+                  auparavant le plus petit de la carte, sous une accroche en
+                  gros : on lisait la promesse sans savoir de quel métier il
+                  s'agissait. C'est le « pas assez explicite » de Giz.
+                */}
+                <div className="flex items-baseline gap-4">
+                  <span className="text-base font-bold tabular-nums" style={{ color: BLEU }}>
+                    0{i + 1}
+                  </span>
+                  <h3 className="text-[clamp(1.9rem,3.6vw,3rem)] font-bold leading-[1.05] tracking-[-0.02em]">
+                    {o.nom}
+                  </h3>
                 </div>
-                <h3 className="mt-5 text-[clamp(1.5rem,2.6vw,2.3rem)] font-bold leading-[1.12] tracking-tight">
+
+                <p className="mt-6 text-[clamp(1.15rem,1.6vw,1.5rem)] font-semibold leading-snug" style={{ color: BLEU }}>
                   {o.accroche}
-                </h3>
-                <p className="mt-6 leading-relaxed opacity-55">{o.probleme}</p>
-                <p className="mt-4 leading-relaxed opacity-85">{o.benefice}</p>
+                </p>
+                <p className="mt-5 leading-relaxed opacity-60">{o.probleme}</p>
+
+                {/* Ce que le pilier contient concrètement — la pièce qui manquait. */}
+                <ul className="mt-8 grid gap-x-8 gap-y-3 sm:grid-cols-2">
+                  {o.services.map(s => (
+                    <li key={s} className="flex items-start gap-3 text-[15px] leading-snug">
+                      <span
+                        className="mt-[7px] inline-block h-[6px] w-[6px] shrink-0 rounded-full"
+                        style={{ background: BLEU }}
+                      />
+                      {s}
+                    </li>
+                  ))}
+                </ul>
+
                 <a
                   href="#"
-                  className="mt-8 inline-block rounded-md px-7 py-4 text-[15px] font-bold text-white transition hover:brightness-110"
+                  className="mt-9 inline-block rounded-md px-7 py-4 text-[15px] font-bold text-white transition hover:brightness-110"
                   style={{ background: BLEU }}
                 >
                   {o.cta}
@@ -269,25 +346,58 @@ export default function V5() {
       <section style={{ background: CLAIR_SOUTENU }}>
         <div className="mx-auto max-w-[1500px] px-8 py-24">
           <SurTitre>Pourquoi nous</SurTitre>
-          <h2 className="text-[clamp(1.7rem,3vw,2.6rem)] font-bold tracking-tight">
+          <h2 className="text-[clamp(2.4rem,5.4vw,4.5rem)] font-bold leading-[1.02] tracking-[-0.02em]">
             Pourquoi Bluevista
           </h2>
-          <div className="mt-14 grid gap-12 md:grid-cols-3">
-            {DIFFERENCE.map((d, i) => (
-              <div key={d}>
-                <div className="mb-4 text-sm font-bold tabular-nums" style={{ color: BLEU }}>
-                  0{i + 1}
+          {/*
+            Section jugée « très pauvre » par Giz : elle ne portait que trois
+            phrases nues. Elle porte maintenant ses trois différenciateurs
+            ADOSSÉS à son processus en cinq phases — du contenu qu'il a écrit,
+            et qui prouve l'affirmation au lieu de la répéter.
+
+            ⛔ Aucun chiffre de performance ici, volontairement. Voir la note
+            en tête de fichier : ceux de la maquette d'origine étaient inventés.
+          */}
+          <div className="mt-16 grid gap-14 lg:grid-cols-[1fr_1.15fr] lg:gap-24">
+            <div className="space-y-10">
+              {DIFFERENCE.map((d, i) => (
+                <div key={d} className="border-l-2 pl-6" style={{ borderColor: BLEU }}>
+                  <div className="mb-2 text-sm font-bold tabular-nums" style={{ color: BLEU }}>
+                    0{i + 1}
+                  </div>
+                  <p className="text-[1.35rem] font-bold leading-snug tracking-tight">{d}</p>
                 </div>
-                <p className="text-lg font-semibold leading-snug">{d}</p>
+              ))}
+            </div>
+
+            <div>
+              <div className="mb-8 text-[15px] font-bold uppercase tracking-[0.16em]" style={{ color: BLEU }}>
+                Notre processus, en 5 phases
               </div>
-            ))}
+              <ol className="space-y-6">
+                {PROCESSUS.map(([nom, texte], i) => (
+                  <li key={nom} className="flex gap-6">
+                    <span
+                      className="mt-1 flex h-9 w-9 shrink-0 items-center justify-center rounded-full text-sm font-bold text-white"
+                      style={{ background: BLEU }}
+                    >
+                      {i + 1}
+                    </span>
+                    <div>
+                      <div className="text-lg font-bold tracking-tight">{nom}</div>
+                      <p className="mt-1 leading-relaxed opacity-65">{texte}</p>
+                    </div>
+                  </li>
+                ))}
+              </ol>
+            </div>
           </div>
         </div>
       </section>
 
       {/* ⑥ SOMBRE — l'appel final ───────────────────────────────────── */}
       <section style={{ background: SOMBRE, color: "#fff" }} className="py-28 text-center">
-        <h2 className="mx-auto max-w-3xl px-8 text-[clamp(1.8rem,3.6vw,2.9rem)] font-bold leading-tight tracking-tight">
+        <h2 className="mx-auto max-w-3xl px-8 text-[clamp(2rem,4.4vw,3.4rem)] font-bold leading-[1.05] tracking-[-0.02em]">
           Transformez votre communication en{" "}
           <span style={{ color: BLEU_CLAIR }}>résultats concrets</span>
         </h2>
