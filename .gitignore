@@ -116,3 +116,6 @@ next-app/next-env.d.ts
 
 # Archive de la maquette Manus (33 Mo, hors depot)
 elements-manus/
+
+# Planche contact de travail (images WhatsApp, non destinées au site)
+next-app/public/planche/
