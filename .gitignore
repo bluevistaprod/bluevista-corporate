@@ -108,3 +108,11 @@ temp/
 
 # Webdev artifacts (checkpoint zips, migrations, etc.)
 .webdev/
+
+# Application Next.js (chantier de migration)
+next-app/node_modules/
+next-app/.next/
+next-app/next-env.d.ts
+
+# Archive de la maquette Manus (33 Mo, hors depot)
+elements-manus/
