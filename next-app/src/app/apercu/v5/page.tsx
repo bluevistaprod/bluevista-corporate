@@ -1,6 +1,6 @@
 import { BarreAperçu } from "../_commun";
 import { EnTete } from "../_EnTete";
-import { BLEU, BLEU_CLAIR, CLAIR, CLAIR_SOUTENU, SOMBRE, SOMBRE_PROFOND } from "../_palette";
+import { BLEU, BLEU_CLAIR, CLAIR, CLAIR_SOUTENU, NOIR, SOMBRE } from "../_palette";
 
 /**
  * V5 — la V4 retravaillée à partir des retours de Giz.
@@ -112,13 +112,13 @@ export default function V5() {
         <div
           className="absolute inset-0"
           style={{
-            background: `linear-gradient(105deg, ${SOMBRE_PROFOND}F2 0%, ${SOMBRE_PROFOND}AA 38%, ${SOMBRE}30 68%, transparent 100%)`,
+            background: `linear-gradient(105deg, ${NOIR}F5 0%, ${NOIR}B0 38%, ${NOIR}35 68%, transparent 100%)`,
           }}
         />
         <div
           className="absolute inset-0"
           style={{
-            background: `linear-gradient(to top, ${SOMBRE_PROFOND}CC 0%, transparent 42%)`,
+            background: `linear-gradient(to top, ${NOIR}D0 0%, transparent 42%)`,
           }}
         />
 
@@ -162,7 +162,7 @@ export default function V5() {
           un simple filet, et la séquence immersive continue sans rupture.
       */}
       <section
-        style={{ background: SOMBRE_PROFOND, color: "#fff", borderTop: "1px solid rgba(255,255,255,.10)" }}
+        style={{ background: NOIR, color: "#fff", borderTop: "1px solid rgba(255,255,255,.08)" }}
       >
         <div className="mx-auto grid max-w-[1500px] gap-10 px-8 py-14 sm:grid-cols-3">
           {[
@@ -179,7 +179,7 @@ export default function V5() {
       </section>
 
       {/* ③ SOMBRE — la preuve chez le client ────────────────────────── */}
-      <section style={{ background: SOMBRE, color: "#fff" }}>
+      <section style={{ background: NOIR, color: "#fff" }}>
         <div className="mx-auto max-w-[1500px] px-8 pb-4 pt-24">
           <SurTitre sombre>Nos preuves</SurTitre>
           <h2 className="max-w-3xl text-[clamp(1.9rem,4vw,3.25rem)] font-bold leading-[1.05] tracking-tight">
@@ -199,7 +199,7 @@ export default function V5() {
               />
               <div
                 className="absolute inset-0"
-                style={{ background: `linear-gradient(to top, ${SOMBRE} 5%, ${SOMBRE}55 45%, transparent 100%)` }}
+                style={{ background: `linear-gradient(to top, ${NOIR} 4%, ${NOIR}66 45%, transparent 100%)` }}
               />
               <div className="absolute bottom-0 left-0 w-full px-8 pb-12">
                 <div className="mx-auto flex max-w-[1500px] flex-wrap items-end justify-between gap-8">
@@ -286,7 +286,7 @@ export default function V5() {
       </section>
 
       {/* ⑥ SOMBRE — l'appel final ───────────────────────────────────── */}
-      <section style={{ background: SOMBRE_PROFOND, color: "#fff" }} className="py-28 text-center">
+      <section style={{ background: SOMBRE, color: "#fff" }} className="py-28 text-center">
         <h2 className="mx-auto max-w-3xl px-8 text-[clamp(1.8rem,3.6vw,2.9rem)] font-bold leading-tight tracking-tight">
           Transformez votre communication en{" "}
           <span style={{ color: BLEU_CLAIR }}>résultats concrets</span>

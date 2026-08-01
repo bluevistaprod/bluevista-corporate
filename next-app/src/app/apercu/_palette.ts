@@ -26,8 +26,24 @@ export const CLAIR = "#F7F6F2";
 /** Une nuance plus soutenue, pour marquer une section sans changer de camp. */
 export const CLAIR_SOUTENU = "#EBE8E1";
 
-/** Sombre dérivé du bleu de marque, jamais un noir neutre. */
+/** Sombre dérivé du bleu de marque, pour les zones sombres SANS image. */
 export const SOMBRE = "#07222B";
 
-/** Encore plus profond, pour les fins de page et les fondus d'image. */
+/** Sa version plus profonde, même usage. */
 export const SOMBRE_PROFOND = "#04161C";
+
+/**
+ * Noir profond — réservé à la SÉQUENCE IMMERSIVE (hero et cas clients).
+ *
+ * ⛔ La règle, décidée avec Giz le 01/08/2026 : LE NOIR SERT L'IMAGE, LE BLEU
+ * SOMBRE SERT LA MARQUE. Sur une bande plein cadre, un fond noir se confond
+ * avec les noirs de l'image : le cadre disparaît et la photo cesse de
+ * ressembler à un rectangle posé sur un fond — c'est l'effet salle de
+ * projection. Le bleu de marque, lui, a une teinte qui entre en concurrence
+ * avec la couleur des images sur de grandes surfaces.
+ *
+ * Ce n'est donc pas #000 par paresse : c'est un quasi-noir à peine bleuté,
+ * assez profond pour se fondre dans les images, assez vivant pour ne pas
+ * produire l'aplat mort d'un noir pur.
+ */
+export const NOIR = "#04070A";
