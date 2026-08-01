@@ -1,14 +1,25 @@
 /**
- * i18n configuration and translation system
- * Supports FR/EN with domain-specific content (com vs ch)
+ * Traductions du site — FR, EN, ES.
+ *
+ * La langue est déterminée par l'URL : voir shared/urls.ts, qui fait autorité.
+ * Ce fichier ne contient que les textes.
+ *
+ * ⚠️ Une entrée sans traduction espagnole retombe automatiquement sur le
+ * français (voir `t` en fin de fichier). C'est volontaire : ça permet de livrer
+ * l'espagnol progressivement sans jamais afficher une clé brute à l'écran.
+ * Pour savoir ce qu'il reste à traduire : `pnpm exec tsx shared/i18n-manquantes.ts`
  */
 
-export type Language = "fr" | "en";
-export type Domain = "com" | "ch";
+import type { Language } from "./urls";
+import { DEFAULT_LANGUAGE, LANGUAGES } from "./urls";
 
-export const LANGUAGES: Language[] = ["fr", "en"];
+// Réexportés pour que le reste du code puisse continuer à importer depuis
+// "@shared/i18n" sans savoir que la définition vit désormais dans urls.ts.
+export type { Language };
+export { DEFAULT_LANGUAGE, LANGUAGES };
+
+export type Domain = "com" | "ch";
 export const DOMAINS: Domain[] = ["com", "ch"];
-export const DEFAULT_LANGUAGE: Language = "fr";
 export const DEFAULT_DOMAIN: Domain = "com";
 
 // Translation keys and types
@@ -102,12 +113,21 @@ export const translations = {
 
   // Portfolio filters
   portfolio: {
-    title: { fr: "Nos Réalisations", en: "Our Portfolio" },
-    filter_all: { fr: "Tous", en: "All" },
-    filter_industry: { fr: "Industrie", en: "Industry" },
-    filter_banking: { fr: "Bancaire", en: "Banking" },
-    filter_pharma: { fr: "Pharmaceutique", en: "Pharma" },
-    filter_tourism: { fr: "Tourisme", en: "Tourism" },
+    title: { fr: "Nos Réalisations", en: "Our Portfolio", es: "Nuestros proyectos" },
+    filter_all: { fr: "Tous", en: "All", es: "Todos" },
+    // ⚠️ Les clés ci-dessous portent la valeur du secteur telle qu'elle est
+    // stockée en base (en français) : la page compose `portfolio.filter_${secteur}`.
+    // Tant que les secteurs ne sont pas gérés depuis l'administration, toute
+    // nouvelle valeur en base doit avoir sa ligne ici, sinon la clé s'affiche brute.
+    filter_industrie: { fr: "Industrie", en: "Industry", es: "Industria" },
+    filter_bancaire: { fr: "Bancaire", en: "Banking", es: "Banca" },
+    filter_pharmaceutique: { fr: "Pharmaceutique", en: "Pharma", es: "Farmacéutico" },
+    filter_tourisme: { fr: "Tourisme", en: "Tourism", es: "Turismo" },
+    // Anciennes clés, conservées le temps que d'éventuels appels subsistent.
+    filter_industry: { fr: "Industrie", en: "Industry", es: "Industria" },
+    filter_banking: { fr: "Bancaire", en: "Banking", es: "Banca" },
+    filter_pharma: { fr: "Pharmaceutique", en: "Pharma", es: "Farmacéutico" },
+    filter_tourism: { fr: "Tourisme", en: "Tourism", es: "Turismo" },
   },
 
   // About
@@ -333,7 +353,8 @@ export function t(
 }
 
 /**
- * Get all translations for a key (both languages)
+ * Toutes les traductions d'une clé, dans chaque langue.
+ * Une langue sans traduction retombe sur le français, jamais sur la clé brute.
  */
 export function tAll(key: string): Record<Language, string> {
   const keys = key.split(".");
@@ -344,11 +365,13 @@ export function tAll(key: string): Record<Language, string> {
   }
 
   if (typeof value === "object" && value !== null) {
+    const fr = value.fr || key;
     return {
-      fr: value.fr || key,
-      en: value.en || key,
+      fr,
+      en: value.en || fr,
+      es: value.es || fr,
     };
   }
 
-  return { fr: key, en: key };
+  return { fr: key, en: key, es: key };
 }

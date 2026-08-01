@@ -1,8 +1,10 @@
 import { Toaster } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import NotFound from "@/pages/NotFound";
-import { Route, Switch } from "wouter";
+import { Route, Router as WouterRouter, Switch } from "wouter";
+import { basePath, langFromPath } from "@shared/urls";
 import ErrorBoundary from "./components/ErrorBoundary";
+import SeoHead from "./components/SeoHead";
 import { ThemeProvider } from "./contexts/ThemeContext";
 import { I18nProvider } from "./contexts/I18nContext";
 import Home from "./pages/Home";
@@ -65,7 +67,16 @@ function App() {
         >
           <TooltipProvider>
             <Toaster />
-            <Router />
+            {/*
+              Le préfixe de langue est donné au routeur comme base : les
+              chemins déclarés dans <Router /> restent inchangés, et tous les
+              liens internes restent automatiquement dans la langue courante.
+              Ajouter une langue ne demande donc aucune modification de route.
+            */}
+            <WouterRouter base={basePath(langFromPath(window.location.pathname))}>
+              <SeoHead />
+              <Router />
+            </WouterRouter>
           </TooltipProvider>
         </ThemeProvider>
       </I18nProvider>

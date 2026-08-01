@@ -1,26 +1,27 @@
 <!doctype html>
-<html lang="en">
+<!--
+  L'attribut lang est réécrit au démarrage par client/src/main.tsx en fonction
+  de la langue de l'URL (/ = fr, /en/ = en, /es/ = es). La valeur ci-dessous
+  n'est que le repli servi avant l'exécution du script.
+-->
+<html lang="fr">
 
   <head>
     <meta charset="UTF-8" />
     <meta
       name="viewport"
       content="width=device-width, initial-scale=1.0, maximum-scale=1" />
-    <title>Blue Vista Productions - Agence Créative</title>
-    
-    <!-- Performance Optimizations -->
+    <title>Bluevista Production — Agence vidéo, événementiel et immersion</title>
+    <meta
+      name="description"
+      content="Bluevista conçoit et produit vos films, vos événements et vos expériences immersives depuis 2004. Studios à Lyon, Paris et Genève." />
+
+    <!-- Optimisations de chargement -->
     <link rel="preconnect" href="https://player.vimeo.com" />
     <link rel="dns-prefetch" href="https://player.vimeo.com" />
-    <link rel="preconnect" href="https://cdn.jsdelivr.net" />
-    
-    <!-- Preload critical resources -->
+
+    <!-- Ressources critiques -->
     <link rel="preload" as="style" href="/src/index.css" />
-    
-    <!-- THIS IS THE START OF A COMMENT BLOCK, BLOCK TO BE DELETED: Google Fonts here, example:
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
-    THIS IS THE END OF A COMMENT BLOCK, BLOCK TO BE DELETED -->
   </head>
 
   <body>

@@ -3,6 +3,7 @@ import { useI18n } from "@/hooks/useI18n";
 import { Button } from "@/components/ui/button";
 import { Menu, X } from "lucide-react";
 import { Link } from "wouter";
+import { LANGUAGES, pathForLang } from "@shared/urls";
 
 export function Header() {
   const { language, switchLanguage, t } = useI18n();
@@ -23,7 +24,7 @@ export function Header() {
           {/* Logo */}
           <Link href="/" className="flex items-center gap-2 font-bold text-xl text-blue-600 hover:text-blue-700 transition flex-shrink-0">
             <img 
-              src="https://d2xsxph8kpxj0f.cloudfront.net/310519663405351247/HJdMFahbvq3VamEnwkCWwG/bluevista_logo_text_07d6ef3d.png" 
+              src="/media/bluevista_logo_text_07d6ef3d.png" 
               alt="Blue Vista Logo"
               className="h-12 w-auto flex-shrink-0"
               loading="lazy"
@@ -42,28 +43,34 @@ export function Header() {
 
           {/* Language Switcher & CTA */}
           <div className="flex items-center gap-4">
-            <div className="flex gap-2">
-              <button
-                onClick={() => switchLanguage("fr")}
-                className={`px-3 py-1 text-sm font-medium rounded transition ${
-                  language === "fr"
-                    ? "bg-blue-600 text-white"
-                    : "text-gray-700 hover:bg-gray-100"
-                }`}
-              >
-                FR
-              </button>
-              <button
-                onClick={() => switchLanguage("en")}
-                className={`px-3 py-1 text-sm font-medium rounded transition ${
-                  language === "en"
-                    ? "bg-blue-600 text-white"
-                    : "text-gray-700 hover:bg-gray-100"
-                }`}
-              >
-                EN
-              </button>
-            </div>
+            {/*
+              Le sélecteur se construit depuis LANGUAGES : ajouter une langue
+              ne demande aucune modification ici. Ce sont de vrais liens, pas
+              seulement des boutons — un moteur doit pouvoir suivre la version
+              étrangère d'une page, et l'utilisateur doit pouvoir l'ouvrir dans
+              un nouvel onglet.
+            */}
+            <nav aria-label="Choix de la langue" className="flex gap-2">
+              {LANGUAGES.map(lang => (
+                <a
+                  key={lang}
+                  href={pathForLang(window.location.pathname, lang)}
+                  hrefLang={lang}
+                  onClick={e => {
+                    e.preventDefault();
+                    switchLanguage(lang);
+                  }}
+                  aria-current={language === lang ? "true" : undefined}
+                  className={`px-3 py-1 text-sm font-medium rounded transition ${
+                    language === lang
+                      ? "bg-blue-600 text-white"
+                      : "text-gray-700 hover:bg-gray-100"
+                  }`}
+                >
+                  {lang.toUpperCase()}
+                </a>
+              ))}
+            </nav>
 
             <Link href="/contact" className="hidden md:inline-flex">
               <Button asChild className="bg-blue-600 hover:bg-blue-700">

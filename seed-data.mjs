@@ -19,7 +19,7 @@ const projects = [
     descriptionEn: "Complete video campaign creation for Stann brand with innovative motion design",
     sector: "tourisme",
     projectType: "Publicité",
-    imageUrl: "https://d2xsxph8kpxj0f.cloudfront.net/310519663405351247/HJdMFahbvq3VamEnwkCWwG/fubiztalks1_c5bd604e.jpg",
+    imageUrl: "/media/fubiztalks1_c5bd604e.jpg",
     videoUrl: "https://vimeo.com/bluevista",
     domain: "com",
     featured: true,
@@ -31,7 +31,7 @@ const projects = [
     descriptionEn: "Compilation of our best productions from 2025",
     sector: "industrie",
     projectType: "Motion Design",
-    imageUrl: "https://d2xsxph8kpxj0f.cloudfront.net/310519663405351247/HJdMFahbvq3VamEnwkCWwG/Voeux2020-3_1ba21b96.jpg",
+    imageUrl: "/media/Voeux2020-3_1ba21b96.jpg",
     videoUrl: "https://player.vimeo.com/video/1072209644",
     domain: "com",
     featured: true,
@@ -43,7 +43,7 @@ const projects = [
     descriptionEn: "Corporate film for a major French banking group",
     sector: "bancaire",
     projectType: "Film Corporate",
-    imageUrl: "https://d2xsxph8kpxj0f.cloudfront.net/310519663405351247/HJdMFahbvq3VamEnwkCWwG/group_dc8b55dd.png",
+    imageUrl: "/media/group_dc8b55dd.png",
     videoUrl: "https://vimeo.com/bluevista",
     domain: "com",
     featured: true,
@@ -55,7 +55,7 @@ const projects = [
     descriptionEn: "High-resolution 3D animation for pharmaceutical molecule presentation",
     sector: "pharmaceutique",
     projectType: "Animation 3D",
-    imageUrl: "https://d2xsxph8kpxj0f.cloudfront.net/310519663405351247/HJdMFahbvq3VamEnwkCWwG/Logo_BLUEVISTA_2023_00dd6f48.png",
+    imageUrl: "/media/Logo_BLUEVISTA_2023_00dd6f48.png",
     videoUrl: "https://vimeo.com/bluevista",
     domain: "com",
     featured: false,
@@ -72,7 +72,7 @@ const testimonials = [
     rating: 5,
     domain: "com",
     featured: true,
-    imageUrl: "https://d2xsxph8kpxj0f.cloudfront.net/310519663405351247/HJdMFahbvq3VamEnwkCWwG/group-150x150_72b19b4a.png",
+    imageUrl: "/media/group-150x150_72b19b4a.png",
     videoUrl: "https://vimeo.com/bluevista",
   },
   {
@@ -83,7 +83,7 @@ const testimonials = [
     rating: 5,
     domain: "com",
     featured: true,
-    imageUrl: "https://d2xsxph8kpxj0f.cloudfront.net/310519663405351247/HJdMFahbvq3VamEnwkCWwG/group-300x300_6433c4c1.png",
+    imageUrl: "/media/group-300x300_6433c4c1.png",
     videoUrl: "https://vimeo.com/bluevista",
   },
   {
@@ -94,7 +94,7 @@ const testimonials = [
     rating: 5,
     domain: "com",
     featured: true,
-    imageUrl: "https://d2xsxph8kpxj0f.cloudfront.net/310519663405351247/HJdMFahbvq3VamEnwkCWwG/group-150x150_72b19b4a.png",
+    imageUrl: "/media/group-150x150_72b19b4a.png",
     videoUrl: "https://vimeo.com/bluevista",
   },
 ];
@@ -153,16 +153,25 @@ try {
   console.log(`✅ ${projects.length} projets insérés`);
 
   // Insérer les témoignages
+  //
+  // ⚠️ La table a changé de forme : elle ne porte plus un texte unique
+  // (content_fr / content_en) mais le triptyque problem / solution / result du
+  // pipeline de recueil des témoignages. Le texte de démonstration est donc
+  // versé dans « result », et les champs devenus obligatoires sont remplis.
   console.log("💬 Insertion des témoignages...");
   for (const testimonial of testimonials) {
     await connection.execute(
-      `INSERT INTO testimonials (client_name, client_company, content_fr, content_en, rating, domain, featured, image_url, video_url, createdAt, updatedAt)
-       VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, NOW(), NOW())`,
+      `INSERT INTO testimonials (client_name, client_company, client_email, sector, project_type, problem, solution, result, rating, domain, featured, status, image_url, video_url, createdAt, updatedAt)
+       VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 'published', ?, ?, NOW(), NOW())`,
       [
         testimonial.clientName,
         testimonial.clientCompany,
-        testimonial.contentFr,
-        testimonial.contentEn,
+        testimonial.clientEmail || "demo@bluevistaprod.com",
+        testimonial.sector || "communication",
+        testimonial.projectType || "Vidéo",
+        testimonial.problem || "—",
+        testimonial.solution || "—",
+        testimonial.contentFr || testimonial.result || "—",
         testimonial.rating,
         testimonial.domain,
         testimonial.featured ? 1 : 0,

@@ -9,9 +9,9 @@ export default function Offers() {
 
   // Image URLs for each offer
   const offerImages = {
-    communication: "https://d2xsxph8kpxj0f.cloudfront.net/310519663405351247/HJdMFahbvq3VamEnwkCWwG/offre-communication-marketing-iDsDxBYRZC7y4BrrJwnv8a.webp",
-    event: "https://d2xsxph8kpxj0f.cloudfront.net/310519663405351247/HJdMFahbvq3VamEnwkCWwG/offre-evenementiel-49kyautDAAq2aNjhepiGnu.webp",
-    immersion: "https://d2xsxph8kpxj0f.cloudfront.net/310519663405351247/HJdMFahbvq3VamEnwkCWwG/offre-immersion-LEXLDZaBYdRoZMvB677U2g.webp",
+    communication: "/media/offre-communication-marketing-iDsDxBYRZC7y4BrrJwnv8a.webp",
+    event: "/media/offre-evenementiel-49kyautDAAq2aNjhepiGnu.webp",
+    immersion: "/media/offre-immersion-LEXLDZaBYdRoZMvB677U2g.webp",
   };
 
   const offers = [

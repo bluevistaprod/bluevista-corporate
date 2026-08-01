@@ -1,6 +1,8 @@
-import React, { createContext, useContext, useEffect, useState } from "react";
-import type { Language, Domain } from "@shared/i18n";
-import { DEFAULT_LANGUAGE, DEFAULT_DOMAIN } from "@shared/i18n";
+import React, { createContext, useContext } from "react";
+import type { Domain } from "@shared/i18n";
+import { DEFAULT_DOMAIN } from "@shared/i18n";
+import type { Language } from "@shared/urls";
+import { langFromPath, pathForLang } from "@shared/urls";
 
 interface I18nContextType {
   language: Language;
@@ -11,60 +13,33 @@ interface I18nContextType {
 
 const I18nContext = createContext<I18nContextType | undefined>(undefined);
 
+/**
+ * La langue vient de l'URL, et de nulle part ailleurs.
+ *
+ * ⛔ Ne PAS revenir à localStorage ni à navigator.language : une même adresse
+ * servirait alors deux langues, Google n'en indexerait qu'une, et hreflang
+ * deviendrait impossible. C'est le défaut qui a motivé cette réécriture.
+ */
 export function I18nProvider({ children }: { children: React.ReactNode }) {
-  const [language, setLanguage] = useState<Language>(DEFAULT_LANGUAGE);
-  const [domain, setDomain] = useState<Domain>(DEFAULT_DOMAIN);
-  const [isLoaded, setIsLoaded] = useState(false);
+  // Lu une seule fois au montage : changer de langue provoque une navigation
+  // complète (voir switchLanguage), donc le composant est remonté avec la
+  // bonne valeur. Pas besoin d'état réactif ici.
+  const language = langFromPath(window.location.pathname);
 
-  useEffect(() => {
-    // Déterminer le domaine depuis le hostname
-    const hostname = window.location.hostname;
-    const detectedDomain: Domain = hostname.includes("bluevista.ch")
-      ? "ch"
-      : "com";
-    setDomain(detectedDomain);
-
-    // Déterminer la langue
-    const urlParams = new URLSearchParams(window.location.search);
-    const urlLang = urlParams.get("lang") as Language | null;
-
-    const storedLang = localStorage.getItem("language") as Language | null;
-    const browserLang = navigator.language.split("-")[0] as Language;
-
-    let detectedLang: Language = DEFAULT_LANGUAGE;
-
-    if (urlLang && ["fr", "en"].includes(urlLang)) {
-      detectedLang = urlLang;
-    } else if (storedLang && ["fr", "en"].includes(storedLang)) {
-      detectedLang = storedLang;
-    } else if (["fr", "en"].includes(browserLang)) {
-      detectedLang = browserLang;
-    }
-
-    setLanguage(detectedLang);
-    localStorage.setItem("language", detectedLang);
-    setIsLoaded(true);
-  }, []);
+  const hostname = window.location.hostname;
+  const domain: Domain = hostname.includes("bluevista.ch") ? "ch" : DEFAULT_DOMAIN;
 
   const switchLanguage = (newLang: Language) => {
-    setLanguage(newLang);
-    localStorage.setItem("language", newLang);
-
-    // Mettre à jour l'URL sans rechargement
-    const url = new URL(window.location.href);
-    url.searchParams.set("lang", newLang);
-    window.history.replaceState({}, "", url.toString());
+    if (newLang === language) return;
+    // Navigation complète et non un simple changement d'état : la page doit
+    // repartir avec le bon attribut lang, les bonnes balises et la bonne URL.
+    window.location.assign(
+      pathForLang(window.location.pathname, newLang) + window.location.search
+    );
   };
 
   return (
-    <I18nContext.Provider
-      value={{
-        language,
-        domain,
-        isLoaded,
-        switchLanguage,
-      }}
-    >
+    <I18nContext.Provider value={{ language, domain, isLoaded: true, switchLanguage }}>
       {children}
     </I18nContext.Provider>
   );

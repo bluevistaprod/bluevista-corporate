@@ -67,19 +67,19 @@ export default function Home() {
       title: "Communication & Marketing",
       description: "Stratégies de contenu et campagnes marketing qui génèrent des leads qualifiés et fidélisent votre audience.",
       href: "/offers/communication",
-      image: "https://d2xsxph8kpxj0f.cloudfront.net/310519663405351247/HJdMFahbvq3VamEnwkCWwG/pillar-communication-MLKhhyunx5HRZFZ7oWQMpF.webp"
+      image: "/media/pillar-communication-MLKhhyunx5HRZFZ7oWQMpF.webp"
     },
     {
       title: "Événementiel",
       description: "Expériences événementielles mémorables qui renforcent votre marque et créent du buzz authentique.",
       href: "/offers/events",
-      image: "https://d2xsxph8kpxj0f.cloudfront.net/310519663405351247/HJdMFahbvq3VamEnwkCWwG/pillar-events-efU3kzLkQaoZFh4Y9Me8Um.webp"
+      image: "/media/pillar-events-efU3kzLkQaoZFh4Y9Me8Um.webp"
     },
     {
       title: "Immersion",
       description: "Expériences immersives (VR/AR) qui transforment vos visiteurs en ambassadeurs de votre marque.",
       href: "/offers/immersion",
-      image: "https://d2xsxph8kpxj0f.cloudfront.net/310519663405351247/HJdMFahbvq3VamEnwkCWwG/pillar-immersion-iYDRR2kvYFMnQqVirentKB.webp"
+      image: "/media/pillar-immersion-iYDRR2kvYFMnQqVirentKB.webp"
     }
   ];
 
