@@ -32,5 +32,7 @@ export function middleware(request: NextRequest) {
 export const config = {
   // On laisse passer sans réécriture ce qui n'est pas une page :
   // ressources internes de Next, API, fichiers du dossier public.
-  matcher: ["/((?!_next|api|media|favicon.ico|robots.txt|sitemap.xml).*)"],
+  // `apercu` est exclu : ce sont les pages de travail sur la direction
+  // artistique, volontairement hors du système de langues.
+  matcher: ["/((?!_next|api|media|apercu|favicon.ico|robots.txt|sitemap.xml).*)"],
 };
