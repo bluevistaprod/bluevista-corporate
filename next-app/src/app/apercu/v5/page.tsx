@@ -102,37 +102,48 @@ const OFFRES = [
 ];
 
 /**
- * LA MÉTHODE BLUEVISTA — extraite du dossier de lancement Atracsys (juillet 2026).
+ * LA MÉTHODE BLUEVISTA — la vraie, celle du mémoire technique remis à la
+ * Région Auvergne-Rhône-Alpes (mars 2025), que Giz a désigné comme la source.
  *
- * ⛔ CE DOSSIER EST SOUS NDA. On en reprend LA MÉTHODE — la façon de raisonner,
- * la structure, le vocabulaire — et RIEN du contenu client : ni le
- * positionnement d'Atracsys, ni ses produits, ni les angles de ses films.
+ * ⛔ NE PAS la remplacer par un processus générique. J'avais d'abord écrit
+ * « Écoute / Stratégie / Création / Optimisation / Impact » : n'importe quelle
+ * agence l'écrit, ça ne dit rien de Bluevista.
  *
- * Pourquoi ça remplace le « processus en 5 phases » qui était ici : Écoute /
- * Stratégie / Création / Optimisation / Impact, n'importe quelle agence
- * l'écrit. L'architecture modulaire adossée au parcours client, elle, est un
- * vrai différenciateur — et Bluevista la pratique déjà, document à l'appui.
+ * Ce que celle-ci a d'unique, et qu'il faut préserver :
+ *   · elle commence AVANT le projet, par l'analyse de l'identité de marque ;
+ *   · elle assume la CO-CONSTRUCTION — le client module son implication ;
+ *   · elle BOUCLE : l'étape 6 débouche sur une nouvelle étape 1. C'est un
+ *     cycle, pas un tunnel — et c'est ce qui distingue une agence d'un
+ *     prestataire à la commande.
  */
 const METHODE = [
   [
-    "Le brief d'évolution",
-    "On part de vos objectifs commerciaux et de votre positionnement, pas d'un format. Ce qui vous différencie vraiment devient le fil du dispositif.",
+    "Analyse",
+    "Avant le projet : votre identité de marque au prisme de votre communication actuelle. Trouver l'équilibre entre cohérence et rafraîchissement, entre les films qui font ensemble et celui qui doit sortir du lot.",
   ],
   [
-    "L'architecture vidéo",
-    "Un film principal qui installe la marque, des modules courts qui apportent les preuves, et des assets réutilisables pour le site, les salons, LinkedIn et vos rendez-vous commerciaux.",
+    "Brainstorming",
+    "Votre brief passé au crible d'une matrice : quel message, quelle cible, quelles références, cohérence ou disruption, quelles idées éditoriales, quel budget. Puis un ou plusieurs concepts — retenus seulement si le message est clair, s'il parle à la cible, et si nous sommes fiers de produire ce film.",
   ],
   [
-    "Un angle par cible",
-    "Chaque module a son angle, son message et son moment dans le parcours client. Le bon message, pour la bonne cible, au bon moment.",
+    "Pré-production",
+    "Scénario, note d'intention, devis, storyboard, plan de travail, casting, droits musicaux et droit à l'image, autorisations de tournage et de survol. L'étape cruciale : c'est elle qui décide de la suite.",
   ],
   [
-    "L'intention créative",
-    "Un principe narratif fort et un langage visuel et sonore tenu — ce qui fait qu'un film se retient au lieu de s'ajouter au bruit.",
+    "Production",
+    "Tournage en décors réels ou en studio, repérages techniques, coaching des intervenants, voix off, création graphique et animatique. Vous pouvez accompagner nos équipes sur site.",
   ],
   [
-    "La structure narrative",
-    "Séquence par séquence : l'intention, l'illustration, les moyens. Vous savez ce que vous achetez avant qu'on tourne.",
+    "Post-production",
+    "Dérushage, montage, animation, sound design. Une première version complète livrée sur notre plateforme de visionnage, avec vos annotations au timecode près.",
+  ],
+  [
+    "Conformation",
+    "Étalonnage, sous-titrage, rendus aux formats de diffusion. Ni limite rigide du nombre de retours, ni forfait illimité : deux à trois allers-retours, sous couvert du bon sens.",
+  ],
+  [
+    "Débriefing",
+    "On suit la vie du film avec vous : ce qui a marché, à quel moment les spectateurs décrochent, ce qu'on en tire pour le suivant. Le débriefing ouvre la prochaine analyse — la méthode boucle.",
   ],
 ];
 
@@ -445,7 +456,7 @@ export default function V5() {
 
             <div>
               <div className="mb-8 text-[15px] font-bold uppercase tracking-[0.16em]" style={{ color: BLEU }}>
-                Notre méthode, en 5 temps
+                Notre méthode, en 7 temps — et elle boucle
               </div>
               <ol className="space-y-6">
                 {METHODE.map(([nom, texte], i) => (
@@ -549,14 +560,15 @@ export default function V5() {
             <div className="text-2xl font-bold tracking-tight">bluevista</div>
             <p className="mt-5 max-w-xs leading-relaxed text-white/55">
               Agence de communication &amp; marketing, d’événementiel et
-              d’immersion. Depuis 2004.
+              d’immersion. Toute la chaîne de production en interne,
+              depuis 2004.
             </p>
           </div>
 
           {[
-            ["Lyon — siège social", ["8 rue Jean Élysée Dupuy", "69410 Champagne-au-Mont-d’Or", "+33 (0)4 72 34 51 89"]],
-            ["Paris", ["92 avenue Victor Hugo", "92100 Boulogne-Billancourt"]],
-            ["Genève", ["bluevista.ch", "Suisse romande"]],
+            ["Lyon — studios & siège", ["8 rue Jean Élysée Dupuy", "69410 Champagne-au-Mont-d’Or", "+33 (0)4 72 34 51 89"]],
+            ["Paris — bureau commercial", ["92 avenue Victor Hugo", "92100 Boulogne-Billancourt"]],
+            ["Genève — bureau commercial", ["bluevista.ch", "Suisse romande"]],
           ].map(([ville, lignes]) => (
             <div key={ville as string}>
               <div className="text-[13px] font-bold uppercase tracking-[0.16em]" style={{ color: BLEU_CLAIR }}>
