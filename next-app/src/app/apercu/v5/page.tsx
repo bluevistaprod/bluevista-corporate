@@ -1,6 +1,6 @@
 import { BarreAperçu } from "../_commun";
 import { EnTete } from "../_EnTete";
-import { BLEU, BLEU_CLAIR, CLAIR, CLAIR_SOUTENU, NOIR, SOMBRE } from "../_palette";
+import { BLEU, BLEU_CLAIR, CLAIR, CLAIR_SOUTENU, NOIR, SOMBRE, SOMBRE_PROFOND } from "../_palette";
 
 /**
  * V5 — la V4 retravaillée à partir des retours de Giz.
@@ -102,17 +102,38 @@ const OFFRES = [
 ];
 
 /**
- * Le processus, en cinq phases — écrit par Giz dans offres_content_v2.md.
- * Il vient nourrir « Pourquoi Bluevista », que Giz jugeait « très pauvre »,
- * SANS recourir au moindre chiffre de performance : voir la note en tête de
- * fichier sur les chiffres inventés.
+ * LA MÉTHODE BLUEVISTA — extraite du dossier de lancement Atracsys (juillet 2026).
+ *
+ * ⛔ CE DOSSIER EST SOUS NDA. On en reprend LA MÉTHODE — la façon de raisonner,
+ * la structure, le vocabulaire — et RIEN du contenu client : ni le
+ * positionnement d'Atracsys, ni ses produits, ni les angles de ses films.
+ *
+ * Pourquoi ça remplace le « processus en 5 phases » qui était ici : Écoute /
+ * Stratégie / Création / Optimisation / Impact, n'importe quelle agence
+ * l'écrit. L'architecture modulaire adossée au parcours client, elle, est un
+ * vrai différenciateur — et Bluevista la pratique déjà, document à l'appui.
  */
-const PROCESSUS = [
-  ["Écoute", "Audit de votre marque, analyse de votre audience, définition des objectifs."],
-  ["Stratégie", "Positionnement, messages clés, calendrier de contenu, choix des canaux."],
-  ["Création", "Production des contenus, itérations sur vos retours, respect des délais."],
-  ["Optimisation", "Tests et variantes, ajustements fondés sur les données de performance."],
-  ["Impact", "Suivi, reporting et ajustements réguliers, dans la durée."],
+const METHODE = [
+  [
+    "Le brief d'évolution",
+    "On part de vos objectifs commerciaux et de votre positionnement, pas d'un format. Ce qui vous différencie vraiment devient le fil du dispositif.",
+  ],
+  [
+    "L'architecture vidéo",
+    "Un film principal qui installe la marque, des modules courts qui apportent les preuves, et des assets réutilisables pour le site, les salons, LinkedIn et vos rendez-vous commerciaux.",
+  ],
+  [
+    "Un angle par cible",
+    "Chaque module a son angle, son message et son moment dans le parcours client. Le bon message, pour la bonne cible, au bon moment.",
+  ],
+  [
+    "L'intention créative",
+    "Un principe narratif fort et un langage visuel et sonore tenu — ce qui fait qu'un film se retient au lieu de s'ajouter au bruit.",
+  ],
+  [
+    "La structure narrative",
+    "Séquence par séquence : l'intention, l'illustration, les moyens. Vous savez ce que vous achetez avant qu'on tourne.",
+  ],
 ];
 
 const CAS = [
@@ -379,26 +400,19 @@ export default function V5() {
           ))}
         </div>
 
-        <div className="mx-auto grid max-w-[1500px] items-center gap-14 px-8 py-24 lg:grid-cols-2">
-          <figure
-            role="img"
-            aria-label="Le décor du plateau La Boîte à Questions"
-            className="aspect-[4/3] rounded-md bg-cover bg-center"
-            style={{ backgroundImage: "url('/media/studio-plateau.jpg')" }}
-          />
-          <div>
-            <div className="text-[15px] font-bold uppercase tracking-[0.16em]" style={{ color: BLEU_CLAIR }}>
-              Notre studio
-            </div>
-            <h3 className="mt-5 text-[clamp(1.6rem,3vw,2.4rem)] font-bold leading-[1.1] tracking-tight">
-              Un plateau à nous, à Lyon.
-            </h3>
-            <p className="mt-6 max-w-lg leading-relaxed text-white/65">
-              Décors montés sur mesure, éclairage, régie et post-production sur
-              place. De l’idée au montage final, sans intermédiaire.
-            </p>
-          </div>
-        </div>
+        {/*
+          ⛔ SECTION STUDIO RETIRÉE LE 02/08/2026, ET IL NE FAUT PAS LA REMETTRE
+          TELLE QUELLE. Elle affirmait « Un plateau à nous, à Lyon » au-dessus
+          d'une photo tirée du groupe WhatsApp. Correction de Giz : ce plateau
+          était ÉPHÉMÈRE et n'appartient pas à Bluevista. C'était donc une
+          affirmation fausse — la faute même que ce fichier interdit plus haut
+          au sujet des chiffres, commise cette fois sur une image.
+
+          Ce qu'il y a de vrai et d'exploitable à la place : Enéide a racheté
+          50 % du studio Streamset, dont Bluevista sera probablement bon client.
+          À reprendre quand on aura des images de ce studio-là, et une
+          formulation qui dise exactement le lien : partenaire, pas propriétaire.
+        */}
       </section>
 
       {/* ⑥ CLAIR SOUTENU — même camp, autre chapitre ────────────────── */}
@@ -431,10 +445,10 @@ export default function V5() {
 
             <div>
               <div className="mb-8 text-[15px] font-bold uppercase tracking-[0.16em]" style={{ color: BLEU }}>
-                Notre processus, en 5 phases
+                Notre méthode, en 5 temps
               </div>
               <ol className="space-y-6">
-                {PROCESSUS.map(([nom, texte], i) => (
+                {METHODE.map(([nom, texte], i) => (
                   <li key={nom} className="flex gap-6">
                     <span
                       className="mt-1 flex h-9 w-9 shrink-0 items-center justify-center rounded-full text-sm font-bold text-white"
@@ -454,12 +468,60 @@ export default function V5() {
         </div>
       </section>
 
-      {/* ⑦ SOMBRE — l'appel final ───────────────────────────────────── */}
+      {/* ⑦ CLAIR — aperçu des réalisations ───────────────────────────────
+          Manquait à la home : trois cas clients en preuve, c'est peu quand on
+          a 145 réalisations. Cette section ouvre le portfolio, qui est le plus
+          gros actif de contenu du site — et celui qui portera le référencement.
+      */}
+      <section className="mx-auto max-w-[1500px] px-8 py-28">
+        <div className="flex flex-wrap items-end justify-between gap-6">
+          <div>
+            <SurTitre>Nos réalisations</SurTitre>
+            <h2 className="text-[clamp(2.4rem,5.4vw,4.5rem)] font-bold leading-[1.02] tracking-[-0.02em]">
+              145 films, et le vôtre.
+            </h2>
+          </div>
+          <a
+            href="#"
+            className="rounded-md px-7 py-4 text-[15px] font-bold text-white transition hover:brightness-110"
+            style={{ background: BLEU }}
+          >
+            Voir toutes les réalisations
+          </a>
+        </div>
+
+        <div className="mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+          {[
+            ["/media/ref-clasquin.jpg", "Clasquin", "Événementiel"],
+            ["/media/pilier-immersion.jpg", "Cémoi", "Immersion 360°"],
+            ["/media/ref-ssp.jpg", "SSP", "Film corporate"],
+            ["/media/ref-berliet.jpg", "Berliet", "Film social 3D"],
+          ].map(([src, client, type]) => (
+            <figure key={client} className="group">
+              <div
+                role="img"
+                aria-label={`${client} — ${type}`}
+                className="aspect-[4/3] overflow-hidden rounded-md bg-cover bg-center transition duration-700 group-hover:brightness-110"
+                style={{ backgroundImage: `url('${src}')` }}
+              />
+              <figcaption className="mt-4">
+                <div className="font-bold">{client}</div>
+                <div className="text-sm opacity-55">{type}</div>
+              </figcaption>
+            </figure>
+          ))}
+        </div>
+      </section>
+
+      {/* ⑧ SOMBRE — l'appel final ───────────────────────────────────── */}
       <section style={{ background: SOMBRE, color: "#fff" }} className="py-28 text-center">
         <h2 className="mx-auto max-w-3xl px-8 text-[clamp(2rem,4.4vw,3.4rem)] font-bold leading-[1.05] tracking-[-0.02em]">
           Transformez votre communication en{" "}
           <span style={{ color: BLEU_CLAIR }}>résultats concrets</span>
         </h2>
+        <p className="mx-auto mt-6 max-w-xl px-8 text-lg text-white/65">
+          Parlons de vos objectifs avant de parler de format.
+        </p>
         <div className="mt-10 flex flex-wrap justify-center gap-4 px-8">
           <a
             href="#"
@@ -473,6 +535,57 @@ export default function V5() {
           </a>
         </div>
       </section>
+
+      {/*
+        PIED DE PAGE — il n'y en avait aucun jusqu'ici, sur aucune des versions.
+        C'est pourtant lui qui porte les trois adresses, le sélecteur de langue,
+        les mentions légales et les liens que Google suit d'une page à l'autre.
+        Les trois implantations y sont écrites en clair : c'est aussi ce qui
+        nourrit le référencement local sur Lyon, Paris et Genève.
+      */}
+      <footer style={{ background: SOMBRE_PROFOND, color: "#fff" }}>
+        <div className="mx-auto grid max-w-[1500px] gap-14 px-8 py-20 lg:grid-cols-[1.2fr_1fr_1fr_1fr]">
+          <div>
+            <div className="text-2xl font-bold tracking-tight">bluevista</div>
+            <p className="mt-5 max-w-xs leading-relaxed text-white/55">
+              Agence de communication &amp; marketing, d’événementiel et
+              d’immersion. Depuis 2004.
+            </p>
+          </div>
+
+          {[
+            ["Lyon — siège social", ["8 rue Jean Élysée Dupuy", "69410 Champagne-au-Mont-d’Or", "+33 (0)4 72 34 51 89"]],
+            ["Paris", ["92 avenue Victor Hugo", "92100 Boulogne-Billancourt"]],
+            ["Genève", ["bluevista.ch", "Suisse romande"]],
+          ].map(([ville, lignes]) => (
+            <div key={ville as string}>
+              <div className="text-[13px] font-bold uppercase tracking-[0.16em]" style={{ color: BLEU_CLAIR }}>
+                {ville as string}
+              </div>
+              <address className="mt-4 not-italic leading-relaxed text-white/60">
+                {(lignes as string[]).map(l => (
+                  <div key={l}>{l}</div>
+                ))}
+              </address>
+            </div>
+          ))}
+        </div>
+
+        <div className="border-t border-white/10">
+          <div className="mx-auto flex max-w-[1500px] flex-wrap items-center justify-between gap-6 px-8 py-7 text-sm text-white/45">
+            <div className="flex flex-wrap gap-6">
+              <a href="#" className="hover:text-white">Mentions légales</a>
+              <a href="#" className="hover:text-white">Politique de confidentialité</a>
+              <a href="#" className="hover:text-white">Contact</a>
+            </div>
+            <nav aria-label="Choix de la langue" className="flex gap-4">
+              <a href="/" hrefLang="fr" className="font-semibold text-white">FR</a>
+              <a href="/en" hrefLang="en" className="hover:text-white">EN</a>
+              <a href="/es" hrefLang="es" className="hover:text-white">ES</a>
+            </nav>
+          </div>
+        </div>
+      </footer>
 
       <BarreAperçu actif={5} />
     </main>
