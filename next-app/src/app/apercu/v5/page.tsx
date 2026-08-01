@@ -93,23 +93,33 @@ export default function V5() {
     <main style={{ background: CLAIR, color: SOMBRE }}>
       <EnTete />
 
-      {/* ① SOMBRE — la promesse ─────────────────────────────────────── */}
-      <section className="relative flex min-h-[92vh] flex-col justify-center overflow-hidden">
+      {/* ① SOMBRE — la promesse ─────────────────────────────────────────
+          ⛔ NE PAS remettre de fondu vers le clair en bas de ce hero.
+          Essayé en première version, retiré immédiatement : faire mourir
+          l'image dans un aplat beige tuait toute l'immersion en deux
+          secondes. Le hero occupe l'écran entier et se termine par une
+          coupe FRANCHE. L'alternance clair/sombre ne commence pas ici —
+          elle commence après la séquence immersive, au chapitre des offres.
+      */}
+      <section className="relative flex h-[100svh] min-h-[620px] flex-col justify-center overflow-hidden">
         <div
           role="img"
           aria-label="Convention Clasquin au Palais de la Bourse à Lyon"
           className="absolute inset-0 bg-cover bg-center"
           style={{ backgroundImage: "url('/media/ref-clasquin.jpg')" }}
         />
+        {/* Voile de lisibilité ancré en bas à gauche, là où vit le texte. */}
         <div
           className="absolute inset-0"
           style={{
-            background: `linear-gradient(100deg, ${SOMBRE_PROFOND}F0 0%, ${SOMBRE}B0 45%, transparent 100%)`,
+            background: `linear-gradient(105deg, ${SOMBRE_PROFOND}F2 0%, ${SOMBRE_PROFOND}AA 38%, ${SOMBRE}30 68%, transparent 100%)`,
           }}
         />
         <div
-          className="absolute inset-x-0 bottom-0 h-40"
-          style={{ background: `linear-gradient(to bottom, transparent, ${CLAIR})` }}
+          className="absolute inset-0"
+          style={{
+            background: `linear-gradient(to top, ${SOMBRE_PROFOND}CC 0%, transparent 42%)`,
+          }}
         />
 
         <div className="relative z-10 mx-auto w-full max-w-[1500px] px-8 pt-28 text-white">
@@ -135,11 +145,26 @@ export default function V5() {
             </button>
           </div>
         </div>
+
+        {/*
+          Indice de défilement : signale qu'il y a une suite SANS faire mourir
+          l'image dans un dégradé. C'est ce que remplaçait, en pire, le fondu
+          vers le clair de la première version.
+        */}
+        <div className="absolute inset-x-0 bottom-8 z-10 flex justify-center">
+          <span className="text-xs uppercase tracking-[0.3em] text-white/45">défiler</span>
+        </div>
       </section>
 
-      {/* ② CLAIR — respiration et preuve chiffrée ───────────────────── */}
-      <section className="mx-auto max-w-[1500px] px-8 py-20">
-        <div className="grid gap-10 sm:grid-cols-3">
+      {/* ② SOMBRE — bandeau de chiffres, dans la continuité du hero ────
+          Cette bande était claire dans la première version : elle cassait
+          l'immersion à peine sortie du hero. Elle reste sombre, séparée par
+          un simple filet, et la séquence immersive continue sans rupture.
+      */}
+      <section
+        style={{ background: SOMBRE_PROFOND, color: "#fff", borderTop: "1px solid rgba(255,255,255,.10)" }}
+      >
+        <div className="mx-auto grid max-w-[1500px] gap-10 px-8 py-14 sm:grid-cols-3">
           {[
             ["Depuis 2004", "à concevoir et produire"],
             ["145", "films livrés"],
@@ -147,7 +172,7 @@ export default function V5() {
           ].map(([gros, petit]) => (
             <div key={gros}>
               <div className="text-[2rem] font-bold leading-none tracking-tight">{gros}</div>
-              <div className="mt-2 text-sm opacity-55">{petit}</div>
+              <div className="mt-2 text-sm text-white/50">{petit}</div>
             </div>
           ))}
         </div>
