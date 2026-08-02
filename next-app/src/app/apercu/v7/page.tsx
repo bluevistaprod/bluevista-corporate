@@ -1,7 +1,7 @@
 import { BasculePolice } from "../_BasculePolice";
 import { BarreAperçu } from "../_commun";
 import { EnTete } from "../_EnTete";
-import { MethodeEnCercle } from "../_Methode";
+import { MethodeChapeau } from "../_MethodeChapeau";
 import { Temoignages } from "../_Temoignages";
 import { BLEU, BLEU_CLAIR, CLAIR, CLAIR_SOUTENU, NOIR, SOMBRE, SOMBRE_PROFOND, TYPO } from "../_palette";
 
@@ -214,9 +214,17 @@ const CAS = [
  */
 const DIFFERENCE = [
   {
-    titre: "Le mouton à cinq pattes, c’est notre demande préférée",
+    /*
+      ⛔ NE PAS RÉÉCRIRE « le mouton à cinq pattes ». C'était la formulation
+      précédente : elle vient de l'audit Rocket CEO, où c'est Giz lui-même qui
+      emploie l'expression — mais en interne, pour décrire ses clients. Il ne
+      l'a jamais aimée sur le site, et il a raison : l'image traite la demande
+      du client comme une bizarrerie, alors qu'on veut dire l'inverse. Le
+      client n'a pas une demande étrange, il a un projet complet.
+    */
+    titre: "Plus le projet est complexe, plus il est pour nous",
     texte:
-      "Un film, un mapping, une appli VR et le dispositif qui les relie — dans la même équipe, sous le même budget, avec un seul interlocuteur. Les projets qui obligent à coordonner quatre prestataires sont exactement ceux qu’on prend en entier.",
+      "Un film, un mapping, une application VR et le dispositif qui les relie — dans la même équipe, sous le même budget, avec un seul interlocuteur. Les projets qui obligeraient à coordonner quatre prestataires sont exactement ceux qu’on prend en entier.",
   },
   {
     titre: "Vingt ans dans le même métier, et quatre pôles internes",
@@ -333,7 +341,7 @@ export default function V7() {
               className="rounded-md px-9 py-4.5 text-[16px] font-bold text-white shadow-lg transition hover:brightness-110"
               style={{ background: BLEU, paddingTop: "1.05rem", paddingBottom: "1.05rem" }}
             >
-              Prendre rendez-vous
+              Contactez-nous
             </a>
             <button className="flex items-center gap-3.5 rounded-md border border-white/35 py-[1.05rem] pl-3 pr-7 text-[16px] font-semibold text-white transition hover:bg-white/10">
               <span className="flex h-9 w-9 items-center justify-center rounded-full bg-white text-sm" style={{ color: SOMBRE }}>▶</span>
@@ -556,12 +564,13 @@ export default function V7() {
           </h2>
           <p className={`mt-6 max-w-2xl ${TYPO.chapo}`}>
             Six étapes, et elle recommence : le débriefing d’un projet ouvre
-            l’analyse du suivant. Choisissez votre métier — les étapes sont les
-            mêmes, le vocabulaire et les livrables changent.
+            l’analyse du suivant. Le premier et le dernier mot sont les mêmes
+            pour un film, un événement ou un dispositif immersif — seul le
+            milieu change de vocabulaire.
           </p>
 
           <div className="mt-20">
-            <MethodeEnCercle jeu="pexels" />
+            <MethodeChapeau />
           </div>
         </div>
       </section>
@@ -702,7 +711,7 @@ export default function V7() {
             className="rounded-md px-9 py-4 text-[16px] font-bold text-white transition hover:brightness-110"
             style={{ background: BLEU }}
           >
-            Prendre rendez-vous
+            Contactez-nous
           </a>
           <a href="#" className="rounded-md border border-white/30 px-9 py-4 text-[16px] font-semibold">
             Demander un devis

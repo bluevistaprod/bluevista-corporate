@@ -80,7 +80,7 @@ export function EnTete() {
             className="rounded-md bg-white px-6 py-3.5 text-[15px] font-bold transition hover:opacity-90"
             style={{ color: SOMBRE }}
           >
-            Prendre rendez-vous
+            Contactez-nous
           </a>
         </div>
       </div>
