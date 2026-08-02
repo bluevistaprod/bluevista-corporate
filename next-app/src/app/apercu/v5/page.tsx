@@ -1,5 +1,6 @@
 import { BarreAperçu } from "../_commun";
 import { EnTete } from "../_EnTete";
+import { MethodeEnCercle } from "../_Methode";
 import { BLEU, BLEU_CLAIR, CLAIR, CLAIR_SOUTENU, NOIR, SOMBRE, SOMBRE_PROFOND } from "../_palette";
 
 /**
@@ -101,51 +102,6 @@ const OFFRES = [
   },
 ];
 
-/**
- * LA MÉTHODE BLUEVISTA — la vraie, celle du mémoire technique remis à la
- * Région Auvergne-Rhône-Alpes (mars 2025), que Giz a désigné comme la source.
- *
- * ⛔ NE PAS la remplacer par un processus générique. J'avais d'abord écrit
- * « Écoute / Stratégie / Création / Optimisation / Impact » : n'importe quelle
- * agence l'écrit, ça ne dit rien de Bluevista.
- *
- * Ce que celle-ci a d'unique, et qu'il faut préserver :
- *   · elle commence AVANT le projet, par l'analyse de l'identité de marque ;
- *   · elle assume la CO-CONSTRUCTION — le client module son implication ;
- *   · elle BOUCLE : l'étape 6 débouche sur une nouvelle étape 1. C'est un
- *     cycle, pas un tunnel — et c'est ce qui distingue une agence d'un
- *     prestataire à la commande.
- */
-const METHODE = [
-  [
-    "Analyse",
-    "Avant le projet : votre identité de marque au prisme de votre communication actuelle. Trouver l'équilibre entre cohérence et rafraîchissement, entre les films qui font ensemble et celui qui doit sortir du lot.",
-  ],
-  [
-    "Brainstorming",
-    "Votre brief passé au crible d'une matrice : quel message, quelle cible, quelles références, cohérence ou disruption, quelles idées éditoriales, quel budget. Puis un ou plusieurs concepts — retenus seulement si le message est clair, s'il parle à la cible, et si nous sommes fiers de produire ce film.",
-  ],
-  [
-    "Pré-production",
-    "Scénario, note d'intention, devis, storyboard, plan de travail, casting, droits musicaux et droit à l'image, autorisations de tournage et de survol. L'étape cruciale : c'est elle qui décide de la suite.",
-  ],
-  [
-    "Production",
-    "Tournage en décors réels ou en studio, repérages techniques, coaching des intervenants, voix off, création graphique et animatique. Vous pouvez accompagner nos équipes sur site.",
-  ],
-  [
-    "Post-production",
-    "Dérushage, montage, animation, sound design. Une première version complète livrée sur notre plateforme de visionnage, avec vos annotations au timecode près.",
-  ],
-  [
-    "Conformation",
-    "Étalonnage, sous-titrage, rendus aux formats de diffusion. Ni limite rigide du nombre de retours, ni forfait illimité : deux à trois allers-retours, sous couvert du bon sens.",
-  ],
-  [
-    "Débriefing",
-    "On suit la vie du film avec vous : ce qui a marché, à quel moment les spectateurs décrochent, ce qu'on en tire pour le suivant. Le débriefing ouvre la prochaine analyse — la méthode boucle.",
-  ],
-];
 
 const CAS = [
   { client: "Clasquin", contexte: "Convention annuelle · Palais de la Bourse, Lyon", image: "/media/ref-clasquin.jpg" },
@@ -426,60 +382,99 @@ export default function V5() {
         */}
       </section>
 
-      {/* ⑥ CLAIR SOUTENU — même camp, autre chapitre ────────────────── */}
+      {/* ⑥ CLAIR SOUTENU — la différence, puis la méthode en cercle ────
+          Giz : « je veux que chaque message soit impactant, la page d'accueil
+          est un parcours ». Cette section porte donc les deux choses qui
+          doivent rester à la fin du parcours : ce qui les distingue, et
+          comment ils travaillent.
+      */}
       <section style={{ background: CLAIR_SOUTENU }}>
         <div className="mx-auto max-w-[1500px] px-8 py-24">
           <SurTitre>Pourquoi nous</SurTitre>
-          <h2 className="text-[clamp(2.4rem,5.4vw,4.5rem)] font-bold leading-[1.02] tracking-[-0.02em]">
-            Pourquoi Bluevista
+          <h2 className="max-w-4xl text-[clamp(2.4rem,5.4vw,4.5rem)] font-bold leading-[1.02] tracking-[-0.02em]">
+            Ce qui nous distingue
           </h2>
-          {/*
-            Section jugée « très pauvre » par Giz : elle ne portait que trois
-            phrases nues. Elle porte maintenant ses trois différenciateurs
-            ADOSSÉS à son processus en cinq phases — du contenu qu'il a écrit,
-            et qui prouve l'affirmation au lieu de la répéter.
 
-            ⛔ Aucun chiffre de performance ici, volontairement. Voir la note
-            en tête de fichier : ceux de la maquette d'origine étaient inventés.
-          */}
-          <div className="mt-16 grid gap-14 lg:grid-cols-[1fr_1.15fr] lg:gap-24">
-            <div className="space-y-10">
-              {DIFFERENCE.map((d, i) => (
-                <div key={d} className="border-l-2 pl-6" style={{ borderColor: BLEU }}>
-                  <div className="mb-2 text-sm font-bold tabular-nums" style={{ color: BLEU }}>
-                    0{i + 1}
-                  </div>
-                  <p className="text-[1.35rem] font-bold leading-snug tracking-tight">{d}</p>
+          <div className="mt-16 grid gap-10 md:grid-cols-3">
+            {DIFFERENCE.map((d, i) => (
+              <div key={d} className="border-t-2 pt-6" style={{ borderColor: BLEU }}>
+                <div className="mb-3 text-sm font-bold tabular-nums" style={{ color: BLEU }}>
+                  0{i + 1}
                 </div>
-              ))}
-            </div>
-
-            <div>
-              <div className="mb-8 text-[15px] font-bold uppercase tracking-[0.16em]" style={{ color: BLEU }}>
-                Notre méthode, en 7 temps — et elle boucle
+                <p className="text-[1.35rem] font-bold leading-snug tracking-tight">{d}</p>
               </div>
-              <ol className="space-y-6">
-                {METHODE.map(([nom, texte], i) => (
-                  <li key={nom} className="flex gap-6">
-                    <span
-                      className="mt-1 flex h-9 w-9 shrink-0 items-center justify-center rounded-full text-sm font-bold text-white"
-                      style={{ background: BLEU }}
-                    >
-                      {i + 1}
-                    </span>
-                    <div>
-                      <div className="text-lg font-bold tracking-tight">{nom}</div>
-                      <p className="mt-1 leading-relaxed opacity-65">{texte}</p>
-                    </div>
-                  </li>
-                ))}
-              </ol>
-            </div>
+            ))}
           </div>
         </div>
       </section>
 
-      {/* ⑦ CLAIR — aperçu des réalisations ───────────────────────────────
+      {/* ⑦ CLAIR — la méthode, en cercle ─────────────────────────────────
+          Idée de Giz, et elle est juste : sa méthode BOUCLE, un cercle le dit
+          sans qu'on ait à l'écrire. Une frise verticale disait l'inverse.
+          Le détail vit dans _Methode.tsx, composant client — c'est le seul
+          endroit interactif de la page, et il est chargé à part.
+      */}
+      <section>
+        <div className="mx-auto max-w-[1500px] px-8 py-28">
+          <SurTitre>Notre méthode</SurTitre>
+          <h2 className="max-w-4xl text-[clamp(2.4rem,5.4vw,4.5rem)] font-bold leading-[1.02] tracking-[-0.02em]">
+            Six étapes. Et elle recommence.
+          </h2>
+          <p className="mt-6 max-w-2xl text-xl leading-relaxed opacity-65">
+            Le débriefing d’un film ouvre l’analyse du suivant. C’est ce qui
+            sépare une agence d’un exécutant à la commande.
+          </p>
+
+          <div className="mt-20">
+            <MethodeEnCercle />
+          </div>
+        </div>
+      </section>
+
+      {/* ⑧ NOIR — les références ────────────────────────────────────────
+          LA PREUVE QUI MANQUAIT, ET C'EST LA PLUS FORTE.
+
+          Ces noms figurent dans le mémoire technique remis à la Région
+          Auvergne-Rhône-Alpes en mars 2025 : ils sont donc vérifiés et
+          opposables. Aucun n'apparaissait ni sur le site actuel, ni dans la
+          maquette Manus.
+
+          Une agence qui a produit pour l'ONU, l'UNICEF et la BBC ne devrait
+          pas avoir à le taire — c'est exactement ce que Giz demande quand il
+          dit qu'on doit avoir compris ses forces à la fin du parcours.
+
+          ⚠️ Aucun logo ici, volontairement : les afficher demande une
+          autorisation d'usage de marque. Les citer en texte, non.
+      */}
+      <section style={{ background: NOIR, color: "#fff" }}>
+        <div className="mx-auto max-w-[1500px] px-8 py-24">
+          <SurTitre sombre>Ils nous ont fait confiance</SurTitre>
+          <h2 className="max-w-4xl text-[clamp(2.4rem,5.4vw,4.5rem)] font-bold leading-[1.02] tracking-[-0.02em]">
+            Des institutions, des médias, des industriels.
+          </h2>
+
+          <div className="mt-16 grid gap-14 md:grid-cols-3">
+            {[
+              ["Institutions", ["ONU-OHCHR", "UNICEF", "UNECE", "UIT", "Musée des Confluences", "Ville de Lyon", "Parc Naturel Régional du Vercors"]],
+              ["Médias", ["BBC", "France 3", "M6", "BFM TV", "NHK", "Orange Sport", "TSR"]],
+              ["Entreprises", ["ABB", "Cisco", "EDF", "Enedis", "Eiffage Énergie", "GL Events", "Procter & Gamble", "Sodexo", "Vinci Construction"]],
+            ].map(([famille, noms]) => (
+              <div key={famille as string}>
+                <div className="text-[13px] font-bold uppercase tracking-[0.16em]" style={{ color: BLEU_CLAIR }}>
+                  {famille as string}
+                </div>
+                <ul className="mt-5 space-y-2.5 text-[1.05rem] text-white/75">
+                  {(noms as string[]).map(n => (
+                    <li key={n}>{n}</li>
+                  ))}
+                </ul>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ⑨ CLAIR — aperçu des réalisations ───────────────────────────────
           Manquait à la home : trois cas clients en preuve, c'est peu quand on
           a 145 réalisations. Cette section ouvre le portfolio, qui est le plus
           gros actif de contenu du site — et celui qui portera le référencement.
