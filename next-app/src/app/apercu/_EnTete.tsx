@@ -17,7 +17,22 @@ import { SOMBRE } from "./_palette";
  * repassé en blanc par filtre tant que l'en-tête est transparent, et retrouve
  * ses couleurs dès qu'il se pose sur un fond clair.
  */
-export function EnTete() {
+/**
+ * ⛔ `opaque` — AJOUTÉ LE 02/08/2026 APRÈS UN RETOUR DE GIZ : « je vois des
+ * textes qui se chevauchent partout ».
+ *
+ * Ce n'était pas un chevauchement géométrique — la mesure du DOM n'en trouve
+ * aucun. C'était un problème de LISIBILITÉ, qui produit exactement la même
+ * impression : au repos, l'en-tête est transparent et son texte est blanc.
+ * Sur la page d'accueil c'est juste, la vidéo est sombre. Mais sur les pages
+ * intérieures il se pose sur des photos claires — une réunion de bureau, un
+ * plateau éclairé — dont le voile ne fait que 25 % d'opacité tout en haut.
+ * Du blanc sur du clair : les lettres se mélangent à l'image.
+ *
+ * La règle : transparent UNIQUEMENT sur le hero plein écran de l'accueil.
+ * Partout ailleurs, fond plein dès le premier pixel.
+ */
+export function EnTete({ opaque = false }: { opaque?: boolean }) {
   const [defile, setDefile] = useState(false);
 
   useEffect(() => {
@@ -31,8 +46,8 @@ export function EnTete() {
     <header
       className="fixed inset-x-0 top-0 z-50 transition-all duration-300"
       style={{
-        background: defile ? SOMBRE : "transparent",
-        boxShadow: defile ? "0 1px 0 rgba(255,255,255,0.10)" : "none",
+        background: opaque || defile ? SOMBRE : "transparent",
+        boxShadow: opaque || defile ? "0 1px 0 rgba(255,255,255,0.10)" : "none",
       }}
     >
       <div className="mx-auto flex max-w-[1500px] items-center justify-between px-8 py-5">

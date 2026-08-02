@@ -89,7 +89,7 @@ export default async function PageMetier({
 
   return (
     <main style={{ background: CLAIR, color: SOMBRE }}>
-      <EnTete />
+      <EnTete opaque />
 
       {/* ① Le hero du métier — plus court que celui de la home : on arrive
              ici en sachant déjà ce qu'on cherche. */}

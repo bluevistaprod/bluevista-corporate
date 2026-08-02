@@ -44,7 +44,7 @@ export default async function PageVille({
 
   return (
     <main style={{ background: CLAIR, color: SOMBRE }}>
-      <EnTete />
+      <EnTete opaque />
 
       <section className="relative flex min-h-[58vh] flex-col justify-end overflow-hidden">
         <div

@@ -43,7 +43,7 @@ export default async function PageCompetence({
 
   return (
     <main style={{ background: CLAIR, color: SOMBRE }}>
-      <EnTete />
+      <EnTete opaque />
 
       <section className="relative flex min-h-[62vh] flex-col justify-end overflow-hidden">
         <div

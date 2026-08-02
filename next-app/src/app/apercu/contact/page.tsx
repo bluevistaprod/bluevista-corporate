@@ -1,5 +1,5 @@
 import { EnTete } from "../_EnTete";
-import { METIERS } from "../_plan-du-site";
+import { ChoixMetier } from "../_ChoixMetier";
 import { BLEU, BLEU_CLAIR, CLAIR, CLAIR_SOUTENU, NOIR, SOMBRE, TYPO } from "../_palette";
 
 /**
@@ -36,7 +36,7 @@ const BUDGETS = ["Moins de 5 000 €", "5 000 à 15 000 €", "15 000 à 50 000 
 export default function PageContact() {
   return (
     <main style={{ background: CLAIR, color: SOMBRE }}>
-      <EnTete />
+      <EnTete opaque />
 
       <section style={{ background: NOIR, color: "#fff" }}>
         <div className="mx-auto max-w-[1500px] px-8 pb-20 pt-44">
@@ -69,8 +69,7 @@ export default function PageContact() {
                     type={c.type}
                     name={c.id}
                     required={c.requis}
-                    className="mt-2 w-full rounded-md border-2 bg-white px-4 py-3.5 text-[16px] outline-none transition focus:border-[color:var(--bleu)]"
-                    style={{ borderColor: "rgba(0,0,0,.12)", ["--bleu" as string]: BLEU }}
+                    className="mt-2 w-full rounded-md border-2 border-black/10 bg-white px-4 py-3.5 text-[16px] outline-none transition focus:border-[#12607E]"
                   />
                 </label>
               ))}
@@ -80,28 +79,7 @@ export default function PageContact() {
               <legend className="text-[14px] font-bold">
                 Votre projet relève de<span style={{ color: BLEU }}> *</span>
               </legend>
-              <div className="mt-3 flex flex-wrap gap-3">
-                {METIERS.map(m => (
-                  <label key={m.cle} className="cursor-pointer">
-                    <input type="radio" name="metier" value={m.cle} className="peer sr-only" />
-                    <span
-                      className="block rounded-md border-2 px-5 py-3 text-[15px] font-semibold transition peer-checked:text-white"
-                      style={{ borderColor: "rgba(0,0,0,.12)" }}
-                    >
-                      {m.nom}
-                    </span>
-                  </label>
-                ))}
-                <label className="cursor-pointer">
-                  <input type="radio" name="metier" value="autre" className="peer sr-only" />
-                  <span
-                    className="block rounded-md border-2 px-5 py-3 text-[15px] font-semibold transition"
-                    style={{ borderColor: "rgba(0,0,0,.12)" }}
-                  >
-                    Je ne sais pas encore
-                  </span>
-                </label>
-              </div>
+              <ChoixMetier />
             </fieldset>
 
             <label className="block">
@@ -109,8 +87,7 @@ export default function PageContact() {
               <span className="ml-2 text-[13px] opacity-45">facultatif</span>
               <select
                 name="budget"
-                className="mt-2 w-full rounded-md border-2 bg-white px-4 py-3.5 text-[16px] outline-none"
-                style={{ borderColor: "rgba(0,0,0,.12)" }}
+                className="mt-2 w-full rounded-md border-2 border-black/10 bg-white px-4 py-3.5 text-[16px] outline-none focus:border-[#12607E]"
                 defaultValue=""
               >
                 <option value="">—</option>
@@ -134,8 +111,7 @@ export default function PageContact() {
                 name="message"
                 required
                 rows={6}
-                className="mt-2 w-full rounded-md border-2 bg-white px-4 py-3.5 text-[16px] outline-none"
-                style={{ borderColor: "rgba(0,0,0,.12)" }}
+                className="mt-2 w-full rounded-md border-2 border-black/10 bg-white px-4 py-3.5 text-[16px] outline-none focus:border-[#12607E]"
               />
             </label>
 

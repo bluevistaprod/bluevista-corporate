@@ -61,7 +61,7 @@ export default function PlanDeLaMaquette() {
 
   return (
     <main style={{ background: CLAIR, color: SOMBRE }}>
-      <EnTete />
+      <EnTete opaque />
 
       <section className="mx-auto max-w-[1100px] px-8 pb-16 pt-40">
         <div className={`mb-7 flex items-center gap-4 ${TYPO.surTitre}`} style={{ color: BLEU }}>

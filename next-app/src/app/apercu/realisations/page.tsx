@@ -21,7 +21,7 @@ export default async function PageRealisations({
 
   return (
     <main style={{ background: CLAIR, color: SOMBRE }}>
-      <EnTete />
+      <EnTete opaque />
 
       <section className="relative overflow-hidden" style={{ background: NOIR, color: "#fff" }}>
         <div className="mx-auto max-w-[1500px] px-8 pb-20 pt-44">

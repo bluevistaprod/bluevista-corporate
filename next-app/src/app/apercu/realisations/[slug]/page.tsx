@@ -65,7 +65,7 @@ export default async function PageRealisation({
 
   return (
     <main style={{ background: CLAIR, color: SOMBRE }}>
-      <EnTete />
+      <EnTete opaque />
 
       <section style={{ background: NOIR, color: "#fff" }}>
         <div className="mx-auto max-w-[1500px] px-8 pb-16 pt-44">
