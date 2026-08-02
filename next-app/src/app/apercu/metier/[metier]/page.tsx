@@ -4,6 +4,7 @@ import { MethodeEnCercle } from "../../_Methode";
 import { BLEU, BLEU_CLAIR, CLAIR, CLAIR_SOUTENU, NOIR, SOMBRE, TYPO } from "../../_palette";
 import { type Metier as CleMetier } from "../../_plan-du-site";
 import { offresDuMetier } from "../../_offres";
+import { lirePage, imageUrl } from "../../../../lib/sanity";
 import { TOUTES_REALISATIONS } from "../../_realisations";
 
 /**
@@ -84,8 +85,19 @@ export default async function PageMetier({
   params: Promise<{ metier: string }>;
 }) {
   const { metier } = await params;
-  const c = CONTENU[metier as Metier];
-  if (!c) notFound();
+  const arch = CONTENU[metier as Metier];
+  if (!arch) return notFound();
+
+  /* Le titre, l'accroche et l'image viennent de Sanity ; le rattachement
+     aux offres et la méthode restent dans le code. */
+  const page = await lirePage("metier", metier);
+  const c = {
+    ...arch,
+    titre: page?.titre ?? arch.titre,
+    surTitre: page?.surTitre ?? arch.surTitre,
+    accroche: page?.accroche ?? arch.accroche,
+    image: page?.image ? imageUrl(page.image, 1800, 1100)! : arch.image,
+  };
 
   return (
     <main style={{ background: CLAIR, color: SOMBRE }}>

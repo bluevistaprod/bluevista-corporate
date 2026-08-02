@@ -82,3 +82,57 @@ export async function lireRealisation(slug: string, version: Version = "fr") {
     { next: { revalidate: 60 } }
   );
 }
+
+/**
+ * LES PAGES ÉDITABLES — savoir-faire, villes, métiers, agence, contact.
+ *
+ * ⛔ Le CONTENU vient de Sanity ; la STRUCTURE reste dans le code. C'est la
+ * ligne de partage posée au moment du choix du backoffice : Giz change un
+ * titre, un texte, une image — il ne peut pas déplacer une section ni en
+ * inventer une. Rendre la mise en page éditable donne l'illusion de la
+ * liberté et produit des pages cassées ; c'est ce qu'Elementor a fait à
+ * l'ancien site.
+ */
+export type BlocTexte = { _key?: string; children?: { text?: string }[] };
+
+export type PageSanity = {
+  _id: string;
+  genre: string;
+  slug: string;
+  titre: string;
+  surTitre?: string;
+  accroche?: string;
+  image?: unknown;
+  texte?: BlocTexte[];
+  sections?: { _key?: string; titre: string; paragraphes?: BlocTexte[]; image?: unknown }[];
+  faq?: { _key?: string; q: string; r: string }[];
+  projets?: string[];
+  ancienneUrl?: string;
+};
+
+const CHAMPS_PAGE = `
+  _id, genre, "slug": slug.current, titre, surTitre, accroche, image,
+  texte, sections, faq, projets, ancienneUrl
+`;
+
+export async function lirePage(genre: string, slug: string, version: Version = "fr") {
+  return sanity.fetch<PageSanity | null>(
+    `*[_type == "page" && language == $v && genre == $g && slug.current == $s][0] { ${CHAMPS_PAGE} }`,
+    { v: version, g: genre, s: slug },
+    { next: { revalidate: 60 } }
+  );
+}
+
+export async function lirePages(genre: string, version: Version = "fr") {
+  return sanity.fetch<PageSanity[]>(
+    `*[_type == "page" && language == $v && genre == $g] { ${CHAMPS_PAGE} }`,
+    { v: version, g: genre },
+    { next: { revalidate: 60 } }
+  );
+}
+
+/** Le texte riche de Sanity, aplati en paragraphes lisibles. */
+export const enParagraphes = (blocs?: BlocTexte[]): string[] =>
+  (blocs ?? [])
+    .map(b => (b.children ?? []).map(c => c.text ?? "").join(""))
+    .filter(t => t.trim().length > 0);

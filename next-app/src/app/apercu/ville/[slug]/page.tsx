@@ -1,6 +1,7 @@
 import { notFound } from "next/navigation";
 import { EnTete } from "../../_EnTete";
 import { COMPETENCES, VILLES } from "../../_plan-du-site";
+import { lirePage, lirePages, enParagraphes, imageUrl } from "../../../../lib/sanity";
 import { BLEU, BLEU_CLAIR, CLAIR, CLAIR_SOUTENU, NOIR, SOMBRE, TYPO } from "../../_palette";
 
 /**
@@ -27,8 +28,9 @@ import { BLEU, BLEU_CLAIR, CLAIR, CLAIR_SOUTENU, NOIR, SOMBRE, TYPO } from "../.
  * sans risquer d'écrire une contre-vérité géographique.
  */
 
-export function generateStaticParams() {
-  return VILLES.map(v => ({ slug: v.slug }));
+export async function generateStaticParams() {
+  const pages = await lirePages("ville");
+  return pages.map(p => ({ slug: p.slug }));
 }
 
 export default async function PageVille({
@@ -37,10 +39,24 @@ export default async function PageVille({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
-  const v = VILLES.find(x => x.slug === slug);
-  if (!v) notFound();
+  const page = await lirePage("ville", slug);
+  if (!page) return notFound();
 
-  const c = COMPETENCES.find(x => x.slug === v.competence);
+  /* Le rattachement à un savoir-faire reste dans le code : c'est de
+     l'architecture, pas du contenu. */
+  const arch = VILLES.find(x => x.slug === slug);
+  const c = COMPETENCES.find(x => x.slug === arch?.competence);
+  const v = {
+    ville: page.surTitre ?? arch?.ville ?? "",
+    titre: page.titre,
+    clics: arch?.clics ?? 0,
+    texte: enParagraphes(page.texte),
+    specificites: (page.sections ?? []).map(s => ({
+      titre: s.titre,
+      texte: enParagraphes(s.paragraphes).join(" "),
+    })),
+    projets: page.projets ?? [],
+  };
 
   return (
     <main style={{ background: CLAIR, color: SOMBRE }}>
@@ -49,7 +65,7 @@ export default async function PageVille({
       <section className="relative flex min-h-[58vh] flex-col justify-end overflow-hidden">
         <div
           className="absolute inset-0 bg-cover bg-center"
-          style={{ backgroundImage: `url('${c?.image ?? "/media/px-pilier-communication.jpg"}')` }}
+          style={{ backgroundImage: `url('${page.image ? imageUrl(page.image, 1800, 1000) : (c?.image ?? "/media/px-pilier-communication.jpg")}')` }}
           role="img"
           aria-label={v.titre}
         />
@@ -85,7 +101,7 @@ export default async function PageVille({
           clics pour 17 984 impressions : Google la montre, puis ne la juge
           pas assez distincte pour la classer haut. */}
       <section className="mx-auto max-w-[820px] px-8 py-20">
-        {v.texte && (
+        {v.texte.length > 0 && (
           <div className="space-y-6">
             {v.texte.map((par, i) => (
               <p key={i} className="text-[1.0625rem] leading-[1.75] opacity-80">
@@ -100,7 +116,7 @@ export default async function PageVille({
             aux quatre villes par construction ; ces blocs-là ne le sont pas,
             et c'est eux qui donneront à Google une raison de classer chaque
             page séparément. */}
-        {v.specificites && (
+        {v.specificites.length > 0 && (
           <div className="mt-16 space-y-10">
             {v.specificites.map((sp, i) => (
               <div key={sp.titre} className="border-t-2 pt-6" style={{ borderColor: BLEU }}>
@@ -116,7 +132,7 @@ export default async function PageVille({
 
         {/* Les projets locaux nommés — sourcés dans le cerveau. C'est la
             preuve que l'implantation n'est pas qu'une ligne d'adresse. */}
-        {v.projets && (
+        {v.projets.length > 0 && (
           <div className="mt-14">
             <div className="text-[13px] font-bold uppercase tracking-[0.16em] opacity-45">
               Quelques projets à {v.ville}

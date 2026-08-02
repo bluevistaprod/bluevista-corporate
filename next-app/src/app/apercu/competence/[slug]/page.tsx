@@ -1,6 +1,7 @@
 import { notFound } from "next/navigation";
 import { EnTete } from "../../_EnTete";
 import { COMPETENCES, METIERS, competencesDuMetier } from "../../_plan-du-site";
+import { lirePage, lirePages, enParagraphes, imageUrl } from "../../../../lib/sanity";
 import { BLEU, BLEU_CLAIR, CLAIR, CLAIR_SOUTENU, NOIR, SOMBRE, TYPO } from "../../_palette";
 
 /**
@@ -23,8 +24,18 @@ import { BLEU, BLEU_CLAIR, CLAIR, CLAIR_SOUTENU, NOIR, SOMBRE, TYPO } from "../.
  * Le gabarit est prêt pour les accueillir.
  */
 
-export function generateStaticParams() {
-  return COMPETENCES.map(c => ({ slug: c.slug }));
+/**
+ * ⛔ LES ADRESSES VIENNENT DE SANITY. Créer une page de savoir-faire dans le
+ * studio crée sa route — sans que je touche au code.
+ *
+ * 📌 `_plan-du-site.ts` sert encore, mais pour une seule chose : le
+ * RATTACHEMENT d'un savoir-faire à son métier, et le maillage entre pages
+ * voisines. Ce n'est pas du contenu, c'est de l'architecture — et
+ * l'architecture reste dans le code.
+ */
+export async function generateStaticParams() {
+  const pages = await lirePages("savoir-faire");
+  return pages.map(p => ({ slug: p.slug }));
 }
 
 export default async function PageCompetence({
@@ -33,13 +44,31 @@ export default async function PageCompetence({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
-  const c = COMPETENCES.find(x => x.slug === slug);
-  if (!c) notFound();
+  const page = await lirePage("savoir-faire", slug);
+  if (!page) return notFound();
 
-  const metier = METIERS.find(m => m.cle === c.metier)!;
+  /* L'architecture reste dans le code : c'est elle qui dit à quel métier ce
+     savoir-faire se rattache, et donc quel fil d'Ariane afficher. */
+  const arch = COMPETENCES.find(x => x.slug === slug);
+  const metier = METIERS.find(m => m.cle === arch?.metier) ?? METIERS[0];
+  const c = {
+    nom: page.titre,
+    accroche: page.accroche ?? "",
+    probleme: arch?.probleme ?? "",
+    ce_qu_on_fait: arch?.ce_qu_on_fait ?? [],
+    image: page.image ? imageUrl(page.image, 1800, 1000)! : (arch?.image ?? ""),
+    clics: arch?.clics ?? 0,
+    texte: enParagraphes(page.texte),
+    sections: (page.sections ?? []).map(s => ({
+      titre: s.titre,
+      paragraphes: enParagraphes(s.paragraphes),
+      image: s.image ? imageUrl(s.image, 1200, 750) : undefined,
+    })),
+    faq: page.faq ?? [],
+  };
   /* Le maillage interne : les compétences voisines du même métier. C'est ce
      qui fait qu'une page qui se positionne tire les autres avec elle. */
-  const voisines = competencesDuMetier(c.metier).filter(x => x.slug !== c.slug);
+  const voisines = arch ? competencesDuMetier(arch.metier).filter(x => x.slug !== slug) : [];
 
   return (
     <main style={{ background: CLAIR, color: SOMBRE }}>
@@ -112,7 +141,7 @@ export default async function PageCompetence({
       {/* ── Le texte de fond ──────────────────────────────────────────
           Repris de l'ancien site : c'est lui qui fait remonter la page
           depuis des années. Le réécrire pour le plaisir jetterait un actif. */}
-      {c.texte && (
+      {c.texte.length > 0 && (
         <section style={{ background: CLAIR_SOUTENU }}>
           <div className="mx-auto max-w-[820px] px-8 py-20">
             <div className="space-y-6">
@@ -135,7 +164,7 @@ export default async function PageCompetence({
           se pose vraiment, des blocs courts, une image tous les deux ou
           trois blocs. Un mur de texte de 1 200 mots n'est lu par personne,
           et Google mesure aussi le temps passé. */}
-      {c.sections && (
+      {c.sections.length > 0 && (
         <section className="mx-auto max-w-[1500px] px-8 py-24">
           <div className="space-y-24">
             {c.sections.map((sec, i) => (
@@ -180,7 +209,7 @@ export default async function PageCompetence({
           sont celles que les pages vitrines ratent toutes, et ce sont
           exactement celles que les gens tapent. Elles vaudront aussi un
           balisage FAQPage en JSON-LD à la mise en ligne. */}
-      {c.faq && (
+      {c.faq.length > 0 && (
         <section style={{ background: CLAIR_SOUTENU }}>
           <div className="mx-auto max-w-[820px] px-8 py-20">
             <div className={`mb-7 flex items-center gap-4 ${TYPO.surTitre}`} style={{ color: BLEU }}>
@@ -200,7 +229,7 @@ export default async function PageCompetence({
       )}
 
       {/* ── Ce qui manque encore, quand rien n'a été repris ───────────── */}
-      {!c.texte && !c.sections && (
+      {c.texte.length === 0 && c.sections.length === 0 && (
         <section style={{ background: CLAIR_SOUTENU }}>
           <div className="mx-auto max-w-[820px] px-8 py-20">
             <div

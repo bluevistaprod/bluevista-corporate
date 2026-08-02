@@ -135,6 +135,24 @@ export const page = defineType({
         "Ce n’est pas du remplissage : « faut-il une autorisation pour un drone » est une vraie recherche, que les pages vitrines ratent toutes.",
     }),
 
+    /**
+     * ⭐ LES PROJETS LOCAUX — réservé aux pages de VILLE, et c'est le champ
+     * qui les sauve. Ces pages ont été fabriquées par duplication sur
+     * l'ancien site : la page Genève demandait « envie de travailler avec
+     * une boîte de prod lyonnaise ? ». Nommer des projets réellement
+     * réalisés dans cette ville est le seul contenu qui ne peut pas exister
+     * ailleurs — donc la seule parade au contenu quasi dupliqué.
+     */
+    defineField({
+      name: "projets",
+      title: "Projets réalisés ici",
+      type: "array",
+      of: [{ type: "string" }],
+      group: "sections",
+      description: "Un par ligne. À ne renseigner que sur les pages de ville.",
+      hidden: ({ document }) => document?.genre !== "ville",
+    }),
+
     defineField({
       name: "ancienneUrl",
       title: "Ancienne adresse",
