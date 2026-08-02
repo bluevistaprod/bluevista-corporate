@@ -595,7 +595,12 @@ export default function V5() {
       <footer style={{ background: SOMBRE_PROFOND, color: "#fff" }}>
         <div className="mx-auto grid max-w-[1500px] gap-14 px-8 py-20 lg:grid-cols-[1.2fr_1fr_1fr_1fr]">
           <div>
-            <div className="text-2xl font-bold tracking-tight">bluevista</div>
+            {/*
+              ⛔ LE LOGO EST UNE IMAGE, PAS DU TEXTE — même règle qu'en tête
+              de page. « bluevista » composé en gras était encore ici : la
+              correction n'avait été appliquée qu'à l'en-tête.
+            */}
+            <img src="/media/logo-bluevista-blanc.png" alt="Bluevista" className="h-7 w-auto" />
             <p className="mt-5 max-w-xs leading-relaxed text-white/55">
               Agence de communication &amp; marketing, d’événementiel et
               d’immersion. Toute la chaîne de production en interne,
