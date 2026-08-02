@@ -18,6 +18,10 @@ import { defineField, defineType } from "sanity";
  * séparés auraient divergé à la première correction — c'est ce qui est arrivé
  * entre la V6 et la V7 sur le logo du pied de page.
  */
+const NOM_VERSION: Record<string, string> = {
+  fr: "🇫🇷 FR", en: "🇫🇷 EN", es: "🇫🇷 ES", "fr-ch": "🇨🇭 FR", "en-ch": "🇨🇭 EN",
+};
+
 export const page = defineType({
   name: "page",
   title: "Page",
@@ -25,7 +29,6 @@ export const page = defineType({
   groups: [
     { name: "contenu", title: "Contenu", default: true },
     { name: "sections", title: "Sections de fond" },
-    { name: "diffusion", title: "Diffusion" },
     { name: "seo", title: "Référencement" },
   ],
   fields: [
@@ -133,22 +136,6 @@ export const page = defineType({
     }),
 
     defineField({
-      name: "marches",
-      title: "Publiée sur",
-      type: "array",
-      group: "diffusion",
-      of: [{ type: "string" }],
-      options: {
-        list: [
-          { title: "🇫🇷 bluevistaprod.com", value: "fr" },
-          { title: "🇨🇭 bluevista.ch", value: "ch" },
-        ],
-      },
-      initialValue: ["fr"],
-      validation: r => r.min(1),
-    }),
-
-    defineField({
       name: "ancienneUrl",
       title: "Ancienne adresse",
       type: "string",
@@ -173,11 +160,9 @@ export const page = defineType({
   ],
 
   preview: {
-    select: { title: "titre", genre: "genre", media: "image", marches: "marches" },
-    prepare({ title, genre, media, marches }) {
-      const p = [marches?.includes("fr") ? "🇫🇷" : "", marches?.includes("ch") ? "🇨🇭" : ""]
-        .filter(Boolean).join(" ");
-      return { title, media, subtitle: `${p}  ·  ${genre ?? "—"}` };
+    select: { title: "titre", genre: "genre", media: "image", langue: "language" },
+    prepare({ title, genre, media, langue }) {
+      return { title, media, subtitle: `${NOM_VERSION[langue as string] ?? "—"}  ·  ${genre ?? "—"}` };
     },
   },
 });

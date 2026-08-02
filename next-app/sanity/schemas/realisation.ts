@@ -15,6 +15,10 @@ import { defineField, defineType } from "sanity";
  * document, trois traductions dans des champs ». C'était la contrainte
  * numéro un de Giz : « on ne montre pas TOUS les projets » en Suisse.
  */
+const NOM_VERSION: Record<string, string> = {
+  fr: "🇫🇷 FR", en: "🇫🇷 EN", es: "🇫🇷 ES", "fr-ch": "🇨🇭 FR", "en-ch": "🇨🇭 EN",
+};
+
 export const realisation = defineType({
   name: "realisation",
   title: "Réalisation",
@@ -118,27 +122,6 @@ export const realisation = defineType({
         "Coché sur les fiches dont le métier et le type ont été DÉDUITS à l’import — les colonnes correspondantes étaient vides dans l’export.",
     }),
 
-    /**
-     * ⭐ LE CHAMP QUI PORTE TOUTE LA LOGIQUE SUISSE.
-     * Une réalisation peut être publiée en France, en Suisse, ou aux deux.
-     * C'est lui qui répond à « on ne montre pas TOUS les projets » — et il
-     * est visible directement dans les listes, sous forme de pastilles.
-     */
-    defineField({
-      name: "marches",
-      title: "Publiée sur",
-      type: "array",
-      group: "classement",
-      of: [{ type: "string" }],
-      options: {
-        list: [
-          { title: "🇫🇷 bluevistaprod.com", value: "fr" },
-          { title: "🇨🇭 bluevista.ch", value: "ch" },
-        ],
-      },
-      initialValue: ["fr"],
-      validation: r => r.min(1).error("Une réalisation invisible partout n’a pas de raison d’exister."),
-    }),
 
     // ── Le cas client ─────────────────────────────────────────────────
     defineField({
@@ -215,15 +198,11 @@ export const realisation = defineType({
    * version du site quelle page existe ».
    */
   preview: {
-    select: { title: "titre", media: "image", marches: "marches", metier: "metier", aRelire: "aRelire" },
-    prepare({ title, media, marches, metier, aRelire }) {
-      const pastilles = [
-        marches?.includes("fr") ? "🇫🇷" : "",
-        marches?.includes("ch") ? "🇨🇭" : "",
-        aRelire ? "⚠️ à relire" : "",
-      ].filter(Boolean).join(" ");
+    select: { title: "titre", media: "image", langue: "language", metier: "metier", aRelire: "aRelire" },
+    prepare({ title, media, langue, metier, aRelire }) {
+      const v = NOM_VERSION[langue as string] ?? "—";
       const nom = { film: "Communication", evenement: "Événementiel", immersion: "Immersion" }[metier as string] ?? "—";
-      return { title, media, subtitle: `${pastilles}  ·  ${nom}` };
+      return { title, media, subtitle: `${v}  ·  ${nom}${aRelire ? "  ·  ⚠️ à relire" : ""}` };
     },
   },
 });

@@ -137,7 +137,6 @@ for (const f of fiches) {
     metier: f.metier || "film",
     produit: f.produit || undefined,
     aRelire: f.aRelire,
-    marches: ["fr"],
     ancienneUrl: f.ancienneUrl,
   };
   /* ⛔ NE RIEN TÉLÉVERSER EN SIMULATION. Première version : l'envoi des

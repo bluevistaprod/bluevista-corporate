@@ -30,11 +30,35 @@ export default defineConfig({
   basePath: "/admin",
   plugins: [
     structureTool({ structure }),
+    /**
+     * ⭐ LES CINQ VERSIONS — et c'est une CORRECTION du modèle initial.
+     *
+     * Première version : trois langues (fr/en/es) plus un champ `marches`
+     * cochable France/Suisse sur le même document. Défaut relevé par Giz —
+     * « on peut avoir les textes FR et CH accessibles pour séparer si
+     * besoin ? » — un document coché « France + Suisse » porte UN SEUL
+     * texte. Or la Suisse doit avoir « un langage différent ». Le modèle
+     * permettait de diffuser sur deux marchés, pas d'y dire deux choses.
+     *
+     * 👉 Le marché est donc traité COMME une langue. Chaque version est un
+     * document distinct, avec son texte, son adresse, et son existence
+     * propre. Une réalisation qu'on ne montre pas en Suisse n'a simplement
+     * pas de version fr-CH — ce qui répond du même coup à « on ne montre
+     * pas TOUS les projets ».
+     *
+     * ⚠️ CE QUE ÇA COÛTE, et il faut le savoir : un projet montré à
+     * l'identique des deux côtés doit être dupliqué, et une correction se
+     * fait alors deux fois. C'est le prix d'un modèle à un seul mécanisme.
+     * L'alternative — deux mécanismes qui cohabitent — coûte plus cher : on
+     * ne sait jamais lequel s'applique.
+     */
     documentInternationalization({
       supportedLanguages: [
-        { id: "fr", title: "Français" },
-        { id: "en", title: "English" },
-        { id: "es", title: "Español" },
+        { id: "fr", title: "🇫🇷 France — français" },
+        { id: "en", title: "🇫🇷 France — English" },
+        { id: "es", title: "🇫🇷 France — Español" },
+        { id: "fr-ch", title: "🇨🇭 Suisse — français" },
+        { id: "en-ch", title: "🇨🇭 Suisse — English" },
       ],
       schemaTypes: ["realisation", "page"],
     }),

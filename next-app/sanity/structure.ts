@@ -20,6 +20,15 @@ import type { StructureResolver } from "sanity/structure";
  * entrée du menu doit répondre à une question qu'on se pose vraiment un
  * lundi matin.
  */
+/** Les cinq versions du site, dans l'ordre où elles comptent. */
+const VERSIONS = [
+  { id: "fr", nom: "🇫🇷 France — français" },
+  { id: "en", nom: "🇫🇷 France — English" },
+  { id: "es", nom: "🇫🇷 France — Español" },
+  { id: "fr-ch", nom: "🇨🇭 Suisse — français" },
+  { id: "en-ch", nom: "🇨🇭 Suisse — English" },
+];
+
 export const structure: StructureResolver = S =>
   S.list()
     .title("Bluevista")
@@ -37,20 +46,21 @@ export const structure: StructureResolver = S =>
 
               S.divider(),
 
-              S.listItem()
-                .title("🇫🇷 France")
-                .child(
-                  S.documentList()
-                    .title("Publiées sur bluevistaprod.com")
-                    .filter('_type == "realisation" && "fr" in marches')
-                ),
-              S.listItem()
-                .title("🇨🇭 Suisse")
-                .child(
-                  S.documentList()
-                    .title("Publiées sur bluevista.ch")
-                    .filter('_type == "realisation" && "ch" in marches')
-                ),
+              /* ⭐ Une entrée par version du site. C'est la réponse directe
+                 à « à quel point c'est visuel de savoir sur quelle version
+                 quelle page existe » : la liste anglaise vide dit qu'aucune
+                 réalisation n'est traduite, sans avoir à chercher. */
+              ...VERSIONS.map(v =>
+                S.listItem()
+                  .id(`real-${v.id}`)
+                  .title(v.nom)
+                  .child(
+                    S.documentList()
+                      .title(v.nom)
+                      .filter('_type == "realisation" && language == $l')
+                      .params({ l: v.id })
+                  )
+              ),
 
               S.divider(),
 
@@ -84,12 +94,17 @@ export const structure: StructureResolver = S =>
             .items([
               S.listItem().title("Toutes").child(S.documentTypeList("page").title("Toutes les pages")),
               S.divider(),
-              S.listItem()
-                .title("🇫🇷 France")
-                .child(S.documentList().title("France").filter('_type == "page" && "fr" in marches')),
-              S.listItem()
-                .title("🇨🇭 Suisse")
-                .child(S.documentList().title("Suisse").filter('_type == "page" && "ch" in marches')),
+              ...VERSIONS.map(v =>
+                S.listItem()
+                  .id(`page-${v.id}`)
+                  .title(v.nom)
+                  .child(
+                    S.documentList()
+                      .title(v.nom)
+                      .filter('_type == "page" && language == $l')
+                      .params({ l: v.id })
+                  )
+              ),
               S.divider(),
               S.listItem()
                 .title("Savoir-faire")
@@ -141,6 +156,33 @@ export const structure: StructureResolver = S =>
                   S.documentList()
                     .title("À repointer vers Livid")
                     .filter('_type == "realisation" && video match "*vimeo*"')
+                ),
+              /* ⭐ LA LISTE LA PLUS UTILE DU MENU : ce qui existe en
+                 français et nulle part ailleurs. Elle se vide au fur et à
+                 mesure des traductions — c'est un plan de travail, pas un
+                 constat. */
+              S.listItem()
+                .title("Pas encore traduit")
+                .child(
+                  S.list()
+                    .title("Ce qui n’existe qu’en français")
+                    .items(
+                      VERSIONS.filter(v => v.id !== "fr").map(v =>
+                        S.listItem()
+                          .id(`manque-${v.id}`)
+                          .title(v.nom)
+                          .child(
+                            S.documentList()
+                              .title(`Sans version ${v.nom}`)
+                              .filter(
+                                `_type in ["realisation","page"] && language == "fr" &&
+                                 !defined(*[_type == "translation.metadata" &&
+                                   references(^._id)][0].translations[_key == $l][0])`
+                              )
+                              .params({ l: v.id })
+                          )
+                      )
+                    )
                 ),
               S.listItem()
                 .title("Sans titre pour Google")
