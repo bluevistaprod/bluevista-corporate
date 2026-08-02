@@ -20,13 +20,15 @@ import { useEffect, useState } from "react";
 type Police = "systeme" | "titres" | "partout";
 
 const CHOIX: { valeur: Police; nom: string; aide: string }[] = [
-  { valeur: "systeme", nom: "Actuelle", aide: "Le témoin — l'état d'aujourd'hui." },
-  { valeur: "titres", nom: "Poppins titres", aide: "Ma recommandation." },
+  { valeur: "systeme", nom: "Sans Poppins", aide: "L'ancien état, pour comparer." },
+  { valeur: "titres", nom: "Poppins titres", aide: "✅ Retenu par Giz le 02/08/2026." },
   { valeur: "partout", nom: "Poppins partout", aide: "Regarde les paragraphes." },
 ];
 
 export function BasculePolice() {
-  const [police, setPolice] = useState<Police>("systeme");
+  /* Retenu : Poppins sur les titres. L'attribut est déjà posé par le serveur
+     dans layout.tsx — cet état initial ne fait que s'accorder avec lui. */
+  const [police, setPolice] = useState<Police>("titres");
 
   useEffect(() => {
     const racine = document.documentElement;

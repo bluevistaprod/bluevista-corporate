@@ -283,30 +283,51 @@ export default function V5() {
         >
           <source src="/media/showreel-hero.mp4" type="video/mp4" />
         </video>
-        {/* Voile de lisibilité ancré en bas à gauche, là où vit le texte. */}
+        {/*
+          Voile de lisibilité ancré en bas à gauche, là où vit le texte.
+          Il arrive AVEC le texte, pas avant : pendant la première seconde le
+          showreel est vu tel quel, sans filtre posé dessus. C'est là tout
+          l'intérêt de l'entrée différée — sinon on assombrit une image que
+          personne n'a encore eu le temps de regarder.
+        */}
         <div
-          className="absolute inset-0"
+          className="voile-hero absolute inset-0"
           style={{
             background: `linear-gradient(105deg, ${NOIR}F5 0%, ${NOIR}B0 38%, ${NOIR}35 68%, transparent 100%)`,
           }}
         />
         <div
-          className="absolute inset-0"
+          className="voile-hero absolute inset-0"
           style={{
             background: `linear-gradient(to top, ${NOIR}D0 0%, transparent 42%)`,
           }}
         />
 
         <div className="relative z-10 mx-auto w-full max-w-[1500px] px-8 pt-28 text-white">
-          <h1 className="max-w-[19ch] text-[clamp(2.6rem,7vw,6rem)] font-bold leading-[0.95] tracking-[-0.02em]">
+          {/*
+            L'entrée différée. Les trois blocs arrivent l'un après l'autre —
+            un décalage court, sinon on attend au lieu de découvrir.
+            1,1 s pour le titre : le temps de comprendre qu'on regarde une
+            image, pas encore de s'impatienter.
+          */}
+          <h1
+            className="apparition-hero max-w-[19ch] text-[clamp(2.6rem,7vw,6rem)] font-bold leading-[0.95] tracking-[-0.02em]"
+            style={{ "--retard": "1100ms" } as React.CSSProperties}
+          >
             Transformez votre communication en{" "}
             <span style={{ color: BLEU_CLAIR }}>résultats concrets</span>
           </h1>
-          <p className="mt-8 max-w-2xl text-xl leading-relaxed text-white/85">
+          <p
+            className="apparition-hero mt-8 max-w-2xl text-xl leading-relaxed text-white/85"
+            style={{ "--retard": "1400ms" } as React.CSSProperties}
+          >
             Agence de communication &amp; marketing, d’événementiel et
             d’immersion. Depuis 2004, à Lyon, Paris et Genève.
           </p>
-          <div className="mt-11 flex flex-wrap items-center gap-4">
+          <div
+            className="apparition-hero mt-11 flex flex-wrap items-center gap-4"
+            style={{ "--retard": "1650ms" } as React.CSSProperties}
+          >
             <a
               href="#"
               className="rounded-md px-9 py-4.5 text-[16px] font-bold text-white shadow-lg transition hover:brightness-110"
@@ -326,7 +347,10 @@ export default function V5() {
           l'image dans un dégradé. C'est ce que remplaçait, en pire, le fondu
           vers le clair de la première version.
         */}
-        <div className="absolute inset-x-0 bottom-8 z-10 flex justify-center">
+        <div
+          className="apparition-hero absolute inset-x-0 bottom-8 z-10 flex justify-center"
+          style={{ "--retard": "2000ms" } as React.CSSProperties}
+        >
           <span className="text-xs uppercase tracking-[0.3em] text-white/45">défiler</span>
         </div>
       </section>
