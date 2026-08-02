@@ -1,4 +1,5 @@
 import { EnTete } from "../_EnTete";
+import { PiedDePage } from "../_PiedDePage";
 import { MethodeChapeau } from "../_MethodeChapeau";
 import { BLEU, BLEU_CLAIR, CLAIR, CLAIR_SOUTENU, NOIR, SOMBRE, TYPO } from "../_palette";
 
@@ -356,6 +357,7 @@ export default function PageAgence() {
           </a>
         </div>
       </section>
+      <PiedDePage />
     </main>
   );
 }

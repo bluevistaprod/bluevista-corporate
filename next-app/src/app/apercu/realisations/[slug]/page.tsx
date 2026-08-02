@@ -1,5 +1,6 @@
 import { notFound } from "next/navigation";
 import { EnTete } from "../../_EnTete";
+import { PiedDePage } from "../../_PiedDePage";
 import { lireRealisation, lireRealisations, lireVoisines, imageUrl } from "../../../../lib/sanity";
 import { COMPETENCES, METIERS } from "../../_plan-du-site";
 import { OFFRES } from "../../_offres";
@@ -334,6 +335,7 @@ export default async function PageRealisation({
           </a>
         </div>
       </section>
+      <PiedDePage />
     </main>
   );
 }

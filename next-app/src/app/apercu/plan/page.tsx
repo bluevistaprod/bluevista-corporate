@@ -1,4 +1,5 @@
 import { EnTete } from "../_EnTete";
+import { PiedDePage } from "../_PiedDePage";
 import { COMPETENCES, METIERS, PAGES_FIXES, VILLES, competencesDuMetier } from "../_plan-du-site";
 import { TOUTES_REALISATIONS } from "../_realisations";
 import { BLEU, CLAIR, CLAIR_SOUTENU, SOMBRE, TYPO } from "../_palette";
@@ -225,6 +226,7 @@ export default function PlanDeLaMaquette() {
           </p>
         </div>
       </section>
+      <PiedDePage />
     </main>
   );
 }

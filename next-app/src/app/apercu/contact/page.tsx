@@ -1,4 +1,5 @@
 import { EnTete } from "../_EnTete";
+import { PiedDePage } from "../_PiedDePage";
 import { Formulaires } from "../_Formulaires";
 import { BLEU, BLEU_CLAIR, CLAIR, CLAIR_SOUTENU, NOIR, SOMBRE, TYPO } from "../_palette";
 
@@ -124,6 +125,7 @@ export default function PageContact() {
           </div>
         </div>
       </section>
+      <PiedDePage />
     </main>
   );
 }

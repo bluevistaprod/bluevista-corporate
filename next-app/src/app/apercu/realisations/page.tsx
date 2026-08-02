@@ -1,4 +1,5 @@
 import { EnTete } from "../_EnTete";
+import { PiedDePage } from "../_PiedDePage";
 import { GalerieRealisations } from "../_GalerieRealisations";
 import { lireRealisations } from "../../../lib/sanity";
 import { BLEU, BLEU_CLAIR, CLAIR, NOIR, SOMBRE, TYPO } from "../_palette";
@@ -79,6 +80,7 @@ export default async function PageRealisations({
           </div>
         </div>
       </section>
+      <PiedDePage />
     </main>
   );
 }

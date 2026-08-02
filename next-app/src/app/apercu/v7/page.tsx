@@ -1,5 +1,5 @@
-import { BarreAperçu } from "../_commun";
 import { EnTete } from "../_EnTete";
+import { PiedDePage } from "../_PiedDePage";
 import { MethodeChapeau } from "../_MethodeChapeau";
 import { Temoignages } from "../_Temoignages";
 import { BLEU, BLEU_CLAIR, CLAIR, CLAIR_SOUTENU, NOIR, SOMBRE, SOMBRE_PROFOND, TYPO } from "../_palette";
@@ -336,7 +336,7 @@ export default function V7() {
             style={{ "--retard": "1650ms" } as React.CSSProperties}
           >
             <a
-              href="#"
+              href="/apercu/contact"
               className="rounded-md px-9 py-4.5 text-[16px] font-bold text-white shadow-lg transition hover:brightness-110"
               style={{ background: BLEU, paddingTop: "1.05rem", paddingBottom: "1.05rem" }}
             >
@@ -483,7 +483,7 @@ export default function V7() {
                 </ul>
 
                 <a
-                  href="#"
+                  href={["/apercu/metier/film", "/apercu/metier/evenement", "/apercu/metier/immersion"][i]}
                   className="mt-9 inline-block rounded-md px-7 py-4 text-[15px] font-bold text-white transition hover:brightness-110"
                   style={{ background: BLEU }}
                 >
@@ -664,7 +664,7 @@ export default function V7() {
             </h2>
           </div>
           <a
-            href="#"
+            href="/apercu/realisations"
             className="rounded-md px-7 py-4 text-[15px] font-bold text-white transition hover:brightness-110"
             style={{ background: BLEU }}
           >
@@ -706,13 +706,13 @@ export default function V7() {
         </p>
         <div className="mt-10 flex flex-wrap justify-center gap-4 px-8">
           <a
-            href="#"
+            href="/apercu/contact"
             className="rounded-md px-9 py-4 text-[16px] font-bold text-white transition hover:brightness-110"
             style={{ background: BLEU }}
           >
             Contactez-nous
           </a>
-          <a href="#" className="rounded-md border border-white/30 px-9 py-4 text-[16px] font-semibold">
+          <a href="/apercu/contact" className="rounded-md border border-white/30 px-9 py-4 text-[16px] font-semibold">
             Demander un devis
           </a>
         </div>
@@ -737,57 +737,8 @@ export default function V7() {
         déclasse rien. Ce qui reste interdit, à l'inverse, c'est d'affirmer
         qu'il y a des STUDIOS à Paris ou à Genève : ce serait faux.
       */}
-      <footer style={{ background: SOMBRE_PROFOND, color: "#fff" }}>
-        <div className="mx-auto grid max-w-[1500px] gap-14 px-8 py-20 lg:grid-cols-[1.2fr_1fr_1fr_1fr]">
-          <div>
-            {/*
-              ⛔ LE LOGO EST UNE IMAGE, PAS DU TEXTE — même règle qu'en tête
-              de page. « bluevista » composé en gras était encore ici : la
-              correction n'avait été appliquée qu'à l'en-tête.
-            */}
-            <img src="/media/logo-bluevista-blanc.png" alt="Bluevista" className="h-7 w-auto" />
-            <p className="mt-5 max-w-xs leading-relaxed text-white/55">
-              Agence de communication &amp; marketing, d’événementiel et
-              d’immersion. Toute la chaîne de production en interne,
-              depuis 2004.
-            </p>
-          </div>
+      <PiedDePage />
 
-          {[
-            ["Lyon — siège social", ["8 rue Jean Élysée Dupuy", "69410 Champagne-au-Mont-d’Or", "+33 (0)4 72 34 51 89"]],
-            ["Paris", ["92 avenue Victor Hugo", "92100 Boulogne-Billancourt"]],
-            ["Genève", ["bluevista.ch", "Suisse romande"]],
-          ].map(([ville, lignes]) => (
-            <div key={ville as string}>
-              <div className="text-[13px] font-bold uppercase tracking-[0.16em]" style={{ color: BLEU_CLAIR }}>
-                {ville as string}
-              </div>
-              <address className="mt-4 not-italic leading-relaxed text-white/60">
-                {(lignes as string[]).map(l => (
-                  <div key={l}>{l}</div>
-                ))}
-              </address>
-            </div>
-          ))}
-        </div>
-
-        <div className="border-t border-white/10">
-          <div className="mx-auto flex max-w-[1500px] flex-wrap items-center justify-between gap-6 px-8 py-7 text-sm text-white/45">
-            <div className="flex flex-wrap gap-6">
-              <a href="#" className="hover:text-white">Mentions légales</a>
-              <a href="#" className="hover:text-white">Politique de confidentialité</a>
-              <a href="#" className="hover:text-white">Contact</a>
-            </div>
-            <nav aria-label="Choix de la langue" className="flex gap-4">
-              <a href="/" hrefLang="fr" className="font-semibold text-white">FR</a>
-              <a href="/en" hrefLang="en" className="hover:text-white">EN</a>
-              <a href="/es" hrefLang="es" className="hover:text-white">ES</a>
-            </nav>
-          </div>
-        </div>
-      </footer>
-
-      <BarreAperçu actif={7} />
     </main>
   );
 }

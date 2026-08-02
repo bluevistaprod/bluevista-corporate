@@ -1,5 +1,6 @@
 import { notFound } from "next/navigation";
 import { EnTete } from "../../_EnTete";
+import { PiedDePage } from "../../_PiedDePage";
 import { COMPETENCES, METIERS, competencesDuMetier } from "../../_plan-du-site";
 import { lirePage, lirePages, lireRealisationsDuProduit, enParagraphes, imageUrl } from "../../../../lib/sanity";
 import { OFFRES } from "../../_offres";
@@ -344,6 +345,7 @@ export default async function PageCompetence({
           </a>
         </div>
       </section>
+      <PiedDePage />
     </main>
   );
 }

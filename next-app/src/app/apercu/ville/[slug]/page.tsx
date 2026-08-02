@@ -1,5 +1,6 @@
 import { notFound } from "next/navigation";
 import { EnTete } from "../../_EnTete";
+import { PiedDePage } from "../../_PiedDePage";
 import { COMPETENCES, VILLES } from "../../_plan-du-site";
 import { lirePage, lirePages, enParagraphes, imageUrl } from "../../../../lib/sanity";
 import { BLEU, BLEU_CLAIR, CLAIR, CLAIR_SOUTENU, NOIR, SOMBRE, TYPO } from "../../_palette";
@@ -209,6 +210,7 @@ export default async function PageVille({
           </a>
         </div>
       </section>
+      <PiedDePage />
     </main>
   );
 }

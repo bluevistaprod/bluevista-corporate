@@ -1,5 +1,6 @@
 import { notFound } from "next/navigation";
 import { EnTete } from "../../_EnTete";
+import { PiedDePage } from "../../_PiedDePage";
 import { MethodeEnCercle } from "../../_Methode";
 import { BLEU, BLEU_CLAIR, CLAIR, CLAIR_SOUTENU, NOIR, SOMBRE, TYPO } from "../../_palette";
 import { type Metier as CleMetier } from "../../_plan-du-site";
@@ -314,7 +315,7 @@ export default async function PageMetier({
         </h2>
         <div className="mt-10 flex flex-wrap justify-center gap-4 px-8">
           <a
-            href="#"
+            href="/apercu/contact"
             className="rounded-md px-9 py-4 text-[16px] font-bold text-white transition hover:brightness-110"
             style={{ background: BLEU }}
           >
@@ -325,6 +326,7 @@ export default async function PageMetier({
           </a>
         </div>
       </section>
+      <PiedDePage />
     </main>
   );
 }
