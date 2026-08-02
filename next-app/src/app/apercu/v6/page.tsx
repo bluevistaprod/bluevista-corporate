@@ -1,3 +1,4 @@
+import { BasculePolice } from "../_BasculePolice";
 import { BarreAperçu } from "../_commun";
 import { EnTete } from "../_EnTete";
 import { MethodeEnCercle } from "../_Methode";
@@ -753,6 +754,7 @@ export default function V5() {
         </div>
       </footer>
 
+      <BasculePolice />
       <BarreAperçu actif={6} />
     </main>
   );

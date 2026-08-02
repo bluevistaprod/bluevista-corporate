@@ -24,3 +24,47 @@ body {
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
 }
+
+/* ─────────────────────────────────────────────────────────────────────────
+   ESSAI DE POLICE — interrupteur des aperçus, demandé par Giz le 02/08/2026.
+
+   Trois états, pilotés par l'attribut data-police sur <html>. Le but de
+   l'interrupteur n'est pas de proposer trois options : c'est d'ISOLER LA
+   VARIABLE. Tant qu'on compare deux maquettes entières, on ne sait jamais si
+   c'est la police qu'on aime ou autre chose qui a bougé avec elle.
+
+     (absent)   → l'état actuel, police système. Le témoin.
+     titres     → Poppins sur les titres seulement — ma recommandation :
+                  la rondeur de Poppins répond au « b » dans le rond du logo,
+                  et le corps garde une police faite pour être lue longtemps.
+     partout    → Poppins sur tout. Présent exprès pour que Giz juge lui-même
+                  l'objection plutôt que de me croire sur parole : Poppins est
+                  géométrique — « o » en cercle parfait, « a » à un seul étage —
+                  donc superbe en grand et fatigante en paragraphe.
+   ───────────────────────────────────────────────────────────────────────── */
+
+[data-police="titres"] h1,
+[data-police="titres"] h2,
+[data-police="titres"] h3,
+[data-police="titres"] blockquote {
+  font-family: var(--police-poppins), sans-serif;
+  /* Poppins porte plus large que la police système : on resserre l'approche
+     pour que les gros titres ne se délitent pas. */
+  letter-spacing: -0.03em;
+}
+
+/* Sur <html> seul, la règle perdait contre le `body { font-family: Arial }`
+   posé plus haut dans ce fichier : à spécificité égale, c'est la dernière
+   règle qui gagne, et `body` est plus spécifique que `html`. On vise donc
+   body explicitement. */
+[data-police="partout"] body,
+[data-police="partout"] body * {
+  font-family: var(--police-poppins), sans-serif;
+}
+
+[data-police="partout"] h1,
+[data-police="partout"] h2,
+[data-police="partout"] h3,
+[data-police="partout"] blockquote {
+  letter-spacing: -0.03em;
+}
