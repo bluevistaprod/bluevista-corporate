@@ -88,6 +88,24 @@ export const OFFRES: Offre[] = [
       "Vous existez là où votre audience passe déjà, et vous savez lequel de vos formats fonctionne.",
     produits: [
       { nom: "Motion promo", slug: "motion-promo", page: "motion-design" },
+      /**
+       * ⛔ NE PAS RETIRER LE FOOH, et ne pas refaire le raisonnement qui
+       * a failli le faire retirer. Le cerveau portait, en date du
+       * 28/07/2026, une règle impérative : « LE FOOH N'EST PAS UNE
+       * CAPACITÉ MAISON — technique mise au point pour le seul projet
+       * NFK ». Elle est FAUSSE, corrigée par Giz le 02/08/2026 : « ce
+       * n'est pas maison Jérôme, mais maison Bluevista ».
+       *
+       * La confusion portait sur À QUI appartient la capacité, pas sur
+       * son existence. Un salarié qui met au point un protocole à
+       * l'intérieur de Bluevista construit une capacité de Bluevista.
+       *
+       * Deux ventes le corroborent — Huiles Berliet, V05384 et V05554.
+       *
+       * 📌 Pas de page dédiée pour autant : 1 impression sur 12 mois.
+       * Une capacité réelle sans demande de recherche reste un produit
+       * qu'on cite, pas une page qu'on crée.
+       */
       { nom: "FOOH", slug: "fooh" },
       { nom: "Packshot réseaux", slug: "packshot" },
       { nom: "Jingles", slug: "jingle" },
