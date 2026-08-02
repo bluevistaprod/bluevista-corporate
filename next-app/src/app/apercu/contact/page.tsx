@@ -106,11 +106,15 @@ export default function PageContact() {
       </section>
 
       {/* ── L'avertissement technique ─────────────────────────────────── */}
-      <section style={{ background: SOMBRE, color: "#fff" }} className="py-16">
+      {/* ⛔ Fond clair : c'était la dernière bande sombre collée au pied de
+          page. Trois pages avaient le même défaut, découvertes une par une
+          — la leçon est là : vérifier TOUTES les pages, pas celles qu'on a
+          en tête. */}
+      <section style={{ background: CLAIR_SOUTENU }} className="py-16">
         <div className="mx-auto max-w-[900px] px-8">
           <div
             className="rounded-md border-2 border-dashed px-8 py-7"
-            style={{ borderColor: "#E0A400", color: "#FFD98A", background: "rgba(224,164,0,.08)" }}
+            style={{ borderColor: "#E0A400", color: "#9A7200", background: "rgba(224,164,0,.09)" }}
           >
             <div className="text-[13px] font-bold uppercase tracking-[0.16em]">
               Maquette — le formulaire n’envoie rien
