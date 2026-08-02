@@ -84,7 +84,8 @@ export type Realisation = {
      * agence de production a besoin des deux, et c'est ce qui distingue une
      * fiche de projet d'une simple mise en ligne de film.
      */
-    photos?: { legende: string }[];
+    /** Le nombre de photos ; leurs fichiers viendront plus tard. */
+    photos?: number;
   };
 };
 
@@ -123,12 +124,7 @@ export const REALISATIONS: Realisation[] = [
       /* ⚠️ Emplacements, pas photos : celles-ci n'existent pas encore. Une
          image de banque sous une fiche client serait un mensonge sur le
          travail lui-même. */
-      photos: [
-        { legende: "Le thermostat modélisé, avant texturing" },
-        { legende: "Les picots de guidage, créés pour ce film" },
-        { legende: "Une étape de l’appairage en situation" },
-        { legende: "Le rendu final, dans son environnement" },
-      ],
+      photos: 4,
     },
   },
   { slug: "verizon-connect-video-de-presentation", client: "Verizon", titre: "Verizon Connect — film de présentation", titreSur: true, metier: "film", produit: "corporate", ancienneUrl: "/nos-realisations/verizon-connect-video-de-presentation/", clics: 17, impressions: 6509 },

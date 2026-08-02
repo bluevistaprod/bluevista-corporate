@@ -122,20 +122,21 @@ export default async function PageRealisation({
       {cas?.photos && (
         <section className="mx-auto max-w-[1200px] px-8 pt-8">
           <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-            {cas.photos.map(ph => (
-              <figure key={ph.legende}>
-                <div
-                  className="flex aspect-[4/3] items-center justify-center rounded-md"
-                  style={{ background: CLAIR_SOUTENU }}
-                >
-                  <span className="text-[11px] uppercase tracking-[0.16em] opacity-30">
-                    photo
-                  </span>
-                </div>
-                <figcaption className="mt-2.5 text-[13px] leading-snug opacity-50">
-                  {ph.legende}
-                </figcaption>
-              </figure>
+            {/* ⛔ PAS DE LÉGENDE SOUS LES PHOTOS. Décision de Giz : « on
+                n'arrivera pas à les tenir ». C'est le bon réflexe et il vaut
+                au-delà de ce bloc — un champ qu'on ne remplira pas sur 140
+                fiches finit vide, et un vide répété se voit plus qu'une
+                absence assumée. Les photos, elles, restent. */}
+            {Array.from({ length: cas.photos }, (_, i) => (
+              <div
+                key={i}
+                className="flex aspect-[4/3] items-center justify-center rounded-md"
+                style={{ background: CLAIR_SOUTENU }}
+              >
+                <span className="text-[11px] uppercase tracking-[0.16em] opacity-30">
+                  photo
+                </span>
+              </div>
             ))}
           </div>
         </section>

@@ -216,28 +216,61 @@ export function Formulaires() {
         </p>
       </form>
 
-      {/* ── La carte ────────────────────────────────────────────────────
-          ⚠️ Emplacement, pas carte : intégrer Google Maps pose une balise de
-          suivi tierce sur la page, ce qui déclenche l'obligation de bannière
-          de consentement. À trancher — une carte statique ou OpenStreetMap
-          évite le problème et suffit largement pour trois adresses. */}
+      {/* ── LA CARTE, DESSINÉE ET NON INTÉGRÉE ──────────────────────────
+          Décision de Giz : carte statique. Deux bénéfices d'un seul geste.
+
+          1. AUCUN MOUCHARD. Une iframe Google Maps dépose des cookies tiers
+             et déclencherait l'obligation d'une bannière de consentement sur
+             TOUTE la page. Ici, rien ne sort du domaine : pas de bannière à
+             cause de la carte.
+          2. ELLE EST À NOS COULEURS. Une carte Google est grise et porte le
+             logo de Google au milieu d'une page d'agence. Celle-ci est un
+             SVG aux couleurs de la charte.
+
+          ⚠️ Positions approximatives — c'est un schéma, pas un plan. Personne
+          ne vient à un rendez-vous en s'orientant sur ce dessin : l'adresse
+          écrite juste à côté fait ce travail. */}
       <div className="mt-16">
         <div className="text-[13px] font-bold uppercase tracking-[0.16em] opacity-45">
           Nous trouver
         </div>
-        <div
-          className="mt-4 flex aspect-[21/9] items-center justify-center rounded-md"
-          style={{ background: CLAIR_SOUTENU }}
-        >
-          <span className="px-8 text-center text-[14px] leading-relaxed opacity-45">
-            Carte — Lyon, Paris, Genève.
-            <br />
-            <span className="text-[13px]">
-              À intégrer sans mouchard tiers, pour éviter d’imposer une bannière
-              de consentement à toute la page.
-            </span>
-          </span>
+        <div className="mt-4 overflow-hidden rounded-md" style={{ background: CLAIR_SOUTENU }}>
+          <svg viewBox="0 0 420 260" className="h-auto w-full" role="img" aria-label="Lyon, Paris, Genève">
+            <rect width="420" height="260" fill={CLAIR_SOUTENU} />
+            {/* Un contour de France très simplifié — un repère, pas une carte. */}
+            <path
+              d="M150 42 L214 34 L246 58 L268 52 L288 78 L276 110 L296 128 L286 158 L252 176 L246 208 L206 224 L166 208 L142 176 L112 156 L104 118 L124 92 Z"
+              fill="none"
+              stroke={BLEU}
+              strokeOpacity="0.28"
+              strokeWidth="1.6"
+              strokeLinejoin="round"
+            />
+            {([
+              { x: 206, y: 92, nom: "Paris", ancrage: "end" },
+              { x: 236, y: 158, nom: "Lyon", ancrage: "start" },
+              { x: 274, y: 142, nom: "Genève", ancrage: "start" },
+            ] as const).map(v => (
+              <g key={v.nom}>
+                <circle cx={v.x} cy={v.y} r="5" fill={BLEU} />
+                <circle cx={v.x} cy={v.y} r="12" fill={BLEU} fillOpacity="0.14" />
+                <text
+                  x={v.ancrage === "end" ? v.x - 16 : v.x + 16}
+                  y={v.y + 4}
+                  textAnchor={v.ancrage}
+                  fill={BLEU}
+                  fontSize="13"
+                  fontWeight="700"
+                >
+                  {v.nom}
+                </text>
+              </g>
+            ))}
+          </svg>
         </div>
+        <p className="mt-3 text-[13px] leading-relaxed opacity-45">
+          Nos équipes se déplacent partout en France et en Suisse.
+        </p>
       </div>
     </div>
   );

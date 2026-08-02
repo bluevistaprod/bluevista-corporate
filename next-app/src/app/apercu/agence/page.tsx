@@ -214,7 +214,30 @@ export default function PageAgence() {
           </div>
           <h2 className={`max-w-3xl ${TYPO.titre}`}>Ceux avec qui vous travaillerez</h2>
 
-          <div className="mt-14 grid gap-6 sm:grid-cols-3 lg:grid-cols-5">
+          {/* ⛔ LA PHOTO DE GROUPE, ET ELLE PASSE AVANT LES PORTRAITS.
+              Demande de Giz : « il faut aussi une place pour une vraie photo
+              d'équipe ». Il a raison sur l'ordre autant que sur le principe —
+              une grille de portraits montre des individus, une photo de
+              groupe montre qu'ils travaillent ensemble. C'est ce second
+              message qu'on vend quand on dit « quatre pôles sous le même
+              toit ». Format large, pleine largeur : c'est l'image la plus
+              importante de la page. */}
+          <div
+            className="mt-14 flex aspect-[21/9] items-center justify-center rounded-md"
+            style={{ background: "rgba(255,255,255,.06)" }}
+          >
+            <span className="px-8 text-center text-[14px] leading-relaxed text-white/40">
+              La photo d’équipe.
+              <br />
+              <span className="text-[13px]">
+                Tout le monde, au même endroit, le même jour. À faire —
+                c’est le seul cliché du site qu’aucune banque d’images ne
+                pourra remplacer.
+              </span>
+            </span>
+          </div>
+
+          <div className="mt-10 grid gap-6 sm:grid-cols-3 lg:grid-cols-5">
             {EQUIPE.map(m => (
               <figure key={m.prenom}>
                 <div
