@@ -1,8 +1,9 @@
 "use client";
 
 import { useMemo, useState } from "react";
-import { TOUTES_REALISATIONS } from "./_realisations";
 import { OFFRES } from "./_offres";
+import type { RealisationSanity } from "../../lib/sanity";
+import { imageUrl } from "../../lib/sanity";
 import { METIERS } from "./_plan-du-site";
 import { BLEU, CLAIR_SOUTENU, TYPO } from "./_palette";
 
@@ -28,11 +29,20 @@ const TOUS_PRODUITS = OFFRES.flatMap(o =>
   o.produits.map(p => ({ ...p, metier: o.metier, offre: o.nom }))
 );
 
+/**
+ * ⛔ LES RÉALISATIONS ARRIVENT EN PROPS, elles ne sont plus importées.
+ * C'est ce qui permet à la page serveur de les lire dans Sanity et à ce
+ * composant de rester client — le filtrage se fait dans le navigateur,
+ * sans aller-retour réseau à chaque clic.
+ */
 export function GalerieRealisations({
+  realisations,
   produitInitial = null,
 }: {
+  realisations: RealisationSanity[];
   produitInitial?: string | null;
 }) {
+  const TOUTES_REALISATIONS = realisations;
   const [metier, setMetier] = useState<string | null>(null);
   const [produit, setProduit] = useState<string | null>(produitInitial);
 
@@ -124,16 +134,28 @@ export function GalerieRealisations({
                 className="group block overflow-hidden rounded-md border transition hover:shadow-lg"
                 style={{ borderColor: "rgba(0,0,0,.1)", background: "#fff" }}
               >
-                {/* ⚠️ Pas d'image : il en manque 140. Une vignette qui le dit
+                {/* L'image vient de Sanity, recadrée autour du point focal
+                    posé dans le studio — c'est ce qui évite les têtes
+                    coupées quand la même photo sert en 16/10 et en 16/9.
+                    Sans image, la vignette le dit : une absence assumée
                     vaut mieux qu'une photo de banque qui ment. */}
-                <div
-                  className="flex aspect-[16/10] items-center justify-center"
-                  style={{ background: CLAIR_SOUTENU }}
-                >
-                  <span className="text-[13px] uppercase tracking-[0.18em] opacity-30">
-                    visuel à venir
-                  </span>
-                </div>
+                {r.image ? (
+                  <div
+                    className="aspect-[16/10] bg-cover bg-center transition duration-700 group-hover:brightness-110"
+                    style={{ backgroundImage: `url('${imageUrl(r.image, 700, 438)}')` }}
+                    role="img"
+                    aria-label={r.titre}
+                  />
+                ) : (
+                  <div
+                    className="flex aspect-[16/10] items-center justify-center"
+                    style={{ background: CLAIR_SOUTENU }}
+                  >
+                    <span className="text-[13px] uppercase tracking-[0.18em] opacity-30">
+                      visuel à venir
+                    </span>
+                  </div>
+                )}
                 <div className="p-6">
                   <div className="text-[1.0625rem] font-bold leading-snug tracking-tight">
                     {r.titre}

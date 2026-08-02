@@ -1,6 +1,6 @@
 import { EnTete } from "../_EnTete";
 import { GalerieRealisations } from "../_GalerieRealisations";
-import { TOUTES_REALISATIONS } from "../_realisations";
+import { lireRealisations } from "../../../lib/sanity";
 import { BLEU, BLEU_CLAIR, CLAIR, NOIR, SOMBRE, TYPO } from "../_palette";
 
 /**
@@ -12,12 +12,23 @@ import { BLEU, BLEU_CLAIR, CLAIR, NOIR, SOMBRE, TYPO } from "../_palette";
  * Le filtre par produit rend cliquables les produits listés sur les pages
  * métier — c'est ce qui referme la boucle entre les offres et les preuves.
  */
+/**
+ * ⛔ CETTE PAGE LIT SANITY, PLUS LE CODE. C'est la bascule : jusqu'ici la
+ * maquette affichait un fichier TypeScript, désormais elle affiche ce que
+ * Giz voit et modifie dans le studio. Une correction publiée à 10 h est en
+ * ligne à 10 h 01 — sans reconstruction, sans intervention de ma part.
+ *
+ * `_realisations.ts` reste dans le dépôt : il a servi de source à l'import
+ * et garde la trace du rapprochement des images et des anciennes URL.
+ * ⚠️ Il n'est plus la vérité. Le modifier ne changerait plus rien à l'écran.
+ */
 export default async function PageRealisations({
   searchParams,
 }: {
   searchParams: Promise<{ produit?: string }>;
 }) {
   const { produit } = await searchParams;
+  const realisations = await lireRealisations("fr");
 
   return (
     <main style={{ background: CLAIR, color: SOMBRE }}>
@@ -41,7 +52,7 @@ export default async function PageRealisations({
       </section>
 
       <section className="mx-auto max-w-[1500px] px-8 py-20">
-        <GalerieRealisations produitInitial={produit ?? null} />
+        <GalerieRealisations realisations={realisations} produitInitial={produit ?? null} />
       </section>
 
       {/* ── L'état du chantier, affiché ────────────────────────────────── */}
@@ -55,7 +66,7 @@ export default async function PageRealisations({
               État de la maquette
             </div>
             <p className="mt-4 text-[1.0625rem] leading-relaxed">
-              <strong>{TOUTES_REALISATIONS.length} réalisations</strong> sur les 140 de
+              <strong>{realisations.length} réalisations</strong> sur les 140 de
               l’ancien site — seulement celles qui ont du trafic. Aucune n’a
               encore son visuel, son contexte ni son résultat.
             </p>

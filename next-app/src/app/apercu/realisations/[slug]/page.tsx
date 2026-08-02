@@ -1,6 +1,6 @@
 import { notFound } from "next/navigation";
 import { EnTete } from "../../_EnTete";
-import { TOUTES_REALISATIONS, type Realisation } from "../../_realisations";
+import { lireRealisation, lireRealisations, imageUrl } from "../../../../lib/sanity";
 import { COMPETENCES, METIERS } from "../../_plan-du-site";
 import { OFFRES } from "../../_offres";
 import { BLEU, BLEU_CLAIR, CLAIR, CLAIR_SOUTENU, NOIR, SOMBRE, TYPO } from "../../_palette";
@@ -24,8 +24,14 @@ import { BLEU, BLEU_CLAIR, CLAIR, CLAIR_SOUTENU, NOIR, SOMBRE, TYPO } from "../.
  * découvre le travail réel au moment de la mise en ligne.
  */
 
-export function generateStaticParams() {
-  return TOUTES_REALISATIONS.map((r: Realisation) => ({ slug: r.slug }));
+/**
+ * ⛔ LES ADRESSES VIENNENT DE SANITY. Ajouter une réalisation dans le studio
+ * crée sa page — sans que je touche au code. C'est la différence concrète
+ * entre une maquette et un site.
+ */
+export async function generateStaticParams() {
+  const rs = await lireRealisations("fr");
+  return rs.map(r => ({ slug: r.slug }));
 }
 
 const BLOCS = [
@@ -53,8 +59,8 @@ export default async function PageRealisation({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
-  const r = TOUTES_REALISATIONS.find((x: Realisation) => x.slug === slug);
-  if (!r) notFound();
+  const r = await lireRealisation(slug, "fr");
+  if (!r) return notFound();
 
   const metier = METIERS.find(m => m.cle === r.metier);
   const offre = OFFRES.find(o => o.produits.some(p => p.slug === r.produit));
@@ -63,7 +69,21 @@ export default async function PageRealisation({
      la fusion des deux niveaux. */
   const slugPage = offre?.produits.find(x => x.slug === r.produit)?.page;
   const competence = slugPage ? COMPETENCES.find(c => c.slug === slugPage) : undefined;
-  const cas = r.cas;
+  /* Le cas est reconstitué à partir des champs du document. Il n'est
+     considéré comme écrit que si l'ENJEU l'est : c'est le bloc qui rend
+     les autres intéressants, et une fiche sans enjeu est une fiche vide
+     habillée en cas client. */
+  const cas = r.casEnjeu
+    ? {
+        accroche: r.intro,
+        contexte: r.casContexte,
+        enjeu: r.casEnjeu,
+        ceQuOnAFait: r.casFait,
+        resultat: r.casResultat ?? null,
+        credits: undefined as string | undefined,
+        photos: 0,
+      }
+    : undefined;
 
   return (
     <main style={{ background: CLAIR, color: SOMBRE }}>
@@ -87,11 +107,6 @@ export default async function PageRealisation({
           <h1 className="max-w-[24ch] text-[clamp(2rem,4.2vw,3.4rem)] font-bold leading-[1.05] tracking-[-0.02em]">
             {r.titre}
           </h1>
-          {r.clics > 0 && (
-            <p className="mt-8 text-[14px] tabular-nums text-white/40">
-              Page actuelle : {r.clics} clics · {r.impressions.toLocaleString("fr-FR")} impressions sur 12 mois
-            </p>
-          )}
         </div>
       </section>
 
@@ -100,9 +115,9 @@ export default async function PageRealisation({
           chercher. Sans elle, on lance une vidéo sans savoir ce qu'on
           regarde — et on l'arrête au bout de vingt secondes. */}
       <section className="mx-auto max-w-[1200px] px-8 pt-16">
-        {cas?.accroche && (
+        {r.intro && (
           <p className="mb-10 max-w-[24ch] text-[clamp(1.5rem,2.8vw,2.25rem)] font-bold leading-[1.15] tracking-[-0.01em]">
-            {cas.accroche}
+            {r.intro}
           </p>
         )}
         {/* ⚠️ LES VIDÉOS SONT SUR VIMEO AUJOURD'HUI — 144 sur 145. Elles
@@ -113,10 +128,10 @@ export default async function PageRealisation({
         <div
           className="relative flex aspect-video items-center justify-center overflow-hidden rounded-md"
           style={{
-            background: r.image ? `url('${r.image}') center/cover` : CLAIR_SOUTENU,
+            background: r.image ? `url('${imageUrl(r.image, 1200, 675)}') center/cover` : CLAIR_SOUTENU,
           }}
         >
-          {r.image && <span className="absolute inset-0" style={{ background: `${NOIR}66` }} />}
+          {Boolean(r.image) && <span className="absolute inset-0" style={{ background: `${NOIR}66` }} />}
           <span
             className="relative flex h-20 w-20 items-center justify-center rounded-full"
             style={{ background: BLEU_CLAIR }}
@@ -127,7 +142,7 @@ export default async function PageRealisation({
           </span>
           {r.video && (
             <span className="absolute bottom-3 right-4 text-[11px] text-white/60">
-              {r.video.includes("vimeo") ? "Vimeo — à migrer vers Livid" : r.video}
+              {String(r.video).includes("vimeo") ? "Vimeo — à migrer vers Livid" : String(r.video)}
             </span>
           )}
         </div>
@@ -164,30 +179,6 @@ export default async function PageRealisation({
           145 fiches ont deux descriptions écrites par Bluevista. Elles
           s'affichent telles quelles : il n'y a pas de gabarit vide à
           remplir, il y a du texte à relire. */}
-      {(r.intro || r.detail) && (
-        <section className="mx-auto max-w-[900px] px-8 pt-20">
-          {r.intro && (
-            <p className="text-[clamp(1.15rem,1.8vw,1.4rem)] font-semibold leading-snug">
-              {r.intro}
-            </p>
-          )}
-          {r.detail && (
-            <div className="mt-8 space-y-5">
-              {r.detail.split(/(?<=\.)\s+(?=[A-ZÀ-Ü])/).reduce((acc: string[][], ph: string) => {
-                const dernier = acc[acc.length - 1];
-                if (dernier && dernier.join(" ").length < 320) dernier.push(ph);
-                else acc.push([ph]);
-                return acc;
-              }, []).map((par: string[], i: number) => (
-                <p key={i} className="text-[1.0625rem] leading-[1.75] opacity-80">
-                  {par.join(" ")}
-                </p>
-              ))}
-            </div>
-          )}
-        </section>
-      )}
-
       {/* ── Les quatre blocs du cas ───────────────────────────────────── */}
       <section className="mx-auto max-w-[900px] px-8 pb-20 pt-20">
         <div className="space-y-10">
