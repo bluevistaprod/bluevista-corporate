@@ -1,114 +1,127 @@
 import { BLEU_CLAIR, SOMBRE_PROFOND } from "./_palette";
-import { COMPETENCES, METIERS } from "./_plan-du-site";
+import { COMPETENCES } from "./_plan-du-site";
 
 /**
- * LE PIED DE PAGE — partagé par TOUTES les pages.
+ * LE PIED DE PAGE — partagé par toutes les pages.
  *
- * ⛔ IL N'ÉTAIT QUE SUR L'ACCUEIL. Ce n'est pas un détail de finition : le
- * pied de page est le seul élément présent partout. Il garantit qu'aucune
- * page n'est un cul-de-sac, porte les mentions obligatoires, et donne à
- * Google un chemin vers les pages profondes depuis n'importe où.
+ * ⛔⛔ TROISIÈME VERSION, ET LES DEUX PREMIÈRES ÉTAIENT RATÉES DIFFÉREMMENT.
+ * Ce qui suit est écrit pour éviter de refaire le tour du problème.
  *
- * ⛔⛔ ET IL ÉTAIT ÉNORME — presque un écran entier. Giz : « mon problème
- * est ton bas de page énorme ». Trois causes cumulées, toutes de moi :
+ * VERSION 1 — quatre colonnes par métier, plus une bande de villes, plus une
+ * bande de mentions. Résultat : presque un écran entier. La cause n'était pas
+ * les marges mais la RÉPARTITION : les neuf savoir-faire se distribuent
+ * 5 / 3 / 1 entre les métiers, et une grille réserve à toutes ses colonnes la
+ * hauteur de la plus longue. La colonne Immersion tenait une ligne face à
+ * cinq — la moitié du bloc était du vide.
  *
- *   1. TROIS BANDES EMPILÉES — savoir-faire, puis villes, puis mentions.
- *      Chacune avec sa propre respiration verticale.
- *   2. DES COLONNES TRÈS INÉGALES. Les savoir-faire sont répartis 5 / 3 / 1
- *      entre les métiers : la colonne Immersion tenait une ligne face à
- *      cinq, et la grille réservait la hauteur de la plus longue. Presque
- *      la moitié du bloc était du vide.
- *   3. Des marges dimensionnées pour une section de contenu, pas pour un
- *      pied de page.
+ * VERSION 2 — j'ai supprimé les colonnes pour supprimer le vide. La hauteur
+ * a bien fondu, mais neuf liens à la file sans hiérarchie ne se lisent plus :
+ * l'œil ne sait pas où commence une entrée et où finit la suivante. Giz :
+ * « maintenant tout se chevauche ». Rien ne se chevauchait au sens
+ * géométrique — vérifié à dix largeurs, de 420 à 1600 px, zéro
+ * recouvrement. Mais l'impression était juste, et c'est elle qui compte.
  *
- * 👉 Corrigé en changeant la FORME, pas en rognant les marges : les
- * savoir-faire passent sur une seule ligne fluide, sans colonnes, et les
- * villes sur une ligne aussi. Rien n'a été retiré — c'est le même contenu,
- * dans un tiers de la hauteur.
+ * 👉 CE QUE J'AVAIS MANQUÉ : le vide ne venait pas des colonnes, il venait
+ * du GROUPEMENT PAR MÉTIER. En renonçant à ce groupement, on peut garder des
+ * colonnes — et les neuf savoir-faire se répartissent alors trois par trois,
+ * parfaitement équilibrés. Structure ET compacité, au lieu de l'une contre
+ * l'autre.
  *
- * 📌 Les neuf savoir-faire restent listés en clair, et c'est délibéré : ce
- * sont les pages qui portent le référencement du site. Les citer partout
- * leur donne un lien entrant depuis chaque page.
+ * Le groupement par métier n'est d'ailleurs pas perdu : il est porté par le
+ * menu « Offres » de l'en-tête, présent sur chaque page lui aussi.
+ *
+ * 📌 Les neuf savoir-faire restent listés en clair : ce sont les pages qui
+ * portent le référencement du site, et les citer partout leur donne un lien
+ * entrant depuis chaque page.
  */
+
+const VILLES = [
+  { nom: "Lyon", detail: ["Siège social", "8 rue Jean Élysée Dupuy", "69410 Champagne-au-Mont-d’Or"] },
+  { nom: "Paris", detail: ["92 avenue Victor Hugo", "92100 Boulogne-Billancourt"] },
+  { nom: "Genève", detail: ["bluevista.ch", "Suisse romande"] },
+];
+
 export function PiedDePage() {
   return (
     <footer style={{ background: SOMBRE_PROFOND, color: "#fff" }}>
-      <div className="mx-auto max-w-[1500px] px-8 py-12">
-        {/* ── Le logo et les savoir-faire, sur une seule ligne ────────── */}
-        <div className="flex flex-wrap items-start justify-between gap-x-16 gap-y-8">
-          <div className="max-w-xs">
+      <div className="mx-auto max-w-[1500px] px-8 py-14">
+        <div className="grid gap-x-12 gap-y-10 md:grid-cols-2 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.3fr)_minmax(0,1fr)]">
+          {/* ── L'identité ─────────────────────────────────────────────── */}
+          <div>
             <a href="/apercu/v7" aria-label="Bluevista — accueil">
               {/* ⛔ Le logo est une IMAGE, jamais du texte composé. */}
               <img src="/media/logo-bluevista-blanc.png" alt="Bluevista" className="h-6 w-auto" />
             </a>
-            <p className="mt-4 text-[14px] leading-relaxed text-white/50">
+            <p className="mt-4 max-w-[34ch] text-[14px] leading-relaxed text-white/50">
               Agence de communication &amp; marketing, d’événementiel et
               d’immersion. Toute la chaîne de production en interne, depuis 2004.
             </p>
+            <a
+              href="/apercu/contact"
+              className="mt-5 inline-block text-[14px] font-semibold transition hover:text-white"
+              style={{ color: BLEU_CLAIR }}
+            >
+              +33 (0)4 72 34 51 89
+            </a>
           </div>
 
-          <nav aria-label="Nos savoir-faire" className="min-w-0 flex-1">
-            <div className="flex flex-wrap gap-x-8 gap-y-3">
-              {METIERS.map(m => (
-                <a
-                  key={m.cle}
-                  href={`/apercu/metier/${m.slug}`}
-                  className="text-[12px] font-bold uppercase tracking-[0.14em] transition hover:text-white"
-                  style={{ color: BLEU_CLAIR }}
-                >
-                  {m.nom}
-                </a>
-              ))}
+          {/* ── Les savoir-faire, trois par trois ──────────────────────────
+              ⛔ Pas de groupement par métier ici : c'est lui qui créait le
+              vide, puisque la répartition est 5/3/1. Sans groupement, neuf
+              entrées se rangent trois par trois — colonnes équilibrées,
+              hauteur minimale, et la structure que la version précédente
+              avait perdue. */}
+          <nav aria-label="Nos savoir-faire">
+            <div className="text-[12px] font-bold uppercase tracking-[0.16em]" style={{ color: BLEU_CLAIR }}>
+              Nos savoir-faire
             </div>
-            {/* Une seule ligne fluide plutôt que trois colonnes : les
-                savoir-faire sont répartis 5/3/1, et une grille aurait
-                réservé la hauteur de la plus longue partout. */}
-            <div className="mt-4 flex flex-wrap gap-x-6 gap-y-2.5">
+            <ul className="mt-4 grid gap-x-8 gap-y-2.5 sm:grid-cols-2 lg:grid-cols-3">
               {COMPETENCES.map(c => (
-                <a
-                  key={c.slug}
-                  href={`/apercu/competence/${c.slug}`}
-                  className="text-[14px] text-white/55 transition hover:text-white"
-                >
-                  {c.nom}
-                </a>
+                <li key={c.slug}>
+                  <a
+                    href={`/apercu/competence/${c.slug}`}
+                    className="text-[14px] leading-snug text-white/55 transition hover:text-white"
+                  >
+                    {c.nom}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </nav>
+
+          {/* ── Les villes ─────────────────────────────────────────────────
+              ⛔ NE JAMAIS ÉCRIRE « bureau commercial » pour Paris ni Genève,
+              et ne jamais affirmer qu'il y a un STUDIO là-bas : ce serait
+              faux. On cite les villes sans les qualifier — c'est exact, et
+              ça nourrit le référencement local. */}
+          <div>
+            <div className="text-[12px] font-bold uppercase tracking-[0.16em]" style={{ color: BLEU_CLAIR }}>
+              Nous trouver
+            </div>
+            <div className="mt-4 space-y-4">
+              {VILLES.map(v => (
+                <address key={v.nom} className="not-italic text-[14px] leading-relaxed">
+                  <span className="font-semibold text-white/75">{v.nom}</span>
+                  <span className="block text-white/45">{v.detail.join(" · ")}</span>
+                </address>
               ))}
             </div>
-          </nav>
-        </div>
-
-        {/* ── Les trois villes, sur une ligne ───────────────────────────
-            ⛔ NE JAMAIS ÉCRIRE « bureau commercial » pour Paris ni Genève,
-            et ne jamais affirmer qu'il y a un STUDIO là-bas : ce serait
-            faux. On cite les villes sans les qualifier — c'est exact, et ça
-            nourrit le référencement local. */}
-        <div className="mt-10 flex flex-wrap gap-x-10 gap-y-3 border-t border-white/10 pt-7 text-[14px] text-white/50">
-          <span>
-            <strong className="font-semibold text-white/70">Lyon</strong> — 8 rue Jean Élysée Dupuy,
-            69410 Champagne-au-Mont-d’Or · +33 (0)4 72 34 51 89
-          </span>
-          <span>
-            <strong className="font-semibold text-white/70">Paris</strong> — 92 avenue Victor Hugo,
-            92100 Boulogne-Billancourt
-          </span>
-          <span>
-            <strong className="font-semibold text-white/70">Genève</strong> — bluevista.ch
-          </span>
+          </div>
         </div>
       </div>
 
       <div className="border-t border-white/10">
-        <div className="mx-auto flex max-w-[1500px] flex-wrap items-center justify-between gap-x-6 gap-y-3 px-8 py-5 text-[13px] text-white/40">
-          <div className="flex flex-wrap gap-x-6 gap-y-2">
+        <div className="mx-auto flex max-w-[1500px] flex-wrap items-center justify-between gap-x-8 gap-y-3 px-8 py-5 text-[13px] text-white/40">
+          <nav className="flex flex-wrap gap-x-7 gap-y-2">
             <a href="/apercu/agence" className="transition hover:text-white">L’agence</a>
             <a href="/apercu/realisations" className="transition hover:text-white">Réalisations</a>
             <a href="/apercu/contact" className="transition hover:text-white">Contact</a>
             {/* ⚠️ Obligatoires pour un site commercial français. Elles
-                n'existent pas encore — le lien le dit plutôt que de faire
+                n'existent pas encore — le texte le dit plutôt que de faire
                 semblant, et ⛔ ne doit jamais rester en « # ». */}
             <span className="opacity-50" title="À créer avant la mise en ligne">Mentions légales</span>
             <span className="opacity-50" title="À créer avant la mise en ligne">Politique de confidentialité</span>
-          </div>
+          </nav>
           <div>© {new Date().getFullYear()} Bluevista</div>
         </div>
       </div>
