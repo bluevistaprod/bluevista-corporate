@@ -134,9 +134,8 @@ export function GalerieRealisations({
                     </span>
                   </div>
                   <div className="p-6">
-                    <div className="text-[1.15rem] font-bold tracking-tight">{r.client}</div>
-                    <div className="mt-1.5 text-[14px] opacity-50">
-                      {r.slug.replace(/-/g, " ")}
+                    <div className="text-[1.0625rem] font-bold leading-snug tracking-tight">
+                      {r.titre}
                     </div>
                     {r.clics > 0 && (
                       <div className="mt-4 text-[13px] tabular-nums opacity-40">

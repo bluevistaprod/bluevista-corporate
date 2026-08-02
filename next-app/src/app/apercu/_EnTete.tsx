@@ -56,6 +56,10 @@ export function EnTete() {
           />
         </a>
 
+        {/* ⛔ « Contact » a été RETIRÉ de cette barre : il faisait doublon
+            avec le bouton « Contactez-nous » juste à côté. Deux fois la même
+            action à trente pixels d'écart, dont une en gris — le visiteur se
+            demande laquelle est la bonne. Correction de Giz, 02/08/2026. */}
         <nav className="hidden items-center gap-1 lg:flex">
           {["L’Agence", "Offres", "Réalisations", "Actualités"].map(l => (
             <a
@@ -69,12 +73,6 @@ export function EnTete() {
         </nav>
 
         <div className="flex items-center gap-3">
-          <a
-            href="#"
-            className="hidden rounded-md px-4 py-2.5 text-[15px] font-medium text-white transition hover:bg-white/10 sm:block"
-          >
-            Contact
-          </a>
           <a
             href="#"
             className="rounded-md bg-white px-6 py-3.5 text-[15px] font-bold transition hover:opacity-90"

@@ -61,7 +61,7 @@ export default async function PageRealisation({
   const competence = offre
     ? COMPETENCES.find(c => c.slug === offre.competences[0])
     : undefined;
-  const titreLisible = r.slug.replace(/-/g, " ");
+  const cas = r.cas;
 
   return (
     <main style={{ background: CLAIR, color: SOMBRE }}>
@@ -82,10 +82,9 @@ export default async function PageRealisation({
               </>
             )}
           </nav>
-          <h1 className="max-w-[20ch] text-[clamp(2.2rem,5vw,4rem)] font-bold leading-[1.02] tracking-[-0.02em]">
-            {r.client}
+          <h1 className="max-w-[24ch] text-[clamp(2rem,4.2vw,3.4rem)] font-bold leading-[1.05] tracking-[-0.02em]">
+            {r.titre}
           </h1>
-          <p className="mt-5 text-[1.15rem] capitalize text-white/70">{titreLisible}</p>
           {r.clics > 0 && (
             <p className="mt-8 text-[14px] tabular-nums text-white/40">
               Page actuelle : {r.clics} clics · {r.impressions.toLocaleString("fr-FR")} impressions sur 12 mois
@@ -109,18 +108,33 @@ export default async function PageRealisation({
       {/* ── Les quatre blocs du cas ───────────────────────────────────── */}
       <section className="mx-auto max-w-[900px] px-8 pb-20">
         <div className="space-y-10">
-          {BLOCS.map((b, i) => (
-            <div key={b.titre} className="border-t pt-7" style={{ borderColor: "rgba(0,0,0,.12)" }}>
-              <div className="flex items-baseline gap-4">
-                <span className="text-sm font-bold tabular-nums" style={{ color: BLEU }}>
-                  0{i + 1}
-                </span>
-                <h2 className={TYPO.sousTitre}>{b.titre}</h2>
+          {BLOCS.map((b, i) => {
+            const texte = cas ? [cas.contexte, cas.enjeu, cas.ceQuOnAFait, cas.resultat][i] : null;
+            return (
+              <div key={b.titre} className="border-t pt-7" style={{ borderColor: "rgba(0,0,0,.12)" }}>
+                <div className="flex items-baseline gap-4">
+                  <span className="text-sm font-bold tabular-nums" style={{ color: BLEU }}>
+                    0{i + 1}
+                  </span>
+                  <h2 className={TYPO.sousTitre}>{b.titre}</h2>
+                </div>
+                {texte ? (
+                  <p className={`mt-4 pl-9 ${TYPO.corps}`}>{texte}</p>
+                ) : (
+                  /* Le bloc vide dit ce qu'il attend, et pourquoi. Un gabarit
+                     rempli de faux texte donne l'illusion d'un site fini. */
+                  <p className="mt-4 pl-9 text-[15px] leading-relaxed opacity-45">{b.aide}</p>
+                )}
               </div>
-              <p className="mt-4 pl-9 text-[15px] leading-relaxed opacity-45">{b.aide}</p>
-            </div>
-          ))}
+            );
+          })}
         </div>
+
+        {cas?.credits && (
+          <p className="mt-12 border-t pt-6 text-[15px] opacity-50" style={{ borderColor: "rgba(0,0,0,.12)" }}>
+            {cas.credits}
+          </p>
+        )}
       </section>
 
       {/* ── Le maillage : c'est ce qui fait travailler ces 140 pages ──── */}

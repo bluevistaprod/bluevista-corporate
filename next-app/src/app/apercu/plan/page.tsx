@@ -146,6 +146,15 @@ export default function PlanDeLaMaquette() {
             ))}
         </div>
 
+        {/* ── Les pages transverses ────────────────────────────────────── */}
+        <h2 className="mt-16 text-[1.35rem] font-bold tracking-tight">
+          Les pages transverses
+        </h2>
+        <div className="mt-4">
+          <Ligne href="/apercu/agence" nom="L’agence" detail="/agence/" clics={38} etat="contenu-manquant" />
+          <Ligne href="/apercu/contact" nom="Contact & devis" detail="/contact-devis/" clics={17} etat="structure" />
+        </div>
+
         {/* ── Les réalisations ─────────────────────────────────────────── */}
         <h2 className="mt-16 text-[1.35rem] font-bold tracking-tight">
           Les réalisations{" "}
@@ -165,7 +174,7 @@ export default function PlanDeLaMaquette() {
             <Ligne
               key={r.slug}
               href={`/apercu/realisations/${r.slug}`}
-              nom={r.client}
+              nom={r.titre}
               detail={r.ancienneUrl}
               clics={r.clics}
               etat="contenu-manquant"
@@ -183,7 +192,7 @@ export default function PlanDeLaMaquette() {
           Pas encore construites
         </h2>
         <div className="mt-4">
-          {PAGES_FIXES.filter(p => p.slug !== "contact" && p.slug !== "realisations").map(p => (
+          {PAGES_FIXES.filter(p => !["contact", "realisations", "agence"].includes(p.slug)).map(p => (
             <Ligne
               key={p.slug}
               href="#"
