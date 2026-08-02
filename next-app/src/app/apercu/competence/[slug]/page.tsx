@@ -110,12 +110,11 @@ export default async function PageCompetence({
       </section>
 
       {/* ── Le texte de fond ──────────────────────────────────────────
-          Repris de l'ancien site quand il existe : c'est lui qui fait
-          remonter la page depuis des années. Le réécrire pour le plaisir
-          reviendrait à jeter un actif qui fonctionne. */}
-      <section style={{ background: CLAIR_SOUTENU }}>
-        <div className="mx-auto max-w-[820px] px-8 py-20">
-          {c.texte ? (
+          Repris de l'ancien site : c'est lui qui fait remonter la page
+          depuis des années. Le réécrire pour le plaisir jetterait un actif. */}
+      {c.texte && (
+        <section style={{ background: CLAIR_SOUTENU }}>
+          <div className="mx-auto max-w-[820px] px-8 py-20">
             <div className="space-y-6">
               {c.texte.map((par, i) => (
                 <p key={i} className="text-[1.0625rem] leading-[1.75] opacity-80">
@@ -123,7 +122,87 @@ export default async function PageCompetence({
                 </p>
               ))}
             </div>
-          ) : (
+          </div>
+        </section>
+      )}
+
+      {/* ── LES SECTIONS DE FOND ────────────────────────────────────────
+          Ajoutées là où le texte repris ne suffisait pas — sous 200 mots,
+          une page ne se défend pas : Google la montre mais ne la classe
+          pas haut.
+
+          La forme n'est pas décorative : un titre par question qu'un client
+          se pose vraiment, des blocs courts, une image tous les deux ou
+          trois blocs. Un mur de texte de 1 200 mots n'est lu par personne,
+          et Google mesure aussi le temps passé. */}
+      {c.sections && (
+        <section className="mx-auto max-w-[1500px] px-8 py-24">
+          <div className="space-y-24">
+            {c.sections.map((sec, i) => (
+              <article
+                key={sec.titre}
+                className={`grid gap-12 lg:gap-16 ${
+                  sec.image ? "lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)]" : ""
+                }`}
+              >
+                <div className={sec.image && i % 2 ? "lg:order-last" : ""}>
+                  <div className="text-sm font-bold tabular-nums" style={{ color: BLEU }}>
+                    0{i + 1}
+                  </div>
+                  <h2 className={`mt-3 max-w-[22ch] ${TYPO.titre}`}>{sec.titre}</h2>
+                </div>
+                <div className={sec.image ? "" : "max-w-[820px]"}>
+                  {sec.image && (
+                    <div
+                      className="mb-8 aspect-[16/10] rounded-md bg-cover bg-center"
+                      style={{ backgroundImage: `url('${sec.image}')` }}
+                      role="img"
+                      aria-label={sec.titre}
+                    />
+                  )}
+                  <div className="space-y-5">
+                    {sec.paragraphes.map((par, j) => (
+                      <p key={j} className="text-[1.0625rem] leading-[1.75] opacity-80">
+                        {par}
+                      </p>
+                    ))}
+                  </div>
+                </div>
+              </article>
+            ))}
+          </div>
+        </section>
+      )}
+
+      {/* ── LA FAQ ──────────────────────────────────────────────────────
+          ⛔ Ce n'est pas un remplissage. Les questions longues — « faut-il
+          une autorisation pour un drone », « combien de casques prévoir » —
+          sont celles que les pages vitrines ratent toutes, et ce sont
+          exactement celles que les gens tapent. Elles vaudront aussi un
+          balisage FAQPage en JSON-LD à la mise en ligne. */}
+      {c.faq && (
+        <section style={{ background: CLAIR_SOUTENU }}>
+          <div className="mx-auto max-w-[820px] px-8 py-20">
+            <div className={`mb-7 flex items-center gap-4 ${TYPO.surTitre}`} style={{ color: BLEU }}>
+              <span className="inline-block h-[3px] w-12 rounded-full" style={{ background: BLEU }} />
+              Les questions qu’on nous pose
+            </div>
+            <div className="mt-10 space-y-8">
+              {c.faq.map(item => (
+                <div key={item.q} className="border-t pt-6" style={{ borderColor: "rgba(0,0,0,.12)" }}>
+                  <h3 className="text-[1.15rem] font-bold leading-snug tracking-tight">{item.q}</h3>
+                  <p className="mt-3 text-[1.0625rem] leading-[1.7] opacity-75">{item.r}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
+
+      {/* ── Ce qui manque encore, quand rien n'a été repris ───────────── */}
+      {!c.texte && !c.sections && (
+        <section style={{ background: CLAIR_SOUTENU }}>
+          <div className="mx-auto max-w-[820px] px-8 py-20">
             <div
               className="rounded-md border-2 border-dashed px-8 py-10"
               style={{ borderColor: `${BLEU}55` }}
@@ -131,15 +210,10 @@ export default async function PageCompetence({
               <div className="text-[13px] font-bold uppercase tracking-[0.16em]" style={{ color: BLEU }}>
                 À reprendre de l’ancien site — {c.clics} clics sur 12 mois
               </div>
-              <p className="mt-4 text-[1.0625rem] leading-relaxed opacity-70">
-                Le texte de fond de <strong>{c.nom.toLowerCase()}</strong> existe
-                déjà sur bluevistaprod.com. Il est à reprendre tel quel puis à
-                relire — c’est lui qui porte le référencement de cette page.
-              </p>
             </div>
-          )}
-        </div>
-      </section>
+          </div>
+        </section>
+      )}
 
       {/* ── Le maillage interne ───────────────────────────────────────── */}
       {voisines.length > 0 && (

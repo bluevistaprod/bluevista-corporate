@@ -95,6 +95,46 @@ export default async function PageVille({
           </div>
         )}
 
+        {/* ── CE QUI N'EXISTE QUE SUR CETTE PAGE ────────────────────────
+            La seule parade au contenu dupliqué. Le texte repris est commun
+            aux quatre villes par construction ; ces blocs-là ne le sont pas,
+            et c'est eux qui donneront à Google une raison de classer chaque
+            page séparément. */}
+        {v.specificites && (
+          <div className="mt-16 space-y-10">
+            {v.specificites.map((sp, i) => (
+              <div key={sp.titre} className="border-t-2 pt-6" style={{ borderColor: BLEU }}>
+                <div className="mb-3 text-sm font-bold tabular-nums" style={{ color: BLEU }}>
+                  0{i + 1}
+                </div>
+                <h2 className={TYPO.sousTitre}>{sp.titre}</h2>
+                <p className="mt-3 text-[1.0625rem] leading-[1.75] opacity-80">{sp.texte}</p>
+              </div>
+            ))}
+          </div>
+        )}
+
+        {/* Les projets locaux nommés — sourcés dans le cerveau. C'est la
+            preuve que l'implantation n'est pas qu'une ligne d'adresse. */}
+        {v.projets && (
+          <div className="mt-14">
+            <div className="text-[13px] font-bold uppercase tracking-[0.16em] opacity-45">
+              Quelques projets à {v.ville}
+            </div>
+            <ul className="mt-5 space-y-3">
+              {v.projets.map(pr => (
+                <li
+                  key={pr}
+                  className="border-t pt-3 text-[1.0625rem] leading-snug"
+                  style={{ borderColor: "rgba(0,0,0,.1)" }}
+                >
+                  {pr}
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
+
         <div
           className="mt-12 rounded-md border-2 border-dashed px-8 py-8"
           style={{ borderColor: "#E0A400", background: "rgba(224,164,0,.07)" }}
@@ -103,16 +143,17 @@ export default async function PageVille({
             À dédupliquer — {v.clics} clics sur 12 mois
           </div>
           <p className="mt-4 text-[1.0625rem] leading-relaxed opacity-75">
-            Le texte ci-dessus vient de l’ancienne page et il est <strong>en
-            partie commun aux autres villes</strong>. Le garder tel quel
-            reconduit le problème.
+            Le texte du haut vient de l’ancienne page et reste <strong>en
+            partie commun aux autres villes</strong>. Les blocs numérotés
+            ci-dessus, eux, sont propres à {v.ville} — c’est ce qui donne à
+            Google une raison de classer cette page séparément.
           </p>
           <p className="mt-4 text-[15px] leading-relaxed opacity-60">
-            Ce qu’il faut y ajouter, et qui n’existe nulle part ailleurs sur le
-            site&nbsp;: des projets réellement tournés à {v.ville} et nommés,
-            les lieux où vous travaillez, la façon dont vous intervenez ici.
-            C’est le seul contenu que je ne peux pas écrire à votre place sans
-            risquer d’inventer une contre-vérité géographique.
+            Reste à faire&nbsp;: relire le texte repris pour en retirer ce qui
+            parle d’une autre ville — la page Genève demandait « envie de
+            travailler avec une boîte de prod lyonnaise&nbsp;? » — et compléter
+            la liste des projets locaux. Les projets cités sont sourcés, mais
+            ils ne sont pas les seuls.
           </p>
         </div>
       </section>

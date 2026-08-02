@@ -1,7 +1,7 @@
 "use client";
 
 import { useMemo, useState } from "react";
-import { REALISATIONS } from "./_realisations";
+import { TOUTES_REALISATIONS } from "./_realisations";
 import { OFFRES } from "./_offres";
 import { METIERS } from "./_plan-du-site";
 import { BLEU, CLAIR_SOUTENU, TYPO } from "./_palette";
@@ -43,7 +43,7 @@ export function GalerieRealisations({
 
   const resultats = useMemo(
     () =>
-      REALISATIONS.filter(r => {
+      TOUTES_REALISATIONS.filter(r => {
         if (produit) return r.produit === produit;
         if (metier) return r.metier === metier;
         return true;
@@ -68,7 +68,7 @@ export function GalerieRealisations({
         </div>
         <div className="mt-4 flex flex-wrap gap-2 lg:flex-col lg:items-start">
           <Pastille actif={!metier} onClick={() => { setMetier(null); setProduit(null); }}>
-            Tout ({REALISATIONS.length})
+            Tout ({TOUTES_REALISATIONS.length})
           </Pastille>
           {METIERS.map(m => (
             <Pastille
@@ -76,7 +76,7 @@ export function GalerieRealisations({
               actif={metier === m.cle}
               onClick={() => { setMetier(m.cle); setProduit(null); }}
             >
-              {m.nom} ({REALISATIONS.filter(r => r.metier === m.cle).length})
+              {m.nom} ({TOUTES_REALISATIONS.filter(r => r.metier === m.cle).length})
             </Pastille>
           ))}
         </div>
@@ -86,9 +86,9 @@ export function GalerieRealisations({
         </div>
         <div className="mt-4 flex flex-wrap gap-2 lg:flex-col lg:items-start">
           {produitsVisibles
-            .filter(p => REALISATIONS.some(r => r.produit === p.slug))
+            .filter(p => TOUTES_REALISATIONS.some(r => r.produit === p.slug))
             .map(p => {
-              const n = REALISATIONS.filter(r => r.produit === p.slug).length;
+              const n = TOUTES_REALISATIONS.filter(r => r.produit === p.slug).length;
               const on = produit === p.slug;
               return (
                 <button

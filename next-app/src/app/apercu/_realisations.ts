@@ -168,8 +168,24 @@ export const REALISATIONS: Realisation[] = [
   { slug: "serl-video-360-vr", titre: "serl video 360 vr", titreSur: false, client: "Serl", metier: "immersion", produit: "visite-vr", ancienneUrl: "/nos-realisations/serl-video-360-vr/", clics: 0, impressions: 142 },
 ];
 
+/**
+ * LE PORTFOLIO COMPLET — les réalisations d'origine PLUS celles migrées
+ * depuis /actualites/. C'est cette liste que la galerie affiche.
+ *
+ * ⛔ L'import est en bas du fichier, pas en haut : _realisations-migrees.ts
+ * importe le type `Realisation` d'ici. Une dépendance circulaire de types
+ * ne casse pas à la compilation, mais elle rend l'ordre de lecture
+ * incompréhensible — mieux vaut le dire que le laisser deviner.
+ */
+export const TOUTES_REALISATIONS: Realisation[] = [
+  ...REALISATIONS,
+  ...REALISATIONS_MIGREES,
+];
+
+import { REALISATIONS_MIGREES } from "./_realisations-migrees";
+
 export const realisationsDuProduit = (produit: string) =>
-  REALISATIONS.filter(r => r.produit === produit);
+  TOUTES_REALISATIONS.filter(r => r.produit === produit);
 
 /** À trier à la main : leur adresse ne dit pas ce qu'elles montrent. */
 export const NON_CLASSEES = REALISATIONS.filter(r => !r.metier);

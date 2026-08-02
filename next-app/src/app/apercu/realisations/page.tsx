@@ -1,6 +1,6 @@
 import { EnTete } from "../_EnTete";
 import { GalerieRealisations } from "../_GalerieRealisations";
-import { REALISATIONS } from "../_realisations";
+import { TOUTES_REALISATIONS } from "../_realisations";
 import { BLEU, BLEU_CLAIR, CLAIR, NOIR, SOMBRE, TYPO } from "../_palette";
 
 /**
@@ -55,7 +55,7 @@ export default async function PageRealisations({
               État de la maquette
             </div>
             <p className="mt-4 text-[1.0625rem] leading-relaxed">
-              <strong>{REALISATIONS.length} réalisations</strong> sur les 140 de
+              <strong>{TOUTES_REALISATIONS.length} réalisations</strong> sur les 140 de
               l’ancien site — seulement celles qui ont du trafic. Aucune n’a
               encore son visuel, son contexte ni son résultat.
             </p>

@@ -4,7 +4,7 @@ import { MethodeEnCercle } from "../../_Methode";
 import { BLEU, BLEU_CLAIR, CLAIR, CLAIR_SOUTENU, NOIR, SOMBRE, TYPO } from "../../_palette";
 import { type Metier as CleMetier } from "../../_plan-du-site";
 import { offresDuMetier } from "../../_offres";
-import { REALISATIONS } from "../../_realisations";
+import { TOUTES_REALISATIONS } from "../../_realisations";
 
 /**
  * LES TROIS PAGES MÉTIER — créées le 02/08/2026 sur décision de Giz.
@@ -252,7 +252,7 @@ export default async function PageMetier({
 
                 <ul className="mt-5 divide-y" style={{ borderColor: "rgba(0,0,0,.08)" }}>
                   {o.produits.map(pr => {
-                    const n = REALISATIONS.filter(x => x.produit === pr.slug).length;
+                    const n = TOUTES_REALISATIONS.filter(x => x.produit === pr.slug).length;
                     return (
                       <li
                         key={pr.slug}

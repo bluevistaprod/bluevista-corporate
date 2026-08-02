@@ -1,6 +1,6 @@
 import { EnTete } from "../_EnTete";
 import { COMPETENCES, METIERS, PAGES_FIXES, VILLES, competencesDuMetier } from "../_plan-du-site";
-import { REALISATIONS } from "../_realisations";
+import { TOUTES_REALISATIONS } from "../_realisations";
 import { BLEU, CLAIR, CLAIR_SOUTENU, SOMBRE, TYPO } from "../_palette";
 
 /**
@@ -170,7 +170,7 @@ export default function PlanDeLaMaquette() {
             clics={15}
             etat="structure"
           />
-          {REALISATIONS.slice(0, 5).map(r => (
+          {TOUTES_REALISATIONS.slice(0, 5).map(r => (
             <Ligne
               key={r.slug}
               href={`/apercu/realisations/${r.slug}`}
@@ -182,7 +182,7 @@ export default function PlanDeLaMaquette() {
           ))}
           <Ligne
             href="/apercu/realisations"
-            nom={`… et ${REALISATIONS.length - 5} autres dans l’index`}
+            nom={`… et ${TOUTES_REALISATIONS.length - 5} autres dans l’index`}
             etat="contenu-manquant"
           />
         </div>

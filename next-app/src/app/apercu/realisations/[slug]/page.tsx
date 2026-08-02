@@ -1,6 +1,6 @@
 import { notFound } from "next/navigation";
 import { EnTete } from "../../_EnTete";
-import { REALISATIONS } from "../../_realisations";
+import { TOUTES_REALISATIONS } from "../../_realisations";
 import { COMPETENCES, METIERS } from "../../_plan-du-site";
 import { OFFRES } from "../../_offres";
 import { BLEU, BLEU_CLAIR, CLAIR, CLAIR_SOUTENU, NOIR, SOMBRE, TYPO } from "../../_palette";
@@ -25,7 +25,7 @@ import { BLEU, BLEU_CLAIR, CLAIR, CLAIR_SOUTENU, NOIR, SOMBRE, TYPO } from "../.
  */
 
 export function generateStaticParams() {
-  return REALISATIONS.map(r => ({ slug: r.slug }));
+  return TOUTES_REALISATIONS.map(r => ({ slug: r.slug }));
 }
 
 const BLOCS = [
@@ -53,7 +53,7 @@ export default async function PageRealisation({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
-  const r = REALISATIONS.find(x => x.slug === slug);
+  const r = TOUTES_REALISATIONS.find(x => x.slug === slug);
   if (!r) notFound();
 
   const metier = METIERS.find(m => m.cle === r.metier);
