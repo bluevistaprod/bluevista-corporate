@@ -2,6 +2,7 @@ import { notFound } from "next/navigation";
 import { EnTete } from "../../_EnTete";
 import { PiedDePage } from "../../_PiedDePage";
 import { lireRealisation, lireRealisations, lireVoisines, imageUrl } from "../../../../lib/sanity";
+import { alternatesDe } from "../../../../lib/hreflang";
 import { COMPETENCES, METIERS } from "../../_plan-du-site";
 import { OFFRES } from "../../_offres";
 import { BLEU, BLEU_CLAIR, CLAIR, CLAIR_SOUTENU, NOIR, SOMBRE, TYPO } from "../../_palette";
@@ -33,6 +34,20 @@ import { BLEU, BLEU_CLAIR, CLAIR, CLAIR_SOUTENU, NOIR, SOMBRE, TYPO } from "../.
 export async function generateStaticParams() {
   const rs = await lireRealisations("fr");
   return rs.map(r => ({ slug: r.slug }));
+}
+
+/**
+ * ⛔ LE hreflang N'EST PAS ÉCRIT ICI, IL EST CALCULÉ. `alternatesDe` interroge
+ * Sanity à chaque rendu et ne déclare que les versions RÉELLEMENT PUBLIÉES.
+ * Dépublier la fiche anglaise retire donc la déclaration de la fiche
+ * française toute seule — c'est la garantie demandée par Giz, et elle ne
+ * tient que parce que rien n'est figé dans le code.
+ */
+export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
+  const { slug } = await params;
+  const r = await lireRealisation(slug);
+  if (!r) return {};
+  return { alternates: await alternatesDe(r._id, "realisation", "fr") };
 }
 
 const BLOCS = [

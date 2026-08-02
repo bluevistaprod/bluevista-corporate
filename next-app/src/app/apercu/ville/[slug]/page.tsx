@@ -4,6 +4,7 @@ import { PiedDePage } from "../../_PiedDePage";
 import { COMPETENCES, VILLES } from "../../_plan-du-site";
 import { lirePage, lirePages, enParagraphes, imageUrl } from "../../../../lib/sanity";
 import { BLEU, BLEU_CLAIR, CLAIR, CLAIR_SOUTENU, NOIR, SOMBRE, TYPO } from "../../_palette";
+import { alternatesDe } from "../../../../lib/hreflang";
 
 /**
  * LES PAGES DE VILLE — les plus rentables du site, et les plus fragiles.
@@ -32,6 +33,20 @@ import { BLEU, BLEU_CLAIR, CLAIR, CLAIR_SOUTENU, NOIR, SOMBRE, TYPO } from "../.
 export async function generateStaticParams() {
   const pages = await lirePages("ville");
   return pages.map(p => ({ slug: p.slug }));
+}
+
+/**
+ * ⛔ LE hreflang N'EST PAS ÉCRIT ICI, IL EST CALCULÉ. `alternatesDe` interroge
+ * Sanity à chaque rendu et ne déclare que les versions RÉELLEMENT PUBLIÉES.
+ * Dépublier la version anglaise retire donc la déclaration de la version
+ * française toute seule — c'est la garantie demandée par Giz, et elle ne
+ * tient que parce que rien n'est figé dans le code.
+ */
+export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
+  const { slug } = await params;
+  const page = await lirePage("ville", slug);
+  if (!page) return {};
+  return { alternates: await alternatesDe(page._id, "ville", "fr") };
 }
 
 export default async function PageVille({

@@ -26,9 +26,30 @@ const PAGES = [
 ];
 const INTERDIT = /bluevista\.ch/i;
 
+/**
+ * ⛔⛔ LA SEULE MENTION AUTORISÉE DU DOMAINE SUISSE : le hreflang.
+ *
+ * Depuis qu'on déclare les versions régionales, `bluevista.ch` apparaît
+ * légitimement dans l'en-tête des pages — sous la forme
+ * `<link rel="alternate" hreflang="fr-CH" href="https://www.bluevista.ch/…">`.
+ *
+ * 👉 Ce n'est PAS un croisement : cette ligne est invisible, elle ne
+ * s'affiche nulle part, personne ne peut cliquer dessus. Elle s'adresse à
+ * Google et à lui seul, et c'est précisément elle qui empêche le site
+ * français de capter les recherches suisses.
+ *
+ * ⚠️ Sans cette exception, le contrôle échouerait dès la première page et on
+ * finirait par le désactiver — c'est-à-dire par perdre la protection contre
+ * les VRAIS croisements, qui sont des `href` cliquables dans le corps.
+ * On retire donc ces balises AVANT de chercher, plutôt que d'assouplir la
+ * recherche elle-même.
+ */
+const SANS_HREFLANG = h => h.replace(/<link[^>]*rel="alternate"[^>]*>/gi, "");
+
 let fautes = 0;
 for (const p of PAGES) {
-  const h = await fetch(BASE + p).then(r => r.text()).catch(() => "");
+  const brut = await fetch(BASE + p).then(r => r.text()).catch(() => "");
+  const h = SANS_HREFLANG(brut);
   const liens = [...h.matchAll(/href="([^"]*bluevista\.ch[^"]*)"/gi)].map(m => m[1]);
   const mentions = (h.match(INTERDIT) || []).length;
   if (liens.length || mentions) {

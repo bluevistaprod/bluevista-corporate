@@ -5,6 +5,7 @@ import { COMPETENCES, METIERS, competencesDuMetier } from "../../_plan-du-site";
 import { lirePage, lirePages, lireRealisationsDuProduit, enParagraphes, imageUrl } from "../../../../lib/sanity";
 import { OFFRES } from "../../_offres";
 import { BLEU, BLEU_CLAIR, CLAIR, CLAIR_SOUTENU, NOIR, SOMBRE, TYPO } from "../../_palette";
+import { alternatesDe } from "../../../../lib/hreflang";
 
 /**
  * LES PAGES DE COMPÉTENCE — le niveau ② de l'architecture.
@@ -38,6 +39,20 @@ import { BLEU, BLEU_CLAIR, CLAIR, CLAIR_SOUTENU, NOIR, SOMBRE, TYPO } from "../.
 export async function generateStaticParams() {
   const pages = await lirePages("savoir-faire");
   return pages.map(p => ({ slug: p.slug }));
+}
+
+/**
+ * ⛔ LE hreflang N'EST PAS ÉCRIT ICI, IL EST CALCULÉ. `alternatesDe` interroge
+ * Sanity à chaque rendu et ne déclare que les versions RÉELLEMENT PUBLIÉES.
+ * Dépublier la version anglaise retire donc la déclaration de la version
+ * française toute seule — c'est la garantie demandée par Giz, et elle ne
+ * tient que parce que rien n'est figé dans le code.
+ */
+export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
+  const { slug } = await params;
+  const page = await lirePage("savoir-faire", slug);
+  if (!page) return {};
+  return { alternates: await alternatesDe(page._id, "savoir-faire", "fr") };
 }
 
 export default async function PageCompetence({

@@ -1,4 +1,7 @@
 allowBuilds:
-  esbuild: set this to true or false
+  # esbuild télécharge son binaire natif à l'installation, comme sharp.
+  # Sans cette autorisation, pnpm refuse de lancer le serveur. Le paquet est
+  # une dépendance de Sanity, déjà présente dans le lockfile validé.
+  esbuild: true
   sharp: true
   unrs-resolver: true

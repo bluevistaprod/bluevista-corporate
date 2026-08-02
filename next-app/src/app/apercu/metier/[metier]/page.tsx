@@ -7,6 +7,7 @@ import { type Metier as CleMetier } from "../../_plan-du-site";
 import { offresDuMetier } from "../../_offres";
 import { lirePage, imageUrl } from "../../../../lib/sanity";
 import { TOUTES_REALISATIONS } from "../../_realisations";
+import { alternatesDe } from "../../../../lib/hreflang";
 
 /**
  * LES TROIS PAGES MÉTIER — créées le 02/08/2026 sur décision de Giz.
@@ -78,6 +79,20 @@ const CONTENU: Record<
 
 export function generateStaticParams() {
   return (Object.keys(CONTENU) as Metier[]).map(metier => ({ metier }));
+}
+
+/**
+ * ⛔ LE hreflang N'EST PAS ÉCRIT ICI, IL EST CALCULÉ. `alternatesDe` interroge
+ * Sanity à chaque rendu et ne déclare que les versions RÉELLEMENT PUBLIÉES.
+ * Dépublier la version anglaise retire donc la déclaration de la version
+ * française toute seule — c'est la garantie demandée par Giz, et elle ne
+ * tient que parce que rien n'est figé dans le code.
+ */
+export async function generateMetadata({ params }: { params: Promise<{ metier: string }> }) {
+  const { metier } = await params;
+  const page = await lirePage("metier", metier);
+  if (!page) return {};
+  return { alternates: await alternatesDe(page._id, "metier", "fr") };
 }
 
 export default async function PageMetier({
