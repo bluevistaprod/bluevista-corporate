@@ -2,7 +2,7 @@ import { EnTete } from "../_EnTete";
 import { PiedDePage } from "../_PiedDePage";
 import { GalerieRealisations } from "../_GalerieRealisations";
 import { lireRealisations } from "../../../lib/sanity";
-import { BLEU, BLEU_CLAIR, CLAIR, NOIR, SOMBRE, TYPO } from "../_palette";
+import { BLEU, BLEU_CLAIR, CLAIR, CLAIR_SOUTENU, NOIR, SOMBRE, TYPO } from "../_palette";
 
 /**
  * L'INDEX DES RÉALISATIONS.
@@ -57,11 +57,15 @@ export default async function PageRealisations({
       </section>
 
       {/* ── L'état du chantier, affiché ────────────────────────────────── */}
-      <section style={{ background: SOMBRE, color: "#fff" }} className="py-20">
+      {/* ⛔ Sur fond CLAIR : c'était la dernière bande sombre collée au pied
+          de page, celle qui restait après la correction du « double
+          footer ». Vérifié page par page — c'est la seule qui avait
+          échappé au premier passage. */}
+      <section style={{ background: CLAIR_SOUTENU }} className="py-20">
         <div className="mx-auto max-w-[900px] px-8">
           <div
             className="rounded-md border-2 border-dashed px-8 py-8"
-            style={{ borderColor: "#E0A400", color: "#FFD98A", background: "rgba(224,164,0,.08)" }}
+            style={{ borderColor: "#E0A400", color: "#9A7200", background: "rgba(224,164,0,.09)" }}
           >
             <div className="text-[13px] font-bold uppercase tracking-[0.16em]">
               État de la maquette
