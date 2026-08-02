@@ -2,6 +2,7 @@ import { notFound } from "next/navigation";
 import { EnTete } from "../../_EnTete";
 import { MethodeEnCercle } from "../../_Methode";
 import { BLEU, BLEU_CLAIR, CLAIR, CLAIR_SOUTENU, NOIR, SOMBRE, TYPO } from "../../_palette";
+import { competencesDuMetier, type Metier as CleMetier } from "../../_plan-du-site";
 
 /**
  * LES TROIS PAGES MÉTIER — créées le 02/08/2026 sur décision de Giz.
@@ -25,18 +26,20 @@ type Metier = "film" | "evenement" | "immersion";
 const CONTENU: Record<
   Metier,
   {
-    /** La clé attendue par le composant de méthode — elle diffère de l'URL. */
+    /** La clé attendue par le composant de méthode. */
     cleMethode: "film" | "evenementiel" | "immersion";
+    /** La clé du plan du site — c'est aussi le segment d'URL. */
+    cleMetier: CleMetier;
     surTitre: string;
     titre: string;
     accroche: string;
     chapo: string;
     image: string;
-    services: string[];
   }
 > = {
   film: {
     cleMethode: "film",
+    cleMetier: "film",
     surTitre: "Communication & marketing",
     titre: "Des contenus qui font bouger vos indicateurs",
     accroche:
@@ -44,17 +47,10 @@ const CONTENU: Record<
     chapo:
       "Vous avez un message, mais il se perd dans le bruit. Votre audience ne vous trouve pas, ne vous comprend pas, ou ne passe pas à l’action.",
     image: "/media/px-pilier-communication.jpg",
-    services: [
-      "Films d’entreprise & documentaires",
-      "Motion design & animation 3D",
-      "Podcasts & création sonore",
-      "Contenus pour les réseaux sociaux",
-      "Captation & interviews",
-      "Déclinaison multi-formats",
-    ],
   },
   evenement: {
     cleMethode: "evenementiel",
+    cleMetier: "evenement",
     surTitre: "Événementiel",
     titre: "Une date qui ne bouge pas, et tout ce qu’il y a derrière",
     accroche:
@@ -62,17 +58,10 @@ const CONTENU: Record<
     chapo:
       "Un événement réussi ne s’improvise pas le jour même : il se joue dans les semaines qui précèdent, quand plus rien ne doit être en cours de fabrication.",
     image: "/media/px-pilier-evenementiel.jpg",
-    services: [
-      "Conception & scénographie",
-      "Contenus et habillage d’écrans",
-      "Vidéomapping & projections",
-      "Régie & captation multi-caméra",
-      "Aftermovie & formats réseaux",
-      "Événementiel hybride",
-    ],
   },
   immersion: {
     cleMethode: "immersion",
+    cleMetier: "immersion",
     surTitre: "Immersion",
     titre: "Faire vivre ce qu’un film ne peut que montrer",
     accroche:
@@ -80,14 +69,6 @@ const CONTENU: Record<
     chapo:
       "Vos publics veulent des expériences, pas seulement des contenus. Mais la réalité virtuelle paraît complexe, coûteuse, et son intérêt reste flou tant qu’on ne l’a pas essayée.",
     image: "/media/px-pilier-immersion.jpg",
-    services: [
-      "Réalité virtuelle & augmentée",
-      "Modélisation & animation 3D",
-      "Vidéomapping monumental",
-      "Vidéo & photographie 360°",
-      "Développement d’applications",
-      "Installation & exploitation sur site",
-    ],
   },
 };
 
@@ -143,17 +124,40 @@ export default async function PageMetier({
         </div>
       </section>
 
-      {/* ② Le problème, puis ce qu'on prend en charge. */}
+      {/* ② Le problème, puis les COMPÉTENCES du pôle.
+             ⛔ Ce n'était qu'une liste de mots il y a une heure. Ce sont
+             maintenant de vrais liens vers les pages de compétence, et c'est
+             tout l'enjeu : ces pages-là portent le référencement du site
+             (voir _plan-du-site.ts). Une page métier qui ne pointe pas vers
+             elles est une impasse pour le visiteur comme pour Google. */}
       <section className="mx-auto max-w-[1500px] px-8 py-24">
-        <div className="grid gap-16 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)]">
-          <p className={`max-w-xl ${TYPO.chapo}`}>{c.chapo}</p>
-          <ul className="grid gap-x-10 gap-y-4 sm:grid-cols-2">
-            {c.services.map(s => (
-              <li key={s} className="border-t pt-3 text-[1.0625rem] font-medium" style={{ borderColor: `${BLEU}33` }}>
-                {s}
-              </li>
-            ))}
-          </ul>
+        <p className={`mb-16 max-w-2xl ${TYPO.chapo}`}>{c.chapo}</p>
+
+        <div className={`mb-7 flex items-center gap-4 ${TYPO.surTitre}`} style={{ color: BLEU }}>
+          <span className="inline-block h-[3px] w-12 rounded-full" style={{ background: BLEU }} />
+          Nos savoir-faire
+        </div>
+        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          {competencesDuMetier(c.cleMetier).map(s => (
+            <a
+              key={s.slug}
+              href={`/apercu/competence/${s.slug}`}
+              className="group block overflow-hidden rounded-md border transition hover:shadow-lg"
+              style={{ borderColor: `${BLEU}2A`, background: "#fff" }}
+            >
+              <div
+                className="aspect-[16/9] bg-cover bg-center transition duration-700 group-hover:brightness-110"
+                style={{ backgroundImage: `url('${s.image}')` }}
+              />
+              <div className="p-7">
+                <div className={TYPO.sousTitre}>{s.nom}</div>
+                <p className="mt-3 text-[15px] leading-relaxed opacity-60">{s.accroche}</p>
+                <div className="mt-5 text-[15px] font-bold" style={{ color: BLEU }}>
+                  Voir la page →
+                </div>
+              </div>
+            </a>
+          ))}
         </div>
       </section>
 
