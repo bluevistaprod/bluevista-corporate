@@ -1,6 +1,7 @@
 import { BarreAperçu } from "../_commun";
 import { EnTete } from "../_EnTete";
 import { MethodeEnCercle } from "../_Methode";
+import { Temoignages } from "../_Temoignages";
 import { BLEU, BLEU_CLAIR, CLAIR, CLAIR_SOUTENU, NOIR, SOMBRE, SOMBRE_PROFOND, TYPO } from "../_palette";
 
 /**
@@ -251,7 +252,7 @@ export default function V5() {
       {/* ③ SOMBRE — la preuve chez le client ────────────────────────── */}
       <section style={{ background: NOIR, color: "#fff" }}>
         <div className="mx-auto max-w-[1500px] px-8 pb-4 pt-24">
-          <SurTitre sombre>Nos preuves</SurTitre>
+          <SurTitre sombre>Avant / après</SurTitre>
           <h2 className={`max-w-3xl ${TYPO.titre}`}>
             Ce que ça a changé, chez eux.
           </h2>
@@ -296,7 +297,7 @@ export default function V5() {
 
       {/* ④ CLAIR — l'offre. Le changement de fond marque le chapitre. ─ */}
       <section className="mx-auto max-w-[1500px] px-8 py-28">
-        <SurTitre>Nos offres</SurTitre>
+        <SurTitre>Ce qu’on prend en charge</SurTitre>
         <h2 className={`max-w-3xl ${TYPO.titre}`}>
           Nos 3 piliers stratégiques
         </h2>
@@ -387,7 +388,7 @@ export default function V5() {
       */}
       <section style={{ background: CLAIR_SOUTENU }}>
         <div className="mx-auto max-w-[1500px] px-8 py-24">
-          <SurTitre>Pourquoi nous</SurTitre>
+          <SurTitre>Ce que vous y gagnez</SurTitre>
           <h2 className={`max-w-4xl ${TYPO.titre}`}>
             Ce qui nous distingue
           </h2>
@@ -413,7 +414,7 @@ export default function V5() {
       */}
       <section>
         <div className="mx-auto max-w-[1500px] px-8 py-28">
-          <SurTitre>Notre méthode</SurTitre>
+          <SurTitre>De l’analyse au débriefing</SurTitre>
           <h2 className={`max-w-4xl ${TYPO.titre}`}>
             Six étapes. Et elle recommence.
           </h2>
@@ -424,6 +425,39 @@ export default function V5() {
 
           <div className="mt-20">
             <MethodeEnCercle />
+          </div>
+        </div>
+      </section>
+
+      {/* ⑦bis SOMBRE — les témoignages, en vidéo ────────────────────────
+          Remis à la demande de Giz. Sa lecture était juste : la page
+          n'apportait aucune parole extérieure — tout ce qu'on y lisait était
+          écrit par Bluevista sur Bluevista.
+
+          Placé ICI, et pas ailleurs, pour une raison : la section précédente
+          affirme une méthode. Un client qui dit « ça s'est passé comme ça »
+          juste après est la seule chose qui puisse la valider. Avant la
+          méthode, il n'aurait rien à confirmer.
+
+          Le fond sombre isole la séquence du reste : on change de voix, la
+          page change de couleur.
+
+          ⛔ Contenu factice et verrouillé — voir l'avertissement en tête de
+          _Temoignages.tsx. La maquette Manus contenait un faux témoignage
+          signé du nom d'un collaborateur de Bluevista.
+      */}
+      <section style={{ background: SOMBRE, color: "#fff" }}>
+        <div className="mx-auto max-w-[1500px] px-8 py-28">
+          <SurTitre sombre>Sans filtre</SurTitre>
+          <h2 className={`max-w-4xl ${TYPO.titre}`}>
+            On préfère les laisser le dire.
+          </h2>
+          <p className={`mt-6 max-w-2xl ${TYPO.chapo}`}>
+            Trois clients, filmés chez eux, sans script.
+          </p>
+
+          <div className="mt-16">
+            <Temoignages />
           </div>
         </div>
       </section>
@@ -444,7 +478,7 @@ export default function V5() {
       */}
       <section style={{ background: CLAIR_SOUTENU }}>
         <div className="mx-auto max-w-[1500px] px-8 py-24">
-          <SurTitre>Ils nous font confiance</SurTitre>
+          <SurTitre>Depuis 2004</SurTitre>
           <h2 className={`max-w-4xl ${TYPO.titre}`}>
             Des institutions, des médias, des industriels.
           </h2>
@@ -479,7 +513,7 @@ export default function V5() {
       <section className="mx-auto max-w-[1500px] px-8 py-28">
         <div className="flex flex-wrap items-end justify-between gap-6">
           <div>
-            <SurTitre>Nos réalisations</SurTitre>
+            <SurTitre>En images</SurTitre>
             <h2 className={TYPO.titre}>
               Ce qu’on a fait pour eux.
             </h2>
