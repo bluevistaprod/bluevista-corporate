@@ -67,6 +67,26 @@ export type Competence = {
    * répondent à une recherche précise, elles n'ont pas à porter le discours.
    */
   texte?: string[];
+  /**
+   * ⚠️ LE VOLUME DU TEXTE REPRIS, mesuré le 02/08/2026. C'est la colonne qui
+   * dit ce qu'il reste à faire, et elle est plus utile qu'un « à compléter »
+   * générique — reprendre l'ancien texte ne suffit pas partout :
+   *
+   *   live-streaming-webtv                97 mots   🔴  85 clics/an
+   *   studio-fond-vert-compositing       115 mots   🔴
+   *   video-corporate-film-dentreprise   145 mots   🔴
+   *   video-aerienne-drone               147 mots   🔴
+   *   creation-immersive-realite-virt.   171 mots   🔴
+   *   aftermovie-captation-evenement.    269 mots   🟡
+   *   motion-design                      296 mots   🟡
+   *   video-mapping                      ~380 mots  🟡
+   *   animation-3d                       ~350 mots  🟡
+   *
+   * 👉 Sous 200 mots, une page ne se défend pas : Google la montre (le
+   * streaming fait 3 785 impressions) mais ne la classe pas haut. Ces cinq
+   * pages sont donc le meilleur retour sur temps d'écriture du chantier —
+   * elles ont déjà l'audience, il leur manque la substance.
+   */
   image: string;
   /** L'adresse actuelle, à rediriger. */
   ancienneUrl: string;
@@ -119,6 +139,9 @@ export const COMPETENCES: Competence[] = [
       "Rediffusion et extraits",
     ],
     image: "/media/px-pilier-evenementiel.jpg",
+    texte: [
+      "Via une simple connexion ADSL / 3G / 4G ou par satellite, nous diffusons en direct votre évènement vers nos serveurs de streaming vidéo dédiés. Notre plateforme webtv vous assure une diffusion accessible au plus grand nombre et un suivi précis de votre audience. Grâce à du matériel léger et mobile, nous pouvons intervenir depuis (presque) n’importe où dans le monde pour une diffusion vidéo haute résolution H.264. De la conférence privée à plusieurs milliers d’internautes connectés en même temps, nous vous accompagnons sur toutes les étapes de votre diffusion d’évènement en direct ou VOD sur internet.",
+    ],
     ancienneUrl: "/nos-competences/live-streaming-webtv/",
     clics: 85,
   },
@@ -163,6 +186,13 @@ export const COMPETENCES: Competence[] = [
       "Formats courts pour les réseaux",
     ],
     image: "/media/px-methode-4.jpg",
+    texte: [
+      "Du crayon à la 3D, passant par l’animation 2D, nous maîtrisons les outils vous permettant de mettre en images le fruit de nos idées. Cette technique d’animation est au cœur de nos créations audiovisuelles depuis plusieurs années et nous permet de retranscrire la spécificité de chacun de vos projets. D’un style retro à une animation ultra moderne, notre agence de motion design s’adapte à chaque demande.",
+      "Le motion traduit l’idée de créer un dialogue entre le sens et l’attention du spectateur. Tout l’intérêt du motion design réside dans le fait de capter l’attention et de guider le regard.",
+      "Ici on s’attache à la recherche du beau, de la qualité et de l’aspect du motion design. Après avoir donné du sens à nos images, il est important de faire en sorte que leur apparence reflète la plus belle des visions et mettent en valeur le propos du film. En somme, c’est là tout le but de l’animation 2D. Découvrez plus en profondeur ces principes avec un très bon exemple qu’est notre film en animation 2D pour Veama :",
+      "Nos studios de production vidéo à Lyon et à Paris possèdent aujourd’hui un panel très varié de création qui vous permettra de découvrir toutes les possibilités offertes par l’animation 2D. Rendez vous sur nos comptes Youtube et Vimeo pour visionner nos dernières créations ou sur nos réseaux sociaux pour rester au courant de nos dernières productions.",
+      "Par conséquent, si la réalisation d’un motion design vous intéresse, le motion pourra traduire au mieux des informations didactiques ou informatives par le biais d’animations et de design précis. Ainsi, tout l’intérêt est de capter, de guider le regard pour transmettre une information de la meilleure des manières. Nous pourrons vous proposer de découvrir plus en profondeur ces principes avec de très bons exemples",
+    ],
     ancienneUrl: "/nos-competences/motion-design/",
     clics: 14,
   },
@@ -182,6 +212,13 @@ export const COMPETENCES: Competence[] = [
       "Photothèque de l’événement",
     ],
     image: "/media/px-cas-worldskills.jpg",
+    texte: [
+      "Chez Bluevista, nous accompagnons une multitude d’entreprise dans leur communication vidéo. Grâce à notre savoir-faire en captation et montage, nous sommes capables de délivrer rapidement des films. Ces films sont alors forts en émotions et synthétisent toute l’ambiance de l’événement. Nous maitrisons toute la chaîne de production et sommes à même d’organiser efficacement la captation de tout événement en France ou partout dans le monde! Découvrez un court exemple de nos captations précédentes avec le Printemps :",
+      "Chaque événement étant totalement différent, nous nous adaptons à chaque projet! Que ce soit en petite équipe ou sur des conventions à plusieurs milliers de personnes. Les mots ont leurs limites, découvrez plutôt quelques exemples de clients et événements que nous avons pu couvrir récemment !",
+      "En septembre 2021, Koesio a mis en place un événement hors norme pour son changement de nom. Nous les avons accompagnés en réalisant un multitude de contenu diffusés à cet occasion ainsi que de multiples aftermovie / report de ce weekend riche en émotions! Comme souvent, le montage a été réalisé en direct et en parallèle de la captation. Bien que cet exercice soit périlleux, cela reste un bon moyen de délivrer une sensation d’instantanéité et de créer une surprise qui marquera les participants.",
+      "En 2022, l’ agence CWT nous a fait confiance dans la captation et le montage retraçant l’événement des 100 ans de Valrhona. Nous les avons accompagnés en réalisant un aftermovie / report monté en direct !",
+      "Autre anniversaire, nous avons travaillé avec l’agence Ludico pour retracer la soirée des 100ans de l’entreprise Crouzet. Un montage en direct, captation de la soirée et une réalisation vibrante !",
+    ],
     ancienneUrl: "/nos-competences/aftermovie-captation-evenementielle/",
     clics: 10,
   },
@@ -201,6 +238,13 @@ export const COMPETENCES: Competence[] = [
       "Statistiques de session",
     ],
     image: "/media/px-pilier-immersion.jpg",
+    texte: [
+      "Filmez et diffusez vos contenus en 360° pour présenter votre entreprise. Faites découvrir des lieux uniques ou sensibiliser votre audiences! Les sujets et applications sont infinis.",
+      "Les projets uniques et sur mesure font parti de nos plus belles créations. Découvrez plus bas toutes ces possibilités mêlant 3D, photos et/ou installations techniques.",
+      "Les showrooms sont une toute nouvelle façon de partager vos produits et services à vos prospects.",
+      "Bluevista cherche toujours à repousser la limite de ses compétences et nos showrooms virtuels en sont un exemple flagrant! Notre idée est de proposer des solutions modernes et immersives dans l’ère du temps comme le Metaverse.",
+      "La vidéo 360° permet une immersion complète dans un environnement, offrant au spectateur une expérience inédite et interactive. Bluevista allie la vidéo 360° à la 3D et au développement d’applications intuitives, pour effacer la limite entre monde virtuel et réalité. Pour mieux vous projeter dans cette univers de plus en plus présent dans nos quotidiens, nous vous proposons de jeter un œil sur notre vidéo immersive pour Cémoi :",
+    ],
     ancienneUrl: "/nos-competences/creation-immersive-realite-virtuelle/",
     clics: 9,
   },
@@ -219,6 +263,10 @@ export const COMPETENCES: Competence[] = [
       "Série de contenus en une seule journée",
     ],
     image: "/media/bv-production.jpg",
+    texte: [
+      "Grâce à notre studio fond vert mobile, nous pouvons monter un fond vert dans vos locaux. Nous nous déplaçons avec tout l’équipement nécessaire, tel que : Toile de fond vert Eclairage Caméra 4K Micro cravate HF Prompteur L’intérêt du fond vert vient avant tout de créer de manière plus facile et de réduire les impossibles. Cette méthode de captation permet deux choses primordiales que sont de tricher la réalité et de pouvoir embellir vos vidéos.",
+      "Découvrez la multitude de possibilités accordée par le fond vert. Des projets originaux qui vous permettront de sublimer vos idées par une réalisation nouvelle! Retrouvez aussi nos réalisations en fond vert et compositing sur nos réseaux sociaux, et nos sites vidéos",
+    ],
     ancienneUrl: "/nos-competences/studio-fond-vert-compositing/",
     clics: 4,
   },
@@ -237,6 +285,13 @@ export const COMPETENCES: Competence[] = [
       "Photogrammétrie et modèles 3D",
     ],
     image: "/media/px-methode-2.jpg",
+    texte: [
+      "BLUEVISTA réalise des prises de vue vidéo aériennes par drone en intérieur et extérieur, et partout en France que ce soit en agglomération ( Paris, Lyon, Genève, etc) ou en zone rurale. Pour mettre en valeur vos sujets que ce soit votre entreprise, une inauguration ou une convention, la prise de vue en drone saura donner une nouvelle dimension à vos films.",
+      "Voici une photographie en drone de l’entreprise Koesio (ex C’PRO) sur leur nouveau site Eole.",
+      "Grâce à nos différentes offres de services drones, plus personne ne vous prendra de haut! Profitez de vos rencontres dans nos agence à Lyon, Paris et Genève pour découvrir les possibilités de nos drones.",
+      "Réaliser un film ne s’improvise pas, c’est pourquoi Bluevista dispose de la double compétence réalisation et pilotage.",
+      "Autorisation annuelle préfectorale S3 en région Rhône-Alpes et dans de nombreux départements du SUD-EST de la France et DOM-TOM.",
+    ],
     ancienneUrl: "/nos-competences/video-aerienne-drone/",
     clics: 2,
   },
@@ -256,6 +311,11 @@ export const COMPETENCES: Competence[] = [
       "Déclinaisons courtes",
     ],
     image: "/media/px-methode-5.jpg",
+    texte: [
+      "Bluevista met tout en œuvre pour donner à cette réalisation classique le piment qui fera la différence! N’hésitez pas à découvrir un de nos exemples de réalisations avec le film d’entreprise de notre client Carso : Toutes nos réalisations sont disponibles sur nos réseaux sociaux :",
+      "Fort de plus de 20 ans d’expérience, nous avons maintenant une large panoplie d’expériences qui vous permettront de trouver le ton et l’axe pour transmettre, vos idées et représentés vos produits, vos services, votre entreprise et vos projets! Nos agences de Lyon, Paris et Genève vous assurent une proximité pour la réalisation de votre vidéo corporate.",
+      "Votre communication est au centre de votre image et influence votre travail. Nous nous chargeons de vous fournir les conseils et le savoir-faire de notre équipe pour développer la communication qui fera la différence! Chaque film d’entreprise est différent, créez le votre et démarquez vous !",
+    ],
     ancienneUrl: "/nos-competences/video-corporate-film-dentreprise/",
     clics: 1,
   },
@@ -277,6 +337,18 @@ export const COMPETENCES: Competence[] = [
  */
 export type PageVille = {
   slug: string;
+  /**
+   * Le texte de l'ancienne page, repris tel quel — même règle que pour les
+   * compétences : c'est lui qui fait remonter la page.
+   *
+   * ⚠️ MAIS IL EST À RELIRE PLUS SÉRIEUSEMENT ICI. Ces pages ont été
+   * fabriquées par duplication : la page GENÈVE demande « envie de travailler
+   * avec une boîte de prod lyonnaise ? », et les pages Lyon et Paris
+   * partagent des paragraphes au caractère près. C'est exactement le contenu
+   * quasi dupliqué qui empêche le groupe de monter — et la raison pour
+   * laquelle Paris plafonne à 54 clics pour 17 984 impressions.
+   */
+  texte?: string[];
   titre: string;
   ville: string;
   competence: string;
@@ -290,6 +362,13 @@ export const VILLES: PageVille[] = [
     titre: "Studio d’animation 3D à Lyon",
     ville: "Lyon",
     competence: "animation-3d",
+    texte: [
+      "Un studio d’ animation 3D pour chaque étape de la production d’un film. De la modélisation au rendu photo-réaliste ou cartoon en passant par l’animation, le texturing, l’éclairage… Bluevista dispose de toute la chaine de production pour la réalisation d’ animation 3D avec ou sans intégration dans un environnement réel sur Paris, Lyon ou Genève. D’une simple animation technique à un film 3D de prestige ou bien même une animation interactive profitant des dernières technologies de VR et de réalité augmentée, nos équipes de spécialistes seront à vos côtés.",
+      "Pour l’entreprise GF Machining Solutions, nous avons réaliser un film 3D complet présentant la DS Family. En tant que studio d’animation 3D, nous avons accompagné GF Machining Solutions du storyboard jusqu’à la livraison du film. Avec l’ajout de prises de vues réelles, un peu de compositing et l’ajout d’ animation 2D, le film a su transmettre toute la qualité et la précision de la DS Family.",
+      "L’ entreprise ABB, nous a demandé de réaliser un film 3D comprenant des personnage animés en 3D. L’idée ? Présenter les composants électroniques de leurs différents disjoncteurs industriels de manière humoristique et différente. Notre studio d’ animation 3D a su marier la voix de nos comédiens aux mouvements labiales des personnages Avec l’ajout de prises de vues réelles, un peu de compositing et l’ajout d’ animation 2D, le film a su transmettre la praticité des contacteur ABB.",
+      "Depuis sa création en 2004, notre studio d’animation à Lyon s’est toujours orienté vers les nouvelles technologies et notamment la 3D. Tout a commencé avec les logiciels 3DSMax, Maya et Maxon Cinema4D. A cette époque, l’animation 3D n’était pas aussi simple qu’on la connait aujourd’hui et il fallait s’armer de patience. De la patience pour créer, souvent avec une visualisation en wireframe (des fils de fer représentant le maillage structurel des objets). De la patience pour animer, avec de nombreuses clefs d’animation à placer à la main. Et de la patience pour voir une image « rendue » avec de nombreuses heures de calculs pour un rendu de qualité. Les « moteurs » de rendu utilisés en 2004 étaient des moteurs « CPU » (c’est à dire sur le processeur du PC). Ce type de calcul était très chronophage. Au fur et à mesure des avancées technologiques, nous avons utilisé d’autres moteurs de rendu basés sur la carte graphique (GPU) ainsi que de nouveaux logiciels tels que Blender, Unreal Engine… Les outils évoluant, notre studio d’animation les a expérimentés, permettant des projets ambitieux tels qu’un showroom virtuel pour la société GFMS. Ici, le défi consistait plutôt à faire entrer dans nos logiciels des modélisations 3D très complexes représentant de lourds fichiers. Forts de ces 20 années d’expertise, nous sommes aujourd’hui à même de proposer un large panel de services en animation 3D, autant sur des aspects très techniques avec de lourdes machines industrielles que sur ce que l’on aime également faire en tant qu’artistes, animer des personnages, des décors et faire rêver.",
+      "L’animation 3D est au cœur de nos films. Que ce soit un rendu photo-réaliste ou un cartoon, nous saurons donner vie à votre projet !",
+    ],
     ancienneUrl: "/studio-animation-3d-lyon/",
     clics: 159,
   },
@@ -298,6 +377,12 @@ export const VILLES: PageVille[] = [
     titre: "Studio d’animation 3D à Paris",
     ville: "Paris",
     competence: "animation-3d",
+    texte: [
+      "Un studio d’ animation 3D pour chaque étape de la production d’un film. De la modélisation au rendu photo-réaliste ou cartoon en passant par l’animation, le texturing, l’éclairage… Bluevista dispose de toute la chaine de production pour la réalisation d’ animation 3D avec ou sans intégration dans un environnement réel sur Paris, Lyon ou Genève. D’une simple animation technique à un film 3D de prestige ou bien même une animation interactive profitant des dernières technologies de VR et de réalité augmentée, nos équipes de spécialistes seront à vos côtés.",
+      "Pour l’entreprise Elistair, nous avons réaliser un film 3D complet présentant le drone Orion et ses fonctionnalités. En tant que studio d’animation 3D, nous avons accompagné Elistair du storyboard jusqu’à la livraison du film. Avec l’ajout de prises de vues réelles, un peu de compositing et l’ajout d’ animation 2D, le film a su transmettre toute la qualité et la précision du drone Orion.",
+      "L’ entreprise ABB, nous a demandé de réaliser un film 3D comprenant des personnage animés en 3D. L’idée ? Présenter les composants électroniques de leurs différents disjoncteurs industriels de manière humoristique et différente. Notre studio d’ animation 3D a su marier la voix de nos comédiens aux mouvements labiales des personnages Avec l’ajout de prises de vues réelles, un peu de compositing et l’ajout d’ animation 2D, le film a su transmettre la praticité des contacteur ABB.",
+      "L’animation 3D est au cœur de nos films. Que ce soit un rendu photo-réaliste ou un cartoon, nous saurons donner vie à votre projet !",
+    ],
     ancienneUrl: "/studio-animation-3d-paris/",
     clics: 54,
   },
@@ -306,6 +391,11 @@ export const VILLES: PageVille[] = [
     titre: "Réalisation de film d’entreprise à Lyon",
     ville: "Lyon",
     competence: "video-corporate-film-dentreprise",
+    texte: [
+      "Notre agence vidéo à Lyon réalise des films d’entreprise déjà plus de 15ans. Nous sommes présent sur toutes les étapes de production : conception, storyboard, tournage, montage, motion design, animation 3D. Nos studios gèrent et réalisent l’entièreté de votre film d’entreprise à l’aide de notre set de matériel haut de gamme ainsi que de nos équipes de spécialistes. Quelle que soit le projet, de la simple interview au film corporate complet, nous pouvons vous accompagner et répondre à vos besoins. bluevista n’est pas qu’une « boite de prod », nous sommes une société de production vidéo à Lyon prête à vous accompagner dans tous vos projets. Que ce soit pour de la prise de vue, du motion design, du drone ou de l’animation 3D.",
+      "Envie de nous suivre nous et notre travail ? Envie de travailler avec une boite de prod lyonnaise ? Suivez nous sur nos réseaux sociaux !",
+      "Mais qui sommes nous ? Bluevista est une agence de communication vidéo lyonnaise mêlant les savoir-faire au profit de votre communication, notre expertise au service de votre vidéo promotionnelle.",
+    ],
     ancienneUrl: "/realisation-film-entreprise-lyon/",
     clics: 14,
   },
@@ -314,6 +404,11 @@ export const VILLES: PageVille[] = [
     titre: "Réalisation vidéo à Genève",
     ville: "Genève",
     competence: "video-corporate-film-dentreprise",
+    texte: [
+      "Nous maitrisons tous les stades de réalisation et production vidéo : conception, storyboard, tournage, montage, motion design, animation 3D. Nos équipes se déplacent sur l’ensemble du territoire suisse pour la réalisation de votre vidéo d’entreprise avec du matériel haut de gamme et des experts dans leur domaine. Nous adaptons nos équipes à toute taille de projet. Qu’il s’agisse d’une simple interview en région genevoise face au jet d’eau ou d’un film corporate multi-techniques, nous saurons vous accompagner. Plus qu’une société de production vidéo à Genève, nous sommes une agence de réalisation vidéo sur Genève complète à même de vous accompagner dans tous vos projets. Cela autant pour du tournage, du motion design, du drone ou de l’ animation 3D.",
+      "Envie de nous suivre nous et notre travail ? Envie de travailler avec une boite de prod lyonnaise ? Suivez nous sur nos réseaux sociaux !",
+      "Notre équipe est composée d’experts dans leurs domaines : concepteurs / réalisateurs / caméramen / monteurs / graphistes. Notre agence vidéo de Genève intervient sur l’ensemble du territoire suisse avec une grande expérience en communication des entreprises de la région. Notre société de production vidéo est en évolution permanente. La réalisation de vidéo est notre domaine ainsi que tous les nouveaux supports. Que votre projet soit de diffuser votre film sur votre site internet, lors d’une convention d’entreprise ou bien dans un casque de réalité virtuelle, nous saurons vous accompagner. Vous souhaitez découvrir nos compétences ? Allez faire un tour sur notre page réalisations. Vous découvrirez un ensemble de projets vidéos réalisés en suisse.",
+    ],
     ancienneUrl: "/realisation-video-geneve/",
     clics: 2,
   },

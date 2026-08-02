@@ -71,30 +71,48 @@ export default async function PageVille({
         </div>
       </section>
 
-      {/* ── L'avertissement de contenu ────────────────────────────────────
-          Affiché dans la maquette, et pas seulement écrit en commentaire :
-          c'est la page où une erreur coûte le plus cher. */}
-      <section className="mx-auto max-w-[900px] px-8 py-20">
+      {/* ── Le texte de l'ancienne page ─────────────────────────────────
+          Repris tel quel : c'est lui qui fait remonter la page.
+
+          ⛔ MAIS CES PAGES-LÀ ONT UN PROBLÈME QUE LES AUTRES N'ONT PAS, et
+          il se voit à la lecture : elles ont été fabriquées par duplication.
+          La page GENÈVE demande « envie de travailler avec une boîte de prod
+          lyonnaise ? ». Les pages Lyon et Paris partagent des paragraphes au
+          caractère près.
+
+          C'est exactement le contenu quasi dupliqué qui empêche un groupe de
+          pages de monter — et très probablement pourquoi Paris plafonne à 54
+          clics pour 17 984 impressions : Google la montre, puis ne la juge
+          pas assez distincte pour la classer haut. */}
+      <section className="mx-auto max-w-[820px] px-8 py-20">
+        {v.texte && (
+          <div className="space-y-6">
+            {v.texte.map((par, i) => (
+              <p key={i} className="text-[1.0625rem] leading-[1.75] opacity-80">
+                {par}
+              </p>
+            ))}
+          </div>
+        )}
+
         <div
-          className="rounded-md border-2 border-dashed px-8 py-10"
+          className="mt-12 rounded-md border-2 border-dashed px-8 py-8"
           style={{ borderColor: "#E0A400", background: "rgba(224,164,0,.07)" }}
         >
           <div className="text-[13px] font-bold uppercase tracking-[0.16em]" style={{ color: "#9A7200" }}>
-            Contenu local à écrire — {v.clics} clics sur 12 mois
+            À dédupliquer — {v.clics} clics sur 12 mois
           </div>
           <p className="mt-4 text-[1.0625rem] leading-relaxed opacity-75">
-            Cette page ne doit <strong>pas</strong> reprendre le texte de la page{" "}
-            {c ? c.nom.toLowerCase() : "compétence"} en changeant le nom de la
-            ville. Google traite ça comme du contenu quasi dupliqué, et la
-            sanction frappe le groupe entier — on perdrait les {v.clics} clics
-            de cette page pour en gagner quelques-uns ailleurs.
+            Le texte ci-dessus vient de l’ancienne page et il est <strong>en
+            partie commun aux autres villes</strong>. Le garder tel quel
+            reconduit le problème.
           </p>
           <p className="mt-4 text-[15px] leading-relaxed opacity-60">
-            Il faut ici ce qui n’existe nulle part ailleurs sur le site&nbsp;:
-            des projets réellement tournés à {v.ville} et nommés, les lieux où
-            vous travaillez, la façon dont vous intervenez concrètement dans
-            cette ville. C’est le seul contenu du site que je ne peux pas
-            écrire à votre place sans risquer d’inventer une contre-vérité.
+            Ce qu’il faut y ajouter, et qui n’existe nulle part ailleurs sur le
+            site&nbsp;: des projets réellement tournés à {v.ville} et nommés,
+            les lieux où vous travaillez, la façon dont vous intervenez ici.
+            C’est le seul contenu que je ne peux pas écrire à votre place sans
+            risquer d’inventer une contre-vérité géographique.
           </p>
         </div>
       </section>
