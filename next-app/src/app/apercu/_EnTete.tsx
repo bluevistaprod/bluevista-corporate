@@ -32,18 +32,32 @@ const MENU = [
 ];
 
 /**
- * LES CINQ VERSIONS DU SITE.
+ * LES TROIS LANGUES DE CE SITE — et rien d'autre.
  *
- * ⚠️ Seul le français existe aujourd'hui. Le sélecteur les affiche quand
- * même, en grisant celles qui n'existent pas — c'est plus honnête qu'un
- * sélecteur qui apparaîtrait un jour sans prévenir, et ça rend visible ce
- * qu'il reste à traduire.
+ * ⛔⛔ LE SITE SUISSE N'APPARAÎT NULLE PART ICI. Décision de Giz,
+ * 02/08/2026 : « la version suisse n'est pas accessible depuis ce seul
+ * site », et bluevista.ch ne renverra pas non plus vers celui-ci.
+ *
+ * Ce sont DEUX SITES PARALLÈLES, pas deux versions d'un même site. Un
+ * visiteur suisse arrive sur bluevista.ch et y reste ; un visiteur
+ * français arrive ici et y reste. Le sélecteur ne propose donc que des
+ * LANGUES — aucune mention de pays, qui laisserait deviner l'existence de
+ * l'autre site et donnerait envie d'y aller.
+ *
+ * ⚠️ Conséquence pour tout le site, et elle vaut règle : AUCUN LIEN
+ * SORTANT VERS bluevista.ch. Ni dans le pied de page, ni dans les textes,
+ * ni dans les pages de ville. Un seul lien oublié suffit à renvoyer un
+ * prospect français vers une entité qui ne peut pas le facturer.
+ *
+ * ⚠️ Seul le français existe aujourd'hui. Les deux autres sont affichées
+ * en grisé plutôt que masquées : c'est plus honnête qu'un sélecteur qui
+ * apparaîtrait un jour sans prévenir, et ça rend visible ce qu'il reste à
+ * traduire.
  */
 const VERSIONS = [
-  { code: "FR", titre: "France — français", href: "/apercu/v7", prete: true },
-  { code: "EN", titre: "France — English", href: "#", prete: false },
-  { code: "ES", titre: "France — Español", href: "#", prete: false },
-  { code: "CH", titre: "Suisse — français", href: "#", prete: false },
+  { code: "FR", titre: "Français", href: "/apercu/v7", prete: true },
+  { code: "EN", titre: "English", href: "#", prete: false },
+  { code: "ES", titre: "Español", href: "#", prete: false },
 ];
 
 export function EnTete({ opaque = false }: { opaque?: boolean }) {
@@ -153,7 +167,7 @@ export function EnTete({ opaque = false }: { opaque?: boolean }) {
             </button>
             {langueOuverte && (
               <div
-                className="absolute right-0 top-full mt-1 w-60 overflow-hidden rounded-md shadow-2xl"
+                className="absolute right-0 top-full mt-1 w-44 overflow-hidden rounded-md shadow-2xl"
                 style={{ background: SOMBRE }}
               >
                 {VERSIONS.map(v => (

@@ -678,7 +678,10 @@ export const VILLES: PageVille[] = [
       {
         titre: "Une entité suisse, pas une prestation transfrontalière",
         texte:
-          "Bluevista dispose d’une structure suisse et d’un site dédié, bluevista.ch. Pour un client genevois, cela veut dire une facturation locale et un interlocuteur qui connaît le contexte — pas un devis français converti en francs.",
+          /* ⛔ La mention de bluevista.ch a été RETIRÉE : les deux sites sont
+             parallèles et ne se renvoient jamais l'un vers l'autre. Nommer
+             l'autre domaine, même sans lien, invite à le chercher. */
+          "Bluevista dispose d’une structure suisse. Pour un client genevois, cela veut dire une facturation locale et un interlocuteur qui connaît le contexte — pas un devis français converti en francs.",
       },
       {
         titre: "Les institutions internationales, un contexte à part",

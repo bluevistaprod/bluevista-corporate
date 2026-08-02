@@ -255,7 +255,7 @@ export default function PlanDeLaMaquette() {
                 <li><strong>Les 144 vidéos</strong> à repointer de Vimeo vers Livid</li>
                 <li><strong>Mentions légales et politique de confidentialité</strong> — obligatoires avant mise en ligne</li>
                 <li>Les <strong>actualités</strong> et le gabarit d’article</li>
-                <li>Le <strong>site suisse</strong> — bluevista.ch, chantier séparé</li>
+                <li>Le <strong>site suisse</strong> — chantier séparé, aucun lien croisé avec celui-ci</li>
                 <li>Les <strong>animations</strong>, volontairement en dernier</li>
                 <li>Le <strong>formulaire branché sur Podio</strong> en natif</li>
                 <li>La <strong>stratégie d’avis Google</strong></li>

@@ -332,8 +332,8 @@ export default function PageAgence() {
         </div>
         <h2 className={`max-w-3xl ${TYPO.titre}`}>Lyon, Paris, Genève</h2>
         <p className={`mt-6 max-w-2xl ${TYPO.chapo}`}>
-          Nos équipes se déplacent partout en France et en Suisse. La Suisse a
-          son propre site&nbsp;: <strong>bluevista.ch</strong>.
+          Nos équipes se déplacent partout en France et en Suisse, depuis nos
+          trois implantations.
         </p>
       </section>
       {/* ── L'APPEL FINAL ────────────────────────────────────────────────

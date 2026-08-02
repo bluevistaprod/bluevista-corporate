@@ -21,12 +21,17 @@ import type { StructureResolver } from "sanity/structure";
  * lundi matin.
  */
 /** Les cinq versions du site, dans l'ordre où elles comptent. */
+/**
+ * Les cinq versions — DEUX SITES, pas un seul multilingue.
+ * bluevistaprod.com et bluevista.ch ne se renvoient jamais l'un vers
+ * l'autre côté visiteur ; ils partagent seulement cet entrepôt de contenu.
+ */
 const VERSIONS = [
-  { id: "fr", nom: "🇫🇷 France — français" },
-  { id: "en", nom: "🇫🇷 France — English" },
-  { id: "es", nom: "🇫🇷 France — Español" },
-  { id: "fr-ch", nom: "🇨🇭 Suisse — français" },
-  { id: "en-ch", nom: "🇨🇭 Suisse — English" },
+  { id: "fr", nom: "bluevistaprod.com — Français" },
+  { id: "en", nom: "bluevistaprod.com — English" },
+  { id: "es", nom: "bluevistaprod.com — Español" },
+  { id: "fr-ch", nom: "bluevista.ch — Français" },
+  { id: "en-ch", nom: "bluevista.ch — English" },
 ];
 
 export const structure: StructureResolver = S =>

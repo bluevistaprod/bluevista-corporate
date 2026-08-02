@@ -53,12 +53,19 @@ export default defineConfig({
      * ne sait jamais lequel s'applique.
      */
     documentInternationalization({
+      /* ⛔ CÔTÉ STUDIO on nomme les deux SITES, côté visiteur jamais.
+         L'éditeur doit savoir sur quel domaine il publie — c'est même
+         l'information la plus importante quand on gère deux sites qui ne
+         se renvoient pas l'un vers l'autre. Le visiteur, lui, ne voit
+         qu'un sélecteur de langues, sans mention de pays : bluevistaprod
+         et bluevista.ch sont deux sites parallèles, pas deux versions
+         d'un même site. */
       supportedLanguages: [
-        { id: "fr", title: "🇫🇷 France — français" },
-        { id: "en", title: "🇫🇷 France — English" },
-        { id: "es", title: "🇫🇷 France — Español" },
-        { id: "fr-ch", title: "🇨🇭 Suisse — français" },
-        { id: "en-ch", title: "🇨🇭 Suisse — English" },
+        { id: "fr", title: "bluevistaprod.com — Français" },
+        { id: "en", title: "bluevistaprod.com — English" },
+        { id: "es", title: "bluevistaprod.com — Español" },
+        { id: "fr-ch", title: "bluevista.ch — Français" },
+        { id: "en-ch", title: "bluevista.ch — English" },
       ],
       schemaTypes: ["realisation", "page"],
     }),
