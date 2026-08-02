@@ -1,6 +1,6 @@
 import { notFound } from "next/navigation";
 import { EnTete } from "../../_EnTete";
-import { TOUTES_REALISATIONS } from "../../_realisations";
+import { TOUTES_REALISATIONS, type Realisation } from "../../_realisations";
 import { COMPETENCES, METIERS } from "../../_plan-du-site";
 import { OFFRES } from "../../_offres";
 import { BLEU, BLEU_CLAIR, CLAIR, CLAIR_SOUTENU, NOIR, SOMBRE, TYPO } from "../../_palette";
@@ -25,7 +25,7 @@ import { BLEU, BLEU_CLAIR, CLAIR, CLAIR_SOUTENU, NOIR, SOMBRE, TYPO } from "../.
  */
 
 export function generateStaticParams() {
-  return TOUTES_REALISATIONS.map(r => ({ slug: r.slug }));
+  return TOUTES_REALISATIONS.map((r: Realisation) => ({ slug: r.slug }));
 }
 
 const BLOCS = [
@@ -53,7 +53,7 @@ export default async function PageRealisation({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
-  const r = TOUTES_REALISATIONS.find(x => x.slug === slug);
+  const r = TOUTES_REALISATIONS.find((x: Realisation) => x.slug === slug);
   if (!r) notFound();
 
   const metier = METIERS.find(m => m.cle === r.metier);
@@ -105,13 +105,31 @@ export default async function PageRealisation({
             {cas.accroche}
           </p>
         )}
+        {/* ⚠️ LES VIDÉOS SONT SUR VIMEO AUJOURD'HUI — 144 sur 145. Elles
+            doivent être repointées vers LIVID avant la bascule (décision de
+            Giz). L'iframe n'est donc pas montée ici : poser un lecteur Vimeo
+            reviendrait à câbler ce qu'on va défaire, et à déclencher au
+            passage la bannière de consentement qu'on cherche à éviter. */}
         <div
-          className="flex aspect-video items-center justify-center rounded-md"
-          style={{ background: CLAIR_SOUTENU }}
+          className="relative flex aspect-video items-center justify-center overflow-hidden rounded-md"
+          style={{
+            background: r.image ? `url('${r.image}') center/cover` : CLAIR_SOUTENU,
+          }}
         >
-          <span className="text-[13px] uppercase tracking-[0.18em] opacity-35">
-            le film du projet
+          {r.image && <span className="absolute inset-0" style={{ background: `${NOIR}66` }} />}
+          <span
+            className="relative flex h-20 w-20 items-center justify-center rounded-full"
+            style={{ background: BLEU_CLAIR }}
+          >
+            <svg viewBox="0 0 24 24" className="ml-1 h-8 w-8" fill={NOIR} aria-hidden>
+              <path d="M8 5v14l11-7z" />
+            </svg>
           </span>
+          {r.video && (
+            <span className="absolute bottom-3 right-4 text-[11px] text-white/60">
+              {r.video.includes("vimeo") ? "Vimeo — à migrer vers Livid" : r.video}
+            </span>
+          )}
         </div>
       </section>
 
@@ -142,10 +160,38 @@ export default async function PageRealisation({
         </section>
       )}
 
+      {/* ── LE CONTENU RÉEL, repris de l'export du site ─────────────────
+          145 fiches ont deux descriptions écrites par Bluevista. Elles
+          s'affichent telles quelles : il n'y a pas de gabarit vide à
+          remplir, il y a du texte à relire. */}
+      {(r.intro || r.detail) && (
+        <section className="mx-auto max-w-[900px] px-8 pt-20">
+          {r.intro && (
+            <p className="text-[clamp(1.15rem,1.8vw,1.4rem)] font-semibold leading-snug">
+              {r.intro}
+            </p>
+          )}
+          {r.detail && (
+            <div className="mt-8 space-y-5">
+              {r.detail.split(/(?<=\.)\s+(?=[A-ZÀ-Ü])/).reduce((acc: string[][], ph: string) => {
+                const dernier = acc[acc.length - 1];
+                if (dernier && dernier.join(" ").length < 320) dernier.push(ph);
+                else acc.push([ph]);
+                return acc;
+              }, []).map((par: string[], i: number) => (
+                <p key={i} className="text-[1.0625rem] leading-[1.75] opacity-80">
+                  {par.join(" ")}
+                </p>
+              ))}
+            </div>
+          )}
+        </section>
+      )}
+
       {/* ── Les quatre blocs du cas ───────────────────────────────────── */}
       <section className="mx-auto max-w-[900px] px-8 pb-20 pt-20">
         <div className="space-y-10">
-          {BLOCS.map((b, i) => {
+          {(cas ? BLOCS : []).map((b, i) => {
             const texte = cas ? [cas.contexte, cas.enjeu, cas.ceQuOnAFait, cas.resultat][i] : null;
             return (
               <div key={b.titre} className="border-t pt-7" style={{ borderColor: "rgba(0,0,0,.12)" }}>
