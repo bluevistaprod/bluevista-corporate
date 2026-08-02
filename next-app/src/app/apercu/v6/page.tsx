@@ -114,16 +114,119 @@ const OFFRES = [
 ];
 
 
+/**
+ * LES TROIS CAS — un par pilier, décision de Giz du 02/08/2026.
+ *
+ * C'était aussi la recommandation de l'audit Rocket CEO, mot pour mot :
+ * « Crée 3 à 4 cas clients formalisés (secteurs différents) pour renforcer la
+ * réassurance en RDV et dans les propositions. » Le même audit relevait le
+ * manque : « Tu montres des projets, mais tu n'as pas de cas clients
+ * formalisés. » Un projet montre ce qu'on sait faire ; un cas montre ce que
+ * ça a produit. Toute la page bascule sur cette différence.
+ *
+ * Les trois projets sont vérifiés dans Podio. ⛔ LES CHIFFRES, NON — ils
+ * restent vides tant que Giz ne les a pas sortis. Voir `chiffre`.
+ */
 const CAS = [
-  { client: "Clasquin", contexte: "Convention annuelle · Palais de la Bourse, Lyon", image: "/media/ref-clasquin.jpg" },
-  { client: "Berliet", contexte: "Film social 3D · quais de Saône", image: "/media/ref-berliet.jpg" },
-  { client: "Irisolaris", contexte: "Film corporate · tourné sur site", image: "/media/ref-irisolaris.jpg" },
+  {
+    client: "Huiles Berliet",
+    pilier: "Communication & marketing",
+    contexte: "FOOH · film social 3D",
+    image: "/media/ref-berliet.jpg",
+    /**
+     * ⚠️ À MESURER, pas à estimer. Giz veut comparer l'engagement de ce post
+     * FOOH à celui des autres publications du compte. C'est le bon chiffre :
+     * il compare la marque à elle-même, ce qu'aucun client ne peut contester.
+     * Source : Instagram du client. Podio : V05384 (février) puis V05554.
+     */
+    chiffre: "",
+    unite: "",
+  },
+  {
+    client: "WorldSkills",
+    pilier: "Événementiel",
+    contexte: "Espace immersif · Eurexpo Lyon, pour GL Events Live",
+    image: "/media/ref-clasquin.jpg",
+    /**
+     * ⚠️ PIÈGE — le même que « 145 films ». WorldSkills Lyon 2024 a accueilli
+     * 250 000 visiteurs, chiffre public et largement repris. Ce n'est PAS le
+     * public de l'espace immersif de Bluevista : c'est celui de la compétition
+     * entière, sur tout Eurexpo. L'écrire tel quel serait s'attribuer
+     * l'audience d'un salon. Il faut la fréquentation de l'espace lui-même,
+     * que GL Events Live doit pouvoir donner.
+     *
+     * 📌 Et une correction de vocabulaire : Podio dit « ESPACE IMMERSIF »
+     * (vente V05097), pas « mapping ». À vérifier avant d'écrire quoi que ce
+     * soit sur la nature de la prestation.
+     */
+    chiffre: "",
+    unite: "",
+  },
+  {
+    client: "UNESCO",
+    pilier: "Immersion",
+    contexte: "Expérience VR · exposition Dive into Heritage, Paris",
+    image: "/media/ref-ssp.jpg",
+    /**
+     * Vérifié dans Podio (V05498, via Decorama — GL Events) : exposition
+     * organisée en marge de la 47e session du Comité du patrimoine mondial,
+     * du 6 au 16 juillet 2025, à Paris. Bluevista a produit le contenu 3D et
+     * l'expérience VR installée sur les casques.
+     *
+     * ⚠️ Bluevista intervenait sur le LOT contenu 3D, en sous-traitance de
+     * Decorama qui portait l'ensemble. Le dire ainsi reste flatteur et exact ;
+     * laisser croire qu'on a monté l'exposition entière serait faux.
+     * ⚠️ Fréquentation à demander : l'expo n'avait que deux casques VR, la
+     * mesure est donc un nombre de sessions, pas de visiteurs.
+     */
+    chiffre: "",
+    unite: "",
+  },
 ];
 
+/**
+ * CE QUI NOUS DISTINGUE — réécrit le 02/08/2026, sur accord de Giz.
+ *
+ * Ce qu'il y avait avant venait mot pour mot de la maquette Manus :
+ *   « Des résultats mesurables et orientés business »
+ *   « Un processus fluide de la stratégie à la livraison »
+ *   « Une équipe proche qui comprend vraiment votre business »
+ * Trois phrases que n'importe quelle agence de France peut signer sans
+ * changer un mot. Une différence que le concurrent peut recopier n'est pas
+ * une différence — c'est une case cochée.
+ *
+ * 👉 Le test appliqué à chaque bloc : est-ce qu'un concurrent peut écrire la
+ * même chose ? Si oui, il saute. J'ai regardé les cinq sites cités par Giz —
+ * KabochArts, Stetoo, Les Pingouins, EO Prod, White Mirror — et gardé
+ * uniquement ce qu'AUCUN d'eux ne peut revendiquer.
+ *
+ * Source du fond : audit marketing Rocket CEO, juin 2025, qui identifiait
+ * déjà le vrai différenciateur et reprochait de ne pas le mettre en avant :
+ * « Un positionnement différenciant basé sur l'intelligence créative. Tu te
+ * positionnes comme une structure capable de répondre à des demandes
+ * complexes (les moutons à 5 pattes) avec une vision globale des projets. Tu
+ * ne fais pas "juste un film" : tu penses stratégie, diffusion, format…
+ * C'est une vraie force, À VALORISER DAVANTAGE dans ta communication. »
+ *
+ * ⛔ Règle de Giz respectée : on ne dit pas ce qu'on n'est pas. Aucun de ces
+ * trois blocs ne se compare à un concurrent ni ne nie quoi que ce soit.
+ */
 const DIFFERENCE = [
-  "Des résultats mesurables et orientés business",
-  "Un processus fluide de la stratégie à la livraison",
-  "Une équipe proche qui comprend vraiment votre business",
+  {
+    titre: "Le mouton à cinq pattes, c’est notre demande préférée",
+    texte:
+      "Un film, un mapping, une appli VR et le dispositif qui les relie — dans la même équipe, sous le même budget, avec un seul interlocuteur. Les projets qui obligent à coordonner quatre prestataires sont exactement ceux qu’on prend en entier.",
+  },
+  {
+    titre: "Vingt ans dans le même métier, et quatre pôles internes",
+    texte:
+      "Vidéo, son, infographie, développement. Rien ne part en sous-traitance à l’aveugle, personne ne découvre le projet à la livraison. C’est ce qui permet de tenir une date d’événement — celles qui ne se décalent jamais.",
+  },
+  {
+    titre: "On revient six mois après, avec les chiffres",
+    texte:
+      "Ce qui a marché, où les spectateurs décrochent, ce qu’on change au suivant. Le débriefing d’un projet ouvre l’analyse du suivant : c’est la boucle qui fait qu’un client reste, et la raison pour laquelle notre méthode est un cercle et pas une ligne.",
+  },
 ];
 
 /** Sur-titre de section : le repère visuel qui manquait entre les chapitres. */
@@ -256,7 +359,9 @@ export default function V5() {
           <h2 className={`max-w-3xl ${TYPO.titre}`}>
             Ce que ça a changé, chez eux.
           </h2>
-          <p className="mt-5 max-w-xl text-[1.0625rem] leading-relaxed text-white/55">{DIFFERENCE[0]}.</p>
+          <p className="mt-5 max-w-xl text-[1.0625rem] leading-relaxed text-white/55">
+            Un projet par métier. Le même exigence de résultat sur les trois.
+          </p>
         </div>
 
         <div className="mt-14 space-y-px">
@@ -276,16 +381,19 @@ export default function V5() {
                 <div className="mx-auto flex max-w-[1500px] flex-wrap items-end justify-between gap-8">
                   <div>
                     <div className="text-sm uppercase tracking-[0.22em] text-white/60">
-                      0{i + 1} — {c.contexte}
+                      0{i + 1} — {c.pilier}
                     </div>
                     <div className="mt-3 text-[clamp(2.25rem,5.5vw,4.5rem)] font-bold uppercase leading-none tracking-tight text-white">
                       {c.client}
                     </div>
+                    <div className="mt-3 text-[15px] text-white/60">{c.contexte}</div>
                   </div>
                   <div className="rounded-md border border-dashed border-white/30 px-7 py-5">
-                    <div className="text-4xl font-bold tabular-nums" style={{ color: BLEU_CLAIR }}>—</div>
+                    <div className="text-4xl font-bold tabular-nums" style={{ color: BLEU_CLAIR }}>
+                      {c.chiffre || "—"}
+                    </div>
                     <div className="mt-1 text-xs uppercase tracking-widest text-white/55">
-                      résultat à obtenir du client
+                      {c.unite || "chiffre à obtenir du client"}
                     </div>
                   </div>
                 </div>
@@ -297,7 +405,7 @@ export default function V5() {
 
       {/* ④ CLAIR — l'offre. Le changement de fond marque le chapitre. ─ */}
       <section className="mx-auto max-w-[1500px] px-8 py-28">
-        <SurTitre>Ce qu’on prend en charge</SurTitre>
+        <SurTitre>Ce qu’on fait pour vous</SurTitre>
         <h2 className={`max-w-3xl ${TYPO.titre}`}>
           Nos 3 piliers stratégiques
         </h2>
@@ -395,11 +503,14 @@ export default function V5() {
 
           <div className="mt-16 grid gap-10 md:grid-cols-3">
             {DIFFERENCE.map((d, i) => (
-              <div key={d} className="border-t-2 pt-6" style={{ borderColor: BLEU }}>
+              <div key={d.titre} className="border-t-2 pt-6" style={{ borderColor: BLEU }}>
                 <div className="mb-3 text-sm font-bold tabular-nums" style={{ color: BLEU }}>
                   0{i + 1}
                 </div>
-                <p className="text-[1.35rem] font-bold leading-snug tracking-tight">{d}</p>
+                <p className={TYPO.sousTitre}>{d.titre}</p>
+                {/* La section était « très pauvre » (Giz) : trois titres et rien
+                    en dessous. Un titre pose l'affirmation, il ne la prouve pas. */}
+                <p className={`mt-4 ${TYPO.corps}`}>{d.texte}</p>
               </div>
             ))}
           </div>
