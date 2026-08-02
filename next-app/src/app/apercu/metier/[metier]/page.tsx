@@ -2,7 +2,8 @@ import { notFound } from "next/navigation";
 import { EnTete } from "../../_EnTete";
 import { MethodeEnCercle } from "../../_Methode";
 import { BLEU, BLEU_CLAIR, CLAIR, CLAIR_SOUTENU, NOIR, SOMBRE, TYPO } from "../../_palette";
-import { competencesDuMetier, type Metier as CleMetier } from "../../_plan-du-site";
+import { COMPETENCES, type Metier as CleMetier } from "../../_plan-du-site";
+import { offresDuMetier } from "../../_offres";
 
 /**
  * LES TROIS PAGES MÉTIER — créées le 02/08/2026 sur décision de Giz.
@@ -124,39 +125,53 @@ export default async function PageMetier({
         </div>
       </section>
 
-      {/* ② Le problème, puis les COMPÉTENCES du pôle.
-             ⛔ Ce n'était qu'une liste de mots il y a une heure. Ce sont
-             maintenant de vrais liens vers les pages de compétence, et c'est
-             tout l'enjeu : ces pages-là portent le référencement du site
-             (voir _plan-du-site.ts). Une page métier qui ne pointe pas vers
-             elles est une impasse pour le visiteur comme pour Google. */}
-      <section className="mx-auto max-w-[1500px] px-8 py-24">
-        <p className={`mb-16 max-w-2xl ${TYPO.chapo}`}>{c.chapo}</p>
+      {/* ② LES BÉNÉFICES CLIENT — et rien d'autre à ce niveau.
+             Demande de Giz, 02/08/2026 : « mettre plus en valeur d'abord les
+             bénéfices clients », et faire descendre les produits « sans que
+             ça fasse catalogue de 1000 trucs ».
 
-        <div className={`mb-7 flex items-center gap-4 ${TYPO.surTitre}`} style={{ color: BLEU }}>
-          <span className="inline-block h-[3px] w-12 rounded-full" style={{ background: BLEU }} />
-          Nos savoir-faire
-        </div>
-        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          {competencesDuMetier(c.cleMetier).map(s => (
-            <a
-              key={s.slug}
-              href={`/apercu/competence/${s.slug}`}
-              className="group block overflow-hidden rounded-md border transition hover:shadow-lg"
-              style={{ borderColor: `${BLEU}2A`, background: "#fff" }}
-            >
-              <div
-                className="aspect-[16/9] bg-cover bg-center transition duration-700 group-hover:brightness-110"
-                style={{ backgroundImage: `url('${s.image}')` }}
-              />
-              <div className="p-7">
-                <div className={TYPO.sousTitre}>{s.nom}</div>
-                <p className="mt-3 text-[15px] leading-relaxed opacity-60">{s.accroche}</p>
-                <div className="mt-5 text-[15px] font-bold" style={{ color: BLEU }}>
-                  Voir la page →
+             Il a raison et l'ordre compte : quelqu'un qui arrive ici ne sait
+             pas encore ce qu'il veut acheter, il sait ce qu'il veut obtenir.
+             Lui présenter d'abord une liste de produits, c'est lui demander
+             de faire lui-même la traduction entre son problème et notre
+             catalogue — le travail qu'il vient justement nous confier.
+
+             Textes repris MOT POUR MOT du Canva « OFFRES BLUEVISTA 2026 ».
+             Voir _offres.ts pour ce qui n'a pas été repris, et pourquoi. */}
+      <section className="mx-auto max-w-[1500px] px-8 py-24">
+        <p className={`mb-20 max-w-2xl ${TYPO.chapo}`}>{c.chapo}</p>
+
+        <div className="space-y-24">
+          {offresDuMetier(c.cleMetier).map((o, i) => (
+            <article key={o.id} className="grid gap-10 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.15fr)]">
+              <div>
+                <div className="text-sm font-bold tabular-nums" style={{ color: BLEU }}>
+                  0{i + 1}
+                </div>
+                {/* L'accroche EST le bénéfice. C'est le plus gros élément du
+                    bloc, avant même le nom de l'offre. */}
+                <h2 className={`mt-3 max-w-[16ch] ${TYPO.titre}`}>{o.accroche}</h2>
+                <div className="mt-5 text-[13px] font-bold uppercase tracking-[0.16em] opacity-40">
+                  {o.nom}
                 </div>
               </div>
-            </a>
+
+              <div className="lg:pt-14">
+                <p className={TYPO.corps}>{o.promesse}</p>
+
+                {/* L'issue rêvée : ce que le client obtient au bout. C'est le
+                    seul endroit de la page où l'on parle de LUI au futur. */}
+                <div
+                  className="mt-8 border-l-4 py-2 pl-7"
+                  style={{ borderColor: BLEU }}
+                >
+                  <div className="text-[13px] font-bold uppercase tracking-[0.16em]" style={{ color: BLEU }}>
+                    Au bout du compte
+                  </div>
+                  <p className="mt-2 text-[1.15rem] font-semibold leading-snug">{o.issue}</p>
+                </div>
+              </div>
+            </article>
           ))}
         </div>
       </section>
@@ -182,6 +197,64 @@ export default async function PageMetier({
           <div className="mt-20">
             <MethodeEnCercle jeu="pexels" fixe={c.cleMethode} />
           </div>
+        </div>
+      </section>
+
+      {/* ④ CE QU'ON PRODUIT — volontairement APRÈS la méthode.
+             Giz : « peut-être passer ces produits plus bas dans la page ».
+             À cet endroit, le visiteur a lu le bénéfice puis la façon de
+             travailler : la liste ne se lit plus comme un catalogue mais
+             comme une réponse à « concrètement, ça donne quoi ? ».
+
+             Compact par construction — trois colonnes, pas de vignettes, pas
+             de descriptions. Les produits qui ont une page de référencement
+             derrière eux sont des liens ; les autres restent du texte. C'est
+             ce qui raccroche les nouvelles offres aux anciennes URL sans
+             faire doublon. */}
+      <section className="mx-auto max-w-[1500px] px-8 py-28">
+        <div className={`mb-7 flex items-center gap-4 ${TYPO.surTitre}`} style={{ color: BLEU }}>
+          <span className="inline-block h-[3px] w-12 rounded-full" style={{ background: BLEU }} />
+          Concrètement
+        </div>
+        <h2 className={`max-w-3xl ${TYPO.titre}`}>Ce qu’on produit</h2>
+
+        <div className="mt-14 grid gap-x-12 gap-y-14 md:grid-cols-2 lg:grid-cols-3">
+          {offresDuMetier(c.cleMetier).map(o => {
+            const pages = o.competences
+              .map(slug => COMPETENCES.find(x => x.slug === slug))
+              .filter((x): x is NonNullable<typeof x> => Boolean(x));
+            return (
+              <div key={o.id}>
+                <div className={TYPO.sousTitre}>{o.nom}</div>
+                <ul className="mt-5 space-y-2.5">
+                  {o.produits.map(pr => (
+                    <li key={pr} className="text-[1.0625rem] leading-snug opacity-75">
+                      {pr}
+                    </li>
+                  ))}
+                </ul>
+                {pages.length > 0 && (
+                  <div className="mt-6 border-t pt-5" style={{ borderColor: "rgba(0,0,0,.1)" }}>
+                    <div className="text-[12px] font-bold uppercase tracking-[0.14em] opacity-40">
+                      En savoir plus
+                    </div>
+                    <div className="mt-2.5 flex flex-col gap-1.5">
+                      {pages.map(pg => (
+                        <a
+                          key={pg.slug}
+                          href={`/apercu/competence/${pg.slug}`}
+                          className="text-[15px] font-semibold underline decoration-2 underline-offset-4 transition hover:opacity-70"
+                          style={{ color: BLEU }}
+                        >
+                          {pg.nom}
+                        </a>
+                      ))}
+                    </div>
+                  </div>
+                )}
+              </div>
+            );
+          })}
         </div>
       </section>
 

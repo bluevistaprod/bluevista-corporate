@@ -65,7 +65,10 @@ export const COMPETENCES: Competence[] = [
   {
     slug: "video-mapping",
     nom: "Vidéo mapping",
-    metier: "immersion",
+    // Rattaché à l'ÉVÉNEMENTIEL et non à l'immersion : c'est le classement
+    // du Canva « OFFRES BLUEVISTA 2026 ». Un mapping se vend avec un
+    // événement, pas avec un casque.
+    metier: "evenement",
     accroche:
       "Projeter sur un bâtiment, un objet ou un décor, et faire de sa surface un écran.",
     probleme:
