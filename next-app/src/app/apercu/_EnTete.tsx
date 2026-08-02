@@ -6,20 +6,18 @@ import { SOMBRE } from "./_palette";
 /**
  * En-tête de navigation.
  *
- * Répond à une remarque de Giz : « pour un client assez perdu, le menu peut
- * être peu visible ». Sa proposition était un menu corporate à gros boutons ;
- * le vrai problème n'était pas la taille mais le CONTRASTE — des libellés à
- * 75 % d'opacité posés sur une image chargée.
+ * ⛔ LE LOGO EST UNE IMAGE, PAS DU TEXTE. Correction de Giz, 02/08/2026 :
+ * j'affichais « bluevista » composé en Arial gras, ce qui n'est pas son logo.
+ * Bluevista a DEUX usages officiels, tous deux dans son fichier d'identité :
+ *   · le logo texte complet — « blue » en bleu de marque, « vista » en gris ;
+ *   · le « b » seul dans un rond, pour les formats étroits et le favicon.
+ * On utilise le second sur mobile, où le logo texte deviendrait illisible.
  *
- * La réponse retenue :
- *   · libellés à pleine opacité, zones de clic généreuses ;
- *   · un seul bouton d'action, plein et permanent ;
- *   · au défilement, l'en-tête devient opaque et se pose sur le contenu.
- *
- * Le menu ne devient pas plus gros, il devient lisible — et il cesse de manger
- * l'espace que l'image doit occuper.
+ * Sur le fond sombre du hero, le logo texte perdrait son gris. Il est donc
+ * repassé en blanc par filtre tant que l'en-tête est transparent, et retrouve
+ * ses couleurs dès qu'il se pose sur un fond clair.
  */
-export function EnTete({ surFondSombre = true }: { surFondSombre?: boolean }) {
+export function EnTete() {
   const [defile, setDefile] = useState(false);
 
   useEffect(() => {
@@ -28,8 +26,6 @@ export function EnTete({ surFondSombre = true }: { surFondSombre?: boolean }) {
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
-
-  const clair = surFondSombre || defile;
 
   return (
     <header
@@ -40,20 +36,28 @@ export function EnTete({ surFondSombre = true }: { surFondSombre?: boolean }) {
       }}
     >
       <div className="mx-auto flex max-w-[1500px] items-center justify-between px-8 py-5">
-        <div
-          className="text-[1.6rem] font-bold tracking-tight"
-          style={{ color: clair ? "#fff" : SOMBRE }}
-        >
-          bluevista
-        </div>
+        <a href="/" className="flex items-center" aria-label="Bluevista — accueil">
+          {/* Le « b » dans un rond : format étroit. */}
+          <img
+            src="/media/logo-b-rond.png"
+            alt="Bluevista"
+            className="h-10 w-10 sm:hidden"
+          />
+          {/* Le logo texte : à partir de sm. Blanc tant qu'on est sur l'image. */}
+          <img
+            src="/media/logo-bluevista.png"
+            alt="Bluevista"
+            className="hidden h-8 w-auto transition-all duration-300 sm:block"
+            style={{ filter: "brightness(0) invert(1)" }}
+          />
+        </a>
 
         <nav className="hidden items-center gap-1 lg:flex">
           {["L’Agence", "Offres", "Réalisations", "Actualités"].map(l => (
             <a
               key={l}
               href="#"
-              className="rounded-md px-4 py-2.5 text-[15px] font-medium transition hover:bg-white/10"
-              style={{ color: clair ? "#fff" : SOMBRE }}
+              className="rounded-md px-4 py-2.5 text-[15px] font-medium text-white transition hover:bg-white/10"
             >
               {l}
             </a>
@@ -63,8 +67,7 @@ export function EnTete({ surFondSombre = true }: { surFondSombre?: boolean }) {
         <div className="flex items-center gap-3">
           <a
             href="#"
-            className="hidden rounded-md px-4 py-2.5 text-[15px] font-medium transition hover:bg-white/10 sm:block"
-            style={{ color: clair ? "#fff" : SOMBRE }}
+            className="hidden rounded-md px-4 py-2.5 text-[15px] font-medium text-white transition hover:bg-white/10 sm:block"
           >
             Contact
           </a>

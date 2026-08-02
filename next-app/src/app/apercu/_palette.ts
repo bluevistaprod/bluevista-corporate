@@ -1,49 +1,62 @@
 /**
- * La palette Bluevista — décidée avec Giz le 01/08/2026.
+ * La palette Bluevista.
  *
- * ⛔ Deux règles qui expliquent tous les choix ci-dessous.
+ * ⛔⛔ CORRECTION MAJEURE DU 02/08/2026 — NE PAS REVENIR EN ARRIÈRE.
+ * J'ai travaillé pendant deux jours avec un bleu #006078, un bleu pétrole que
+ * j'avais extrait du PNG basse définition récupéré sur le CDN de Manus. CE
+ * N'ÉTAIT PAS LE BLEU DE BLUEVISTA. Giz a fourni le fichier de référence
+ * (Dropbox, projetsBVinternes/com-RS/Identité/Logo BV 2019) : le vrai bleu de
+ * marque est un bleu roi profond, #233C91, et le gris du mot « vista » est
+ * #C6C6C6.
  *
- * 1. DEUX BLEUS, PAS UN. Le bleu du logo (#006078) est trop sombre pour être
- *    lisible sur un fond sombre. Il sert donc sur fond clair uniquement, et
- *    une déclinaison éclaircie prend le relais sur fond sombre. Utiliser le
- *    même partout produisait soit du texte illisible, soit un bleu délavé.
+ * La leçon vaut au-delà de la couleur : une valeur relevée sur un fichier
+ * dégradé n'est pas une source, c'est une approximation. Toujours remonter au
+ * fichier d'identité.
  *
- * 2. NI NOIR NI BLANC PURS. Le blanc pur fatigue l'œil et fait « gabarit » ;
- *    le noir pur écrase les images et ne dit rien de la marque. Le clair est
- *    donc un blanc cassé légèrement chaud, et le sombre est un bleu très
- *    désaturé dérivé du #006078 — il reste de la marque jusque dans les fonds.
+ * Les deux autres règles, elles, restent valables :
+ *
+ * 1. DEUX BLEUS, PAS UN. Le bleu de marque est trop sombre pour être lisible
+ *    sur un fond sombre. Il sert donc sur fond clair, et une déclinaison
+ *    éclaircie prend le relais sur fond sombre.
+ *
+ * 2. NI NOIR NI BLANC PURS pour les fonds de contenu. Le blanc pur fatigue et
+ *    fait « gabarit » ; le noir pur ne dit rien de la marque. Exception
+ *    assumée : la séquence immersive, où le noir sert l'image (voir NOIR).
  */
 
-/** Le bleu du logo, relevé sur le fichier source. Fond clair uniquement. */
-export const BLEU = "#006078";
+/** Le bleu du logo, relevé sur le fichier d'identité. Fond clair uniquement. */
+export const BLEU = "#233C91";
 
-/** Sa déclinaison éclaircie, pour le texte et les accents sur fond sombre. */
-export const BLEU_CLAIR = "#5BC8DE";
+/** Le second bleu du logo rond — plus lumineux, utile en accent secondaire. */
+export const BLEU_VIF = "#006AB3";
 
-/** Blanc cassé chaud — la base du site. */
-export const CLAIR = "#F7F6F2";
+/** Déclinaison éclaircie, pour le texte et les accents sur fond sombre. */
+export const BLEU_CLAIR = "#7FA8E8";
+
+/** Le gris du mot « vista ». Sert aux éléments secondaires. */
+export const GRIS = "#C6C6C6";
+
+/** Blanc cassé légèrement froid, accordé au bleu roi — la base du site. */
+export const CLAIR = "#F5F6F8";
 
 /** Une nuance plus soutenue, pour marquer une section sans changer de camp. */
-export const CLAIR_SOUTENU = "#EBE8E1";
+export const CLAIR_SOUTENU = "#E7E9EF";
 
 /** Sombre dérivé du bleu de marque, pour les zones sombres SANS image. */
-export const SOMBRE = "#07222B";
+export const SOMBRE = "#141C3A";
 
 /** Sa version plus profonde, même usage. */
-export const SOMBRE_PROFOND = "#04161C";
+export const SOMBRE_PROFOND = "#0B1128";
 
 /**
  * Noir profond — réservé à la SÉQUENCE IMMERSIVE (hero et cas clients).
  *
- * ⛔ La règle, décidée avec Giz le 01/08/2026 : LE NOIR SERT L'IMAGE, LE BLEU
- * SOMBRE SERT LA MARQUE. Sur une bande plein cadre, un fond noir se confond
- * avec les noirs de l'image : le cadre disparaît et la photo cesse de
- * ressembler à un rectangle posé sur un fond — c'est l'effet salle de
- * projection. Le bleu de marque, lui, a une teinte qui entre en concurrence
- * avec la couleur des images sur de grandes surfaces.
+ * ⛔ Règle décidée avec Giz : LE NOIR SERT L'IMAGE, LE BLEU SOMBRE SERT LA
+ * MARQUE. Sur une bande plein cadre, un fond noir se confond avec les noirs de
+ * l'image : le cadre disparaît et la photo cesse de ressembler à un rectangle
+ * posé sur un fond. C'est l'effet salle de projection.
  *
- * Ce n'est donc pas #000 par paresse : c'est un quasi-noir à peine bleuté,
- * assez profond pour se fondre dans les images, assez vivant pour ne pas
- * produire l'aplat mort d'un noir pur.
+ * Quasi-noir à peine bleuté, jamais #000 : assez profond pour se fondre dans
+ * les images, assez vivant pour éviter l'aplat mort d'un noir pur.
  */
 export const NOIR = "#04070A";
