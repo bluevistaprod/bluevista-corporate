@@ -77,7 +77,7 @@ const OFFRES = [
       "Vidéomapping & expériences",
       "Optimisation & testing",
     ],
-    cta: "Demander une consultation",
+    cta: "Voir nos projets de communication",
     image: "/media/px-pilier-communication.jpg",
   },
   {
@@ -93,7 +93,7 @@ const OFFRES = [
       "Production & coordination",
       "Contenu post-événement",
     ],
-    cta: "Planifier votre événement",
+    cta: "Voir nos projets événementiels",
     image: "/media/px-pilier-evenementiel.jpg",
   },
   {
@@ -109,7 +109,7 @@ const OFFRES = [
       "Expériences mixtes",
       "Plateforme & distribution",
     ],
-    cta: "Découvrir nos solutions immersives",
+    cta: "Voir nos projets immersifs",
     image: "/media/px-pilier-immersion.jpg",
   },
 ];
@@ -333,11 +333,11 @@ export default function V7() {
               className="rounded-md px-9 py-4.5 text-[16px] font-bold text-white shadow-lg transition hover:brightness-110"
               style={{ background: BLEU, paddingTop: "1.05rem", paddingBottom: "1.05rem" }}
             >
-              Demander un devis
+              Prendre rendez-vous
             </a>
             <button className="flex items-center gap-3.5 rounded-md border border-white/35 py-[1.05rem] pl-3 pr-7 text-[16px] font-semibold text-white transition hover:bg-white/10">
               <span className="flex h-9 w-9 items-center justify-center rounded-full bg-white text-sm" style={{ color: SOMBRE }}>▶</span>
-              Showreel 2026
+              Voir le showreel
             </button>
           </div>
         </div>
@@ -552,11 +552,12 @@ export default function V7() {
         <div className="mx-auto max-w-[1500px] px-8 py-28">
           <SurTitre>De l’analyse au débriefing</SurTitre>
           <h2 className={`max-w-4xl ${TYPO.titre}`}>
-            Six étapes. Et elle recommence.
+            Une méthode. Trois métiers.
           </h2>
           <p className={`mt-6 max-w-2xl ${TYPO.chapo}`}>
-            Le débriefing d’un film ouvre l’analyse du suivant. C’est ce qui
-            sépare une agence d’un exécutant à la commande.
+            Six étapes, et elle recommence : le débriefing d’un projet ouvre
+            l’analyse du suivant. Choisissez votre métier — les étapes sont les
+            mêmes, le vocabulaire et les livrables changent.
           </p>
 
           <div className="mt-20">
@@ -701,10 +702,10 @@ export default function V7() {
             className="rounded-md px-9 py-4 text-[16px] font-bold text-white transition hover:brightness-110"
             style={{ background: BLEU }}
           >
-            Demander un devis
+            Prendre rendez-vous
           </a>
           <a href="#" className="rounded-md border border-white/30 px-9 py-4 text-[16px] font-semibold">
-            S’inscrire à la newsletter
+            Demander un devis
           </a>
         </div>
       </section>
