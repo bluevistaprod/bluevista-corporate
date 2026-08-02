@@ -119,3 +119,6 @@ elements-manus/
 
 # Planche contact de travail (images WhatsApp, non destinées au site)
 next-app/public/planche/
+
+# Les identifiants Sanity — le projectId n'est pas secret, le jeton l'est.
+next-app/.env.local

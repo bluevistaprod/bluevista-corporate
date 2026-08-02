@@ -34,5 +34,9 @@ export const config = {
   // ressources internes de Next, API, fichiers du dossier public.
   // `apercu` est exclu : ce sont les pages de travail sur la direction
   // artistique, volontairement hors du système de langues.
-  matcher: ["/((?!_next|api|media|apercu|planche|favicon.ico|robots.txt|sitemap.xml).*)"],
+  /* ⛔ `admin` est exclu comme le reste : le studio n'est pas une page du
+     site, il n'a donc pas de langue. Sans cette exclusion, /admin est
+     réécrit en /fr/admin qui n'existe pas — 404 silencieux, et on cherche
+     longtemps du côté de Sanity. */
+  matcher: ["/((?!_next|api|admin|media|apercu|planche|favicon.ico|robots.txt|sitemap.xml).*)"],
 };
