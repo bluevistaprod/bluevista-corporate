@@ -140,11 +140,17 @@ for (const f of fiches) {
     marches: ["fr"],
     ancienneUrl: f.ancienneUrl,
   };
+  /* ⛔ NE RIEN TÉLÉVERSER EN SIMULATION. Première version : l'envoi des
+     images se faisait AVANT le test du mode, si bien qu'une « simulation »
+     poussait 134 fichiers sur le projet — lentement, et en laissant des
+     images orphelines rattachées à aucun document.
+     Une simulation qui écrit n'est pas une simulation. */
+  if (!ECRIRE) { n++; continue; }
+
   if (f.image?.startsWith("/media/real/")) {
     const img = await televerse(f.image);
     if (img) doc.image = img;
   }
-  if (!ECRIRE) { n++; continue; }
   await client.createOrReplace(doc);
   n++;
   if (n % 20 === 0) console.log(`  ${n}/${fiches.length}`);
