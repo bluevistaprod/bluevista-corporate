@@ -54,6 +54,19 @@ export type Competence = {
   /** Le problème du client qui arrive par cette recherche. */
   probleme: string;
   ce_qu_on_fait: string[];
+  /**
+   * LE TEXTE DE FOND — repris de l'ancien site, sur décision de Giz :
+   * « vu qu'on est très proche de notre positionnement actuel, on peut
+   * reprendre le texte de notre ancien site ».
+   *
+   * ⛔ C'est le bon choix, et pas seulement par économie. Ce texte est ce
+   * qui fait remonter la page depuis des années. Le réécrire pour le plaisir
+   * de le réécrire, c'est jeter un actif qui fonctionne — et Google met des
+   * mois à refaire confiance à une page qui a tout changé d'un coup.
+   * Le repositionnement se joue au NIVEAU MÉTIER, pas ici : ces pages
+   * répondent à une recherche précise, elles n'ont pas à porter le discours.
+   */
+  texte?: string[];
   image: string;
   /** L'adresse actuelle, à rediriger. */
   ancienneUrl: string;
@@ -79,6 +92,12 @@ export const COMPETENCES: Competence[] = [
       "Calage optique sur site",
       "Régie et exploitation le jour J",
       "Captation du résultat",
+    ],
+    texte: [
+      "Projeté sur un bâtiment, un vidéo mapping consiste à diffuser de la vidéo et de l’animation 2D ou 3D en tenant compte de l’architecture existante. Déformations du bâtiment ou création d’univers : il s’agit de créer un véritable spectacle visuel et immersif. Nous vous accompagnons de la création du storyboard jusqu’aux tests de projection sur maquette et à la diffusion.",
+      "Bluevista, c’est des créations de vidéo mapping sur des événements majeurs. Que ce soit les 50 ans du fonds d’investissement du Koweït ou les Bocuse d’Or, nous sommes à même d’assurer tout type de projet. Des plus simples aux plus ambitieux, à Paris, à Lyon ou partout en France : confiez-nous votre architecture, et découvrez-la comme vous ne l’avez jamais vue.",
+      "Notre travail ne se limite pas à concevoir et diffuser. Nous sommes régulièrement amenés à gérer plusieurs aspects d’un même événement — comme pour le Printemps de Lyon, où nous avons assuré à la fois la captation de l’événement, la réalisation du mapping et la captation de celui-ci, sans revoir aucune de ces prestations à la baisse.",
+      "Grâce aux jeux de lumière et aux animations 2D et 3D, transformez vos bâtiments en œuvre d’art. Que votre vidéo mapping soit à Paris, Lyon ou Genève, nous donnerons à votre événement toute la mesure qu’il mérite.",
     ],
     image: "/media/px-mapping.jpg",
     ancienneUrl: "/nos-competences/video-mapping/",
@@ -117,6 +136,12 @@ export const COMPETENCES: Competence[] = [
       "Vues en coupe et éclatés techniques",
       "Intégration en prises de vues réelles",
       "Déclinaison en images fixes",
+    ],
+    texte: [
+      "Un studio d’animation 3D pour chaque étape de la production d’un film. De la modélisation au rendu photo-réaliste ou cartoon, en passant par l’animation, le texturing et l’éclairage : Bluevista dispose de toute la chaîne de production, avec ou sans intégration dans un environnement réel, à Paris, Lyon ou Genève.",
+      "Pour GF Machining Solutions, nous avons réalisé un film 3D complet présentant la DS Family, du storyboard jusqu’à la livraison. Avec l’ajout de prises de vues réelles, du compositing et de l’animation 2D, le film a su transmettre la qualité et la précision de la gamme.",
+      "Pour ABB, nous avons réalisé un film 3D avec des personnages animés, pour présenter les composants de leurs disjoncteurs industriels de manière humoristique. Notre studio a marié la voix de nos comédiens aux mouvements labiaux des personnages.",
+      "Depuis sa création en 2004, notre studio s’est toujours orienté vers les nouvelles technologies, et notamment la 3D. Tout a commencé avec 3DS Max, Maya et Cinema 4D — à une époque où il fallait s’armer de patience et travailler en fil de fer.",
     ],
     image: "/media/px-pilier-communication.jpg",
     ancienneUrl: "/nos-competences/animation-3d/",

@@ -54,108 +54,94 @@ export function GalerieRealisations({
   const nonClassees = resultats.filter(r => !r.metier).length;
 
   return (
-    <div>
-      {/* ── Le filtre par métier ────────────────────────────────────── */}
-      <div className="flex flex-wrap gap-3">
-        <Pastille actif={!metier} onClick={() => { setMetier(null); setProduit(null); }}>
-          Tout ({REALISATIONS.length})
-        </Pastille>
-        {METIERS.map(m => (
-          <Pastille
-            key={m.cle}
-            actif={metier === m.cle}
-            onClick={() => { setMetier(m.cle); setProduit(null); }}
-          >
-            {m.nom} ({REALISATIONS.filter(r => r.metier === m.cle).length})
+    /* ⛔ TRI À GAUCHE, demande de Giz : « je préfère un tri à gauche qu'un
+       tri haut de page qui met les réalisations plus bas ». Il a raison, et
+       la raison est mesurable : les filtres empilés en tête repoussaient la
+       première vignette de près de 300 pixels. On arrivait sur une page de
+       réalisations sans voir une seule réalisation.
+       En colonne, les projets commencent tout en haut et les filtres restent
+       visibles pendant qu'on fait défiler — d'où le `sticky`. */
+    <div className="grid gap-10 lg:grid-cols-[240px_minmax(0,1fr)] lg:gap-14">
+      <aside className="lg:sticky lg:top-28 lg:self-start">
+        <div className="text-[13px] font-bold uppercase tracking-[0.16em] opacity-45">
+          Métier
+        </div>
+        <div className="mt-4 flex flex-wrap gap-2 lg:flex-col lg:items-start">
+          <Pastille actif={!metier} onClick={() => { setMetier(null); setProduit(null); }}>
+            Tout ({REALISATIONS.length})
           </Pastille>
-        ))}
-      </div>
-
-      {/* ── Le filtre par produit ───────────────────────────────────── */}
-      <div className="mt-5 flex flex-wrap gap-2">
-        {produitsVisibles.map(p => {
-          const n = REALISATIONS.filter(r => r.produit === p.slug).length;
-          return (
-            <button
-              key={p.slug + p.offre}
-              onClick={() => setProduit(produit === p.slug ? null : p.slug)}
-              aria-pressed={produit === p.slug}
-              className="rounded-full border px-4 py-2 text-[14px] transition"
-              style={{
-                borderColor: produit === p.slug ? BLEU : "rgba(0,0,0,.14)",
-                background: produit === p.slug ? BLEU : "transparent",
-                color: produit === p.slug ? "#fff" : "inherit",
-                /* Un produit sans projet reste affiché mais en retrait : le
-                   masquer cacherait le trou au lieu de le montrer. */
-                opacity: n === 0 && produit !== p.slug ? 0.35 : 1,
-              }}
+          {METIERS.map(m => (
+            <Pastille
+              key={m.cle}
+              actif={metier === m.cle}
+              onClick={() => { setMetier(m.cle); setProduit(null); }}
             >
-              {p.nom} {n > 0 && <span className="tabular-nums opacity-60">· {n}</span>}
-            </button>
-          );
-        })}
-      </div>
+              {m.nom} ({REALISATIONS.filter(r => r.metier === m.cle).length})
+            </Pastille>
+          ))}
+        </div>
 
-      {/* ── Les résultats ───────────────────────────────────────────── */}
-      <div className="mt-12">
+        <div className="mt-10 text-[13px] font-bold uppercase tracking-[0.16em] opacity-45">
+          Type de projet
+        </div>
+        <div className="mt-4 flex flex-wrap gap-2 lg:flex-col lg:items-start">
+          {produitsVisibles
+            .filter(p => REALISATIONS.some(r => r.produit === p.slug))
+            .map(p => {
+              const n = REALISATIONS.filter(r => r.produit === p.slug).length;
+              const on = produit === p.slug;
+              return (
+                <button
+                  key={p.slug + p.offre}
+                  onClick={() => setProduit(on ? null : p.slug)}
+                  aria-pressed={on}
+                  className="text-left text-[15px] transition hover:opacity-70"
+                  style={{ color: on ? BLEU : "inherit", fontWeight: on ? 700 : 400 }}
+                >
+                  {p.nom} <span className="tabular-nums opacity-45">{n}</span>
+                </button>
+              );
+            })}
+        </div>
+      </aside>
+
+      <div>
         {resultats.length === 0 ? (
           <div
             className="rounded-md border-2 border-dashed px-8 py-12 text-center"
             style={{ borderColor: "#E0A400", background: "rgba(224,164,0,.07)" }}
           >
             <p className="text-[1.15rem] font-semibold">
-              Aucune réalisation ne porte encore ce produit.
-            </p>
-            <p className="mx-auto mt-3 max-w-lg text-[15px] leading-relaxed opacity-65">
-              Deux options, et une seule est bonne : soit le projet existe et il
-              faut le rattacher, soit il n’existe pas — et dans ce cas afficher
-              le produit sur une page d’offre revient à vendre quelque chose
-              qu’on ne peut pas montrer.
+              Aucune réalisation ne porte encore ce type de projet.
             </p>
           </div>
         ) : (
-          <>
-            <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-              {resultats.map(r => (
-                <a
-                  key={r.slug}
-                  href={`/apercu/realisations/${r.slug}`}
-                  className="group block overflow-hidden rounded-md border transition hover:shadow-lg"
-                  style={{ borderColor: "rgba(0,0,0,.1)", background: "#fff" }}
+          <div className="grid gap-6 sm:grid-cols-2 xl:grid-cols-3">
+            {resultats.map(r => (
+              <a
+                key={r.slug}
+                href={`/apercu/realisations/${r.slug}`}
+                className="group block overflow-hidden rounded-md border transition hover:shadow-lg"
+                style={{ borderColor: "rgba(0,0,0,.1)", background: "#fff" }}
+              >
+                {/* ⚠️ Pas d'image : il en manque 140. Une vignette qui le dit
+                    vaut mieux qu'une photo de banque qui ment. */}
+                <div
+                  className="flex aspect-[16/10] items-center justify-center"
+                  style={{ background: CLAIR_SOUTENU }}
                 >
-                  {/* ⚠️ Pas d'image : il en manque 140. Une vignette grise qui
-                      le dit vaut mieux qu'une photo de banque qui ment. */}
-                  <div
-                    className="flex aspect-[16/10] items-center justify-center"
-                    style={{ background: CLAIR_SOUTENU }}
-                  >
-                    <span className="text-[13px] uppercase tracking-[0.18em] opacity-30">
-                      visuel à venir
-                    </span>
+                  <span className="text-[13px] uppercase tracking-[0.18em] opacity-30">
+                    visuel à venir
+                  </span>
+                </div>
+                <div className="p-6">
+                  <div className="text-[1.0625rem] font-bold leading-snug tracking-tight">
+                    {r.titre}
                   </div>
-                  <div className="p-6">
-                    <div className="text-[1.0625rem] font-bold leading-snug tracking-tight">
-                      {r.titre}
-                    </div>
-                    {r.clics > 0 && (
-                      <div className="mt-4 text-[13px] tabular-nums opacity-40">
-                        {r.clics} clics · {r.impressions.toLocaleString("fr-FR")} impressions
-                      </div>
-                    )}
-                  </div>
-                </a>
-              ))}
-            </div>
-
-            {nonClassees > 0 && !produit && (
-              <p className="mt-10 text-[15px] leading-relaxed opacity-55">
-                <strong>{nonClassees}</strong> de ces réalisations ne sont
-                rattachées à aucun métier&nbsp;: leur adresse ne dit pas ce
-                qu’elles montrent. Elles se positionnent donc uniquement sur le
-                nom du client — jamais sur le type de prestation.
-              </p>
-            )}
-          </>
+                </div>
+              </a>
+            ))}
+          </div>
         )}
       </div>
     </div>

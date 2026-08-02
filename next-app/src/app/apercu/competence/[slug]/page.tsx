@@ -109,33 +109,35 @@ export default async function PageCompetence({
         </div>
       </section>
 
-      {/* ── L'emplacement du texte de fond ────────────────────────────────
-          Volontairement laissé visible dans la maquette : c'est le contenu
-          qui décide du référencement de cette page, et il n'existe pas
-          encore. Un gabarit vide qui ne le dit pas laisse croire que la
-          page est finie. */}
+      {/* ── Le texte de fond ──────────────────────────────────────────
+          Repris de l'ancien site quand il existe : c'est lui qui fait
+          remonter la page depuis des années. Le réécrire pour le plaisir
+          reviendrait à jeter un actif qui fonctionne. */}
       <section style={{ background: CLAIR_SOUTENU }}>
-        <div className="mx-auto max-w-[900px] px-8 py-20">
-          <div
-            className="rounded-md border-2 border-dashed px-8 py-10"
-            style={{ borderColor: `${BLEU}55` }}
-          >
-            <div className="text-[13px] font-bold uppercase tracking-[0.16em]" style={{ color: BLEU }}>
-              À écrire — {c.clics} clics sur 12 mois
+        <div className="mx-auto max-w-[820px] px-8 py-20">
+          {c.texte ? (
+            <div className="space-y-6">
+              {c.texte.map((par, i) => (
+                <p key={i} className="text-[1.0625rem] leading-[1.75] opacity-80">
+                  {par}
+                </p>
+              ))}
             </div>
-            <p className="mt-4 text-[1.0625rem] leading-relaxed opacity-70">
-              Le texte de fond de cette page : 800 à 1 200 mots sur{" "}
-              <strong>{c.nom.toLowerCase()}</strong>, écrits par Bluevista. C’est
-              lui qui porte le référencement, pas la mise en page — l’ancienne
-              page se positionne parce qu’elle dit quelque chose, pas parce
-              qu’elle est bien dessinée.
-            </p>
-            <p className="mt-4 text-[15px] leading-relaxed opacity-55">
-              À y faire figurer : des exemples de projets nommés, les questions
-              qu’on vous pose vraiment en rendez-vous, les contraintes
-              techniques et légales, et un ordre de grandeur de budget.
-            </p>
-          </div>
+          ) : (
+            <div
+              className="rounded-md border-2 border-dashed px-8 py-10"
+              style={{ borderColor: `${BLEU}55` }}
+            >
+              <div className="text-[13px] font-bold uppercase tracking-[0.16em]" style={{ color: BLEU }}>
+                À reprendre de l’ancien site — {c.clics} clics sur 12 mois
+              </div>
+              <p className="mt-4 text-[1.0625rem] leading-relaxed opacity-70">
+                Le texte de fond de <strong>{c.nom.toLowerCase()}</strong> existe
+                déjà sur bluevistaprod.com. Il est à reprendre tel quel puis à
+                relire — c’est lui qui porte le référencement de cette page.
+              </p>
+            </div>
+          )}
         </div>
       </section>
 

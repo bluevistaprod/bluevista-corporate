@@ -2,7 +2,7 @@ import { notFound } from "next/navigation";
 import { EnTete } from "../../_EnTete";
 import { MethodeEnCercle } from "../../_Methode";
 import { BLEU, BLEU_CLAIR, CLAIR, CLAIR_SOUTENU, NOIR, SOMBRE, TYPO } from "../../_palette";
-import { COMPETENCES, type Metier as CleMetier } from "../../_plan-du-site";
+import { type Metier as CleMetier } from "../../_plan-du-site";
 import { offresDuMetier } from "../../_offres";
 import { REALISATIONS } from "../../_realisations";
 
@@ -201,94 +201,96 @@ export default async function PageMetier({
         </div>
       </section>
 
-      {/* ④ CE QU'ON PRODUIT — après la méthode, et cette fois EN IMAGES.
-             ⛔ Correction de Giz : « on a relégué les produits en bas de page
-             mais ils ne sont plus visuels et n'ont plus de lien ». C'était
-             juste, et c'était une régression — en descendant la section je
-             l'avais réduite à trois colonnes de texte gris.
+      {/* ④ CE QU'ON FAIT — UN SEUL NIVEAU, plus deux.
+             ⛔ Correction de Giz, et elle touchait un vrai défaut : « la page
+             savoir-faire » était une formulation interne, et surtout personne
+             ne comprenait le lien entre les savoir-faire listés en bas et les
+             produits juste au-dessus. Normal — « Motion design » et « Motion
+             promo » désignaient la même chose sous deux étiquettes.
 
-             Chaque offre reprend donc son image, et CHAQUE PRODUIT EST UN
-             LIEN vers les réalisations qui l'illustrent. Ce n'est pas
-             cosmétique : ça referme la boucle entre ce qu'on annonce et ce
-             qu'on peut montrer. Un produit dont le filtre renvoie zéro projet
-             est un produit qu'il faut aller produire — ou retirer d'ici. */}
+             👉 Sa proposition : une page par produit. Sa donnée dit non.
+             Mesuré sur sa Search Console, 12 mois : 3D 4 971 impressions,
+             mapping 4 755, streaming 3 057, motion design 1 788, corporate
+             1 255, VR 793, aftermovie 467 — mais ZÉRO pour packshot, jingle,
+             FOOH, métavers, salle immersive, showroom, podcast, convention.
+             Créer dix-sept pages que personne ne cherche ne rapporterait
+             rien et diluerait les neuf qui fonctionnent.
+
+             La règle retenue : UNE LIGNE PAR CHOSE QU'ON FAIT, et une page
+             seulement là où la demande existe. Deux affordances distinctes
+             par ligne, expliquées une fois en haut :
+               · le NOM mène à la page du produit, quand elle existe ;
+               · « exemples » mène aux réalisations filtrées.
+             Quand il n'y a pas de page, la ligne entière mène aux exemples. */}
       <section className="mx-auto max-w-[1500px] px-8 py-28">
         <div className={`mb-7 flex items-center gap-4 ${TYPO.surTitre}`} style={{ color: BLEU }}>
           <span className="inline-block h-[3px] w-12 rounded-full" style={{ background: BLEU }} />
           Concrètement
         </div>
-        <h2 className={`max-w-3xl ${TYPO.titre}`}>Ce qu’on produit</h2>
+        <h2 className={`max-w-3xl ${TYPO.titre}`}>Ce qu’on fait</h2>
         <p className={`mt-6 max-w-2xl ${TYPO.chapo}`}>
-          Chaque ligne mène aux projets qui l’illustrent.
+          Cliquez sur un intitulé pour la page détaillée, ou sur{" "}
+          <span style={{ color: BLEU }}>exemples</span> pour voir les projets
+          correspondants.
         </p>
 
         <div className="mt-14 grid gap-8 md:grid-cols-2 lg:grid-cols-3">
-          {offresDuMetier(c.cleMetier).map(o => {
-            const pages = o.competences
-              .map(slug => COMPETENCES.find(x => x.slug === slug))
-              .filter((x): x is NonNullable<typeof x> => Boolean(x));
-            return (
+          {offresDuMetier(c.cleMetier).map(o => (
+            <div
+              key={o.id}
+              className="overflow-hidden rounded-md border"
+              style={{ borderColor: "rgba(0,0,0,.1)", background: "#fff" }}
+            >
               <div
-                key={o.id}
-                className="overflow-hidden rounded-md border"
-                style={{ borderColor: "rgba(0,0,0,.1)", background: "#fff" }}
-              >
-                <div
-                  className="aspect-[16/9] bg-cover bg-center"
-                  style={{ backgroundImage: `url('${o.image}')` }}
-                  role="img"
-                  aria-label={o.nom}
-                />
-                <div className="p-7">
-                  <div className={TYPO.sousTitre}>{o.nom}</div>
+                className="aspect-[16/9] bg-cover bg-center"
+                style={{ backgroundImage: `url('${o.image}')` }}
+                role="img"
+                aria-label={o.nom}
+              />
+              <div className="p-7">
+                <div className={TYPO.sousTitre}>{o.nom}</div>
 
-                  <ul className="mt-5 space-y-0.5">
-                    {o.produits.map(pr => {
-                      const n = REALISATIONS.filter(x => x.produit === pr.slug).length;
-                      return (
-                        <li key={pr.slug}>
+                <ul className="mt-5 divide-y" style={{ borderColor: "rgba(0,0,0,.08)" }}>
+                  {o.produits.map(pr => {
+                    const n = REALISATIONS.filter(x => x.produit === pr.slug).length;
+                    return (
+                      <li
+                        key={pr.slug}
+                        className="flex items-baseline justify-between gap-3 border-t py-2.5 first:border-t-0"
+                        style={{ borderColor: "rgba(0,0,0,.08)" }}
+                      >
+                        {pr.page ? (
                           <a
-                            href={`/apercu/realisations?produit=${pr.slug}`}
-                            className="flex items-baseline justify-between gap-3 rounded-sm py-1.5 transition hover:bg-black/[.04]"
-                          >
-                            <span className="text-[1.0625rem] font-medium">{pr.nom}</span>
-                            {/* Le compteur n'est pas décoratif : un zéro se
-                                voit, et c'est le but. */}
-                            <span
-                              className="shrink-0 text-[13px] tabular-nums"
-                              style={{ color: n > 0 ? BLEU : "rgba(0,0,0,.25)" }}
-                            >
-                              {n > 0 ? `${n} projet${n > 1 ? "s" : ""}` : "—"}
-                            </span>
-                          </a>
-                        </li>
-                      );
-                    })}
-                  </ul>
-
-                  {pages.length > 0 && (
-                    <div className="mt-6 border-t pt-5" style={{ borderColor: "rgba(0,0,0,.1)" }}>
-                      <div className="text-[12px] font-bold uppercase tracking-[0.14em] opacity-40">
-                        La page savoir-faire
-                      </div>
-                      <div className="mt-2.5 flex flex-col gap-1.5">
-                        {pages.map(pg => (
-                          <a
-                            key={pg.slug}
-                            href={`/apercu/competence/${pg.slug}`}
-                            className="text-[15px] font-semibold underline decoration-2 underline-offset-4 transition hover:opacity-70"
+                            href={`/apercu/competence/${pr.page}`}
+                            className="text-[1.0625rem] font-semibold underline decoration-2 underline-offset-4 transition hover:opacity-60"
                             style={{ color: BLEU }}
                           >
-                            {pg.nom} →
+                            {pr.nom}
                           </a>
-                        ))}
-                      </div>
-                    </div>
-                  )}
-                </div>
+                        ) : (
+                          <span className="text-[1.0625rem] font-medium opacity-80">{pr.nom}</span>
+                        )}
+                        {n > 0 ? (
+                          <a
+                            href={`/apercu/realisations?produit=${pr.slug}`}
+                            className="shrink-0 text-[13px] font-semibold transition hover:opacity-60"
+                            style={{ color: BLEU }}
+                          >
+                            exemples →
+                          </a>
+                        ) : (
+                          /* ⚠️ Pas de projet rattaché. On ne masque pas : un
+                             intitulé qu'aucune réalisation n'illustre est un
+                             intitulé à documenter, ou à retirer. */
+                          <span className="shrink-0 text-[13px] opacity-25">—</span>
+                        )}
+                      </li>
+                    );
+                  })}
+                </ul>
               </div>
-            );
-          })}
+            </div>
+          ))}
         </div>
       </section>
 

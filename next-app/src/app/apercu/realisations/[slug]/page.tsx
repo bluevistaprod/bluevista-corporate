@@ -58,9 +58,11 @@ export default async function PageRealisation({
 
   const metier = METIERS.find(m => m.cle === r.metier);
   const offre = OFFRES.find(o => o.produits.some(p => p.slug === r.produit));
-  const competence = offre
-    ? COMPETENCES.find(c => c.slug === offre.competences[0])
-    : undefined;
+  /* La page du produit, quand ce produit en a une. `competences` n'existe
+     plus au niveau de l'offre : l'information vit sur chaque produit depuis
+     la fusion des deux niveaux. */
+  const slugPage = offre?.produits.find(x => x.slug === r.produit)?.page;
+  const competence = slugPage ? COMPETENCES.find(c => c.slug === slugPage) : undefined;
   const cas = r.cas;
 
   return (

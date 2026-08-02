@@ -59,16 +59,20 @@ export type Offre = {
    * cliquable et mène aux projets qui l'illustrent. Un produit qu'on ne peut
    * pas illustrer est un produit qu'on ne devrait pas afficher.
    */
-  produits: { nom: string; slug: string }[];
+  produits: {
+    nom: string;
+    /** Sert de filtre sur la page réalisations. */
+    slug: string;
+    /**
+     * La page de référencement de ce produit, quand il en mérite une.
+     * ⛔ CRITÈRE : uniquement si des gens CHERCHENT ce mot. Mesuré sur la
+     * Search Console de Bluevista, 12 mois — voir l'en-tête du fichier.
+     */
+    page?: string;
+  }[];
   /** L'image de l'offre — la section « ce qu'on produit » était devenue
    *  une liste de mots sans relief. Correction de Giz. */
   image: string;
-  /**
-   * Les pages de compétence qui portent le référencement de cette offre.
-   * C'est ce qui raccroche les nouvelles offres aux anciennes URL — sans ce
-   * lien, les deux systèmes vivraient côte à côte sans se parler.
-   */
-  competences: string[];
 };
 
 export const OFFRES: Offre[] = [
@@ -83,14 +87,13 @@ export const OFFRES: Offre[] = [
     issue:
       "Vous existez là où votre audience passe déjà, et vous savez lequel de vos formats fonctionne.",
     produits: [
+      { nom: "Motion promo", slug: "motion-promo", page: "motion-design" },
       { nom: "FOOH", slug: "fooh" },
-      { nom: "Motion promo", slug: "motion-promo" },
       { nom: "Packshot réseaux", slug: "packshot" },
       { nom: "Jingles", slug: "jingle" },
       { nom: "Optimisation pour les réseaux", slug: "optimisation-rs" },
     ],
     image: "/media/px-methode-4.jpg",
-    competences: ["motion-design"],
   },
   {
     id: "film-com-interne",
@@ -102,6 +105,7 @@ export const OFFRES: Offre[] = [
     issue:
       "Vos équipes savent où va l’entreprise, et pourquoi. C’est ce qui fait rester les gens.",
     produits: [
+      { nom: "Studio fond vert", slug: "fond-vert", page: "studio-fond-vert-compositing" },
       { nom: "Formation", slug: "formation" },
       { nom: "Tutoriel", slug: "tutoriel" },
       { nom: "Lancement de projet", slug: "lancement" },
@@ -109,7 +113,6 @@ export const OFFRES: Offre[] = [
       { nom: "Marque employeur", slug: "marque-employeur" },
     ],
     image: "/media/bv-production.jpg",
-    competences: ["studio-fond-vert-compositing", "motion-design"],
   },
   {
     id: "film-com-externe",
@@ -121,14 +124,14 @@ export const OFFRES: Offre[] = [
     issue:
       "Vos interlocuteurs vous prennent au sérieux avant le premier rendez-vous.",
     produits: [
-      { nom: "Film corporate", slug: "corporate" },
+      { nom: "Animation 3D", slug: "animation-3d", page: "animation-3d" },
+      { nom: "Film corporate", slug: "corporate", page: "video-corporate-film-dentreprise" },
+      { nom: "Vidéo par drone", slug: "drone", page: "video-aerienne-drone" },
       { nom: "Film produit", slug: "produit" },
       { nom: "Capsules interviews", slug: "interview" },
       { nom: "Podcasts", slug: "podcast" },
-      { nom: "Marque employeur", slug: "marque-employeur" },
     ],
     image: "/media/px-methode-5.jpg",
-    competences: ["video-corporate-film-dentreprise", "animation-3d", "video-aerienne-drone"],
   },
 
   // ── ÉVÉNEMENTIEL ─────────────────────────────────────────────────────
@@ -142,14 +145,13 @@ export const OFFRES: Offre[] = [
     issue:
       "Vos participants repartent avec quelque chose à raconter — et ils le racontent.",
     produits: [
+      { nom: "Captation multicaméra", slug: "captation", page: "aftermovie-captation-evenementielle" },
       { nom: "Habillage & infodécor", slug: "habillage" },
       { nom: "Vidéos pour convention", slug: "convention" },
-      { nom: "Captation multicaméra", slug: "captation" },
       { nom: "Application de salon", slug: "appli-salon" },
       { nom: "Interactivité en salle", slug: "interactivite" },
     ],
     image: "/media/px-cas-worldskills.jpg",
-    competences: ["aftermovie-captation-evenementielle"],
   },
   {
     id: "diffusion-visibilite",
@@ -161,14 +163,13 @@ export const OFFRES: Offre[] = [
     promesse:
       "Une diffusion pensée avant l’événement et pas après : ce qui sera filmé, pour qui, et sur quels canaux.",
     issue:
-      "Votre événement continue d’exister pour ceux qui n’y étaient pas.",
+      "Ceux qui n’ont pas pu venir voient quand même ce qu’ils ont manqué.",
     produits: [
-      { nom: "Aftermovie", slug: "aftermovie" },
-      { nom: "Streaming", slug: "streaming" },
+      { nom: "Live streaming & web TV", slug: "streaming", page: "live-streaming-webtv" },
+      { nom: "Aftermovie", slug: "aftermovie", page: "aftermovie-captation-evenementielle" },
       { nom: "Événement hybride", slug: "hybride" },
     ],
     image: "/media/px-pilier-evenementiel.jpg",
-    competences: ["live-streaming-webtv", "aftermovie-captation-evenementielle"],
   },
   {
     id: "videomapping",
@@ -178,13 +179,12 @@ export const OFFRES: Offre[] = [
     promesse:
       "Des projections qui font d’un bâtiment ou d’un objet le décor de votre soirée, avec l’écriture avant la technique.",
     issue:
-      "Vos invités se souviennent de la soirée, et de qui l’a organisée.",
+      "Le lendemain, on vous demande qui a fait la projection.",
     produits: [
-      { nom: "Mapping architectural", slug: "mapping-architectural" },
-      { nom: "Mapping sur table", slug: "mapping-table" },
+      { nom: "Mapping architectural", slug: "mapping-architectural", page: "video-mapping" },
+      { nom: "Mapping sur table", slug: "mapping-table", page: "video-mapping" },
     ],
     image: "/media/px-mapping.jpg",
-    competences: ["video-mapping"],
   },
 
   // ── IMMERSION ────────────────────────────────────────────────────────
@@ -198,13 +198,12 @@ export const OFFRES: Offre[] = [
     issue:
       "Vos prospects essaient avant d’acheter, même à des milliers de kilomètres.",
     produits: [
-      { nom: "Visite en réalité virtuelle", slug: "visite-vr" },
-      { nom: "Formation VR", slug: "formation-vr" },
+      { nom: "Visite en réalité virtuelle", slug: "visite-vr", page: "creation-immersive-realite-virtuelle" },
+      { nom: "Formation VR", slug: "formation-vr", page: "creation-immersive-realite-virtuelle" },
       { nom: "Expérience gamifiée", slug: "gamification" },
       { nom: "Métavers personnalisé", slug: "metavers" },
     ],
     image: "/media/px-pilier-immersion.jpg",
-    competences: ["creation-immersive-realite-virtuelle"],
   },
   {
     id: "salle-immersive",
@@ -223,7 +222,6 @@ export const OFFRES: Offre[] = [
     /* Aucune page de compétence existante : c'est une offre nouvelle, donc
        une page à créer de zéro — sans historique de référencement à protéger,
        mais aussi sans rien pour démarrer. */
-    competences: [],
   },
   {
     id: "showroom-virtuel",
@@ -233,13 +231,12 @@ export const OFFRES: Offre[] = [
     promesse:
       "Vos locaux, vos produits ou votre chantier visitables depuis un navigateur, avec la mesure de ce que les visiteurs y regardent.",
     issue:
-      "Vos clients visitent sans prendre l’avion, et vous savez ce qui les a arrêtés.",
+      "Un prospect à l’autre bout du monde visite vos locaux en trois minutes.",
     produits: [
       { nom: "Visite virtuelle", slug: "visite-virtuelle" },
       { nom: "Showroom virtuel", slug: "showroom-virtuel" },
     ],
     image: "/media/px-methode-6.jpg",
-    competences: [],
   },
 ];
 
