@@ -1,0 +1,244 @@
+"use client";
+
+import { useState } from "react";
+import { METIERS } from "./_plan-du-site";
+import { BLEU, CLAIR_SOUTENU } from "./_palette";
+
+/**
+ * LES TROIS FORMULAIRES — ventes, recrutement, stages.
+ *
+ * Repris de l'ancien site sur demande de Giz. Le découpage n'est pas
+ * cosmétique : ces trois demandes ne vont pas au même endroit et ne se
+ * traitent pas au même rythme. Une demande commerciale entre dans le
+ * pipeline Podio ; une candidature part aux RH ; une demande de stage arrive
+ * par vagues en janvier et en avril.
+ *
+ * ⛔ CE QU'UN FORMULAIRE UNIQUE COÛTE, et c'est la raison de fond : un champ
+ * « objet de votre demande » dans un menu déroulant fait passer les
+ * candidatures dans la boîte commerciale. Elles y sont lues en retard, ou
+ * pas du tout. Trois formulaires, trois destinataires, trois délais annoncés.
+ *
+ * ⚠️ Aucun n'envoie quoi que ce soit dans la maquette. Le premier devra
+ * alimenter Podio en natif (application Ventes) — pas un e-mail, pas une
+ * passerelle : une demande qui n'entre pas dans le pipeline est une demande
+ * qu'on oublie.
+ */
+
+type Onglet = "ventes" | "recrutement" | "stage";
+
+const ONGLETS: { cle: Onglet; nom: string; delai: string }[] = [
+  { cle: "ventes", nom: "Un projet", delai: "Réponse sous 48 h ouvrées" },
+  { cle: "recrutement", nom: "Une candidature", delai: "Réponse sous 3 semaines" },
+  { cle: "stage", nom: "Un stage ou une alternance", delai: "Réponse sous 3 semaines" },
+];
+
+const BUDGETS = [
+  "Moins de 5 000 €",
+  "5 000 à 15 000 €",
+  "15 000 à 50 000 €",
+  "Plus de 50 000 €",
+  "Je ne sais pas encore",
+];
+
+function Champ({
+  label,
+  type = "text",
+  requis = false,
+  aide,
+}: {
+  label: string;
+  type?: string;
+  requis?: boolean;
+  aide?: string;
+}) {
+  return (
+    <label className="block">
+      <span className="text-[14px] font-bold">
+        {label}
+        {requis && <span style={{ color: BLEU }}> *</span>}
+        {!requis && <span className="ml-2 text-[13px] font-normal opacity-45">facultatif</span>}
+      </span>
+      {aide && <span className="mt-1 block text-[13px] opacity-50">{aide}</span>}
+      {type === "textarea" ? (
+        <textarea
+          rows={5}
+          required={requis}
+          className="mt-2 w-full rounded-md border-2 border-black/10 bg-white px-4 py-3.5 text-[16px] outline-none transition focus:border-[#12607E]"
+        />
+      ) : (
+        <input
+          type={type}
+          required={requis}
+          className="mt-2 w-full rounded-md border-2 border-black/10 bg-white px-4 py-3.5 text-[16px] outline-none transition focus:border-[#12607E]"
+        />
+      )}
+    </label>
+  );
+}
+
+export function Formulaires() {
+  const [onglet, setOnglet] = useState<Onglet>("ventes");
+  const [metier, setMetier] = useState<string | null>(null);
+  const actif = ONGLETS.find(o => o.cle === onglet)!;
+
+  return (
+    <div>
+      {/* ── Le choix du formulaire ─────────────────────────────────────── */}
+      <div className="flex flex-wrap gap-3">
+        {ONGLETS.map(o => {
+          const on = o.cle === onglet;
+          return (
+            <button
+              key={o.cle}
+              onClick={() => setOnglet(o.cle)}
+              aria-pressed={on}
+              className="rounded-md border-2 px-6 py-4 text-left transition"
+              style={{
+                borderColor: on ? BLEU : "rgba(0,0,0,.12)",
+                background: on ? BLEU : "transparent",
+                color: on ? "#fff" : "inherit",
+              }}
+            >
+              <span className="block text-[1.0625rem] font-bold">{o.nom}</span>
+              <span className={`mt-0.5 block text-[13px] ${on ? "text-white/70" : "opacity-50"}`}>
+                {o.delai}
+              </span>
+            </button>
+          );
+        })}
+      </div>
+
+      <form className="mt-12 space-y-8">
+        <div className="grid gap-6 sm:grid-cols-2">
+          <Champ label="Nom et prénom" requis />
+          <Champ
+            label={onglet === "ventes" ? "Entreprise" : "Formation ou dernier poste"}
+            requis={onglet === "ventes"}
+          />
+          <Champ label="E-mail" type="email" requis />
+          <Champ label="Téléphone" type="tel" />
+        </div>
+
+        {/* ── Ce qui change d'un formulaire à l'autre ────────────────── */}
+        {onglet === "ventes" && (
+          <>
+            <fieldset>
+              <legend className="text-[14px] font-bold">
+                Votre projet relève de<span style={{ color: BLEU }}> *</span>
+              </legend>
+              <div className="mt-3 flex flex-wrap gap-3">
+                {[...METIERS.map(m => ({ cle: m.cle as string, nom: m.nom })), { cle: "autre", nom: "Je ne sais pas encore" }].map(o => {
+                  const on = metier === o.cle;
+                  return (
+                    <button
+                      key={o.cle}
+                      type="button"
+                      onClick={() => setMetier(o.cle)}
+                      aria-pressed={on}
+                      className="rounded-md border-2 px-5 py-3 text-[15px] font-semibold transition"
+                      style={{
+                        borderColor: on ? BLEU : "rgba(0,0,0,.12)",
+                        background: on ? BLEU : "transparent",
+                        color: on ? "#fff" : "inherit",
+                      }}
+                    >
+                      {o.nom}
+                    </button>
+                  );
+                })}
+              </div>
+            </fieldset>
+
+            <label className="block">
+              <span className="text-[14px] font-bold">Budget envisagé</span>
+              <span className="ml-2 text-[13px] opacity-45">facultatif</span>
+              {/* ⚠️ Facultatif, et par tranches. L'imposer fait fuir ceux qui
+                  ne savent pas encore — c'est-à-dire beaucoup de bons
+                  projets, et souvent les plus gros. */}
+              <select
+                className="mt-2 w-full rounded-md border-2 border-black/10 bg-white px-4 py-3.5 text-[16px] outline-none focus:border-[#12607E]"
+                defaultValue=""
+              >
+                <option value="">—</option>
+                {BUDGETS.map(b => (
+                  <option key={b}>{b}</option>
+                ))}
+              </select>
+            </label>
+
+            <Champ
+              label="Votre projet"
+              type="textarea"
+              requis
+              aide="Ce que vous devez obtenir, pour qui, et à quelle échéance. Le format viendra après."
+            />
+          </>
+        )}
+
+        {onglet === "recrutement" && (
+          <>
+            <Champ label="Le poste qui vous intéresse" requis aide="Ou le métier, si aucune offre ne correspond." />
+            <Champ label="Lien vers votre portfolio ou votre showreel" type="url" aide="Plus parlant qu’un CV, dans nos métiers." />
+            <Champ
+              label="Votre message"
+              type="textarea"
+              requis
+              aide="Ce que vous cherchez, et ce sur quoi vous aimeriez travailler chez nous."
+            />
+          </>
+        )}
+
+        {onglet === "stage" && (
+          <>
+            <Champ label="École et niveau d’études" requis />
+            <Champ label="Période et durée" requis aide="Dates souhaitées, et durée imposée par votre école." />
+            <Champ label="Lien vers vos travaux" type="url" />
+            <Champ
+              label="Votre message"
+              type="textarea"
+              requis
+              aide="Ce que vous voulez apprendre. On lit tout, mais on retient ceux qui ont regardé nos réalisations."
+            />
+          </>
+        )}
+
+        <button
+          type="button"
+          className="rounded-md px-9 py-4 text-[16px] font-bold text-white transition hover:brightness-110"
+          style={{ background: BLEU }}
+        >
+          Envoyer
+        </button>
+
+        <p className="text-[13px] leading-relaxed opacity-50">
+          {actif.delai}. Vos données servent uniquement à traiter votre
+          demande&nbsp;: elles ne sont ni revendues ni utilisées à d’autres fins.
+        </p>
+      </form>
+
+      {/* ── La carte ────────────────────────────────────────────────────
+          ⚠️ Emplacement, pas carte : intégrer Google Maps pose une balise de
+          suivi tierce sur la page, ce qui déclenche l'obligation de bannière
+          de consentement. À trancher — une carte statique ou OpenStreetMap
+          évite le problème et suffit largement pour trois adresses. */}
+      <div className="mt-16">
+        <div className="text-[13px] font-bold uppercase tracking-[0.16em] opacity-45">
+          Nous trouver
+        </div>
+        <div
+          className="mt-4 flex aspect-[21/9] items-center justify-center rounded-md"
+          style={{ background: CLAIR_SOUTENU }}
+        >
+          <span className="px-8 text-center text-[14px] leading-relaxed opacity-45">
+            Carte — Lyon, Paris, Genève.
+            <br />
+            <span className="text-[13px]">
+              À intégrer sans mouchard tiers, pour éviter d’imposer une bannière
+              de consentement à toute la page.
+            </span>
+          </span>
+        </div>
+      </div>
+    </div>
+  );
+}

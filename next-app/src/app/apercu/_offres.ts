@@ -163,7 +163,7 @@ export const OFFRES: Offre[] = [
     promesse:
       "Une diffusion pensée avant l’événement et pas après : ce qui sera filmé, pour qui, et sur quels canaux.",
     issue:
-      "Ceux qui n’ont pas pu venir voient quand même ce qu’ils ont manqué.",
+      "Votre événement continue d’exister au-delà des murs.",
     produits: [
       { nom: "Live streaming & web TV", slug: "streaming", page: "live-streaming-webtv" },
       { nom: "Aftermovie", slug: "aftermovie", page: "aftermovie-captation-evenementielle" },
@@ -179,7 +179,7 @@ export const OFFRES: Offre[] = [
     promesse:
       "Des projections qui font d’un bâtiment ou d’un objet le décor de votre soirée, avec l’écriture avant la technique.",
     issue:
-      "Le lendemain, on vous demande qui a fait la projection.",
+      "Vos invités se souviennent de la soirée, et de vous.",
     produits: [
       { nom: "Mapping architectural", slug: "mapping-architectural", page: "video-mapping" },
       { nom: "Mapping sur table", slug: "mapping-table", page: "video-mapping" },

@@ -63,12 +63,28 @@ export type Realisation = {
    * la page en ligne, pas de mon imagination.
    */
   cas?: {
+    /**
+     * L'ACCROCHE, au-dessus de la vidéo. Idée de Giz, et c'est celle de ses
+     * trois questions qui change le plus de choses : une ligne qui pose
+     * l'enjeu AVANT le film fait qu'on le regarde en cherchant quelque
+     * chose, au lieu de le subir. Sans elle, le visiteur lance une vidéo
+     * sans savoir ce qu'il doit y voir.
+     */
+    accroche: string;
     contexte: string;
     enjeu: string;
     ceQuOnAFait: string;
     /** ⛔ Vide tant que le chiffre n'est pas fourni par le client. */
     resultat: string | null;
     credits?: string;
+    /**
+     * LES PHOTOS, sous la vidéo — repère pris chez « Tout le monde aime les
+     * pingouins », que Giz voulait reprendre. Ce n'est pas décoratif : la
+     * vidéo prouve le RÉSULTAT, les photos prouvent la FABRICATION. Une
+     * agence de production a besoin des deux, et c'est ce qui distingue une
+     * fiche de projet d'une simple mise en ligne de film.
+     */
+    photos?: { legende: string }[];
   };
 };
 
@@ -94,6 +110,8 @@ export const REALISATIONS: Realisation[] = [
      * Ã corriger sur l'ancien site sans attendre la refonte.
      */
     cas: {
+      accroche:
+        "Faire comprendre un appairage sans notice et sans technicien.",
       contexte:
         "Saunier Duval lance MiGo, un thermostat connecté. Engie Home Services en assure l’installation chez les particuliers — et reçoit les appels quand l’appairage ne se passe pas comme prévu.",
       enjeu:
@@ -102,6 +120,15 @@ export const REALISATIONS: Realisation[] = [
         "Un film tutoriel en animation 3D, étape par étape. Le produit est montré en situation, et des picots créés pour l’occasion guident le regard vers le bon bouton au bon moment — c’est ce qui remplace le doigt du technicien.",
       resultat: null,
       credits: "Pour l’agence BIGMAMA · client final Engie Home Services · produit Saunier Duval",
+      /* ⚠️ Emplacements, pas photos : celles-ci n'existent pas encore. Une
+         image de banque sous une fiche client serait un mensonge sur le
+         travail lui-même. */
+      photos: [
+        { legende: "Le thermostat modélisé, avant texturing" },
+        { legende: "Les picots de guidage, créés pour ce film" },
+        { legende: "Une étape de l’appairage en situation" },
+        { legende: "Le rendu final, dans son environnement" },
+      ],
     },
   },
   { slug: "verizon-connect-video-de-presentation", client: "Verizon", titre: "Verizon Connect — film de présentation", titreSur: true, metier: "film", produit: "corporate", ancienneUrl: "/nos-realisations/verizon-connect-video-de-presentation/", clics: 17, impressions: 6509 },

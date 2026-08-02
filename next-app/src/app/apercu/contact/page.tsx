@@ -1,5 +1,5 @@
 import { EnTete } from "../_EnTete";
-import { ChoixMetier } from "../_ChoixMetier";
+import { Formulaires } from "../_Formulaires";
 import { BLEU, BLEU_CLAIR, CLAIR, CLAIR_SOUTENU, NOIR, SOMBRE, TYPO } from "../_palette";
 
 /**
@@ -19,19 +19,18 @@ import { BLEU, BLEU_CLAIR, CLAIR, CLAIR_SOUTENU, NOIR, SOMBRE, TYPO } from "../_
  * Les champs ci-dessous sont donc calqués sur ceux de l'app Ventes, pas
  * inventés pour la maquette.
  *
+ * 📌 TROIS FORMULAIRES, PAS UN — repris de l'ancien site sur demande de Giz :
+ * ventes, recrutement, stages. Ce n'est pas cosmétique. Ces trois demandes
+ * ne vont pas au même endroit et ne se traitent pas au même rythme.
+ * Un formulaire unique avec un menu « objet de votre demande » fait passer
+ * les candidatures dans la boîte commerciale, où elles sont lues en retard
+ * ou pas du tout. Trois formulaires, trois destinataires, trois délais
+ * annoncés — et le délai est écrit sur l'onglet, pas caché en bas.
+ *
  * ⚠️ Le champ BUDGET est volontairement facultatif et par tranches. Le rendre
  * obligatoire fait fuir ceux qui ne savent pas encore — c'est-à-dire une
- * bonne partie des projets intéressants.
+ * bonne partie des projets intéressants, et souvent les plus gros.
  */
-
-const CHAMPS = [
-  { id: "nom", label: "Nom et prénom", type: "text", requis: true, large: false },
-  { id: "entreprise", label: "Entreprise", type: "text", requis: true, large: false },
-  { id: "email", label: "E-mail", type: "email", requis: true, large: false },
-  { id: "telephone", label: "Téléphone", type: "tel", requis: false, large: false },
-];
-
-const BUDGETS = ["Moins de 5 000 €", "5 000 à 15 000 €", "15 000 à 50 000 €", "Plus de 50 000 €", "Je ne sais pas encore"];
 
 export default function PageContact() {
   return (
@@ -56,78 +55,7 @@ export default function PageContact() {
 
       <section className="mx-auto max-w-[1500px] px-8 py-20">
         <div className="grid gap-16 lg:grid-cols-[minmax(0,1.4fr)_minmax(0,1fr)] lg:gap-24">
-          {/* ── Le formulaire ─────────────────────────────────────────── */}
-          <form className="space-y-8">
-            <div className="grid gap-6 sm:grid-cols-2">
-              {CHAMPS.map(c => (
-                <label key={c.id} className="block">
-                  <span className="text-[14px] font-bold">
-                    {c.label}
-                    {c.requis && <span style={{ color: BLEU }}> *</span>}
-                  </span>
-                  <input
-                    type={c.type}
-                    name={c.id}
-                    required={c.requis}
-                    className="mt-2 w-full rounded-md border-2 border-black/10 bg-white px-4 py-3.5 text-[16px] outline-none transition focus:border-[#12607E]"
-                  />
-                </label>
-              ))}
-            </div>
-
-            <fieldset>
-              <legend className="text-[14px] font-bold">
-                Votre projet relève de<span style={{ color: BLEU }}> *</span>
-              </legend>
-              <ChoixMetier />
-            </fieldset>
-
-            <label className="block">
-              <span className="text-[14px] font-bold">Budget envisagé</span>
-              <span className="ml-2 text-[13px] opacity-45">facultatif</span>
-              <select
-                name="budget"
-                className="mt-2 w-full rounded-md border-2 border-black/10 bg-white px-4 py-3.5 text-[16px] outline-none focus:border-[#12607E]"
-                defaultValue=""
-              >
-                <option value="">—</option>
-                {BUDGETS.map(b => (
-                  <option key={b} value={b}>
-                    {b}
-                  </option>
-                ))}
-              </select>
-            </label>
-
-            <label className="block">
-              <span className="text-[14px] font-bold">
-                Votre projet<span style={{ color: BLEU }}> *</span>
-              </span>
-              <span className="mt-1 block text-[13px] opacity-50">
-                Ce que vous devez obtenir, pour qui, et à quelle échéance. Le
-                format viendra après.
-              </span>
-              <textarea
-                name="message"
-                required
-                rows={6}
-                className="mt-2 w-full rounded-md border-2 border-black/10 bg-white px-4 py-3.5 text-[16px] outline-none focus:border-[#12607E]"
-              />
-            </label>
-
-            <button
-              type="button"
-              className="rounded-md px-9 py-4 text-[16px] font-bold text-white transition hover:brightness-110"
-              style={{ background: BLEU }}
-            >
-              Envoyer
-            </button>
-
-            <p className="text-[13px] leading-relaxed opacity-50">
-              Vos données servent uniquement à traiter votre demande. Elles ne
-              sont ni revendues ni utilisées à d’autres fins.
-            </p>
-          </form>
+          <Formulaires />
 
           {/* ── La colonne de droite ──────────────────────────────────── */}
           <aside className="space-y-10">

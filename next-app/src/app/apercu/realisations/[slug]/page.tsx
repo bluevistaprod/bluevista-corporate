@@ -95,8 +95,16 @@ export default async function PageRealisation({
         </div>
       </section>
 
-      {/* ── Le lecteur vidéo ──────────────────────────────────────────── */}
-      <section className="mx-auto max-w-[1200px] px-8 py-16">
+      {/* ── L'accroche, puis la vidéo ───────────────────────────────────
+          L'accroche AVANT le film, et pas après : elle dit ce qu'il faut y
+          chercher. Sans elle, on lance une vidéo sans savoir ce qu'on
+          regarde — et on l'arrête au bout de vingt secondes. */}
+      <section className="mx-auto max-w-[1200px] px-8 pt-16">
+        {cas?.accroche && (
+          <p className="mb-10 max-w-[24ch] text-[clamp(1.5rem,2.8vw,2.25rem)] font-bold leading-[1.15] tracking-[-0.01em]">
+            {cas.accroche}
+          </p>
+        )}
         <div
           className="flex aspect-video items-center justify-center rounded-md"
           style={{ background: CLAIR_SOUTENU }}
@@ -107,8 +115,34 @@ export default async function PageRealisation({
         </div>
       </section>
 
+      {/* ── Les photos de fabrication ───────────────────────────────────
+          La vidéo prouve le résultat, les photos prouvent la fabrication.
+          Une agence de production a besoin des deux — c'est ce qui
+          distingue une fiche de projet d'une simple mise en ligne de film. */}
+      {cas?.photos && (
+        <section className="mx-auto max-w-[1200px] px-8 pt-8">
+          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+            {cas.photos.map(ph => (
+              <figure key={ph.legende}>
+                <div
+                  className="flex aspect-[4/3] items-center justify-center rounded-md"
+                  style={{ background: CLAIR_SOUTENU }}
+                >
+                  <span className="text-[11px] uppercase tracking-[0.16em] opacity-30">
+                    photo
+                  </span>
+                </div>
+                <figcaption className="mt-2.5 text-[13px] leading-snug opacity-50">
+                  {ph.legende}
+                </figcaption>
+              </figure>
+            ))}
+          </div>
+        </section>
+      )}
+
       {/* ── Les quatre blocs du cas ───────────────────────────────────── */}
-      <section className="mx-auto max-w-[900px] px-8 pb-20">
+      <section className="mx-auto max-w-[900px] px-8 pb-20 pt-20">
         <div className="space-y-10">
           {BLOCS.map((b, i) => {
             const texte = cas ? [cas.contexte, cas.enjeu, cas.ceQuOnAFait, cas.resultat][i] : null;
