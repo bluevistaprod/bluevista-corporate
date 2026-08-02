@@ -1,4 +1,3 @@
-import { BasculePolice } from "../_BasculePolice";
 import { BarreAperçu } from "../_commun";
 import { EnTete } from "../_EnTete";
 import { MethodeChapeau } from "../_MethodeChapeau";
@@ -788,7 +787,6 @@ export default function V7() {
         </div>
       </footer>
 
-      <BasculePolice />
       <BarreAperçu actif={7} />
     </main>
   );

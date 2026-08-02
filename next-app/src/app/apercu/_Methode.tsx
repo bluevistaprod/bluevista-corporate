@@ -65,13 +65,13 @@ const ANALYSE: Record<Metier, string> = {
 };
 
 const PARCOURS: Record<Metier, Etape[]> = {
-  // ── FILM — source : mémoire technique, mars 2025. ─────────────────────
+  // ── FILM & CONTENU ────────────────────────────────────────────────────
   film: [
     {
       titre: "Brainstorming",
       resume: "On challenge le brief avant d’y répondre.",
       detail:
-        "Quel message, quelle cible, quelles références, cohérence ou disruption. Puis un ou plusieurs concepts — retenus seulement si le message est clair, s’il parle à la cible, et si nous sommes fiers de produire ce film.",
+        "Quel message, quelle cible, quelles références, cohérence ou disruption. Puis un ou plusieurs concepts — retenus seulement si le message est clair, s’il parle à la cible, et si nous sommes fiers de le produire.",
       livrable: "Concept général · narratif et graphique · chiffré",
       photo: "/media/px-methode-1.jpg",
     },
@@ -92,19 +92,19 @@ const PARCOURS: Record<Metier, Etape[]> = {
       photo: "/media/bv-production.jpg",
     },
     {
-      titre: "Post-production",
-      resume: "Là où le film prend son rythme.",
+      titre: "Avant-première",
+      resume: "Tout est monté, rien n’est public.",
       detail:
-        "Dérushage, montage, animation des éléments graphiques, sound design. Une première version complète livrée sur notre plateforme de visionnage, où vous annotez au timecode près.",
-      livrable: "Film complet — version 1",
+        "Dérushage, montage, animation des éléments graphiques, sound design. Une première version complète livrée sur notre plateforme de visionnage, où vous annotez au timecode près. Deux à trois allers-retours : le premier pour le fond, les suivants pour les détails.",
+      livrable: "Film complet — version 1, annotable en ligne",
       photo: "/media/px-methode-4.jpg",
     },
     {
-      titre: "Conformation",
-      resume: "Ni forfait illimité, ni limite rigide.",
+      titre: "Diffusion",
+      resume: "Le film part sur ses supports.",
       detail:
-        "Étalonnage, sous-titrage pour l’accessibilité, rendus aux formats de diffusion. Sur les retours : deux à trois allers-retours, sous couvert du bon sens — le premier pour le fond, les suivants pour les détails.",
-      livrable: "Film prêt à diffuser · sous-titres · tous formats",
+        "Étalonnage, sous-titrage pour l’accessibilité, rendus à tous les formats utiles — site, réseaux, écrans internes, salon. Puis la mise en ligne elle-même : un film qui reste sur un serveur n’a encore rien produit.",
+      livrable: "Masters · sous-titres · formats réseaux · mise en ligne",
       photo: "/media/px-methode-5.jpg",
     },
     {
@@ -117,7 +117,12 @@ const PARCOURS: Record<Metier, Etape[]> = {
     },
   ],
 
-  // ── ÉVÉNEMENTIEL — proposition, à valider par Giz. ────────────────────
+  // ── ÉVÉNEMENTIEL ──────────────────────────────────────────────────────
+  // ⛔ Correction de Giz, 02/08/2026, et elle règle une faute de logique :
+  // j'avais mis « le jour J » en étape 3, au milieu du cycle. Un événement
+  // ne se fabrique pas AUTOUR de sa date, il converge VERS elle. Le jour J
+  // est donc l'étape de diffusion — le moment où ça atteint le public,
+  // exactement comme la mise en ligne pour un film.
   evenementiel: [
     {
       titre: "Brainstorming",
@@ -136,40 +141,40 @@ const PARCOURS: Record<Metier, Etape[]> = {
       photo: "/media/px-methode-2.jpg",
     },
     {
-      titre: "Le jour J",
-      resume: "Montage, régie, captation.",
+      titre: "Production des contenus",
+      resume: "Tout ce qui passera à l’écran se fabrique avant.",
       detail:
-        "Installation, réglages, conduite et régie pendant l’événement, captation multi-caméra. Notre équipe est sur place du montage au démontage — c’est le seul moment du projet où l’improvisation coûte cher.",
-      livrable: "Régie · captation multi-caméra · exploitation sur site",
-      photo: "/media/px-pilier-evenementiel.jpg",
+        "Films d’ouverture, habillage des écrans, motion design, contenus scénographiques, interviews tournées en amont. Le jour de l’événement, plus rien ne doit être en cours de fabrication.",
+      livrable: "Films · habillage écran · contenus scénographiques",
+      photo: "/media/bv-production.jpg",
     },
     {
-      titre: "L’après-événement",
-      resume: "L’aftermovie, tant que ça compte encore.",
+      titre: "Avant-première",
+      resume: "L’événement avant l’événement.",
       detail:
-        "Montage du film de l’événement pendant que le souvenir est frais, et non trois semaines plus tard. Sélection des temps forts, interviews de participants, habillage graphique.",
-      livrable: "Aftermovie · interviews · photos sélectionnées",
+        "Montage, calage de la régie, contenus testés sur les écrans réels et dans la vraie lumière, filages avec les intervenants. Tout est en place, le public n’est pas encore là — c’est le seul moment où une erreur ne coûte rien.",
+      livrable: "Répétition générale · calage régie · validation sur site",
       photo: "/media/px-methode-4.jpg",
     },
     {
-      titre: "Diffusion",
-      resume: "Un événement, plusieurs vies.",
+      titre: "Le jour J",
+      resume: "Et tout ce qui en sort.",
       detail:
-        "Déclinaison en formats courts et verticaux pour les réseaux, versions internes, extraits pour la prochaine édition. Un événement produit largement de quoi communiquer jusqu’au suivant.",
-      livrable: "Formats réseaux · versions internes · extraits",
-      photo: "/media/px-methode-5.jpg",
+        "Conduite et régie pendant l’événement, captation multi-caméra, exploitation des dispositifs. Puis l’aftermovie, monté pendant que le souvenir est frais, et ses déclinaisons courtes pour les réseaux : un événement produit largement de quoi communiquer jusqu’au suivant.",
+      livrable: "Régie · captation · aftermovie · formats réseaux",
+      photo: "/media/px-pilier-evenementiel.jpg",
     },
     {
       titre: "Débriefing",
       resume: "Et on recommence, mieux.",
       detail:
-        "Fréquentation, temps passé sur les dispositifs, retombées des contenus diffusés. Ce qu’on en tire nourrit la conception de l’édition suivante.",
+        "Fréquentation, temps passé sur les dispositifs, retombées des contenus diffusés après coup. Ce qu’on en tire nourrit la conception de l’édition suivante.",
       livrable: "Bilan de fréquentation · retombées · leçons",
       photo: "/media/px-methode-6.jpg",
     },
   ],
 
-  // ── IMMERSION — proposition, à valider par Giz. ───────────────────────
+  // ── IMMERSION ─────────────────────────────────────────────────────────
   immersion: [
     {
       titre: "Brainstorming",
@@ -188,26 +193,26 @@ const PARCOURS: Record<Metier, Etape[]> = {
       photo: "/media/px-methode-2.jpg",
     },
     {
-      titre: "Production",
-      resume: "Modélisation, développement, intégration.",
+      titre: "Développement",
+      resume: "Modélisation, code, intégration.",
       detail:
         "Modélisation et animation 3D, captation 360°, développement de l’application, intégration des contenus. Nos développeurs sont dans l’équipe : ce qui est conçu et ce qui est codé ne se découvrent pas à la livraison.",
       livrable: "Application · contenus 3D · intégration",
       photo: "/media/px-pilier-immersion.jpg",
     },
     {
-      titre: "Tests & réglages",
-      resume: "Sur de vrais visiteurs.",
+      titre: "Avant-première",
+      resume: "Sur de vrais visiteurs, avant les vôtres.",
       detail:
         "Recette technique, confort, durée réelle d’une session, ergonomie pour quelqu’un qui n’a jamais mis un casque. C’est l’étape que l’on saute le moins volontiers : elle décide de tout le reste.",
       livrable: "Recette · corrections · protocole d’accueil",
       photo: "/media/px-methode-4.jpg",
     },
     {
-      titre: "Déploiement",
+      titre: "Ouverture au public",
       resume: "Installer, et faire tourner.",
       detail:
-        "Installation sur site, réglages, formation des équipes d’accueil, exploitation pendant toute la durée. Un dispositif immersif sans personne pour l’accompagner reste inutilisé.",
+        "Installation sur site, réglages en conditions réelles, formation des équipes d’accueil, exploitation pendant toute la durée. Un dispositif immersif sans personne pour l’accompagner reste inutilisé.",
       livrable: "Installation · formation · exploitation",
       photo: "/media/px-mapping.jpg",
     },
@@ -235,8 +240,20 @@ const PHOTOS_V6 = [
   "/media/ref-clasquin.jpg",
 ];
 
-export function MethodeEnCercle({ jeu = "actuel" }: { jeu?: "actuel" | "pexels" }) {
-  const [metier, setMetier] = useState<Metier>("film");
+/**
+ * `fixe` verrouille le composant sur un métier et masque le sélecteur.
+ * C'est le mode des trois pages métier : on y est déjà arrivé par le métier,
+ * proposer de le changer serait proposer de quitter la page. Sans `fixe`, le
+ * sélecteur reste — c'est le mode d'une page transverse.
+ */
+export function MethodeEnCercle({
+  jeu = "actuel",
+  fixe,
+}: {
+  jeu?: "actuel" | "pexels";
+  fixe?: Metier;
+}) {
+  const [metier, setMetier] = useState<Metier>(fixe ?? "film");
   const [actif, setActif] = useState(0);
 
   const etapes = PARCOURS[metier];
@@ -251,7 +268,7 @@ export function MethodeEnCercle({ jeu = "actuel" }: { jeu?: "actuel" | "pexels" 
           avant de lire les étapes. Changer de métier remet l'étape à 1 —
           rester sur l'étape 4 en changeant de parcours n'aurait aucun sens
           pour quelqu'un qui découvre. */}
-      <div className="mb-14 flex flex-wrap gap-3">
+      <div className={`mb-14 flex-wrap gap-3 ${fixe ? "hidden" : "flex"}`}>
         {METIERS.map(m => {
           const on = m.cle === metier;
           return (

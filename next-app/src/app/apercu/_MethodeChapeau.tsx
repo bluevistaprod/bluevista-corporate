@@ -63,31 +63,31 @@ const ETAPES: Etape[] = [
   {
     titre: "Réalisation",
     resume:
-      "Le moment où ça se fabrique — ou, pour un événement, où ça se joue. Nos équipes sont sur place, et vous pouvez y être aussi.",
+      "Le moment où ça se fabrique. Pour un événement aussi : tout ce qui passera à l’écran le jour J existe déjà avant que le public arrive.",
     declinaisons: {
       film: "Production",
-      evenementiel: "Le jour J",
+      evenementiel: "Production des contenus",
       immersion: "Développement",
     },
   },
   {
-    titre: "Première version",
+    titre: "Avant-première",
     resume:
-      "On assemble, on teste, et on vous montre. Vous annotez directement sur notre plateforme, au timecode près.",
+      "Tout est prêt, personne ne l’a encore vu. C’est le seul moment du projet où une erreur ne coûte rien — alors on cherche à en trouver.",
     declinaisons: {
-      film: "Post-production",
-      evenementiel: "L’aftermovie",
-      immersion: "Tests & réglages",
+      film: "Montage & version 1",
+      evenementiel: "Répétition générale",
+      immersion: "Recette & réglages",
     },
   },
   {
-    titre: "Livraison",
+    titre: "Diffusion",
     resume:
-      "Prêt à servir, dans toutes les formes dont vous avez besoin — pas seulement dans celle qui était au devis.",
+      "Le moment où ça rencontre le public. Une mise en ligne, une ouverture de salle, ou une date qui ne bougera pas.",
     declinaisons: {
-      film: "Conformation",
-      evenementiel: "Diffusion",
-      immersion: "Déploiement",
+      film: "Mise en ligne",
+      evenementiel: "Le jour J",
+      immersion: "Ouverture au public",
     },
   },
   {
@@ -99,9 +99,9 @@ const ETAPES: Etape[] = [
 ];
 
 const METIERS = [
-  { cle: "film" as const, nom: "Film & contenu" },
-  { cle: "evenementiel" as const, nom: "Événement" },
-  { cle: "immersion" as const, nom: "Immersion" },
+  { cle: "film" as const, nom: "Film & contenu", url: "/apercu/metier/film" },
+  { cle: "evenementiel" as const, nom: "Événement", url: "/apercu/metier/evenement" },
+  { cle: "immersion" as const, nom: "Immersion", url: "/apercu/metier/immersion" },
 ];
 
 export function MethodeChapeau() {
@@ -237,7 +237,7 @@ export function MethodeChapeau() {
           {METIERS.map(m => (
             <a
               key={m.cle}
-              href="#"
+              href={m.url}
               className="font-semibold underline decoration-2 underline-offset-4 transition hover:opacity-70"
               style={{ color: BLEU }}
             >
