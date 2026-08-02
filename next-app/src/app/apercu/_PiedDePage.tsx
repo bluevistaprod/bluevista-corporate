@@ -42,10 +42,44 @@ import { COMPETENCES } from "./_plan-du-site";
  * villes sans les qualifier.
  */
 
+/**
+ * LES TROIS IMPLANTATIONS — adresses et numéros RELEVÉS SUR LE SITE EN
+ * LIGNE le 02/08/2026, pas reconstitués de mémoire.
+ *
+ * ⛔ J'avais écrit « Lyon — siège social » et rangé Genève sous
+ * « bluevista.ch, Suisse romande », sans rue ni téléphone. C'était de
+ * l'approximation : une adresse fausse sur un site est une erreur qu'un
+ * client découvre en se déplaçant, et un numéro manquant est un appel
+ * qu'on ne reçoit pas.
+ *
+ * ⛔ NE JAMAIS ÉCRIRE « bureau commercial » pour Paris ni Genève, et ne
+ * jamais affirmer qu'il y a un STUDIO là-bas : ce serait faux. On cite les
+ * villes sans les qualifier — c'est exact, et ça nourrit le référencement
+ * local.
+ *
+ * 📌 Chaque numéro est collé à SON adresse. Un numéro isolé en bas de
+ * colonne, comme dans la version précédente, laisse croire qu'il vaut pour
+ * les trois villes.
+ */
 const VILLES = [
-  ["Lyon", "8 rue Jean Élysée Dupuy, 69410 Champagne-au-Mont-d’Or"],
-  ["Paris", "92 avenue Victor Hugo, 92100 Boulogne-Billancourt"],
-  ["Genève", "bluevista.ch — Suisse romande"],
+  {
+    nom: "Lyon",
+    adresse: ["8 rue Jean Élysée Dupuy", "69410 Champagne-au-Mont-d’Or"],
+    tel: "+33 (0)4 72 34 51 89",
+    telLien: "+33472345189",
+  },
+  {
+    nom: "Paris",
+    adresse: ["92 avenue Victor Hugo", "92100 Boulogne-Billancourt"],
+    tel: "+33 (0)1 83 64 58 96",
+    telLien: "+33183645896",
+  },
+  {
+    nom: "Genève",
+    adresse: ["Bd Georges-Favon 43", "1204 Genève, Suisse"],
+    tel: "+41 (0)22 519 28 48",
+    telLien: "+41225192848",
+  },
 ];
 
 const BAS = [
@@ -88,13 +122,6 @@ export function PiedDePage() {
               d’immersion. Toute la chaîne de production en interne,
               depuis&nbsp;2004.
             </p>
-            <a
-              href="tel:+33472345189"
-              className="text-[14px] font-semibold transition hover:text-white"
-              style={{ color: BLEU_CLAIR, display: "inline-block", marginTop: 18 }}
-            >
-              +33 (0)4 72 34 51 89
-            </a>
           </div>
 
           {/* ── Les savoir-faire ───────────────────────────────────────────
@@ -139,11 +166,22 @@ export function PiedDePage() {
             >
               Nous trouver
             </div>
-            <div style={{ marginTop: 16, display: "grid", gap: 12 }}>
-              {VILLES.map(([ville, adresse]) => (
-                <address key={ville} className="not-italic text-[14px] leading-snug">
-                  <span className="font-semibold text-white/75">{ville}</span>
-                  <span className="block text-white/45">{adresse}</span>
+            <div style={{ marginTop: 16, display: "grid", gap: 16 }}>
+              {VILLES.map(v => (
+                <address key={v.nom} className="not-italic text-[14px] leading-snug">
+                  <span className="font-semibold text-white/75">{v.nom}</span>
+                  {v.adresse.map(l => (
+                    <span key={l} className="block text-white/45">
+                      {l}
+                    </span>
+                  ))}
+                  <a
+                    href={`tel:${v.telLien}`}
+                    className="transition hover:text-white"
+                    style={{ color: BLEU_CLAIR, display: "inline-block", marginTop: 4 }}
+                  >
+                    {v.tel}
+                  </a>
                 </address>
               ))}
             </div>
