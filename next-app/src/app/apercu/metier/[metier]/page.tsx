@@ -308,10 +308,19 @@ export default async function PageMetier({
       </section>
 
       {/* ④ L'appel final. */}
-      <section style={{ background: SOMBRE, color: "#fff" }} className="py-24 text-center">
+      {/* ── L'APPEL FINAL ────────────────────────────────────────────────
+          ⛔ SUR FOND CLAIR, ET C'EST UNE CORRECTION. Il était sombre, et le
+          pied de page l'est aussi : deux bandes sombres collées se lisaient
+          comme DEUX pieds de page. Giz : « étrange ton double footer ».
+          Il n'y avait qu'une balise <footer> — le défaut était visuel, pas
+          structurel, ce qui le rendait invisible à toute vérification
+          automatique.
+          Le fond clair rétablit l'alternance et redonne au pied de page son
+          rôle : marquer la fin. */}
+      <section style={{ background: CLAIR_SOUTENU }} className="py-24 text-center">
         <h2 className={`mx-auto max-w-3xl px-8 ${TYPO.titre}`}>
           Parlons de votre projet{" "}
-          <span style={{ color: BLEU_CLAIR }}>{c.surTitre.toLowerCase()}</span>
+          <span style={{ color: BLEU }}>{c.surTitre.toLowerCase()}</span>
         </h2>
         <div className="mt-10 flex flex-wrap justify-center gap-4 px-8">
           <a
@@ -321,7 +330,7 @@ export default async function PageMetier({
           >
             Contactez-nous
           </a>
-          <a href="/apercu/v7" className="rounded-md border border-white/30 px-9 py-4 text-[16px] font-semibold">
+          <a href="/apercu/v7" className="rounded-md border border-black/20 px-9 py-4 text-[16px] font-semibold">
             Revenir à l’accueil
           </a>
         </div>

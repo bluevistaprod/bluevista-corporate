@@ -30,8 +30,8 @@ const Ligne = ({
   etat: "structure" | "contenu-manquant" | "a-faire";
 }) => {
   const etats = {
-    structure: { texte: "Structure prête", couleur: "#1F7A4D", fond: "rgba(31,122,77,.10)" },
-    "contenu-manquant": { texte: "Texte à écrire", couleur: "#9A7200", fond: "rgba(224,164,0,.12)" },
+    structure: { texte: "Prête", couleur: "#1F7A4D", fond: "rgba(31,122,77,.10)" },
+    "contenu-manquant": { texte: "À relire", couleur: "#9A7200", fond: "rgba(224,164,0,.12)" },
     "a-faire": { texte: "Pas commencée", couleur: "#8A3030", fond: "rgba(138,48,48,.10)" },
   }[etat];
 
@@ -120,7 +120,7 @@ export default function PlanDeLaMaquette() {
                 nom={c.nom}
                 detail={c.ancienneUrl}
                 clics={c.clics}
-                etat="contenu-manquant"
+                etat={c.texte || c.sections ? "structure" : "contenu-manquant"}
               />
             ))}
         </div>
@@ -206,26 +206,75 @@ export default function PlanDeLaMaquette() {
         </div>
       </section>
 
-      {/* ── Ce que le plan raconte ──────────────────────────────────────── */}
+      {/* ── OÙ ON EN EST ─────────────────────────────────────────────────
+          ⚠️ Ce bloc était périmé. Giz : « le plan est à jour dans les
+          tâches à faire ? » — il ne l'était pas, et un plan faux est pire
+          qu'une absence de plan : on croit savoir où on en est.
+          Il est réécrit à chaque étape du chantier, pas à la fin. */}
       <section style={{ background: CLAIR_SOUTENU }}>
         <div className="mx-auto max-w-[900px] px-8 py-20">
-          <h2 className={TYPO.titre}>Ce que ce tableau dit</h2>
-          <p className={`mt-6 ${TYPO.corps}`}>
-            Hors page d’accueil, <strong>tout le trafic entre par le niveau 2</strong> —
-            les savoir-faire et les villes. Aucune des trois pages métier
-            n’existe aujourd’hui, et aucune ne se positionnera avant des mois :
-            « communication &amp; marketing » est une expression sur laquelle
-            personne ne cherche une agence.
-          </p>
-          <p className={`mt-5 ${TYPO.corps}`}>
-            C’est pour ça que l’architecture a trois niveaux et pas un. Les
-            pages métier portent le repositionnement et la conversion ; les
-            pages de savoir-faire gardent le référencement acquis. Supprimer
-            les secondes au profit des premières aurait été l’erreur la plus
-            coûteuse de cette refonte.
+          <h2 className={TYPO.titre}>Où on en est</h2>
+
+          <div className="mt-10 space-y-8">
+            <div>
+              <div className="text-[13px] font-bold uppercase tracking-[0.16em]" style={{ color: "#1F7A4D" }}>
+                Fait
+              </div>
+              <ul className={`mt-3 space-y-1.5 ${TYPO.corps}`}>
+                <li>Architecture à trois niveaux — métier, savoir-faire, réalisation</li>
+                <li>170 réalisations dans Sanity, avec 134 images et 144 vidéos</li>
+                <li>18 pages éditables dans le studio, branchées sur le site</li>
+                <li>Textes de l’ancien site repris sur les 9 savoir-faire et les 4 villes</li>
+                <li>Maillage corrigé — 4,3 liens entrants par fiche au lieu de 1</li>
+                <li>18 liens sortants vers les sites clients</li>
+                <li>Plan de redirections des 751 adresses</li>
+                <li>En-tête, pied de page et sélecteur de langue sur toutes les pages</li>
+              </ul>
+            </div>
+
+            <div>
+              <div className="text-[13px] font-bold uppercase tracking-[0.16em]" style={{ color: "#9A7200" }}>
+                À relire par Giz
+              </div>
+              <ul className={`mt-3 space-y-1.5 ${TYPO.corps}`}>
+                <li><strong>46 réalisations</strong> dont le métier a été déduit à l’import</li>
+                <li><strong>36 réalisations</strong> sans visuel</li>
+                <li>Les parcours <strong>événement</strong> et <strong>immersion</strong> de la méthode — livrables écrits sans les avoir vus</li>
+                <li>Les <strong>4 pages de ville</strong> : le texte repris parle encore d’autres villes</li>
+                <li><strong>25 redirections</strong> à rattacher à la main, dont 4 avec des clics</li>
+                <li>La <strong>genèse de l’agence</strong> — le seul texte que personne ne peut écrire à sa place</li>
+              </ul>
+            </div>
+
+            <div>
+              <div className="text-[13px] font-bold uppercase tracking-[0.16em]" style={{ color: "#8A3030" }}>
+                Pas commencé
+              </div>
+              <ul className={`mt-3 space-y-1.5 ${TYPO.corps}`}>
+                <li><strong>Les traductions</strong> — 5 versions prévues, seule la française existe</li>
+                <li><strong>Les 144 vidéos</strong> à repointer de Vimeo vers Livid</li>
+                <li><strong>Mentions légales et politique de confidentialité</strong> — obligatoires avant mise en ligne</li>
+                <li>Les <strong>actualités</strong> et le gabarit d’article</li>
+                <li>Le <strong>site suisse</strong> — bluevista.ch, chantier séparé</li>
+                <li>Les <strong>animations</strong>, volontairement en dernier</li>
+                <li>Le <strong>formulaire branché sur Podio</strong> en natif</li>
+                <li>La <strong>stratégie d’avis Google</strong></li>
+              </ul>
+            </div>
+          </div>
+
+          <p className={`mt-12 border-t pt-8 ${TYPO.corps}`} style={{ borderColor: "rgba(0,0,0,.12)" }}>
+            <strong>Ce que le tableau du haut raconte&nbsp;:</strong> hors page
+            d’accueil, tout le trafic entre par le niveau 2 — les savoir-faire
+            et les villes. Aucune des trois pages métier n’existe aujourd’hui,
+            et aucune ne se positionnera avant des mois. C’est pour ça que
+            l’architecture a trois niveaux et pas un&nbsp;: les pages métier
+            portent le repositionnement, les pages de savoir-faire gardent le
+            référencement acquis.
           </p>
         </div>
       </section>
+
       <PiedDePage />
     </main>
   );

@@ -696,12 +696,21 @@ export default function V7() {
       </section>
 
       {/* ⑧ SOMBRE — l'appel final ───────────────────────────────────── */}
-      <section style={{ background: SOMBRE, color: "#fff" }} className="py-28 text-center">
+      {/* ── L'APPEL FINAL ────────────────────────────────────────────────
+          ⛔ SUR FOND CLAIR, ET C'EST UNE CORRECTION. Il était sombre, et le
+          pied de page l'est aussi : deux bandes sombres collées se lisaient
+          comme DEUX pieds de page. Giz : « étrange ton double footer ».
+          Il n'y avait pourtant qu'une seule balise <footer> — le défaut
+          était visuel, pas structurel, et c'est précisément pour ça
+          qu'aucune vérification automatique ne pouvait l'attraper.
+          Le fond clair rétablit l'alternance et redonne au pied de page son
+          rôle : marquer la fin. */}
+      <section style={{ background: CLAIR_SOUTENU }} className="py-28 text-center">
         <h2 className={`mx-auto max-w-3xl px-8 ${TYPO.titre}`}>
           Transformez votre communication en{" "}
-          <span style={{ color: BLEU_CLAIR }}>résultats concrets</span>
+          <span style={{ color: BLEU }}>résultats concrets</span>
         </h2>
-        <p className="mx-auto mt-6 max-w-xl px-8 text-lg text-white/65">
+        <p className="mx-auto mt-6 max-w-xl px-8 text-lg opacity-65">
           Parlons de vos objectifs avant de parler de format.
         </p>
         <div className="mt-10 flex flex-wrap justify-center gap-4 px-8">
@@ -712,7 +721,7 @@ export default function V7() {
           >
             Contactez-nous
           </a>
-          <a href="/apercu/contact" className="rounded-md border border-white/30 px-9 py-4 text-[16px] font-semibold">
+          <a href="/apercu/contact" className="rounded-md border-2 border-black/15 px-9 py-4 text-[16px] font-semibold">
             Demander un devis
           </a>
         </div>
