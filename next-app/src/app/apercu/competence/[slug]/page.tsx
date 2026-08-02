@@ -1,7 +1,8 @@
 import { notFound } from "next/navigation";
 import { EnTete } from "../../_EnTete";
 import { COMPETENCES, METIERS, competencesDuMetier } from "../../_plan-du-site";
-import { lirePage, lirePages, enParagraphes, imageUrl } from "../../../../lib/sanity";
+import { lirePage, lirePages, lireRealisationsDuProduit, enParagraphes, imageUrl } from "../../../../lib/sanity";
+import { OFFRES } from "../../_offres";
 import { BLEU, BLEU_CLAIR, CLAIR, CLAIR_SOUTENU, NOIR, SOMBRE, TYPO } from "../../_palette";
 
 /**
@@ -69,6 +70,11 @@ export default async function PageCompetence({
   /* Le maillage interne : les compétences voisines du même métier. C'est ce
      qui fait qu'une page qui se positionne tire les autres avec elle. */
   const voisines = arch ? competencesDuMetier(arch.metier).filter(x => x.slug !== slug) : [];
+
+  /* Les produits que cette page de savoir-faire porte — c'est par eux
+     qu'on retrouve les réalisations correspondantes. */
+  const produits = OFFRES.flatMap(o => o.produits).filter(pr => pr.page === slug).map(pr => pr.slug);
+  const projets = produits.length ? await lireRealisationsDuProduit(produits) : [];
 
   return (
     <main style={{ background: CLAIR, color: SOMBRE }}>
@@ -240,6 +246,48 @@ export default async function PageCompetence({
                 À reprendre de l’ancien site — {c.clics} clics sur 12 mois
               </div>
             </div>
+          </div>
+        </section>
+      )}
+
+      {/* ── LES PROJETS QUI LE PROUVENT ──────────────────────────────────
+          ⛔ CE BLOC MANQUAIT, et c'était le trou du maillage. Les pages de
+          savoir-faire renvoyaient vers un FILTRE de la page réalisations,
+          jamais vers les fiches elles-mêmes. Résultat mesuré : chaque
+          réalisation ne recevait qu'un seul lien entrant.
+
+          Ici les fiches sont liées une par une. Une page de savoir-faire
+          qui se positionne bien transmet donc son autorité aux projets
+          qu'elle cite — et le visiteur voit la preuve au lieu d'un lien
+          vers une liste à filtrer. */}
+      {projets.length > 0 && (
+        <section className="mx-auto max-w-[1500px] px-8 py-24">
+          <div className={`mb-7 flex items-center gap-4 ${TYPO.surTitre}`} style={{ color: BLEU }}>
+            <span className="inline-block h-[3px] w-12 rounded-full" style={{ background: BLEU }} />
+            La preuve
+          </div>
+          <h2 className={`max-w-3xl ${TYPO.titre}`}>Des projets, pas des promesses</h2>
+          <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            {projets.map(pr => (
+              <a
+                key={pr.slug}
+                href={`/apercu/realisations/${pr.slug}`}
+                className="group block overflow-hidden rounded-md border transition hover:shadow-lg"
+                style={{ borderColor: "rgba(0,0,0,.1)", background: "#fff" }}
+              >
+                {pr.image ? (
+                  <div
+                    className="aspect-[16/10] bg-cover bg-center transition duration-700 group-hover:brightness-110"
+                    style={{ backgroundImage: `url('${imageUrl(pr.image, 600, 375)}')` }}
+                    role="img"
+                    aria-label={pr.titre}
+                  />
+                ) : (
+                  <div className="aspect-[16/10]" style={{ background: CLAIR_SOUTENU }} />
+                )}
+                <div className="p-5 text-[15px] font-bold leading-snug">{pr.titre}</div>
+              </a>
+            ))}
           </div>
         </section>
       )}

@@ -1,6 +1,6 @@
 import { notFound } from "next/navigation";
 import { EnTete } from "../../_EnTete";
-import { lireRealisation, lireRealisations, imageUrl } from "../../../../lib/sanity";
+import { lireRealisation, lireRealisations, lireVoisines, imageUrl } from "../../../../lib/sanity";
 import { COMPETENCES, METIERS } from "../../_plan-du-site";
 import { OFFRES } from "../../_offres";
 import { BLEU, BLEU_CLAIR, CLAIR, CLAIR_SOUTENU, NOIR, SOMBRE, TYPO } from "../../_palette";
@@ -61,6 +61,7 @@ export default async function PageRealisation({
   const { slug } = await params;
   const r = await lireRealisation(slug, "fr");
   if (!r) return notFound();
+  const voisines = await lireVoisines(slug, r.produit, r.metier);
 
   const metier = METIERS.find(m => m.cle === r.metier);
   const offre = OFFRES.find(o => o.produits.some(p => p.slug === r.produit));
@@ -248,6 +249,66 @@ export default async function PageRealisation({
                   </div>
                 </a>
               )}
+            </div>
+          </div>
+        </section>
+      )}
+
+      {/* ── LE SITE DU CLIENT ────────────────────────────────────────────
+          Le seul lien sortant naturel du site, et sa valeur n'est pas
+          d'abord référentielle : il PROUVE que le client existe. Une
+          référence vérifiable en un clic vaut mieux qu'un logo posé sur
+          une page. `rel="noopener"` par sécurité, pas de `nofollow` —
+          on assume de citer nos clients. */}
+      {r.clientUrl && (
+        <section className="mx-auto max-w-[900px] px-8 pb-16">
+          <a
+            href={r.clientUrl}
+            target="_blank"
+            rel="noopener"
+            className="inline-flex items-center gap-3 rounded-md border-2 px-6 py-4 text-[15px] font-semibold transition hover:shadow-md"
+            style={{ borderColor: `${BLEU}33`, color: BLEU }}
+          >
+            Voir le site de {r.client ?? "ce client"} ↗
+          </a>
+        </section>
+      )}
+
+      {/* ── LES PROJETS VOISINS ──────────────────────────────────────────
+          ⛔ CORRECTIF DU POINT FAIBLE DU MAILLAGE, mesuré avant d'agir :
+          chaque fiche ne recevait QU'UN lien entrant, celui de l'index.
+          Quarante pages à un seul lien entrant sont quarante pages que
+          Google traite comme marginales. Trois voisins par fiche
+          multiplient les chemins — et répondent à ce que le visiteur
+          cherche vraiment : « qu'avez-vous fait de comparable ». */}
+      {voisines.length > 0 && (
+        <section style={{ background: CLAIR_SOUTENU }}>
+          <div className="mx-auto max-w-[1500px] px-8 py-20">
+            <div className={`mb-7 flex items-center gap-4 ${TYPO.surTitre}`} style={{ color: BLEU }}>
+              <span className="inline-block h-[3px] w-12 rounded-full" style={{ background: BLEU }} />
+              Dans le même esprit
+            </div>
+            <div className="grid gap-6 sm:grid-cols-3">
+              {voisines.map(v => (
+                <a
+                  key={v.slug}
+                  href={`/apercu/realisations/${v.slug}`}
+                  className="group block overflow-hidden rounded-md border transition hover:shadow-lg"
+                  style={{ borderColor: "rgba(0,0,0,.1)", background: "#fff" }}
+                >
+                  {v.image ? (
+                    <div
+                      className="aspect-[16/10] bg-cover bg-center transition duration-700 group-hover:brightness-110"
+                      style={{ backgroundImage: `url('${imageUrl(v.image, 600, 375)}')` }}
+                      role="img"
+                      aria-label={v.titre}
+                    />
+                  ) : (
+                    <div className="aspect-[16/10]" style={{ background: CLAIR_SOUTENU }} />
+                  )}
+                  <div className="p-5 text-[15px] font-bold leading-snug">{v.titre}</div>
+                </a>
+              ))}
             </div>
           </div>
         </section>

@@ -56,6 +56,25 @@ export const realisation = defineType({
       group: "contenu",
       description: "Le nom tel qu’il doit apparaître publiquement. Vérifier qu’on a l’accord de le citer.",
     }),
+    /**
+     * ⭐ LE SITE DU CLIENT — et c'est le seul lien sortant NATUREL du site.
+     *
+     * Un site qui ne pointe jamais vers l'extérieur n'est pas pénalisé par
+     * Google, contrairement à ce qu'on lit souvent. Mais un lien vers le
+     * site du client, sur la page de son projet, a une valeur qui n'a rien
+     * à voir avec le référencement : il PROUVE que le client existe.
+     * C'est une référence vérifiable en un clic, pas un logo posé sur une
+     * page.
+     *
+     * ⚠️ Vérifier qu'on a l'accord de citer le client avant de publier.
+     */
+    defineField({
+      name: "clientUrl",
+      title: "Site du client",
+      type: "url",
+      group: "contenu",
+      description: "Repris de l’export du site actuel quand il y figurait.",
+    }),
     defineField({
       name: "image",
       title: "Image principale",

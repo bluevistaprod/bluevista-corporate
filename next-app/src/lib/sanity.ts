@@ -48,6 +48,7 @@ export type RealisationSanity = {
   metier: "film" | "evenement" | "immersion" | null;
   produit: string | null;
   video?: string;
+  clientUrl?: string;
   intro?: string;
   image?: unknown;
   aRelire?: boolean;
@@ -61,7 +62,7 @@ export type RealisationSanity = {
 const CHAMPS = `
   _id,
   "slug": slug.current,
-  titre, client, metier, produit, video, intro, image, aRelire, ancienneUrl,
+  titre, client, clientUrl, metier, produit, video, intro, image, aRelire, ancienneUrl,
   casContexte, casEnjeu, casFait, casResultat
 `;
 
@@ -136,3 +137,36 @@ export const enParagraphes = (blocs?: BlocTexte[]): string[] =>
   (blocs ?? [])
     .map(b => (b.children ?? []).map(c => c.text ?? "").join(""))
     .filter(t => t.trim().length > 0);
+
+/**
+ * LES PROJETS VOISINS — le correctif du point faible du maillage.
+ *
+ * ⛔ MESURÉ AVANT DE CORRIGER : chaque fiche de réalisation ne recevait
+ * QU'UN SEUL lien entrant, celui de l'index. Quarante pages avec un unique
+ * lien entrant, c'est quarante pages que Google considère comme marginales
+ * — et l'autorité de l'index ne se transmet pas quand elle se divise par
+ * 170.
+ *
+ * Trois voisins par fiche multiplient les chemins : chaque réalisation
+ * devient atteignable depuis d'autres réalisations, pas seulement depuis
+ * une liste. Et c'est utile au visiteur, qui cherche rarement UN projet
+ * mais plutôt « ce que vous avez fait de comparable ».
+ */
+export async function lireVoisines(slug: string, produit: string | null, metier: string | null, version: Version = "fr") {
+  return sanity.fetch<RealisationSanity[]>(
+    `*[_type == "realisation" && language == $v && slug.current != $s
+       && (produit == $p || metier == $m)]
+     | order(select(produit == $p => 0, 1) asc, titre asc) [0...3] { ${CHAMPS} }`,
+    { v: version, s: slug, p: produit, m: metier },
+    { next: { revalidate: 60 } }
+  );
+}
+
+/** Les réalisations d'un savoir-faire — pour les lister sur sa page. */
+export async function lireRealisationsDuProduit(produits: string[], version: Version = "fr") {
+  return sanity.fetch<RealisationSanity[]>(
+    `*[_type == "realisation" && language == $v && produit in $p] | order(titre asc) [0...6] { ${CHAMPS} }`,
+    { v: version, p: produits },
+    { next: { revalidate: 60 } }
+  );
+}
