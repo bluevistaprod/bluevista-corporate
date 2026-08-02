@@ -43,12 +43,16 @@ export function EnTete() {
             alt="Bluevista"
             className="h-10 w-10 sm:hidden"
           />
-          {/* Le logo texte : à partir de sm. Blanc tant qu'on est sur l'image. */}
+          {/*
+            Le logo texte, version 2023. Sur le hero sombre on sert la version
+            blanche fournie par la charte plutôt que d'inverser le logo par
+            filtre : un filtre écrase le gris du mot « vista », la version
+            blanche le conserve.
+          */}
           <img
-            src="/media/logo-bluevista.png"
+            src="/media/logo-bluevista-blanc.png"
             alt="Bluevista"
-            className="hidden h-8 w-auto transition-all duration-300 sm:block"
-            style={{ filter: "brightness(0) invert(1)" }}
+            className="hidden h-7 w-auto transition-all duration-300 sm:block"
           />
         </a>
 

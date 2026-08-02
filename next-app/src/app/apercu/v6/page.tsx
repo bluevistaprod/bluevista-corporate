@@ -1,7 +1,7 @@
 import { BarreAperçu } from "../_commun";
 import { EnTete } from "../_EnTete";
 import { MethodeEnCercle } from "../_Methode";
-import { BLEU, BLEU_CLAIR, CLAIR, CLAIR_SOUTENU, NOIR, SOMBRE, SOMBRE_PROFOND } from "../_palette";
+import { BLEU, BLEU_CLAIR, CLAIR, CLAIR_SOUTENU, NOIR, SOMBRE, SOMBRE_PROFOND, TYPO } from "../_palette";
 
 /**
  * V5 — la V4 retravaillée à partir des retours de Giz.
@@ -129,7 +129,7 @@ const DIFFERENCE = [
 function SurTitre({ children, sombre = false }: { children: string; sombre?: boolean }) {
   return (
     <div
-      className="mb-7 flex items-center gap-4 text-[15px] font-bold uppercase tracking-[0.16em]"
+      className={`mb-7 flex items-center gap-4 ${TYPO.surTitre}`}
       style={{ color: sombre ? BLEU_CLAIR : BLEU }}
     >
       <span className="inline-block h-[3px] w-12 rounded-full" style={{ background: sombre ? BLEU_CLAIR : BLEU }} />
@@ -252,10 +252,10 @@ export default function V5() {
       <section style={{ background: NOIR, color: "#fff" }}>
         <div className="mx-auto max-w-[1500px] px-8 pb-4 pt-24">
           <SurTitre sombre>Nos preuves</SurTitre>
-          <h2 className="max-w-3xl text-[clamp(2.4rem,5.4vw,4.5rem)] font-bold leading-[1.02] tracking-[-0.02em]">
+          <h2 className={`max-w-3xl ${TYPO.titre}`}>
             Ce que ça a changé, chez eux.
           </h2>
-          <p className="mt-5 max-w-xl text-lg text-white/60">{DIFFERENCE[0]}.</p>
+          <p className="mt-5 max-w-xl text-[1.0625rem] leading-relaxed text-white/55">{DIFFERENCE[0]}.</p>
         </div>
 
         <div className="mt-14 space-y-px">
@@ -297,7 +297,7 @@ export default function V5() {
       {/* ④ CLAIR — l'offre. Le changement de fond marque le chapitre. ─ */}
       <section className="mx-auto max-w-[1500px] px-8 py-28">
         <SurTitre>Nos offres</SurTitre>
-        <h2 className="max-w-3xl text-[clamp(2.4rem,5.4vw,4.5rem)] font-bold leading-[1.02] tracking-[-0.02em]">
+        <h2 className={`max-w-3xl ${TYPO.titre}`}>
           Nos 3 piliers stratégiques
         </h2>
 
@@ -360,46 +360,24 @@ export default function V5() {
         </div>
       </section>
 
-      {/* ⑤ NOIR — le métier, en actes ───────────────────────────────────
-          ⛔ L'ANCIEN TITRE ÉTAIT « UNE ÉQUIPE, PAS UN PRESTATAIRE ». Retiré
-          sur correction de Giz, et sa raison vaut comme règle d'écriture pour
-          tout le site : ON NE DIT PAS CE QU'ON N'EST PAS. Une phrase qui se
-          définit par la négation installe le mot qu'elle voulait chasser — et
-          en l'occurrence, sous des photos de tournage, elle sonnait faux
-          puisqu'ils SONT bel et bien prestataires sur ces images.
+      {/* ⑤ SECTION « SUR LE TERRAIN » SUPPRIMÉE LE 02/08/2026 ──────────────
+          ⛔ NE PAS LA REMETTRE SANS IMAGES D'UN AUTRE NIVEAU.
 
-          Sa seconde remarque commande la nouvelle structure : « peut-être que
-          l'équipe se sent et ne se montre pas spécialement dans UNE section ».
-          Il n'y a donc plus de section « équipe » nulle part. L'équipe est
-          dans l'image d'accueil, au travail — c'est là qu'elle se sent.
-          Ici, on ne montre plus des gens : on montre le métier en actes.
+          Giz, sans détour : « JE NE VEUX PAS VENDRE DES TOURNAGES DE SPORT
+          BOULES, on passe pour une petite agence ». Il a raison, et la faute
+          était la mienne : les images disponibles montraient des captations
+          de tournois locaux et de stands de salon. Sur une page qui cite
+          l'ONU, l'UNICEF et la BBC, ces photos ne prouvaient pas le métier —
+          elles rabaissaient l'échelle.
+
+          👉 Une preuve qui contredit le niveau du reste fait plus de mal que
+          l'absence de preuve. Et la fonction de cette section — montrer une
+          équipe réelle — est DÉJÀ remplie par l'image d'accueil.
+
+          Ce qu'il faudrait pour la rouvrir : des coulisses au niveau des
+          références citées — mapping monumental, plateau, VR, réunion de
+          conception. Pas avant.
       */}
-      <section style={{ background: NOIR, color: "#fff" }}>
-        <div className="mx-auto max-w-[1500px] px-8 pb-14 pt-24">
-          <SurTitre sombre>Sur le terrain</SurTitre>
-          <h2 className="max-w-3xl text-[clamp(2.4rem,5.4vw,4.5rem)] font-bold leading-[1.02] tracking-[-0.02em]">
-            Là où ça se fabrique.
-          </h2>
-        </div>
-
-        <div className="grid gap-px sm:grid-cols-2 lg:grid-cols-4">
-          {[
-            ["/media/coulisses-grue.jpg", "Tournage sur grue en extérieur"],
-            ["/media/coulisses-interview.jpg", "Interview filmée sur stand"],
-            ["/media/coulisses-tournage.jpg", "Équipe en tournage"],
-            ["/media/coulisses-event.jpg", "Captation événementielle"],
-          ].map(([src, alt]) => (
-            <figure
-              key={src}
-              role="img"
-              aria-label={alt}
-              className="aspect-[3/4] bg-cover bg-center"
-              style={{ backgroundImage: `url('${src}')` }}
-            />
-          ))}
-        </div>
-        <div className="h-24" />
-      </section>
 
       {/* ⑥ CLAIR SOUTENU — la différence, puis la méthode en cercle ────
           Giz : « je veux que chaque message soit impactant, la page d'accueil
@@ -410,7 +388,7 @@ export default function V5() {
       <section style={{ background: CLAIR_SOUTENU }}>
         <div className="mx-auto max-w-[1500px] px-8 py-24">
           <SurTitre>Pourquoi nous</SurTitre>
-          <h2 className="max-w-4xl text-[clamp(2.4rem,5.4vw,4.5rem)] font-bold leading-[1.02] tracking-[-0.02em]">
+          <h2 className={`max-w-4xl ${TYPO.titre}`}>
             Ce qui nous distingue
           </h2>
 
@@ -436,10 +414,10 @@ export default function V5() {
       <section>
         <div className="mx-auto max-w-[1500px] px-8 py-28">
           <SurTitre>Notre méthode</SurTitre>
-          <h2 className="max-w-4xl text-[clamp(2.4rem,5.4vw,4.5rem)] font-bold leading-[1.02] tracking-[-0.02em]">
+          <h2 className={`max-w-4xl ${TYPO.titre}`}>
             Six étapes. Et elle recommence.
           </h2>
-          <p className="mt-6 max-w-2xl text-xl leading-relaxed opacity-65">
+          <p className={`mt-6 max-w-2xl ${TYPO.chapo}`}>
             Le débriefing d’un film ouvre l’analyse du suivant. C’est ce qui
             sépare une agence d’un exécutant à la commande.
           </p>
@@ -467,7 +445,7 @@ export default function V5() {
       <section style={{ background: CLAIR_SOUTENU }}>
         <div className="mx-auto max-w-[1500px] px-8 py-24">
           <SurTitre>Ils nous font confiance</SurTitre>
-          <h2 className="max-w-4xl text-[clamp(2.4rem,5.4vw,4.5rem)] font-bold leading-[1.02] tracking-[-0.02em]">
+          <h2 className={`max-w-4xl ${TYPO.titre}`}>
             Des institutions, des médias, des industriels.
           </h2>
 
@@ -502,7 +480,7 @@ export default function V5() {
         <div className="flex flex-wrap items-end justify-between gap-6">
           <div>
             <SurTitre>Nos réalisations</SurTitre>
-            <h2 className="text-[clamp(2.4rem,5.4vw,4.5rem)] font-bold leading-[1.02] tracking-[-0.02em]">
+            <h2 className={TYPO.titre}>
               Ce qu’on a fait pour eux.
             </h2>
           </div>
@@ -540,7 +518,7 @@ export default function V5() {
 
       {/* ⑧ SOMBRE — l'appel final ───────────────────────────────────── */}
       <section style={{ background: SOMBRE, color: "#fff" }} className="py-28 text-center">
-        <h2 className="mx-auto max-w-3xl px-8 text-[clamp(2rem,4.4vw,3.4rem)] font-bold leading-[1.05] tracking-[-0.02em]">
+        <h2 className={`mx-auto max-w-3xl px-8 ${TYPO.titre}`}>
           Transformez votre communication en{" "}
           <span style={{ color: BLEU_CLAIR }}>résultats concrets</span>
         </h2>
