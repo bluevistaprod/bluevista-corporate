@@ -37,9 +37,19 @@ import { BLEU, BLEU_CLAIR, CLAIR, CLAIR_SOUTENU, NOIR, SOMBRE, SOMBRE_PROFOND } 
  *    +25%, « 50k téléchargements », « 4.7/5 » — et un témoignage attribué à une
  *    personne NOMMÉE chez un client RÉEL, illustré par une photo de banque
  *    d'images. Rien de tout cela n'est sourcé.
- *    Seuls chiffres autorisés ici : « depuis 2004 » et « 145 films », ce dernier
- *    étant le nombre de lignes de realisations_final_updatedgiz.csv, donc
- *    vérifiable. Tout autre chiffre doit venir du client, par écrit.
+ *    Seul chiffre autorisé ici : « depuis 2004 ».
+ *    ⛔ « 145 films » A ÉTÉ RETIRÉ le 02/08/2026, sur correction de Giz, pour
+ *    DEUX raisons distinctes et toutes deux importantes :
+ *      · le compte est FAUX — 145 est le nombre de lignes du CSV du portfolio,
+ *        c'est-à-dire de réalisations MISES EN LIGNE, pas de films produits.
+ *        Bluevista en a fait bien davantage. Je l'avais présenté comme
+ *        « vérifiable » : il l'était comme volume de portfolio, pas comme
+ *        volume de production. Une source mal étiquetée reste une erreur.
+ *      · et surtout, compter des FILMS positionne une maison de production.
+ *        Bluevista se repositionne en agence de communication, d'événementiel
+ *        et d'immersion : un compteur de films tire dans l'autre sens.
+ *    Tout chiffre doit venir d'une source qui mesure ce qu'elle prétend
+ *    mesurer, et servir le positionnement — pas seulement être exact.
  */
 
 /**
@@ -207,7 +217,7 @@ export default function V5() {
         <div className="mx-auto grid max-w-[1500px] gap-10 px-8 py-14 sm:grid-cols-3">
           {[
             ["Depuis 2004", "à concevoir et produire"],
-            ["145", "films livrés"],
+            ["4 pôles", "vidéo · son · infographie · développement"],
             ["Lyon · Paris · Genève", "trois implantations"],
           ].map(([gros, petit]) => (
             <div key={gros}>
@@ -475,16 +485,19 @@ export default function V5() {
       </section>
 
       {/* ⑨ CLAIR — aperçu des réalisations ───────────────────────────────
-          Manquait à la home : trois cas clients en preuve, c'est peu quand on
-          a 145 réalisations. Cette section ouvre le portfolio, qui est le plus
-          gros actif de contenu du site — et celui qui portera le référencement.
+          Manquait à la home : trois cas clients en preuve, c'est peu. Cette
+          section ouvre le portfolio, qui est le plus gros actif de contenu du
+          site et celui qui portera le référencement.
+
+          ⛔ Pas de décompte de films dans le titre : compter des films
+          positionne une maison de production, pas une agence multi-services.
       */}
       <section className="mx-auto max-w-[1500px] px-8 py-28">
         <div className="flex flex-wrap items-end justify-between gap-6">
           <div>
             <SurTitre>Nos réalisations</SurTitre>
             <h2 className="text-[clamp(2.4rem,5.4vw,4.5rem)] font-bold leading-[1.02] tracking-[-0.02em]">
-              145 films, et le vôtre.
+              Ce qu’on a fait pour eux.
             </h2>
           </div>
           <a
