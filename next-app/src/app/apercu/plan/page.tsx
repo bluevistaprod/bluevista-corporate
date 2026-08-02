@@ -1,5 +1,6 @@
 import { EnTete } from "../_EnTete";
 import { COMPETENCES, METIERS, PAGES_FIXES, VILLES, competencesDuMetier } from "../_plan-du-site";
+import { REALISATIONS } from "../_realisations";
 import { BLEU, CLAIR, CLAIR_SOUTENU, SOMBRE, TYPO } from "../_palette";
 
 /**
@@ -145,12 +146,44 @@ export default function PlanDeLaMaquette() {
             ))}
         </div>
 
+        {/* ── Les réalisations ─────────────────────────────────────────── */}
+        <h2 className="mt-16 text-[1.35rem] font-bold tracking-tight">
+          Les réalisations{" "}
+          <span className="font-normal opacity-45">
+            — 140 pages sur l’ancien site, le plus gros actif de contenu
+          </span>
+        </h2>
+        <div className="mt-4">
+          <Ligne
+            href="/apercu/realisations"
+            nom="Index filtrable"
+            detail="/nos-realisations/"
+            clics={15}
+            etat="structure"
+          />
+          {REALISATIONS.slice(0, 5).map(r => (
+            <Ligne
+              key={r.slug}
+              href={`/apercu/realisations/${r.slug}`}
+              nom={r.client}
+              detail={r.ancienneUrl}
+              clics={r.clics}
+              etat="contenu-manquant"
+            />
+          ))}
+          <Ligne
+            href="/apercu/realisations"
+            nom={`… et ${REALISATIONS.length - 5} autres dans l’index`}
+            etat="contenu-manquant"
+          />
+        </div>
+
         {/* ── Ce qui reste ─────────────────────────────────────────────── */}
         <h2 className="mt-16 text-[1.35rem] font-bold tracking-tight">
           Pas encore construites
         </h2>
         <div className="mt-4">
-          {PAGES_FIXES.filter(p => p.slug !== "contact").map(p => (
+          {PAGES_FIXES.filter(p => p.slug !== "contact" && p.slug !== "realisations").map(p => (
             <Ligne
               key={p.slug}
               href="#"
@@ -160,12 +193,6 @@ export default function PlanDeLaMaquette() {
               etat="a-faire"
             />
           ))}
-          <Ligne
-            href="#"
-            nom="Réalisation — gabarit de détail"
-            detail="≈ 145 pages, le plus gros actif de contenu"
-            etat="a-faire"
-          />
         </div>
       </section>
 

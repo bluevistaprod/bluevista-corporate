@@ -4,6 +4,7 @@ import { MethodeEnCercle } from "../../_Methode";
 import { BLEU, BLEU_CLAIR, CLAIR, CLAIR_SOUTENU, NOIR, SOMBRE, TYPO } from "../../_palette";
 import { COMPETENCES, type Metier as CleMetier } from "../../_plan-du-site";
 import { offresDuMetier } from "../../_offres";
+import { REALISATIONS } from "../../_realisations";
 
 /**
  * LES TROIS PAGES MÉTIER — créées le 02/08/2026 sur décision de Giz.
@@ -200,58 +201,91 @@ export default async function PageMetier({
         </div>
       </section>
 
-      {/* ④ CE QU'ON PRODUIT — volontairement APRÈS la méthode.
-             Giz : « peut-être passer ces produits plus bas dans la page ».
-             À cet endroit, le visiteur a lu le bénéfice puis la façon de
-             travailler : la liste ne se lit plus comme un catalogue mais
-             comme une réponse à « concrètement, ça donne quoi ? ».
+      {/* ④ CE QU'ON PRODUIT — après la méthode, et cette fois EN IMAGES.
+             ⛔ Correction de Giz : « on a relégué les produits en bas de page
+             mais ils ne sont plus visuels et n'ont plus de lien ». C'était
+             juste, et c'était une régression — en descendant la section je
+             l'avais réduite à trois colonnes de texte gris.
 
-             Compact par construction — trois colonnes, pas de vignettes, pas
-             de descriptions. Les produits qui ont une page de référencement
-             derrière eux sont des liens ; les autres restent du texte. C'est
-             ce qui raccroche les nouvelles offres aux anciennes URL sans
-             faire doublon. */}
+             Chaque offre reprend donc son image, et CHAQUE PRODUIT EST UN
+             LIEN vers les réalisations qui l'illustrent. Ce n'est pas
+             cosmétique : ça referme la boucle entre ce qu'on annonce et ce
+             qu'on peut montrer. Un produit dont le filtre renvoie zéro projet
+             est un produit qu'il faut aller produire — ou retirer d'ici. */}
       <section className="mx-auto max-w-[1500px] px-8 py-28">
         <div className={`mb-7 flex items-center gap-4 ${TYPO.surTitre}`} style={{ color: BLEU }}>
           <span className="inline-block h-[3px] w-12 rounded-full" style={{ background: BLEU }} />
           Concrètement
         </div>
         <h2 className={`max-w-3xl ${TYPO.titre}`}>Ce qu’on produit</h2>
+        <p className={`mt-6 max-w-2xl ${TYPO.chapo}`}>
+          Chaque ligne mène aux projets qui l’illustrent.
+        </p>
 
-        <div className="mt-14 grid gap-x-12 gap-y-14 md:grid-cols-2 lg:grid-cols-3">
+        <div className="mt-14 grid gap-8 md:grid-cols-2 lg:grid-cols-3">
           {offresDuMetier(c.cleMetier).map(o => {
             const pages = o.competences
               .map(slug => COMPETENCES.find(x => x.slug === slug))
               .filter((x): x is NonNullable<typeof x> => Boolean(x));
             return (
-              <div key={o.id}>
-                <div className={TYPO.sousTitre}>{o.nom}</div>
-                <ul className="mt-5 space-y-2.5">
-                  {o.produits.map(pr => (
-                    <li key={pr} className="text-[1.0625rem] leading-snug opacity-75">
-                      {pr}
-                    </li>
-                  ))}
-                </ul>
-                {pages.length > 0 && (
-                  <div className="mt-6 border-t pt-5" style={{ borderColor: "rgba(0,0,0,.1)" }}>
-                    <div className="text-[12px] font-bold uppercase tracking-[0.14em] opacity-40">
-                      En savoir plus
+              <div
+                key={o.id}
+                className="overflow-hidden rounded-md border"
+                style={{ borderColor: "rgba(0,0,0,.1)", background: "#fff" }}
+              >
+                <div
+                  className="aspect-[16/9] bg-cover bg-center"
+                  style={{ backgroundImage: `url('${o.image}')` }}
+                  role="img"
+                  aria-label={o.nom}
+                />
+                <div className="p-7">
+                  <div className={TYPO.sousTitre}>{o.nom}</div>
+
+                  <ul className="mt-5 space-y-0.5">
+                    {o.produits.map(pr => {
+                      const n = REALISATIONS.filter(x => x.produit === pr.slug).length;
+                      return (
+                        <li key={pr.slug}>
+                          <a
+                            href={`/apercu/realisations?produit=${pr.slug}`}
+                            className="flex items-baseline justify-between gap-3 rounded-sm py-1.5 transition hover:bg-black/[.04]"
+                          >
+                            <span className="text-[1.0625rem] font-medium">{pr.nom}</span>
+                            {/* Le compteur n'est pas décoratif : un zéro se
+                                voit, et c'est le but. */}
+                            <span
+                              className="shrink-0 text-[13px] tabular-nums"
+                              style={{ color: n > 0 ? BLEU : "rgba(0,0,0,.25)" }}
+                            >
+                              {n > 0 ? `${n} projet${n > 1 ? "s" : ""}` : "—"}
+                            </span>
+                          </a>
+                        </li>
+                      );
+                    })}
+                  </ul>
+
+                  {pages.length > 0 && (
+                    <div className="mt-6 border-t pt-5" style={{ borderColor: "rgba(0,0,0,.1)" }}>
+                      <div className="text-[12px] font-bold uppercase tracking-[0.14em] opacity-40">
+                        La page savoir-faire
+                      </div>
+                      <div className="mt-2.5 flex flex-col gap-1.5">
+                        {pages.map(pg => (
+                          <a
+                            key={pg.slug}
+                            href={`/apercu/competence/${pg.slug}`}
+                            className="text-[15px] font-semibold underline decoration-2 underline-offset-4 transition hover:opacity-70"
+                            style={{ color: BLEU }}
+                          >
+                            {pg.nom} →
+                          </a>
+                        ))}
+                      </div>
                     </div>
-                    <div className="mt-2.5 flex flex-col gap-1.5">
-                      {pages.map(pg => (
-                        <a
-                          key={pg.slug}
-                          href={`/apercu/competence/${pg.slug}`}
-                          className="text-[15px] font-semibold underline decoration-2 underline-offset-4 transition hover:opacity-70"
-                          style={{ color: BLEU }}
-                        >
-                          {pg.nom}
-                        </a>
-                      ))}
-                    </div>
-                  </div>
-                )}
+                  )}
+                </div>
               </div>
             );
           })}
