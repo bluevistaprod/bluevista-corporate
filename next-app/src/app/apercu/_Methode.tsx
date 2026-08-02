@@ -85,9 +85,31 @@ const ETAPES: Etape[] = [
   },
 ];
 
-export function MethodeEnCercle() {
+/**
+ * LE JEU D'IMAGES DE CALAGE — V7, passe Pexels du 02/08/2026.
+ *
+ * Les six étapes réutilisaient jusqu'ici quatre photos empruntées à d'autres
+ * sections : la roue tournait, l'illustration ne changeait pas vraiment.
+ * Chaque étape a maintenant son image propre, choisie sur planche contact.
+ *
+ * ⛔ Images de banque, provisoires par construction. Le raisonnement de
+ * chaque choix est consigné dans public/media/provenance-pexels.json — c'est
+ * ce qui permettra de chercher la bonne vraie photo, et pas seulement « une
+ * photo qui remplace ».
+ */
+const PHOTOS_PEXELS = [
+  "/media/px-methode-1.jpg",
+  "/media/px-methode-2.jpg",
+  "/media/coulisses-grue.jpg", // ✅ la seule vraie photo Bluevista de la série
+  "/media/px-methode-4.jpg",
+  "/media/px-methode-5.jpg",
+  "/media/px-methode-6.jpg",
+];
+
+export function MethodeEnCercle({ jeu = "actuel" }: { jeu?: "actuel" | "pexels" }) {
   const [actif, setActif] = useState(0);
   const e = ETAPES[actif];
+  const photo = jeu === "pexels" ? PHOTOS_PEXELS[actif] : e.photo;
   const R = 42; // rayon en pourcentage du conteneur
 
   return (
@@ -168,7 +190,7 @@ export function MethodeEnCercle() {
           role="img"
           aria-label={`Illustration de l’étape ${e.titre}`}
           className="mt-8 aspect-[16/10] rounded-md bg-cover bg-center"
-          style={{ backgroundImage: `url('${e.photo}')` }}
+          style={{ backgroundImage: `url('${photo}')` }}
         />
 
         <p className="mt-7 leading-relaxed opacity-70">{e.detail}</p>

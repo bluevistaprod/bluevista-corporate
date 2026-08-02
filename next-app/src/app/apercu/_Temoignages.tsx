@@ -81,9 +81,18 @@ const TEMOIGNAGES: Temoignage[] = [
   },
 ];
 
-export function Temoignages() {
+/** Portraits de calage — V7. Trois profils visiblement différents, chacun
+ *  dans un lieu réel plutôt que sur fond de studio uni. */
+const POSTERS_PEXELS = [
+  "/media/px-temoignage-1.jpg",
+  "/media/px-temoignage-2.jpg",
+  "/media/px-temoignage-3.jpg",
+];
+
+export function Temoignages({ jeu = "actuel" }: { jeu?: "actuel" | "pexels" }) {
   const [i, setI] = useState(0);
   const t = TEMOIGNAGES[i];
+  const poster = jeu === "pexels" ? POSTERS_PEXELS[i] : t.poster;
 
   return (
     <div>
@@ -105,7 +114,7 @@ export function Temoignages() {
         <button
           type="button"
           className="group relative aspect-[4/5] w-full overflow-hidden rounded-md bg-cover bg-center"
-          style={{ backgroundImage: `url('${t.poster}')` }}
+          style={{ backgroundImage: `url('${poster}')` }}
           aria-label={`Lire le témoignage de ${t.auteur}`}
         >
           <span

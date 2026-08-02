@@ -13,7 +13,7 @@ export const REFERENCES = [
   { nom: "SSP", image: "/media/ref-ssp.jpg", legende: "Présentation globale · 4K" },
 ];
 
-export function BarreAperçu({ actif }: { actif: 1 | 2 | 3 | 4 | 5 | 6 }) {
+export function BarreAperçu({ actif }: { actif: 1 | 2 | 3 | 4 | 5 | 6 | 7 }) {
   const versions = [
     { n: 1, nom: "Éditoriale" },
     { n: 2, nom: "Immersive" },
@@ -21,6 +21,7 @@ export function BarreAperçu({ actif }: { actif: 1 | 2 | 3 | 4 | 5 | 6 }) {
     { n: 4, nom: "tes textes" },
     { n: 5, nom: "clair/sombre" },
     { n: 6, nom: "V6" },
+    { n: 7, nom: "images" },
   ];
   return (
     <div className="fixed bottom-4 left-1/2 z-50 -translate-x-1/2 rounded-full bg-black/85 px-2 py-2 text-sm text-white shadow-2xl backdrop-blur">
