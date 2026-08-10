@@ -94,20 +94,35 @@ const SEGMENTS: Record<Genre, Record<Version, string>> = {
     fr: "offres", en: "what-we-do", es: "que-hacemos",
     "fr-ch": "offres", "en-ch": "what-we-do",
   },
-  /* ⛔ PAS DE PAGES DE VILLE EN ANGLAIS NI EN ESPAGNOL — décision de Giz,
-     10/08/2026. Les segments restent déclarés pour que le type tienne, mais
-     aucun document ne sera publié dans ces langues : la règle « moins de deux
-     versions publiées → aucune déclaration » retire donc le hreflang toute
-     seule. Rien à coder pour ça.
+  /* ⛔⛔ LES PAGES DE VILLE N'ONT AUCUN SEGMENT — elles vivent à la RACINE.
+     `/studio-animation-3d-lyon/`, pas `/agence/studio-animation-3d-lyon/`.
 
-     👉 La raison est mesurée : sur dix agences anglophones du secteur, ZÉRO
-     n'a de page de ville. Ce n'est pas un oubli de leur part, c'est une
-     stratégie de référencement local FRANÇAISE que le marché anglo-saxon ne
-     pratique pas — « studio animation 3d lyon » n'a pas d'équivalent
-     anglophone. Les traduire aurait produit quatre pages faibles. */
+     ⚠️ J'avais d'abord écrit `agence` ici, par symétrie avec les trois autres
+     familles. C'était une double faute : le hreflang aurait pointé vers une
+     adresse INEXISTANTE — donc ignorée par Google pour tout le groupe — et
+     `agence` est déjà l'adresse de la page « L'agence », qui est une page
+     fixe et non une ville. Deux choses différentes sous le même mot.
+
+     👉 La raison de la racine n'est pas esthétique : ces quatre adresses se
+     positionnent depuis des années (`/studio-animation-3d-lyon/` fait 159
+     clics/an) et la règle du chantier est de les CONSERVER telles quelles.
+
+     ⛔ PAS DE PAGES DE VILLE EN ANGLAIS NI EN ESPAGNOL — décision de Giz,
+     10/08/2026, et elle est mesurée : sur dix agences anglophones du secteur,
+     ZÉRO n'a de page de ville. Ce n'est pas un oubli de leur part, c'est une
+     stratégie de référencement local FRANÇAISE que ce marché ne pratique pas
+     — « studio animation 3d lyon » n'a pas d'équivalent anglophone. Les
+     traduire aurait produit quatre pages faibles.
+     📌 Rien à coder pour ça : aucun document ne sera publié dans ces langues,
+     et la règle « moins de deux versions publiées → aucune déclaration »
+     retire le hreflang toute seule.
+
+     ⚠️ NE PAS CONFONDRE avec la page « L'agence » (`/agence/`), qui est une
+     page FIXE et existera bien en anglais et en espagnol : toutes les agences
+     ont un « about », quelle que soit la langue. */
   ville: {
-    fr: "agence", en: "offices", es: "oficinas",
-    "fr-ch": "agence", "en-ch": "offices",
+    fr: "", en: "", es: "",
+    "fr-ch": "", "en-ch": "",
   },
 };
 
@@ -157,10 +172,13 @@ export async function alternatives(id: string, genre: Genre): Promise<Alternativ
   return versions.map(v => ({
     version: v.language,
     code: CODES[v.language],
+    /* ⚠️ Le segment peut être VIDE (pages de ville, à la racine) : on le
+       compose donc conditionnellement, sinon on produit `//slug`. */
     url:
       DOMAINES[v.language] +
       PREFIXE[v.language] +
-      `/${SEGMENTS[genre][v.language]}/${v.slug}`,
+      (SEGMENTS[genre][v.language] ? `/${SEGMENTS[genre][v.language]}` : "") +
+      `/${v.slug}`,
   }));
 }
 
