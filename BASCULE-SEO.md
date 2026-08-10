@@ -199,6 +199,57 @@ on saura si le nouveau registre fait gagner des clics — ce qu'aucun raisonneme
 
 ---
 
+## ⭐⭐ Le garde-fou de longueur était FAUX — on compte les mots PROPRES
+
+`[révisé le 10/08/2026, après le tri du texte non migré]`
+
+**L'ancienne règle**, tirée de la chute du 25/07 : *« une page sous 200 mots est fragile, viser
+600 à 900 »*. Elle reposait sur quatre points et une corrélation. **Le tri l'a démentie.**
+
+| page | mots EN LIGNE | position | clics/an |
+|---|---|---|---|
+| `motion-design` | **1 120** | **61,7** | 14 |
+| `realisation-film-entreprise-lyon` | **1 095** | 32,4 | 14 |
+| `aftermovie-captation` | 824 | 21,3 | 10 |
+| `live-streaming-webtv` | 853 | **10,2** | **85** |
+| `video-mapping` | 700 | 18,6 | **97** |
+
+👉 `motion-design` fait **1 120 mots et se classe 61ᵉ**. `live-streaming` en fait 853 et se classe
+**10ᵉ**. À longueur comparable, six fois mieux. **La longueur n'explique rien.**
+
+### Ce qui les sépare
+
+Le texte de `motion-design`, `aftermovie` et `realisation-film-entreprise-lyon` est fait de
+conseils génériques sur la durée et le style d'une vidéo — et **le même passage se retrouve mot
+pour mot sur deux pages**, avec trois mots échangés (*« vidéo d'entreprise »* → *« film
+événementiel »*). Du contenu quasi dupliqué **à l'intérieur du site** : deux pages qui se
+partagent l'autorité au lieu de l'additionner.
+
+Le texte de `live-streaming` et `video-mapping` est fait de **projets nommés et de détails
+techniques** qui n'existent nulle part ailleurs.
+
+### ✅ LA RÈGLE RÉVISÉE
+
+**On ne compte pas les mots. On compte les mots PROPRES** — ceux qui ne pourraient figurer ni sur
+une autre page du site, ni sur le site suisse, ni sur celui d'un concurrent.
+
+**Le seuil : 300 à 400 mots propres.** C'est à peu près ce que portent les deux pages qui rangent,
+une fois le remplissage retiré.
+
+⭐ **Le test, et il se pose paragraphe par paragraphe :**
+> *« Ce paragraphe pourrait-il figurer tel quel sur une autre de nos pages ? »*
+> Si oui, **il ne compte pas** — et il vaut mieux le supprimer que le garder.
+
+C'est le frère jumeau du test du registre — *« une autre agence pourrait-elle signer ce
+paragraphe ? »* — appliqué cette fois à la duplication **interne**.
+
+⚠️ **Ce que ça corrige dans la lecture du 25/07** : Paris et live streaming n'ont pas décroché
+parce qu'elles étaient COURTES, mais parce qu'elles étaient courtes **et génériques**. Lyon et
+mapping ont tenu parce qu'elles portaient du spécifique. Allonger avec du remplissage n'aurait
+rien sauvé — `motion-design` en est la preuve, à 1 120 mots et 61ᵉ.
+
+---
+
 ## 7. Ce qui reste à trancher
 
 - ⏳ **Les références clients** (ONU, UNICEF, BBC, NHK, EDF, Vinci…) — le bloc est en place mais
