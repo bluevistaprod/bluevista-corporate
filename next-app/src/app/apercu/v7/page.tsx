@@ -128,9 +128,14 @@ const PILIERS = [
     metier: "immersion" as const,
     nom: "Immersion",
     accroche: "Faites essayer ce qu’on ne peut pas encore toucher",
+    /* ⛔ CORRIGÉ le 10/08/2026. Ces deux textes recopiaient mot pour mot
+       l'offre VR/AR — « des expériences VR et AR » et « à des milliers de
+       kilomètres ». C'était FAUX pour la salle immersive, qui est précisément
+       chez le client. Une accroche de pilier doit valoir pour ses trois
+       offres, sinon le pilier ment sur deux tiers de son contenu. */
     promesse:
-      "Des expériences VR et AR conçues à partir de ce que le visiteur doit comprendre, pas à partir du matériel disponible.",
-    issue: "Vos prospects essaient avant d’acheter, même à des milliers de kilomètres.",
+      "Des expériences conçues à partir de ce que le visiteur doit comprendre, pas à partir du matériel disponible — dans un casque, dans une salle ou depuis un navigateur.",
+    issue: "Vos prospects essaient avant d’acheter, chez vous comme à l’autre bout du monde.",
     cta: "Voir nos projets immersifs",
     image: "/media/px-pilier-immersion.jpg",
   },
@@ -246,7 +251,10 @@ const DIFFERENCE = [
     */
     titre: "Plus le projet est complexe, plus il est pour nous",
     texte:
-      "Un film, un mapping, une application VR et le dispositif qui les relie — dans la même équipe, sous le même budget, avec un seul interlocuteur. Les projets qui obligeraient à coordonner quatre prestataires sont exactement ceux qu’on prend en entier.",
+      /* ⛔ « dans la même équipe » a été retiré : ça laisse déduire une petite
+         structure (règle 3 du registre). Remplacé par un bénéfice client —
+         l'énumération par trois est conservée. */
+      "Un film, un mapping, une application VR et le dispositif qui les relie — sous le même budget, avec un seul interlocuteur, et sans coordination à votre charge. Les projets qui obligeraient à coordonner quatre prestataires sont exactement ceux qu’on prend en entier.",
   },
   {
     titre: "Le même métier depuis 2004, et quatre pôles internes",
@@ -364,16 +372,15 @@ export default function V7() {
             className="apparition-hero max-w-[19ch] text-[clamp(2.6rem,7vw,6rem)] font-bold leading-[0.95] tracking-[-0.02em]"
             style={{ "--retard": "1100ms" } as React.CSSProperties}
           >
-            Un film, un événement, une expérience immersive :{" "}
-            <span style={{ color: BLEU_CLAIR }}>la même méthode</span>, du
-            concept à la diffusion
+            On conçoit, on fabrique,{" "}
+            <span style={{ color: BLEU_CLAIR }}>on diffuse</span>.
           </h1>
           <p
             className="apparition-hero mt-8 max-w-2xl text-xl leading-relaxed text-white/85"
             style={{ "--retard": "1400ms" } as React.CSSProperties}
           >
-            Agence vidéo, événementiel et immersion, à Lyon et à Paris.
-            Depuis 2004.
+            Agence vidéo, événementiel et immersion. Lyon, Paris et Genève,
+            depuis 2004.
           </p>
           <div
             className="apparition-hero mt-11 flex flex-wrap items-center gap-4"
@@ -418,7 +425,16 @@ export default function V7() {
           {[
             ["Depuis 2004", "à concevoir et produire"],
             ["4 pôles", "vidéo · son · infographie · développement"],
-            ["145 réalisations", "livrées"],
+            /* ⛔ LES TROIS VILLES RESTENT — arbitrage de Giz, 10/08/2026 :
+               « sur le site FR on parle bien de Lyon, Paris et Genève ».
+               J'avais retiré Genève d'ici de ma propre initiative, en
+               sur-appliquant une règle qui ne porte QUE sur les balises.
+               ⚠️ LA FRONTIÈRE EST EXACTE : « Genève » n'entre ni dans un
+               <title> ni dans un H1 de page FR — c'est là que se joue la fuite
+               mesurée (236 impressions suisses pour zéro clic sur /agence/).
+               Dans le CORPS de page, c'est un arbitrage commercial, et il est
+               tranché : on cite les trois villes. */
+            ["Lyon · Paris · Genève", "trois implantations"],
           ].map(([gros, petit]) => (
             <div key={gros}>
               <div className="text-[2rem] font-bold leading-none tracking-tight">{gros}</div>

@@ -119,7 +119,7 @@ export function PiedDePage() {
               style={{ marginTop: 16, maxWidth: "34ch" }}
             >
               Agence de communication &amp; marketing, d’événementiel et
-              d’immersion. Toute la chaîne de production en interne,
+              d’immersion. L’essentiel de la production en interne,
               depuis&nbsp;2004.
             </p>
           </div>
