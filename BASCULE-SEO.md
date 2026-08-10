@@ -146,6 +146,59 @@ en dix minutes : zéro page modifiée entre le 15 et le 31 juillet, donc cause e
 
 ---
 
+## ⭐⭐ Réécrire ou conserver : la règle, et l'erreur qu'elle corrige
+
+`[10/08/2026, mesuré sur la photo]`
+
+**L'erreur que j'ai commise** : traiter « la page qui fait le plus de clics » comme « la page la
+plus fragile ». J'avais donc recommandé de garder l'ancien texte de l'accueil à la bascule — ce
+qui revenait à livrer un site neuf avec l'ancien message. Giz l'a relevé : *« l'ancien accueil
+n'a pas le nouveau message… je ne comprends pas »*. Il avait raison.
+
+⭐ **LA VRAIE RÈGLE : la fragilité d'une page n'est pas son volume de trafic, c'est la PART de ce
+trafic qui dépend de ce qu'on s'apprête à modifier.**
+
+**La mesure qui tranche** — l'accueil fait 785 clics, dont **481 sur « bluevista » : 95 % de
+requêtes de marque.** On est premier sur son propre nom quel que soit le texte de la page. Hors
+marque il reste **25 clics**, dont 5 sur « agence vidéo » (que le nouveau texte vise précisément,
+là où l'ancien ne la portait nulle part) et une quinzaine sur des requêtes **genevoises**, qu'on
+cède volontairement au site suisse. Exposition réelle : **≈ 5 clics par an.**
+
+### Ce qui en découle
+
+| | pages | à la bascule |
+|---|---|---|
+| **Trafic de MARQUE** — le texte ne le porte pas | `/` (95 % marque) · `/agence/` (100 %) | ✅ **Nouveau message, tout de suite** |
+| **Trafic de SERVICE** — le texte porte le classement | `studio-animation-3d-lyon` · `video-mapping` · `live-streaming-webtv` · `studio-animation-3d-paris` · la réalisation Engie | ⚠️ On AJOUTE, on ne remplace pas. Réécriture après, une par une |
+| **Zéro clic** — 152 URL sur 239 | tout le reste | ✅ Réécriture totale, aucun risque |
+
+⭐ **Et le conflit apparent n'existe pas** : les pages qui portent le POSITIONNEMENT sont
+exactement celles dont le trafic ne dépend pas de leur texte ; les pages dont le trafic dépend de
+leur texte sont exactement celles qui ne portent pas le positionnement. Le nouveau message vit sur
+l'accueil, la page agence et les trois pages métier — toutes libres.
+
+### ⛔ La distinction qui rend tout praticable
+
+**AJOUTER du texte** ≠ **REMPLACER du texte.** Ajouter enrichit sans déplacer ce qui range : c'est
+libre, partout, tout de suite. Seul le remplacement se dose.
+
+### Pourquoi on garde un témoin
+
+Le 4 septembre, tout change en même temps — adresses, gabarits, CMS, maillage, hreflang. Si le
+texte des pages de service changeait aussi et que le trafic baissait, **on ne saurait pas
+pourquoi**. Les cinq pages de service tiennent lieu de groupe témoin.
+
+### Le calendrier de reprise, après la bascule
+
+Une page à la fois, espacées de deux à trois semaines, en mesurant chacune :
+`video-mapping` (~25 sept) · `live-streaming-webtv` (~15 oct) · `studio-animation-3d-lyon`
+(~5 nov) · `studio-animation-3d-paris` (~25 nov) · la réalisation Engie (~déc).
+
+⭐ L'avantage dépasse la prudence : **chaque réécriture devient une expérience.** Au bout de trois,
+on saura si le nouveau registre fait gagner des clics — ce qu'aucun raisonnement ne dit à l'avance.
+
+---
+
 ## 7. Ce qui reste à trancher
 
 - ⏳ **Les références clients** (ONU, UNICEF, BBC, NHK, EDF, Vinci…) — le bloc est en place mais
