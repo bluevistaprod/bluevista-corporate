@@ -1,0 +1,159 @@
+# La bascule — tout ce qu'on a découvert, et qui doit être exécuté ce jour-là
+
+> **Règle posée par Giz le 10/08/2026 : on ne touche plus à l'ancien site.**
+> Tout ce qu'on découvre de meilleur se consigne ICI et s'applique à la bascule.
+> *« Garder un max de SEO est primordial. »*
+>
+> ⛔ Ce document n'est pas un compte rendu, c'est une **liste à exécuter**. Une découverte
+> qui n'y figure pas sera perdue : entre aujourd'hui et la bascule, personne ne se souviendra
+> d'un raisonnement tenu en août.
+
+---
+
+## ⏳ À FAIRE AVANT LA BASCULE — la seule chose vraiment urgente
+
+⛔⛔ **Extraire la photo Search Console AVANT de basculer. Elle ne se rattrape pas.**
+
+Search Console ne conserve que **16 mois**. Le jour où le trafic s'effondre après une bascule,
+la première question est « c'était combien avant ? » — et si la photo n'a pas été prise, on ne
+peut plus rien démontrer ni rien corriger.
+
+**Ce qu'il faut sortir, par propriété** (`www.bluevistaprod.com`, `en.bluevistaprod.com`,
+`sc-domain:bluevista.ch`), sur 12 mois glissants :
+- pages × clics × impressions × position
+- requêtes × clics × impressions × position
+- le croisement page × requête pour les 30 URL qui font 90 % du trafic
+- la répartition par pays (c'est elle qui a révélé les 675 impressions suisses sur la page Genève)
+
+📌 Le MCP `gsc` maison répond sur les cinq propriétés en `siteOwner`.
+
+---
+
+## 1. Les redirections — ce que le plan porte déjà, et les deux exceptions
+
+`PLAN-REDIRECTIONS.csv` — 751 lignes. Deux points appris à la dure :
+
+⭐ **La page Genève française part vers le site suisse.** `/realisation-video-geneve/` →
+`https://www.bluevista.ch/realisation-video-geneve/`, en **301 page à page**.
+- ⛔ **JAMAIS vers l'accueil de bluevista.ch** : une 301 vers une page d'accueil est traitée
+  comme une erreur douce et **ne transfère rien**.
+- ⚠️ **C'est une exception assumée** à la règle « aucun lien vers bluevista.ch ». Cette règle
+  protège les prospects *français* ; ici les visiteurs sont suisses par leur requête même.
+  L'exception doit rester écrite, sinon quelqu'un « corrigera » la ligne un jour.
+
+⚠️ **Ne pas traiter les 602 URL à zéro clic avec le même soin que les 30 qui portent 90 % du
+trafic.** Une page déjà exclue de l'index n'a pas besoin d'une redirection travaillée.
+
+⚠️ **Alerte d'indexation du 08/08/2026 sur `en.bluevistaprod.com`** (262 URL au sitemap) : sortir
+les raisons de non-indexation par propriété **au moment du plan**, pas avant. Une page déjà
+désindexée se redirige différemment.
+
+---
+
+## 2. ⛔⛔ Le site suisse est un CLONE, slug pour slug — c'est le plus gros sujet
+
+**Une quinzaine de paires identiques** entre `bluevistaprod.com` et `bluevista.ch` :
+`/realisation-video-geneve/` · `/agence/` · `/contact-devis/` · `/nos-realisations/` ·
+`/actualites/` · `/mentions-legales/` · `/bluevista-agence-metaverse/` · et **les neuf
+`/nos-competences/…`**. Structurel : un seul WordPress avec WPML.
+
+**Mesuré sur la paire Genève** : recouvrement des textes **98 %**, même `<title>`, même `H1`,
+même adresse relative. Résultat : les deux pages enterrées, à 45 et 55.
+
+### ⭐ La leçon qui commande tout le reste : le hreflang SÉLECTIONNE, il ne CONSOLIDE PAS
+
+Le hreflang de ces pages est **correct et réciproque** — et elles sont quand même enterrées.
+Une déclaration dit à Google *laquelle montrer à qui* ; elle **ne fusionne pas les signaux de
+classement**. Deux pages quasi identiques restent deux pages faibles qui se partagent l'autorité
+au lieu de l'additionner.
+
+👉 **Différencier le contenu suisse n'est pas un choix de marque, c'est LE correctif SEO.**
+Ça rejoint exactement ce que Giz voulait déjà : *« en Suisse on dit qu'on est suisse only, on ne
+montre pas tous les projets, on a un langage différent »*.
+
+---
+
+## 3. Ce qui a déjà été fait sur l'ancien site, et qu'il faut REPORTER
+
+⚠️ Ces gestes sont en production aujourd'hui. **Le nouveau site doit les reprendre, pas les
+redécouvrir.**
+
+**Les titres et méta-descriptions réécrits le 01/08/2026** — 16 pages FR, 6 CH, 1 EN. Motif :
+mot-clé et ville d'abord, marque à la fin, « depuis 2004 » dans la description.
+👉 **Avant la bascule, comparer ces titres à ceux écrits dans Sanity** : là où ils diffèrent,
+c'est un arbitrage à prendre en connaissance de cause, pas un écart à laisser passer.
+
+**Le texte de fond ajouté aux pages Paris et live streaming** (03/08, puis repassé au registre le
+10/08). Source unique : `next-app/scripts/textes-competences-villes.mjs`.
+
+**Les quatre liens sortants vers bluevista.ch retirés** (10/08) — trois étaient sur la page
+d'accueil. ⛔ Le nouveau site ne doit en recréer aucun.
+
+---
+
+## 4. Ce que le nouveau site apporte, et qu'il ne faut pas perdre en route
+
+- **`agence vidéo` dans le H1 et le `<title>` de l'accueil** — 7 845 impressions/an en position
+  22,9 pour 5 clics, la plus grosse visibilité non convertie du domaine. L'expression ne figurait
+  **nulle part** sur l'ancienne accueil.
+- **Les 13 pages compétence et ville nourries** — 3 652 mots ajoutés, toutes entre 480 et 945 mots
+  là où elles étaient à 97-519 avec toutes leurs sections vides.
+  📌 Rappel du 25/07 : les deux pages maigres ont perdu la moitié de leur classement, les deux
+  nourries n'ont pas bougé.
+- **Le maillage interne** — 4,3 liens entrants par fiche contre 1 avant, et 18 liens sortants via
+  `clientUrl`. ⚠️ La page Genève était **orpheline** : zéro lien entrant. C'est la classe de
+  défaut que le nouveau maillage supprime par construction.
+- **La cannibalisation `/actualites/` vs `/nos-realisations/`** — 39 paires de doublons, 11 907
+  impressions pour 39 clics, trois cas portant le **même slug** des deux côtés. Résolue par la
+  migration.
+- ⛔ **« Genève » ne va ni dans un `<title>` ni dans un `H1` de page FR.**
+
+---
+
+## 5. Les pièges vérifiés — ne pas les réapprendre
+
+⛔ **Ne jamais poser un `noindex` sur une page destinée à une 301.** Elle disparaîtrait sans
+transmettre son autorité, juste avant le geste censé la transmettre. C'est le pire des deux mondes.
+📌 Corollaire Yoast : **sortir une page du sitemap et la passer en `noindex` sont le même geste**
+(pas de réglage séparé). Le champ n'est de toute façon pas exposé à l'API REST — écriture acceptée
+puis ignorée. La seule voie propre est un filtre `wpseo_exclude_from_sitemap_by_post_ids` dans un
+mu-plugin, qui demande un accès fichier.
+
+⛔ **Le hreflang ne se déclare que sur du PUBLIÉ, et jamais s'il ne reste qu'une version.**
+Recalculé à chaque rendu depuis Sanity, donc dépublier retire la déclaration toute seule.
+Contrôle : `scripts/verifier-hreflang.mjs`. ⚠️ **Un hreflang cassé ne produit aucune erreur.**
+
+⛔ **La réciprocité du couple fr-FR / fr-CH n'est pas vérifiable tant que le nouveau
+bluevista.ch n'est pas en ligne.** Relancer le contrôle avec `BASE` pointant sur le site suisse
+le jour de sa mise en service — sans déclaration en retour, Google ignore le couple.
+
+⚠️ **Devant une chute de position, dater les modifications réelles AVANT de chercher une
+explication.** L'API REST de WordPress donne la date de modification de chaque page en une
+requête, là où la Search Console laisse spéculer des jours. C'est ce qui a clos le débat du 25/07
+en dix minutes : zéro page modifiée entre le 15 et le 31 juillet, donc cause externe.
+
+---
+
+## 6. Après la bascule — la surveillance
+
+- `gsc_compare` sur `page`, semaine par semaine, pendant six semaines. C'est l'outil qui montre
+  **quelles URL ont décroché**, une par une.
+- ⚠️ **Ne pas confondre une baisse de position moyenne avec une perte de classement.** Une page
+  qui se met à apparaître sur des requêtes nouvelles et lointaines voit sa moyenne s'effondrer
+  sans rien perdre. Le juge est la position **par requête**, pas la moyenne de la page.
+- ⚠️ **La saisonnalité se vérifie en année sur année, pas en mois sur mois.** Juin → juillet 2026
+  donnait −32 % ; juillet 2025 → juillet 2026 donnait des positions *meilleures*.
+
+---
+
+## 7. Ce qui reste à trancher
+
+- ⏳ **Les références clients** (ONU, UNICEF, BBC, NHK, EDF, Vinci…) — le bloc est en place mais
+  **volontairement vide**. Règle par défaut : « on demande ». Tâche Podio non tranchée.
+- ⏳ **Les segments d'URL traduits** (`realisations` → `works` / `proyectos`, etc.) — un segment se
+  référence, le changer plus tard coûte une redirection par page.
+- ⏳ **Le marché genevois ANGLOPHONE** — *corporate video production geneva* : 185 impressions,
+  **position 4**, zéro clic, sur une page française. Aucun des deux sites ne le sert. C'est un
+  chantier pour la version anglaise de bluevista.ch, pas une correction côté français.
+- ⏳ **Mentions légales et politique de confidentialité** — obligatoires, toujours absentes.
+  Bloquant pour une mise en ligne.

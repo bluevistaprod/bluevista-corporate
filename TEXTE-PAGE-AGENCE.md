@@ -76,9 +76,12 @@ photo où l'on peut compter les têtes. ⛔ **Aucune image IA** pour ce qui mont
 > Lyon et à Paris. Les outils ont changé, des premiers casques Oculus aux plateformes web 3D. La
 > première question n'a pas bougé : qu'est-ce que ce projet doit produire ?
 >
-> **145 réalisations** depuis.
+> **Plus de 2 000 projets** menés depuis.
 
-⛔ Seuls chiffres autorisés sur le site : **« depuis 2004 »** et **« 145 réalisations »**.
+⛔⛔ **« 145 réalisations » est retiré** `[Giz, 10/08/2026]` — ce chiffre comptait les **fiches
+publiées sur le WordPress**, pas la production. Comptage Podio : 1 489 projets actifs + 1 792
+archivés (les deux apps se recoupent), et Podio ne démarre qu'en 2014. **Plus de 2 000 depuis 2004
+est prudent.** Détail et réserves dans le cerveau → `metier/site-web.md`.
 
 ### Les convictions
 

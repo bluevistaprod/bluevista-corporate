@@ -132,10 +132,10 @@ export const COMPETENCES: Competence[] = [
       "Captation du résultat",
     ],
     texte: [
-      "Projeté sur un bâtiment, un vidéo mapping consiste à diffuser de la vidéo et de l’animation 2D ou 3D en tenant compte de l’architecture existante. Déformations du bâtiment ou création d’univers : il s’agit de créer un véritable spectacle visuel et immersif. Nous vous accompagnons de la création du storyboard jusqu’aux tests de projection sur maquette et à la diffusion.",
+      "Projeté sur un bâtiment, un vidéo mapping consiste à diffuser de la vidéo et de l’animation 2D ou 3D en tenant compte de l’architecture existante. Déformations du bâtiment ou création d’univers : il s’agit de créer un véritable spectacle visuel et immersif. Un mapping se teste sur maquette avant d’être projeté sur le bâtiment : c’est là qu’on voit si l’idée tient, pendant qu’il est encore temps de la changer.",
       "Bluevista, c’est des créations de vidéo mapping sur des événements majeurs. Que ce soit les 50 ans du fonds d’investissement du Koweït ou les Bocuse d’Or, nous sommes à même d’assurer tout type de projet. Des plus simples aux plus ambitieux, à Paris, à Lyon ou partout en France : confiez-nous votre architecture, et découvrez-la comme vous ne l’avez jamais vue.",
       "Notre travail ne se limite pas à concevoir et diffuser. Nous sommes régulièrement amenés à gérer plusieurs aspects d’un même événement — comme pour le Printemps de Lyon, où nous avons assuré à la fois la captation de l’événement, la réalisation du mapping et la captation de celui-ci, sans revoir aucune de ces prestations à la baisse.",
-      "Grâce aux jeux de lumière et aux animations 2D et 3D, transformez vos bâtiments en œuvre d’art. Que votre vidéo mapping soit à Paris, Lyon ou Genève, nous donnerons à votre événement toute la mesure qu’il mérite.",
+      "Grâce aux jeux de lumière et aux animations 2D et 3D, transformez vos bâtiments en œuvre d’art. Un vidéo mapping se conçoit pour un bâtiment précis : ses reliefs, ses ouvertures, l’endroit d’où le public le regarde. Deux façades ne reçoivent jamais la même projection.",
     ],
     image: "/media/px-mapping.jpg",
     ancienneUrl: "/nos-competences/video-mapping/",
@@ -216,7 +216,7 @@ export const COMPETENCES: Competence[] = [
       "Déclinaison en images fixes",
     ],
     texte: [
-      "Un studio d’animation 3D pour chaque étape de la production d’un film. De la modélisation au rendu photo-réaliste ou cartoon, en passant par l’animation, le texturing et l’éclairage : Bluevista dispose de toute la chaîne de production, avec ou sans intégration dans un environnement réel, à Paris, Lyon ou Genève.",
+      "Un studio d’animation 3D pour chaque étape de la production d’un film : modélisation, animation, éclairage, rendu — photo-réaliste ou stylisé, selon ce que le film doit produire. Chaque étape est tenue par quelqu’un qui sait ce que la suivante en attend, ce qui évite de refaire un objet parce qu’il n’était pas animable.",
       "Pour GF Machining Solutions, nous avons réalisé un film 3D complet présentant la DS Family, du storyboard jusqu’à la livraison. Avec l’ajout de prises de vues réelles, du compositing et de l’animation 2D, le film a su transmettre la qualité et la précision de la gamme.",
       "Pour ABB, nous avons réalisé un film 3D avec des personnages animés, pour présenter les composants de leurs disjoncteurs industriels de manière humoristique. Notre studio a marié la voix de nos comédiens aux mouvements labiaux des personnages.",
       "Depuis sa création en 2004, notre studio s’est toujours orienté vers les nouvelles technologies, et notamment la 3D. Tout a commencé avec 3DS Max, Maya et Cinema 4D — à une époque où il fallait s’armer de patience et travailler en fil de fer.",
