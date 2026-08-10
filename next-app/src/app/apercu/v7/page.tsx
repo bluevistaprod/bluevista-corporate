@@ -372,7 +372,7 @@ export default function V7() {
             className="apparition-hero max-w-[19ch] text-[clamp(2.6rem,7vw,6rem)] font-bold leading-[0.95] tracking-[-0.02em]"
             style={{ "--retard": "1100ms" } as React.CSSProperties}
           >
-            On conçoit, on fabrique,{" "}
+            On conçoit, on réalise,{" "}
             <span style={{ color: BLEU_CLAIR }}>on diffuse</span>.
           </h1>
           <p
@@ -424,7 +424,13 @@ export default function V7() {
         <div className="mx-auto grid max-w-[1500px] gap-10 px-8 py-14 sm:grid-cols-3">
           {[
             ["Depuis 2004", "à concevoir et produire"],
-            ["4 pôles", "vidéo · son · infographie · développement"],
+            /* ⛔ « 4 pôles » retiré du bandeau — arbitrage de Giz, 10/08/2026.
+               Un petit nombre affiché comme un chiffre de vitrine peut se
+               retourner : il mesure l'entreprise, pas ce qu'elle a produit.
+               Les quatre pôles restent nommés sur la page agence, où ils
+               décrivent une organisation au lieu d'annoncer une taille.
+               ⭐ Remplacé par le seul chiffre de PRODUCTION validé. */
+            ["+ de 2 000 projets", "réalisés depuis 2004"],
             /* ⛔ LES TROIS VILLES RESTENT — arbitrage de Giz, 10/08/2026 :
                « sur le site FR on parle bien de Lyon, Paris et Genève ».
                J'avais retiré Genève d'ici de ma propre initiative, en

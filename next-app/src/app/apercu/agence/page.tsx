@@ -331,16 +331,23 @@ export default function PageAgence() {
           </div>
           <p className="text-[1.35rem] leading-relaxed">
             <strong>Agence de production audiovisuelle née à Lyon en 2004</strong>,
-            Bluevista travaille aujourd’hui à Lyon et à Paris. Les outils ont
+            Bluevista travaille aujourd’hui à Lyon, Paris et Genève. Les outils ont
             changé, des premiers casques Oculus aux plateformes web 3D. La
             première question n’a pas bougé : qu’est-ce que ce projet doit
             produire ?
           </p>
-          {/* ⛔ Les deux seuls chiffres autorisés sur le site. */}
+          {/* ⛔⛔ DEUX CHIFFRES QUI NE MESURENT PAS LA MÊME CHOSE, et les
+              confondre est la faute qui avait fait retirer « 145 films » de
+              l'accueil le 02/08.
+              · « plus de 2 000 projets » = la PRODUCTION réelle depuis 2004.
+                C'est celui-ci qui va partout où l'on parle d'expérience.
+              · « 145 réalisations » = ce que le PORTFOLIO montre. Il ne vaut
+                que sur la page réalisations, et jamais comme volume produit.
+              ✅ Les deux confirmés par Giz le 10/08/2026. */}
           <p className="mt-10 text-[3rem] font-bold leading-none" style={{ color: BLEU_CLAIR }}>
-            145 réalisations
+            Plus de 2 000 projets
           </p>
-          <p className="mt-3 text-white/55">depuis.</p>
+          <p className="mt-3 text-white/55">réalisés depuis 2004.</p>
         </div>
       </section>
 
