@@ -63,6 +63,20 @@ const PAGES = {
       description: "Conception et réalisation de vidéo mapping architectural et sur table, du relevé du bâtiment à la projection. Écriture, images et technique en interne, depuis 2004.",
     },
     sections: [
+      /* ⭐ RÉCUPÉRÉ DE L'ANCIEN SITE, 10/08/2026 — le vrai butin du tri des 110
+         paragraphes non migrés. Ce ne sont pas des paragraphes recopiés : le
+         remplissage a été jeté, seuls les FAITS ont été gardés.
+         ⛔ GL Events écarté : l'ancien texte le présentait comme « notre
+         prestataire », alors qu'il figure aussi dans les références CLIENTS. */
+      {
+        cle: "sec3",
+        titre: "Ce qu’on a déjà projeté",
+        corps: [
+          { p: "Pour l’ouverture de l’InterContinental de Lyon, nous avons produit deux mappings — un sur la façade, un second à l’intérieur — et couvert l’inauguration : les deux projections ont tourné toute la soirée pendant que les invités parcouraient le lieu." },
+          { p: "Sur le Printemps de Lyon, nous avons tenu l’ensemble : la captation de l’événement, la conception du mapping, et la captation du mapping lui-même. C’est le cas qui montre le mieux ce que permet une chaîne complète — trois métiers qui auraient demandé trois prestataires." },
+          { p: "Ailleurs, un mapping à Paris pour les quarante ans de Siparex, et une projection sur le musée Rodin où l’architecture du bâtiment sert l’œuvre de l’artiste." },
+        ],
+      },
       {
         cle: "sec0",
         titre: "Un mapping se prépare sur un relevé, pas sur une photo",
@@ -105,6 +119,17 @@ const PAGES = {
       description: "Studio d’animation 3D : modélisation, animation et rendu photo-réaliste ou stylisé, à partir de vos fichiers de conception. Toute la chaîne en interne, depuis 2004.",
     },
     sections: [
+      /* ⭐ Récupéré de l'ancien site. ⛔ Le paragraphe voisin annonçait « nos
+         studios 3D à Lyon, Paris et Genève » : c'est FAUX — le studio est à
+         Lyon — et ça mettait Genève dans une page française. Jeté. */
+      {
+        cle: "sec3",
+        titre: "Ce qu’on a déjà fabriqué",
+        corps: [
+          { p: "Pour GF Machining Solutions, nous avons produit un film de gamme mêlant tournage et animation : les écrans des machines ont été truqués et les informations techniques suivent les mouvements de caméra, ce qui permet de montrer une interface lisible là où la prise de vue réelle ne donnait qu’un reflet." },
+          { p: "Nous produisons aussi nos propres capsules, où un membre de l’équipe évolue dans un univers entièrement modélisé. Elles servent à essayer des partis pris avant de les proposer — c’est là qu’on prend les risques." },
+        ],
+      },
       {
         cle: "sec0",
         titre: "Trois cas où l’animation 3D est la seule réponse",
@@ -132,6 +157,8 @@ const PAGES = {
       },
     ],
     faq: [
+      { cle: "faq3", question: "Peut-on mélanger tournage réel et animation 3D ?",
+        reponse: "C’est même le cas le plus fréquent, et souvent le plus efficace : on filme ce qui existe et on fabrique ce qui ne se voit pas — l’intérieur d’une machine, un flux, une interface. Le raccord se prépare au tournage, avec des repères posés dans le décor." },
       { cle: "faq0", question: "Pouvez-vous partir de nos fichiers CAO ?",
         reponse: "Oui, et c’est la meilleure entrée quand ils existent : nous récupérons la géométrie exacte du produit au lieu de la reconstruire, ce qui garantit les proportions et raccourcit la fabrication. Les formats STEP, IGES et les exports SolidWorks ou CATIA se traitent sans difficulté." },
       { cle: "faq1", question: "Combien de temps pour un film en animation 3D ?",
@@ -174,6 +201,16 @@ const PAGES = {
       },
     ],
     faq: [
+      /* ⭐ Récupérés de l'ancien site : des DÉLAIS et des DURÉES chiffrés — ce
+         qu'un client demande vraiment, et ce qui capte les recherches longues.
+         ⛔ Le reste de la page — conseils génériques sur la durée et le style —
+         a été jeté : le même texte figurait mot pour mot sur une autre page. */
+      { cle: "faq0", question: "Combien de temps pour produire un motion design ?",
+        reponse: "Pour un film de une à une minute trente en 2D vectorielle avec des animations simples, comptez trois à cinq semaines. Ce délai couvre l’écriture, la direction artistique, la création graphique, le casting des comédiens, l’enregistrement de la voix off et l’animation. Pour un film entièrement en 3D d’une minute, comptez quatre semaines au minimum." },
+      { cle: "faq1", question: "Quelle durée viser selon l’usage ?",
+        reponse: "Quelques secondes pour un format publicitaire ou une pastille destinée aux réseaux. Une minute à une minute trente pour un film didactique ou une présentation d’offre — au-delà, l’attention se disperse et la fin n’est plus vue. Plusieurs minutes pour de la formation ou un tutoriel, où le spectateur vient chercher une réponse précise." },
+      { cle: "faq2", question: "Peut-on partir d’un travail déjà fait de notre côté ?",
+        reponse: "Oui, et cela raccourcit d’autant. Si le message et le script existent, nous reprenons à la direction artistique et à l’animation. Pour Engie Home Services, nous sommes ainsi partis d’un besoin déjà cadré pour expliquer l’usage de leur application." },
       { cle: "faq0", question: "Quelle différence entre motion design et animation 3D ?",
         reponse: "Le motion design anime des éléments graphiques en deux dimensions — textes, pictogrammes, courbes, aplats de couleur — pour expliquer et rythmer. L’animation 3D fabrique des volumes et des matières pour montrer un objet ou un espace. Les deux se combinent souvent dans le même film." },
       { cle: "faq1", question: "Faut-il une charte graphique pour commencer ?",
@@ -224,6 +261,16 @@ const PAGES = {
       description: "Tournage vidéo et photo par drone sur sites industriels, chantiers et bâtiments, télépilotes déclarés et autorisations instruites en amont. Modèles 3D mesurables en option.",
     },
     sections: [
+      /* ⭐ Récupéré de l'ancien site — le meilleur ratio du lot : 93 mots, presque
+         tous des faits. ⛔ Les « GoPro 5 » ont été jetées : matériel de 2016. */
+      {
+        cle: "sec3",
+        titre: "Le matériel, et pourquoi il est doublé",
+        corps: [
+          { p: "Nous volons avec une flotte de trois types d’appareils, montés et réglés par nos équipes selon ce que le tournage demande — un drone léger pour l’intérieur et les espaces contraints, un appareil plus lourd quand il faut porter une caméra de reportage." },
+          { p: "Et nous emportons toujours un appareil de réserve. Un tournage aérien ne se rejoue pas : la panne se règle en changeant de machine, pas en reprogrammant la journée." },
+        ],
+      },
       { cle: "sec0", titre: "Ce qui se voit d’en haut et pas d’ailleurs",
         corps: [
           { p: "Le drone sert à donner l’échelle d’un site industriel, à suivre l’avancement d’un chantier, à montrer l’implantation d’un bâtiment dans son environnement, ou simplement à ouvrir un film sur un mouvement que rien d’autre ne permet." },
@@ -274,6 +321,12 @@ const PAGES = {
         ] },
     ],
     faq: [
+      /* ⭐ Récupéré de l'ancien site : le vocabulaire des formats, qui nomme des
+         attentes réelles. ⛔ Les conseils génériques sur la durée ont été jetés :
+         c'était le MÊME texte que sur la page film d'entreprise, à trois mots
+         près — du quasi-doublon interne, et les deux pages sont enterrées. */
+      { cle: "faq3", question: "Aftermovie, daily news, best of : quelle différence ?",
+        reponse: "L’aftermovie raconte l’événement une fois qu’il est fini et sert à le prolonger. Le daily news sort chaque soir pendant un événement de plusieurs jours et entretient l’audience sur place. Le best of condense une édition entière, souvent pour annoncer la suivante. Le choix se fait avec la diffusion, pas après le tournage." },
       { cle: "faq0", question: "Quand recevons-nous l’aftermovie ?",
         reponse: "Sous une à deux semaines en fonctionnement normal, et le soir même en montage sur place. Le choix se fait au moment du devis, parce qu’il change la composition de l’équipe présente." },
       { cle: "faq1", question: "Combien de caméras pour couvrir un événement ?",
@@ -290,6 +343,15 @@ const PAGES = {
       description: "Création d’expériences en réalité virtuelle et augmentée pour les salons, la formation et la vente : conception, développement et parc de casques en interne.",
     },
     sections: [
+      /* ⭐ Récupéré de l'ancien site : trois projets réels, absents du nouveau. */
+      {
+        cle: "sec3",
+        titre: "Ce qu’on a déjà mis dans un casque",
+        corps: [
+          { p: "Pour le Vision Tour de Nikon, nous avons reconstitué le parcours de fabrication d’un verre de lunette en combinant prises de vue réelles et modélisation 3D, l’ensemble diffusé en réalité virtuelle. Chez Prats, le même sujet a été traité en vidéo 360, sur la ligne de production réelle." },
+          { p: "Pour GF Machining Solutions, la visite virtuelle du site permet de parcourir les ateliers depuis un navigateur, avec les informations techniques accessibles à chaque poste." },
+        ],
+      },
       { cle: "sec0", titre: "On part de ce que le visiteur doit comprendre",
         corps: [
           { p: "Une expérience immersive se conçoit à partir d’une question simple : qu’est-ce que cette personne doit avoir compris en retirant le casque ? Le dispositif technique découle de cette réponse, jamais l’inverse." },
@@ -307,6 +369,8 @@ const PAGES = {
         ] },
     ],
     faq: [
+      { cle: "faq3", question: "Sur quels casques et quels supports vos expériences fonctionnent-elles ?",
+        reponse: "Nos productions 360 se lisent sur ordinateur, tablette et téléphone, et dans les casques du marché, Meta Quest compris. Le choix se fait selon l’usage : un casque pour un salon ou une formation, un navigateur quand l’expérience doit circuler par un simple lien." },
       { cle: "faq0", question: "Combien de casques faut-il prévoir sur un salon ?",
         reponse: "Le calcul part du flux attendu et de la durée de session : un casque permet environ dix passages par heure pour une expérience de cinq minutes, en comptant l’accueil et l’hygiène. Deux à quatre casques couvrent la plupart des stands." },
       { cle: "faq1", question: "L’expérience fonctionne-t-elle sans casque ?",
