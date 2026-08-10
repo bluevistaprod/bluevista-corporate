@@ -46,7 +46,14 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const { slug } = await params;
   const page = await lirePage("ville", slug);
   if (!page) return {};
-  return { alternates: await alternatesDe(page._id, "ville", "fr") };
+  /* ⛔ Le titre vient de Sanity, pas du gabarit : c'est là qu'il porte le mot
+     réellement recherché. Le repli sur `titre` évite qu'une page sans balise
+     sorte sans titre du tout — mais il ne remplace pas le travail. */
+  return {
+    title: page.titreSeo ?? `${page.titre} | Bluevista`,
+    description: page.descriptionSeo,
+    alternates: await alternatesDe(page._id, "ville", "fr"),
+  };
 }
 
 export default async function PageVille({

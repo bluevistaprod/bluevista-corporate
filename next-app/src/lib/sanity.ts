@@ -107,13 +107,15 @@ export type PageSanity = {
   texte?: BlocTexte[];
   sections?: { _key?: string; titre: string; paragraphes?: BlocTexte[]; image?: unknown }[];
   faq?: { _key?: string; q: string; r: string }[];
+  titreSeo?: string;
+  descriptionSeo?: string;
   projets?: string[];
   ancienneUrl?: string;
 };
 
 const CHAMPS_PAGE = `
   _id, genre, "slug": slug.current, titre, surTitre, accroche, image,
-  texte, sections, faq, projets, ancienneUrl
+  texte, sections, faq, projets, ancienneUrl, titreSeo, descriptionSeo
 `;
 
 export async function lirePage(genre: string, slug: string, version: Version = "fr") {

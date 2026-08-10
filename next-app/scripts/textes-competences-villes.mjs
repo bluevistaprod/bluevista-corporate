@@ -58,6 +58,10 @@ const PAGES = {
 
   "video-mapping": {
     id: "page-savoir-faire-video-mapping",
+    seo: {
+      titre: "Vidéo mapping : projection sur façade et mapping sur table | Bluevista",
+      description: "Conception et réalisation de vidéo mapping architectural et sur table, du relevé du bâtiment à la projection. Écriture, images et technique en interne, depuis 2004.",
+    },
     sections: [
       {
         cle: "sec0",
@@ -96,6 +100,10 @@ const PAGES = {
 
   "animation-3d": {
     id: "page-savoir-faire-animation-3d",
+    seo: {
+      titre: "Animation 3D : studio de films et de visuels 3D | Bluevista",
+      description: "Studio d’animation 3D : modélisation, animation et rendu photo-réaliste ou stylisé, à partir de vos fichiers de conception. Toute la chaîne en interne, depuis 2004.",
+    },
     sections: [
       {
         cle: "sec0",
@@ -135,6 +143,10 @@ const PAGES = {
 
   "motion-design": {
     id: "page-savoir-faire-motion-design",
+    seo: {
+      titre: "Agence de motion design et d’animation graphique | Bluevista",
+      description: "Motion design et animation graphique pour rendre lisibles vos offres, vos chiffres et vos parcours. Votre charte devient un système animé, réutilisable sur tous vos films.",
+    },
     sections: [
       {
         cle: "sec0",
@@ -173,6 +185,10 @@ const PAGES = {
 
   "video-corporate-film-dentreprise": {
     id: "page-savoir-faire-video-corporate-film-dentreprise",
+    seo: {
+      titre: "Film d’entreprise : écriture, tournage et diffusion | Bluevista",
+      description: "Réalisation de films d’entreprise et de vidéos corporate, de l’écriture à la mise en ligne. Tournage, animation et post-production en interne, depuis 2004.",
+    },
     corrigeTexte: [["Fort de plus de 20 ans d’expérience", "Fort d’une expérience accumulée depuis 2004"]],
     sections: [
       { cle: "sec0", titre: "Un film d’entreprise commence par une décision, pas par un tournage",
@@ -203,6 +219,10 @@ const PAGES = {
 
   "video-aerienne-drone": {
     id: "page-savoir-faire-video-aerienne-drone",
+    seo: {
+      titre: "Vidéo aérienne par drone et photogrammétrie | Bluevista",
+      description: "Tournage vidéo et photo par drone sur sites industriels, chantiers et bâtiments, télépilotes déclarés et autorisations instruites en amont. Modèles 3D mesurables en option.",
+    },
     sections: [
       { cle: "sec0", titre: "Ce qui se voit d’en haut et pas d’ailleurs",
         corps: [
@@ -232,6 +252,10 @@ const PAGES = {
 
   "aftermovie-captation-evenementielle": {
     id: "page-savoir-faire-aftermovie-captation-evenementielle",
+    seo: {
+      titre: "Aftermovie et captation d’événement multicaméra | Bluevista",
+      description: "Captation multicaméra et aftermovie de convention, salon ou soirée d’entreprise, avec montage sur place quand la vidéo doit être diffusée le soir même.",
+    },
     sections: [
       { cle: "sec0", titre: "Ce qui sera filmé se décide avant l’événement",
         corps: [
@@ -261,6 +285,10 @@ const PAGES = {
 
   "creation-immersive-realite-virtuelle": {
     id: "page-savoir-faire-creation-immersive-realite-virtuelle",
+    seo: {
+      titre: "Réalité virtuelle et augmentée pour l’entreprise | Bluevista",
+      description: "Création d’expériences en réalité virtuelle et augmentée pour les salons, la formation et la vente : conception, développement et parc de casques en interne.",
+    },
     sections: [
       { cle: "sec0", titre: "On part de ce que le visiteur doit comprendre",
         corps: [
@@ -290,6 +318,10 @@ const PAGES = {
 
   "studio-fond-vert-compositing": {
     id: "page-savoir-faire-studio-fond-vert-compositing",
+    seo: {
+      titre: "Studio fond vert mobile et compositing | Bluevista",
+      description: "Studio fond vert installé dans vos locaux pour vos prises de parole, tutoriels et formations : décors incrustés, versions multilingues et séries tournées en une journée.",
+    },
     sections: [
       { cle: "sec0", titre: "Le studio se monte dans vos locaux",
         corps: [
@@ -319,6 +351,10 @@ const PAGES = {
 
   "live-streaming-webtv": {
     id: "page-savoir-faire-live-streaming-webtv",
+    seo: {
+      titre: "Live streaming et web TV : diffusion en direct | Bluevista",
+      description: "Diffusion en direct de vos conventions et conférences, en régie multicaméra et liaisons redondées, avec replay et web TV à votre marque. Événements hybrides depuis 2004.",
+    },
     wp: { slug: "live-streaming-webtv", widget: "60d1f1a" },
     sections: [
       { cle: "sec0", titre: "Ce qui fait décrocher un spectateur à distance",
@@ -363,6 +399,10 @@ const PAGES = {
 
   "studio-animation-3d-lyon": {
     id: "page-ville-studio-animation-3d-lyon",
+    seo: {
+      titre: "Studio d’animation 3D à Lyon | Bluevista",
+      description: "Studio d’animation 3D à Lyon depuis 2004 : modélisation, animation et rendu réalisés sur place. Validations devant l’écran plutôt que par lien de visionnage.",
+    },
     sections: [
       /* ⛔ « Notre studio est ici, pas ailleurs » — on n'écrit pas ce qu'on
          n'est pas. L'affirmation seule est plus forte que l'opposition. */
@@ -387,6 +427,10 @@ const PAGES = {
 
   "studio-animation-3d-paris": {
     id: "page-ville-studio-animation-3d-paris",
+    seo: {
+      titre: "Studio d’animation 3D à Paris | Agence 3D Bluevista",
+      description: "Animation 3D pour vos projets parisiens : modélisation, animation et rendu photo-réaliste ou stylisé, avec des équipes qui tournent sur vos sites.",
+    },
     wp: { slug: "studio-animation-3d-paris", widget: "197acfd" },
     sections: [
       { cle: "sp0", titre: "Une équipe qui se déplace",
@@ -420,6 +464,10 @@ const PAGES = {
 
   "realisation-film-entreprise-lyon": {
     id: "page-ville-realisation-film-entreprise-lyon",
+    seo: {
+      titre: "Réalisation de film d’entreprise à Lyon | Bluevista",
+      description: "Réalisation de films d’entreprise à Lyon depuis 2004, avec un studio fond vert qui s’installe dans vos locaux pour vos séries de prises de parole.",
+    },
     sections: [
       /* ⛔ « Vingt ans de clients lyonnais » — c'est « depuis 2004 ». */
       { cle: "sp0", titre: "Des clients lyonnais depuis 2004",
@@ -441,6 +489,12 @@ const PAGES = {
     ],
   },
 
+  /* ⛔⛔ AUCUNE BALISE OPTIMISÉE POUR CETTE PAGE, ET C'EST DÉLIBÉRÉ.
+     Sur douze mois elle fait ZÉRO clic pour plus de 1 100 impressions, toutes
+     sur des requêtes genevoises — pendant que bluevista.ch se positionne et
+     convertit sur les mêmes termes. Elle est destinée à être retirée au profit
+     du site suisse : lui écrire un titre optimisé reviendrait à renforcer une
+     page qu'on veut voir disparaître des résultats. */
   "realisation-video-geneve": {
     id: "page-ville-realisation-video-geneve",
     sections: [
@@ -530,6 +584,15 @@ async function ecrireSanity(cle, o) {
   }));
   if (o.faq) {
     patch.set.faq = o.faq.map(f => ({ _key: f.cle, _type: "object", q: f.question, r: f.reponse }));
+  }
+
+  /* ⛔ LES BALISES NE SONT PAS DE LA VOIX. Le `<title>` porte le mot que les
+     gens tapent — « studio animation 3D Lyon », « vidéo mapping » — même
+     quand le corps de page parle de « projet ». C'est la seule entorse
+     assumée au registre, et elle est explicite dans voix-marketing.md. */
+  if (o.seo) {
+    patch.set.titreSeo = o.seo.titre;
+    patch.set.descriptionSeo = o.seo.description;
   }
 
   /* ⚠️ Corrections ponctuelles dans le corps hérité de l'ancien site. On n'y
