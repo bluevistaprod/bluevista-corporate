@@ -53,29 +53,58 @@ export type Genre = "realisation" | "savoir-faire" | "metier" | "ville";
  * LE SEGMENT D'URL DE CHAQUE FAMILLE, PAR VERSION.
  *
  * ⚠️ Ce n'est pas seulement le slug qui change d'une langue à l'autre : le
- * segment aussi. `/realisations/engie` a pour équivalent `/works/engie`, pas
- * `/realisations/engie`. Une déclaration hreflang qui garderait le segment
- * français pointerait vers une adresse inexistante sur la version anglaise.
+ * segment aussi. `/realisations/engie` a pour équivalent `/work/engie`. Une
+ * déclaration qui garderait le segment français pointerait vers une adresse
+ * inexistante sur la version anglaise.
  *
- * ⚠️ À FAIRE VALIDER PAR GIZ. Ces traductions sont les miennes et elles ne
- * sont pas neutres — un segment d'URL se référence, et le changer plus tard
- * coûtera une redirection sur chaque page de la famille. Le suisse
- * francophone reprend volontairement les segments français : c'est la même
- * langue, et rien ne justifierait de les distinguer.
+ * ✅ VALIDÉS PAR GIZ LE 10/08/2026 — et SOURCÉS, pas devinés. Sa demande :
+ * « source des sites anglais / américains et espagnols de notre secteur pour
+ * voir le vocabulaire qu'ils emploient et on se cale dessus ».
+ *
+ * ⛔ LE RELEVÉ A CORRIGÉ DEUX DE MES QUATRE PROPOSITIONS, sur 10 agences
+ * anglophones et 7 hispanophones du secteur :
+ *   · j'avais proposé `works` → **0/10**. C'est `work` au singulier (4/10),
+ *     ou `portfolio` (3/10). Le pluriel était un réflexe de français.
+ *   · j'avais proposé `expertise` → **0/10**. C'est `services` (5/10 en
+ *     comptant `service`).
+ *
+ * ⚠️ Et deux cases où la mesure ne donne RIEN, donc tranchées à l'avis :
+ *   · `what-we-do` pour les trois piliers : aucune des agences relevées n'a
+ *     deux niveaux d'offre, la structure anglo-saxonne ne se calque pas.
+ *   · les villes : 0/10 et 0/7 — voir le bloc `ville` plus bas.
+ *
+ * 📌 L'espagnol repose sur un échantillon faible et PLAT (ces sites empilent
+ * des pages du type `/productora-audiovisual-madrid/` sans architecture
+ * segmentée). `proyectos` et `servicios` tiennent, sur peu d'appuis : à
+ * reprendre le jour où l'espagnol s'ouvrira vraiment.
+ *
+ * 📌 Le suisse francophone reprend les segments français : même langue, rien
+ * ne justifierait de les distinguer.
  */
 const SEGMENTS: Record<Genre, Record<Version, string>> = {
   realisation: {
-    fr: "realisations", en: "works", es: "proyectos",
-    "fr-ch": "realisations", "en-ch": "works",
+    fr: "realisations", en: "work", es: "proyectos",
+    "fr-ch": "realisations", "en-ch": "work",
   },
   "savoir-faire": {
-    fr: "savoir-faire", en: "expertise", es: "servicios",
-    "fr-ch": "savoir-faire", "en-ch": "expertise",
+    fr: "savoir-faire", en: "services", es: "servicios",
+    "fr-ch": "savoir-faire", "en-ch": "services",
   },
   metier: {
-    fr: "offres", en: "offering", es: "ofertas",
-    "fr-ch": "offres", "en-ch": "offering",
+    fr: "offres", en: "what-we-do", es: "que-hacemos",
+    "fr-ch": "offres", "en-ch": "what-we-do",
   },
+  /* ⛔ PAS DE PAGES DE VILLE EN ANGLAIS NI EN ESPAGNOL — décision de Giz,
+     10/08/2026. Les segments restent déclarés pour que le type tienne, mais
+     aucun document ne sera publié dans ces langues : la règle « moins de deux
+     versions publiées → aucune déclaration » retire donc le hreflang toute
+     seule. Rien à coder pour ça.
+
+     👉 La raison est mesurée : sur dix agences anglophones du secteur, ZÉRO
+     n'a de page de ville. Ce n'est pas un oubli de leur part, c'est une
+     stratégie de référencement local FRANÇAISE que le marché anglo-saxon ne
+     pratique pas — « studio animation 3d lyon » n'a pas d'équivalent
+     anglophone. Les traduire aurait produit quatre pages faibles. */
   ville: {
     fr: "agence", en: "offices", es: "oficinas",
     "fr-ch": "agence", "en-ch": "offices",
