@@ -3,6 +3,7 @@ import { PiedDePage } from "../_PiedDePage";
 import { MethodeChapeau } from "../_MethodeChapeau";
 import { Temoignages } from "../_Temoignages";
 import { BLEU, BLEU_CLAIR, CLAIR, CLAIR_SOUTENU, NOIR, SOMBRE, SOMBRE_PROFOND, TYPO } from "../_palette";
+import { OFFRES as CATALOGUE } from "../_offres";
 
 /**
  * V5 — la V4 retravaillée à partir des retours de Giz.
@@ -54,60 +55,82 @@ import { BLEU, BLEU_CLAIR, CLAIR, CLAIR_SOUTENU, NOIR, SOMBRE, SOMBRE_PROFOND, T
  */
 
 /**
- * Les trois piliers.
+ * LES TROIS PILIERS — repassés au registre marketing le 10/08/2026.
  *
- * Retour de Giz : « ce n'est pas assez explicite ». C'était juste — le NOM du
- * pilier était l'élément le plus petit de la carte, et rien ne disait ce que
- * le pilier CONTIENT. Deux corrections : le nom devient l'élément dominant, et
- * la liste de services apparaît. Cette liste vient de son offres_content_v2.md,
- * elle n'est pas inventée.
+ * ⛔ CE QUE LA VERSION PRÉCÉDENTE PORTAIT, ET POURQUOI ÇA NE TENAIT PAS :
+ *
+ * · Les accroches étaient en verbes creux — « Amplifiez votre présence et
+ *   convertissez votre audience » — la famille que le registre désigne comme
+ *   le passage le plus faible d'une page. Et « Plongez votre audience dans
+ *   des mondes sans limites » cumulait deux fautes : « plonger dans » est au
+ *   lexique banni, « sans limites » est un superlatif sans source.
+ *
+ * · Le champ `probleme` échouait au test qui prime : « une autre agence
+ *   vidéo pourrait-elle signer ce paragraphe ? ». *« Vous avez un message
+ *   puissant, mais il se perd dans le bruit »* — oui, n'importe laquelle.
+ *   ⚠️ Il faisait en plus DOUBLON avec le bloc d'ouverture « Par où l'on
+ *   commence », qui dit désormais la situation du lecteur. Un pilier n'a pas
+ *   à redire le problème : il doit dire la promesse et ce qu'elle change.
+ *
+ * 👉 D'où la structure du registre, § règle 5 : accroche → promesse → issue
+ * rêvée. Aucun des trois ne parle de technique.
+ *
+ * ⭐ LES TROIS `issue` SONT VALIDÉES MOT POUR MOT par Giz dans
+ * `bluevista-corporate/OFFRES-BLUEVISTA.md` (colonne « Issue — Site »). Elles
+ * ne sont pas réécrites ici : c'est la version déjà dégonflée, celle qu'il a
+ * retenue après « atténue le ton, elles abusent ».
  */
-const OFFRES = [
+
+/**
+ * ⛔ LES SERVICES VIENNENT DE `_offres.ts`, ILS NE SONT PLUS RECOPIÉS.
+ *
+ * L'ancienne liste datait d'un `offres_content_v2.md` périmé et contredisait
+ * la taxonomie validée : elle plaçait le **vidéomapping dans DEUX piliers**
+ * (communication ET événementiel), alors que le classement arrêté le rattache
+ * à l'événementiel seul — « un mapping se vend avec un événement, pas avec un
+ * casque ».
+ *
+ * 📌 `OFFRES-BLUEVISTA.md` le dit explicitement : ce document et `_offres.ts`
+ * doivent rester d'accord, et c'est le document qui fait foi. Recopier une
+ * troisième fois la liste ici garantissait qu'elle diverge — elle avait déjà
+ * divergé.
+ *
+ * ⚠️ TENSION ASSUMÉE : le registre bannit « la grille de modules nommés »
+ * (chaque case doit porter un bénéfice). Mais Giz a demandé l'inverse pour
+ * CES cartes-là : « le NOM du pilier doit dominer, avec sa liste de services —
+ * sans elle, on lit une promesse sans savoir de quel métier il s'agit ». La
+ * règle de design prime ici, parce qu'elle répond à un défaut qu'il a
+ * constaté à l'écran. La liste reste donc, mais au niveau OFFRE et non
+ * produit : « Film de communication interne » dit le métier, « Jingles » non.
+ */
+const PILIERS = [
   {
+    metier: "film" as const,
     nom: "Communication & Marketing",
-    accroche: "Amplifiez votre présence et convertissez votre audience en clients",
-    probleme:
-      "Vous avez un message puissant, mais il se perd dans le bruit. Votre audience ne vous trouve pas, ne vous comprend pas, ou ne passe pas à l’action.",
-    services: [
-      "Podcasts & audio",
-      "Réseaux sociaux",
-      "Motion design & animation",
-      "Documentaires & reportages",
-      "Vidéomapping & expériences",
-      "Optimisation & testing",
-    ],
+    accroche: "Faites-vous comprendre, et faites-vous préférer",
+    promesse:
+      "Des films et des contenus courts pensés pour vos canaux, avec la stratégie de diffusion qui va avec et l’analyse de ce que chacun a rapporté.",
+    issue: "Vos interlocuteurs vous prennent au sérieux avant le premier rendez-vous.",
     cta: "Voir nos projets de communication",
     image: "/media/px-pilier-communication.jpg",
   },
   {
+    metier: "evenement" as const,
     nom: "Événementiel",
-    accroche: "Créez des événements inoubliables qui marquent les esprits",
-    probleme:
-      "Organiser un événement impactant demande une coordination complexe. Vous risquez qu’il soit oublié dès le lendemain, ou qu’il ne génère pas le ROI attendu.",
-    services: [
-      "Conception & scénographie",
-      "Couverture professionnelle",
-      "Vidéomapping & projections",
-      "Événementiel virtuel & hybride",
-      "Production & coordination",
-      "Contenu post-événement",
-    ],
+    accroche: "Marquez les esprits le jour J, et faites-en durer l’effet",
+    promesse:
+      "Des contenus scénographiés pour votre salle, et une diffusion pensée avant l’événement : ce qui sera filmé, pour qui, et sur quels canaux.",
+    issue: "Vos participants repartent avec quelque chose à raconter — et ils le racontent.",
     cta: "Voir nos projets événementiels",
     image: "/media/px-pilier-evenementiel.jpg",
   },
   {
+    metier: "immersion" as const,
     nom: "Immersion",
-    accroche: "Plongez votre audience dans des mondes sans limites",
-    probleme:
-      "Vos clients veulent des expériences, pas juste du contenu. La réalité virtuelle semble complexe et coûteuse, et son intérêt reste flou.",
-    services: [
-      "Réalité virtuelle (VR)",
-      "Réalité augmentée (AR)",
-      "Vidéo & photographie 360°",
-      "Modélisation 3D & animation",
-      "Expériences mixtes",
-      "Plateforme & distribution",
-    ],
+    accroche: "Faites essayer ce qu’on ne peut pas encore toucher",
+    promesse:
+      "Des expériences VR et AR conçues à partir de ce que le visiteur doit comprendre, pas à partir du matériel disponible.",
+    issue: "Vos prospects essaient avant d’acheter, même à des milliers de kilomètres.",
     cta: "Voir nos projets immersifs",
     image: "/media/px-pilier-immersion.jpg",
   },
@@ -536,7 +559,7 @@ export default function V7() {
         </h2>
 
         <div className="mt-20 space-y-24">
-          {OFFRES.map((o, i) => (
+          {PILIERS.map((o, i) => (
             <article
               key={o.nom}
               className={`grid items-center gap-14 lg:grid-cols-2 ${i % 2 ? "lg:[&>figure]:order-first" : ""}`}
@@ -560,11 +583,16 @@ export default function V7() {
                 <p className="mt-6 text-[clamp(1.15rem,1.6vw,1.5rem)] font-semibold leading-snug" style={{ color: BLEU }}>
                   {o.accroche}
                 </p>
-                <p className="mt-5 leading-relaxed opacity-60">{o.probleme}</p>
+                <p className="mt-5 leading-relaxed opacity-70">{o.promesse}</p>
+                {/* ⭐ L'issue rêvée — ce que ça change chez lui, pas ce qu'on
+                    livre. Les trois sont validées mot pour mot par Giz. */}
+                <p className="mt-4 text-[1.0625rem] font-semibold leading-snug" style={{ color: BLEU }}>
+                  {o.issue}
+                </p>
 
                 {/* Ce que le pilier contient concrètement — la pièce qui manquait. */}
                 <ul className="mt-8 grid gap-x-8 gap-y-3 sm:grid-cols-2">
-                  {o.services.map(s => (
+                  {CATALOGUE.filter(c => c.metier === o.metier).map(c => c.nom).map(s => (
                     <li key={s} className="flex items-start gap-3 text-[15px] leading-snug">
                       <span
                         className="mt-[7px] inline-block h-[6px] w-[6px] shrink-0 rounded-full"
