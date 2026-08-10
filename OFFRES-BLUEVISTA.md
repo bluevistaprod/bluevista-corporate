@@ -302,7 +302,7 @@ blocs ci-dessus sont **nés dans le site** et ont été remontés. Dans les deux
 |---|---|---|
 | **Pilier Immersion** | Description et issue recopiées de l'offre VR/AR — **faux pour la salle immersive** | Reprendre les deux textes corrigés ci-dessus |
 | **Argument 01** | *« dans la même équipe »* laisse déduire la taille (règle 3) | *« sous le même budget, avec un seul interlocuteur, et sans coordination à votre charge »* |
-| **Pied de page** | *« Toute la chaîne de production en interne »* — formule que Giz a **nuancée le 10/08** (le renfort d'un spécialiste est admis) | **« L'essentiel de la production en interne, depuis 2004. »** |
+| **Pied de page** | *« Toute la chaîne de production en interne »* — trop absolu, et faux : le renfort d'un spécialiste est admis | ✅ **Fait le 10/08 — « Toutes nos compétences intégrées, depuis 2004. »** ⚠️ Deux essais avant : *« l'essentiel de la production en interne »* a été refusé par Giz — *« c'est vraiment restrictif »*. Voir la règle du quantificateur partiel. |
 | **Pied de page** | Adresse et téléphone de Genève sur le site FR | ✅ **TRANCHÉ par Giz le 10/08/2026 : ça reste.** Voir ci-dessous |
 | **Hero** | *« 4 pôles »* affiché comme un chiffre | À trancher : sourcé (mémoire AuRA), mais seuls *« depuis 2004 »* et *« 145 réalisations »* sont autorisés, et un petit nombre peut se retourner |
 

@@ -118,8 +118,21 @@ export function PiedDePage() {
               className="text-[14px] leading-relaxed text-white/50"
               style={{ marginTop: 16, maxWidth: "34ch" }}
             >
+              {/* ⛔⛔ RÈGLE POSÉE PAR GIZ, 10/08/2026 — on affirme l'intégration
+                  des COMPÉTENCES, jamais une proportion de production.
+                  Trois formulations essayées, et l'échec des deux premières est
+                  instructif :
+                  · « toute la chaîne de production en interne » → trop absolu,
+                    et faux : le renfort d'un spécialiste est admis.
+                  · « l'essentiel de la production en interne » → « vraiment
+                    restrictif » (ses mots). Un quantificateur partiel est une
+                    négation déguisée : le lecteur n'entend pas les 80 %, il
+                    entend les 20 % qui manquent.
+                  ✅ « Toutes nos compétences intégrées » — ça répond à la seule
+                  question qui intéresse le client (y a-t-il une zone grise ?)
+                  sans promettre un lieu de fabrication ni concéder une limite. */}
               Agence de communication &amp; marketing, d’événementiel et
-              d’immersion. L’essentiel de la production en interne,
+              d’immersion. Toutes nos compétences intégrées,
               depuis&nbsp;2004.
             </p>
           </div>
