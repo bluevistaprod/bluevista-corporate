@@ -85,26 +85,28 @@ const PARCOURS: Record<Metier, Etape[]> = {
     },
     {
       titre: "Production",
-      resume: "En décors réels ou en studio.",
+      resume:
+        "Nous tournons en décors réels ou en studio, et vous pouvez accompagner les équipes sur site.",
       detail:
-        "Repérages techniques, tests de configuration, coaching des intervenants, voix off, création graphique et animatique. Vous pouvez accompagner nos équipes sur site — certains clients y tiennent, et ils ont raison.",
-      livrable: "Tournage · voix off · création graphique · animatique",
+        "Repérages techniques, tests de configuration, coaching des intervenants, voix off, création graphique et maquette animée du storyboard. Vous pouvez accompagner nos équipes sur site — certains clients y tiennent, et ils ont raison.",
+      livrable: "Tournage · voix off · création graphique · maquette animée",
       photo: "/media/bv-production.jpg",
     },
     {
       titre: "Avant-première",
       resume: "Tout est monté, rien n’est public.",
       detail:
-        "Dérushage, montage, animation des éléments graphiques, sound design. Une première version complète livrée sur notre plateforme de visionnage, où vous annotez au timecode près. Deux à trois allers-retours : le premier pour le fond, les suivants pour les détails.",
+        "Tri et sélection des images, montage, animation des éléments graphiques, création sonore. Une première version complète livrée sur notre plateforme de visionnage, où vous annotez au timecode près. Deux à trois points d’étape : le premier pour le fond, les suivants pour les détails.",
       livrable: "Film complet — version 1, annotable en ligne",
       photo: "/media/px-methode-4.jpg",
     },
     {
       titre: "Diffusion",
-      resume: "Le film part sur ses supports.",
+      resume:
+        "Le projet est livré à tous les formats utiles et mis en ligne, parce qu’un projet qui n’est pas diffusé n’a rien produit.",
       detail:
-        "Étalonnage, sous-titrage pour l’accessibilité, rendus à tous les formats utiles — site, réseaux, écrans internes, salon. Puis la mise en ligne elle-même : un film qui reste sur un serveur n’a encore rien produit.",
-      livrable: "Masters · sous-titres · formats réseaux · mise en ligne",
+        "Harmonisation des couleurs, sous-titrage pour l’accessibilité, fichiers à tous les formats utiles — site, réseaux, écrans internes, salon. Puis la mise en ligne elle-même : un projet qui reste sur un serveur n’a encore rien produit.",
+      livrable: "Fichiers finaux · sous-titres · formats réseaux · mise en ligne",
       photo: "/media/px-methode-5.jpg",
     },
     {

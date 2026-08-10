@@ -226,7 +226,7 @@ const DIFFERENCE = [
       "Un film, un mapping, une application VR et le dispositif qui les relie — dans la même équipe, sous le même budget, avec un seul interlocuteur. Les projets qui obligeraient à coordonner quatre prestataires sont exactement ceux qu’on prend en entier.",
   },
   {
-    titre: "Vingt ans dans le même métier, et quatre pôles internes",
+    titre: "Le même métier depuis 2004, et quatre pôles internes",
     texte:
       "Vidéo, son, infographie, développement. Rien ne part en sous-traitance à l’aveugle, personne ne découvre le projet à la livraison. C’est ce qui permet de tenir une date d’événement — celles qui ne se décalent jamais.",
   },
@@ -249,6 +249,26 @@ function SurTitre({ children, sombre = false }: { children: string; sombre?: boo
     </div>
   );
 }
+
+/**
+ * ⭐⭐ LES BALISES DE LA HOME — et c'est ici que se joue le plus gros gisement
+ * du domaine. « agence vidéo » fait 7 845 impressions par an en position 22,9
+ * pour 5 clics : la plus grosse visibilité non convertie du site.
+ *
+ * L'expression ne figurait NULLE PART dans le H1 ni le title de l'accueil.
+ * Une page qui ne contient pas les mots qu'on tape ne peut pas remonter
+ * dessus, quelle que soit la qualité du reste.
+ *
+ * ⛔ « Genève » n'y est pas, et c'est mesuré : la seule page /agence/ capte
+ * déjà 236 impressions suisses pour zéro clic. Le site suisse est un site
+ * parallèle — le référencer ici revient à lui prendre ses recherches sans
+ * pouvoir les facturer.
+ */
+export const metadata = {
+  title: "Agence vidéo à Lyon et Paris — film, événementiel, immersion | Bluevista",
+  description:
+    "Agence vidéo depuis 2004 : film d’entreprise, captation d’événement et expériences immersives. Conception, tournage, animation 3D et diffusion, en interne.",
+};
 
 export default function V7() {
   return (
@@ -321,15 +341,16 @@ export default function V7() {
             className="apparition-hero max-w-[19ch] text-[clamp(2.6rem,7vw,6rem)] font-bold leading-[0.95] tracking-[-0.02em]"
             style={{ "--retard": "1100ms" } as React.CSSProperties}
           >
-            Transformez votre communication en{" "}
-            <span style={{ color: BLEU_CLAIR }}>résultats concrets</span>
+            Un film, un événement, une expérience immersive :{" "}
+            <span style={{ color: BLEU_CLAIR }}>la même méthode</span>, du
+            concept à la diffusion
           </h1>
           <p
             className="apparition-hero mt-8 max-w-2xl text-xl leading-relaxed text-white/85"
             style={{ "--retard": "1400ms" } as React.CSSProperties}
           >
-            Agence de communication &amp; marketing, d’événementiel et
-            d’immersion. Depuis 2004, à Lyon, Paris et Genève.
+            Agence vidéo, événementiel et immersion, à Lyon et à Paris.
+            Depuis 2004.
           </p>
           <div
             className="apparition-hero mt-11 flex flex-wrap items-center gap-4"
@@ -374,13 +395,85 @@ export default function V7() {
           {[
             ["Depuis 2004", "à concevoir et produire"],
             ["4 pôles", "vidéo · son · infographie · développement"],
-            ["Lyon · Paris · Genève", "trois implantations"],
+            ["145 réalisations", "livrées"],
           ].map(([gros, petit]) => (
             <div key={gros}>
               <div className="text-[2rem] font-bold leading-none tracking-tight">{gros}</div>
               <div className="mt-2 text-sm text-white/50">{petit}</div>
             </div>
           ))}
+        </div>
+      </section>
+
+      {/* ②bis SOMBRE — PAR OÙ ON ENTRE ─────────────────────────────────
+          ⛔⛔ CE BLOC REMPLACE LES FRUSTRATIONS, qui ont été affectées à la
+          page agence le 10/08/2026. Il fallait donc que la home ouvre
+          autrement — mais sans revenir au défaut que le registre condamne :
+          l'ancien site commençait par « Bienvenue à l'agence », c'est-à-dire
+          par parler de soi.
+
+          👉 Le principe est tenu autrement : on part de LA SITUATION du
+          lecteur, pas de ses frustrations. Une frustration dit ce qui l'a
+          fait souffrir la dernière fois ; une situation dit où il en est
+          aujourd'hui. La première ouvre une page « agence » (on vient y
+          jauger un partenaire), la seconde ouvre une page d'accueil (on vient
+          y chercher qui fait quoi).
+
+          ⭐ Et ce bloc fait le travail de routage : trois entrées, trois liens
+          vers les pages métier. C'est le premier maillage interne de la page,
+          placé là où l'attention est maximale.
+
+          ⛔ PAS DE PIQUE ICI. Le registre en autorise une par page et jamais
+          deux pages de suite — celle de la page agence (« Elle a un
+          formulaire ») occupe la place pour ce parcours.
+
+          📌 Chaque entrée porte une image ET un fait (règle mère) : la
+          situation, puis les cas concrets qui la rendent reconnaissable. */}
+      <section style={{ background: NOIR, color: "#fff", borderTop: "1px solid rgba(255,255,255,.08)" }}>
+        <div className="mx-auto max-w-[1500px] px-8 py-24">
+          <SurTitre sombre>Par où l’on commence</SurTitre>
+          <h2 className={`max-w-3xl ${TYPO.titre}`}>
+            La première question n’a pas changé depuis 2004 : qu’est-ce que ce
+            projet doit produire ?
+          </h2>
+
+          <div className="mt-14 grid gap-x-12 gap-y-10 md:grid-cols-3">
+            {[
+              {
+                situation: "Vous avez quelque chose à faire comprendre.",
+                exemples:
+                  "Un produit technique, une réorganisation, un métier qu’on explique mal en réunion. Le film sert à ce que tout le monde en reparte avec la même version.",
+                lien: "/apercu/metier/film",
+                libelle: "Communication & marketing",
+              },
+              {
+                situation: "Vous avez une date qui ne bougera pas.",
+                exemples:
+                  "Une convention, un lancement, un anniversaire d’entreprise. Tout ce qui passera à l’écran se fabrique avant, parce que le jour J ne se rattrape pas.",
+                lien: "/apercu/metier/evenement",
+                libelle: "Événementiel",
+              },
+              {
+                situation: "Vous avez quelque chose qu’on ne peut pas montrer en vrai.",
+                exemples:
+                  "Une machine de douze mètres, un bâtiment qui n’existe pas encore, un site à l’autre bout du monde. On le fabrique en 3D et on le met dans les mains du visiteur.",
+                lien: "/apercu/metier/immersion",
+                libelle: "Immersion",
+              },
+            ].map(e => (
+              <div key={e.libelle} className="border-t-2 pt-6" style={{ borderColor: BLEU_CLAIR }}>
+                <div className="text-[1.25rem] font-bold leading-snug">{e.situation}</div>
+                <p className="mt-3 text-[1.0625rem] leading-relaxed text-white/65">{e.exemples}</p>
+                <a
+                  href={e.lien}
+                  className="mt-5 inline-block text-[15px] font-semibold underline decoration-2 underline-offset-4 transition hover:opacity-70"
+                  style={{ color: BLEU_CLAIR }}
+                >
+                  {e.libelle}
+                </a>
+              </div>
+            ))}
+          </div>
         </div>
       </section>
 
@@ -706,9 +799,21 @@ export default function V7() {
           Le fond clair rétablit l'alternance et redonne au pied de page son
           rôle : marquer la fin. */}
       <section style={{ background: CLAIR_SOUTENU }} className="py-28 text-center">
+        {/* ⛔ « Transformez votre communication en résultats concrets » a été
+            retiré : c'est la famille de verbes creux que le registre désigne
+            comme le passage le plus faible d'une page (« Simplifiez…
+            améliorez… centralisez… »), et « concrets » est un adjectif qui ne
+            prouve rien.
+            ⛔⛔ ET « DEMANDER UN DEVIS » AUSSI — le mot est banni de la prose
+            de vente : « le mot devis est moche ». On écrit budget, ou rien.
+            ⚠️ Nuance qui compte : l'interdit porte sur la PROSE. L'URL
+            /contact-devis/ et sa balise gardent le mot, parce que neuf
+            requêtes réelles le contiennent. Les balises ne sont pas de la voix.
+            📌 Et la clôture PROPOSE des options au lieu de demander — son
+            marqueur depuis quinze ans, avec `ensemble` comme mot de fin. */}
         <h2 className={`mx-auto max-w-3xl px-8 ${TYPO.titre}`}>
-          Transformez votre communication en{" "}
-          <span style={{ color: BLEU }}>résultats concrets</span>
+          Voyons <span style={{ color: BLEU }}>ensemble</span> ce que votre
+          projet doit changer.
         </h2>
         <p className="mx-auto mt-6 max-w-xl px-8 text-lg opacity-65">
           Parlons de vos objectifs avant de parler de format.
@@ -719,10 +824,10 @@ export default function V7() {
             className="rounded-md px-9 py-4 text-[16px] font-bold text-white transition hover:brightness-110"
             style={{ background: BLEU }}
           >
-            Contactez-nous
+            Un appel de 30 minutes ?
           </a>
           <a href="/apercu/contact" className="rounded-md border-2 border-black/15 px-9 py-4 text-[16px] font-semibold">
-            Demander un devis
+            Ou décrivez-nous votre projet en trois lignes
           </a>
         </div>
       </section>
