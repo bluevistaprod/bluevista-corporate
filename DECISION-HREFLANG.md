@@ -42,7 +42,7 @@ Trois règles y sont inscrites :
    déclarer produirait un hreflang vers une 404, le défaut qui fait ignorer
    tout le groupe.
 3. **Le segment d'URL change avec la langue**, pas seulement le slug :
-   `/realisations/engie` a pour équivalent `/works/engie`.
+   `/realisations/engie` a pour équivalent `/work/engie`.
 
 ⛔ **La conséquence, et c'est la garantie demandée :** le jour où une version
 est dépubliée dans le studio, la déclaration disparaît **toute seule** de la
@@ -76,11 +76,30 @@ cliquables dans le corps.
 
 ## Deux points ouverts
 
-⚠️ **Les segments d'URL traduits sont les miens, à valider par Giz.**
-`realisations` → `works` / `proyectos`, `savoir-faire` → `expertise` /
-`servicios`, `offres` → `offering` / `ofertas`, `agence` → `offices` /
-`oficinas`. Un segment se référence : le changer plus tard coûtera une
-redirection sur chaque page de la famille.
+✅✅ **LES SEGMENTS SONT TRANCHÉS ET VERROUILLÉS — 10/08/2026.** Ce n'est plus
+un point ouvert. **La source de vérité est le code** :
+`next-app/src/lib/hreflang.ts` → `const SEGMENTS`.
+
+| Famille | `fr` et `fr-ch` | `en` et `en-ch` | `es` |
+|---|---|---|---|
+| **réalisation** | `realisations` | **`work`** | `proyectos` |
+| **savoir-faire** | `savoir-faire` | **`services`** | `servicios` |
+| **métier** (les piliers) | `offres` | **`what-we-do`** | `que-hacemos` |
+| **ville** | ⛔ aucun segment, **à la racine** | ⛔ pas de page ville | ⛔ pas de page ville |
+
+📌 **Le fr-ch reprend les segments français** : même langue, rien ne
+justifierait de les distinguer.
+
+⛔ **Sourcé, pas deviné** — 10 agences anglophones et 7 hispanophones, à la
+demande de Giz. Le relevé a **corrigé deux de mes quatre propositions** :
+`works` **0/10** (c'est `work` au singulier, ou `portfolio`) et `expertise`
+**0/10** (c'est `services`). ⚠️ L'échantillon espagnol est **faible et plat** :
+`proyectos` et `servicios` tiennent sur peu d'appuis, à reprendre le jour où
+l'espagnol s'ouvrira vraiment.
+
+⛔ **Et `agence` n'est PAS un segment de famille** : c'est l'adresse d'une page
+fixe. L'avoir mis ici était une double faute — les villes vivent à la racine, et
+le mot désignait déjà autre chose.
 
 ⚠️ **La réciprocité ne peut pas encore être vérifiée.** Google exige que si A
 déclare B, B déclare A — sinon la déclaration est ignorée. Le contrôle devra

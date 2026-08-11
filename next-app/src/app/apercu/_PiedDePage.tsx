@@ -1,4 +1,5 @@
 import { BLEU_CLAIR, SOMBRE_PROFOND } from "./_palette";
+import { LienCookies } from "./_Consentement";
 import { COMPETENCES } from "./_plan-du-site";
 
 /**
@@ -231,6 +232,14 @@ export function PiedDePage() {
             {/* ⚠️ Obligatoires pour un site commercial français. Elles
                 n'existent pas encore — le texte le dit plutôt que de faire
                 semblant, et ⛔ ne doit jamais rester en « # ». */}
+            {/* ⛔ « Cookies » N'EST PAS UN LIEN DE PLUS : c'est lui qui rend
+                VRAIE la promesse de retrait écrite dans la politique de
+                confidentialité. Sans lui, le bandeau disparaît au premier choix
+                et le texte ment. Ne jamais le retirer sans retirer la phrase. */}
+            <span style={{ display: "inline-flex", alignItems: "center", gap: 10 }}>
+              <span aria-hidden style={{ opacity: 0.4 }}>·</span>
+              <LienCookies className="transition hover:text-white" />
+            </span>
             {["Mentions légales", "Politique de confidentialité"].map(t => (
               <span key={t} style={{ display: "inline-flex", alignItems: "center", gap: 10 }}>
                 <span aria-hidden style={{ opacity: 0.4 }}>·</span>

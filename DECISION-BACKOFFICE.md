@@ -163,17 +163,23 @@ tiers — à compenser par un export automatique programmé, comme pour le cerve
 
 ```
 bluevistaprod.com/realisations/          ← français, sans préfixe
-bluevistaprod.com/en/works/              ← anglais
-bluevistaprod.com/es/realizaciones/      ← espagnol
+bluevistaprod.com/en/work/               ← anglais
+bluevistaprod.com/es/proyectos/          ← espagnol
 bluevista.ch/realisations/               ← français suisse
-bluevista.ch/en/works/                   ← anglais suisse
+bluevista.ch/en/work/                    ← anglais suisse
 ```
+
+⛔ **Ce bloc portait `/en/works/` et `/es/realizaciones/` — deux valeurs
+FAUSSES**, corrigées le 11/08/2026. Les bonnes sont `work` (singulier) et
+`proyectos`, tranchées le 10/08 et sourcées sur 10 agences anglophones.
+📌 **La source de vérité est le code**, `next-app/src/lib/hreflang.ts` →
+`const SEGMENTS` — jamais un document.
 
 ⛔ **Le français reste sans préfixe.** C'est déjà construit ainsi (réécriture,
 jamais redirection) et c'est ce qui protège les 751 adresses actuelles. Ajouter
 `/fr/` obligerait à rediriger tout le site pour un gain nul.
 
-📌 **Les slugs sont traduits, pas seulement les textes.** `/en/works/` et non
+📌 **Les slugs sont traduits, pas seulement les textes.** `/en/work/` et non
 `/en/realisations/` : une adresse en français sur une page anglaise ne se
 positionnera jamais sur une recherche anglaise.
 

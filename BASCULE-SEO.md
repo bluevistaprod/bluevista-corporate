@@ -254,8 +254,13 @@ rien sauvé — `motion-design` en est la preuve, à 1 120 mots et 61ᵉ.
 
 - ⏳ **Les références clients** (ONU, UNICEF, BBC, NHK, EDF, Vinci…) — le bloc est en place mais
   **volontairement vide**. Règle par défaut : « on demande ». Tâche Podio non tranchée.
-- ⏳ **Les segments d'URL traduits** (`realisations` → `works` / `proyectos`, etc.) — un segment se
-  référence, le changer plus tard coûte une redirection par page.
+- ✅✅ **Les segments d'URL ne sont plus un point ouvert — tranchés et verrouillés le 10/08/2026**,
+  sourcés sur 10 agences anglophones et 7 hispanophones :
+  `realisations` → **`work`** / `proyectos` · `savoir-faire` → **`services`** / `servicios` ·
+  `offres` → **`what-we-do`** / `que-hacemos` · ⛔ **pas de page de ville en EN ni en ES**, et les
+  villes françaises vivent **à la racine**, sans segment.
+  📌 **La source de vérité est le code** : `next-app/src/lib/hreflang.ts` → `const SEGMENTS`.
+  ⛔ Ne pas les redemander à Giz, et ne rien recopier depuis un autre document que celui-là.
 - ⏳ **Le marché genevois ANGLOPHONE** — *corporate video production geneva* : 185 impressions,
   **position 4**, zéro clic, sur une page française. Aucun des deux sites ne le sert. C'est un
   chantier pour la version anglaise de bluevista.ch, pas une correction côté français.

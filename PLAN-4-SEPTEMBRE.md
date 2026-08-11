@@ -51,6 +51,14 @@ rédaction de la semaine 2.
   tel quel en Suisse, à tester avec prudence »* ;
 - livrable : une section « Suisse » dans `voix-marketing.md`, avec ses propres étalons.
 
+✅✅ **FAIT ET ARBITRÉ LE 11/08/2026.** 18 agences romandes relevées (dont la seconde passe **depuis
+un VPN suisse**, qui a corrigé deux conclusions). Le détail vit dans **`TON-DE-VOIX-SUISSE.md`**,
+et **la section « Suisse » est écrite dans `voix-marketing.md`** — la rédaction de la semaine 2
+peut partir.
+⭐ Deux acquis qui débloquent la suite : **`bluevista.ch` est déjà 2ᵉ sur `agence vidéo genève`** ·
+et **GF Machining Solutions a donné son autorisation de citation** — c'est la référence qui porte
+l'angle suisse.
+
 📌 **Le même geste sera à refaire pour l'anglais, puis l'espagnol.** Ce n'est pas une traduction
 du registre : un ton se sourcé sur le marché où il s'exprime. À planifier en temps voulu, pas
 maintenant.
@@ -64,12 +72,12 @@ maintenant.
 | Bloquant | Pourquoi c'est vous | Échéance |
 |---|---|---|
 | **Mentions légales + politique de confidentialité** | Juridique. **Aucune mise en ligne commerciale sans elles.** | 20/08 |
-| **Arbitrage références clients** (ONU, UNICEF, BBC…) | Règle « on demande » ; tâche Podio non tranchée. Le bloc est en place et vide. | 20/08 |
+| **Arbitrage références clients** (ONU, UNICEF, BBC…) | Règle « on demande » ; tâche Podio non tranchée. Le bloc est en place et vide. ✅ **GF Machining Solutions : autorisation obtenue le 11/08** — les autres comptes suisses (SGS, Labcorp, OMM, OIM, e-Xpert, IQONE, Cermix, CAP Prévoyance) restent à demander. ⚠️ Pour GF, **seuls les projets postérieurs à 2017** : les précédents ont été livrés en marque blanche pour l'agence Félix. | 20/08 |
 | **Accès hébergement + DNS** | Il faut savoir OÙ le site va vivre et qui pointe le domaine. | 18/08 |
 | **Les 36 réalisations sans image** | Les visuels sont chez vous. | 25/08 |
 | **144 vidéos Vimeo → Livid** | Migration côté Livid. | 25/08 |
 | **La genèse de l'agence** | Le seul texte du site où quelqu'un parle en son nom. Deux paragraphes. | 22/08 |
-| **Validation des segments d'URL traduits** | `realisations` → `works` / `proyectos`. Un segment se référence : le changer après coûte une redirection par page. | 15/08 |
+| ✅ ~~**Validation des segments d'URL traduits**~~ | **Tranchés et verrouillés le 10/08**, sourcés sur 10 agences anglophones et 7 hispanophones : `realisations` → `work` / `proyectos` · `savoir-faire` → `services` / `servicios` · `offres` → `what-we-do` / `que-hacemos` · pas de page de ville en EN ni ES. 📌 Source de vérité : `next-app/src/lib/hreflang.ts`. | ~~15/08~~ ✅ |
 | **Périmètre CH-FR** | Quelles pages, quels projets suisses. | 15/08 |
 | **Clé API Podio dédiée au site** | ⛔ **Devenu obligatoire** : Podio affiche sur la clé « claude » *« les clés API ne doivent pas être partagées entre plusieurs utilisateurs »*, et son plafond horaire est déjà dépassé (270 req/h pour 250). Un formulaire public, c'est beaucoup d'utilisateurs — le brancher là aggraverait un manquement constaté. ⚠️ Ce n'est **pas un programme à héberger** : un identifiant + un secret déclarés une fois sur podio.com/settings/api. | 25/08 |
 | **Régénérer les deux clés API existantes** | Les codes secrets de `N8N` et `claude` sont apparus en clair dans une capture d'écran partagée le 11/08. Le bouton ↻ de chaque ligne les remplace. ⚠️ Après régénération, mettre à jour `~/.mcp-secrets.json`, sinon les serveurs MCP maison tombent. | 15/08 |

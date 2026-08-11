@@ -23,6 +23,20 @@ import { BLEU, BLEU_CLAIR, CLAIR, CLAIR_SOUTENU, NOIR, SOMBRE, TYPO } from "../_
  * et garde la trace du rapprochement des images et des anciennes URL.
  * ⚠️ Il n'est plus la vérité. Le modifier ne changerait plus rien à l'écran.
  */
+/**
+ * ⛔ LES BALISES. Cette page sortait elle aussi avec le titre de la maquette.
+ *
+ * ⚠️ « 145 réalisations » est employé ICI et NULLE PART AILLEURS : c'est le
+ * nombre de fiches que le portfolio montre, pas le volume produit. Le chiffre
+ * de production est « plus de 2 000 projets depuis 2004 ». Les confondre est la
+ * faute qui avait fait retirer « 145 films » de l'accueil.
+ */
+export const metadata = {
+  title: "Nos réalisations vidéo, événementielles et immersives | Bluevista",
+  description:
+    "145 réalisations en ligne : films d’entreprise, animation 3D, vidéo mapping, live streaming et expériences immersives. Filtrez par métier et par savoir-faire.",
+};
+
 export default async function PageRealisations({
   searchParams,
 }: {

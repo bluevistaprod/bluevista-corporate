@@ -33,6 +33,21 @@ import { BLEU, BLEU_CLAIR, CLAIR, CLAIR_SOUTENU, NOIR, SOMBRE, TYPO } from "../_
  * bonne partie des projets intéressants, et souvent les plus gros.
  */
 
+/**
+ * ⛔ LES BALISES. Cette page sortait avec le titre de la maquette — « Aperçus de
+ * direction artistique » — repéré le 12/08/2026 en vérifiant page par page.
+ *
+ * 📌 « devis » est conservé, et c'est mesuré : neuf requêtes réelles le
+ * contiennent, et l'adresse /contact-devis/ se positionne dessus. ⚠️ Le mot est
+ * banni de la PROSE de vente (« le mot devis est moche ») — l'interdit porte
+ * sur le corps, pas sur les balises. Les balises ne sont pas de la voix.
+ */
+export const metadata = {
+  title: "Contact et demande de devis — Lyon, Paris, Genève | Bluevista",
+  description:
+    "Parlons de votre projet vidéo, événementiel ou immersif. Réponse sous 24 h ouvrées. Bluevista, agence de production audiovisuelle depuis 2004.",
+};
+
 export default function PageContact() {
   return (
     <main style={{ background: CLAIR, color: SOMBRE }}>
