@@ -27,9 +27,12 @@ import { BLEU, BLEU_CLAIR, CLAIR, NOIR, SOMBRE, TYPO } from "../_palette";
  *     l'invalidation du Privacy Shield (Schrems II).
  *   · 3 ans et 2 ans : les durées recommandées par la CNIL.
  *
+ * ✅ LA SECTION COOKIES EST ÉCRITE (12/08), le jour où le bandeau a été posé —
+ * pas avant, et c'est la règle : une page légale rédigée « pour plus tard »
+ * devient fausse le jour où la fonction arrive. Chaque phrase y décrit quelque
+ * chose qui existe réellement à l'écran.
  * ⚠️ CE QUI RESTE `À COMPLÉTER` NE PEUT PAS L'ÊTRE PAR MOI : la date réelle de
- * mise en ligne, et la section cookies — qui se rédige avec le bandeau de
- * consentement, pas avant. Le composant `AComplerter` les rend impossibles à
+ * mise en ligne. Le composant `AComplerter` les rend impossibles à
  * rater : un surligné jaune en pleine page ne passe pas une relecture.
  *
  * ⚠️ Le pays d'hébergement des données PODIO n'est pas affirmé ici, seulement
@@ -282,15 +285,52 @@ export default function PagePolitique() {
         </Section>
 
         <Section titre="Cookies et mesure d’audience">
+          {/* ⛔⛔ ÉCRITE LE 12/08, EN MÊME TEMPS QUE LE BANDEAU — jamais avant.
+              La règle vient d'une faute évitée de justesse sur pulsecongress :
+              une page légale rédigée « pour plus tard » devient FAUSSE le jour
+              où la fonction arrive. Le texte y annonçait un retrait « depuis ce
+              même bandeau », alors que le bandeau disparaît au premier choix.
+              👉 Chaque phrase ci-dessous décrit quelque chose qui existe
+              réellement à l'écran. Si le bandeau change, ce texte change dans
+              le même geste. */}
           <p>
-            <AComplerter>
-              section à finaliser avec le bandeau de consentement — même semaine
-            </AComplerter>
+            Un cookie est un petit fichier déposé sur votre appareil. Nous en
+            distinguons deux sortes, et elles n’ont pas le même statut.
           </p>
           <p>
-            À noter dès maintenant&nbsp;: la carte de la page contact est un
-            dessin, pas une carte Google. Elle ne dépose aucun cookie et
-            n’envoie rien à un tiers.
+            <strong>Ceux qui font fonctionner le site</strong> — mémoriser votre
+            choix en matière de cookies, garder votre saisie si vous changez
+            d’onglet dans le formulaire, protéger l’envoi contre les robots. Ils
+            sont nécessaires au service que vous demandez, ils ne servent à rien
+            d’autre, et la réglementation ne soumet pas leur dépôt à votre
+            accord.
+          </p>
+          <p>
+            <strong>Ceux qui mesurent l’audience</strong> — savoir quelles pages
+            sont consultées, combien de temps, et par quel chemin vous êtes
+            arrivé. Ceux-là ne se déclenchent qu’après votre accord explicite.
+            Tant que vous n’avez pas répondu au bandeau, ou si vous refusez,
+            aucune mesure n’est activée&nbsp;: nous déclarons le refus par défaut
+            avant même que la page finisse de se charger.
+          </p>
+          <p>
+            <strong>Revenir sur votre choix, à tout moment.</strong> Le lien
+            «&nbsp;Cookies&nbsp;» en bas de chaque page rouvre le bandeau. Si
+            vous passez de l’acceptation au refus, la page se recharge
+            immédiatement pour que la mesure cesse tout de suite, et non à votre
+            prochaine visite.
+          </p>
+          <p>
+            Votre choix est conservé sur votre appareil, dans votre navigateur.
+            Il n’est pas transmis&nbsp;: nous ne savons pas qui a accepté ni qui
+            a refusé. Effacer les données de votre navigateur le supprime, et le
+            bandeau réapparaîtra.
+          </p>
+          <p>
+            <strong>Ce que nous n’utilisons pas.</strong> La carte de la page
+            contact est un dessin, pas une carte Google&nbsp;: elle ne dépose
+            aucun cookie et n’envoie rien à un tiers. Nous n’employons ni pixel
+            publicitaire de réseau social, ni outil de suivi entre sites.
           </p>
         </Section>
       </div>

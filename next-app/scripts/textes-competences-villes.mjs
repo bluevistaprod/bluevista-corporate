@@ -459,6 +459,46 @@ const PAGES = {
     ],
   },
 
+  /* ──────────────────────── MÉTIERS (balises seules) ────────────────────
+     ⛔ POURQUOI CES TROIS PAGES N'ONT QUE DES BALISES ICI, ET POURQUOI LEURS
+     TITRES NE SONT PAS « OPTIMISÉS » : ce sont des pages de VENTE, pas
+     d'acquisition. Personne ne tape « immersion » dans Google — le registre le
+     dit, et la mesure le confirme (ces trois pages n'existent pas encore sur
+     l'ancien site, donc aucune demande à capter).
+
+     👉 Le travail d'un titre ici n'est pas de RANGER, c'est d'être LISIBLE
+     dans une page de résultats. Les H1 restent les accroches — « Des contenus
+     qui font bouger vos indicateurs » — mais sorties de leur page, elles ne
+     disent pas de quoi il s'agit. Un visiteur qui voit ça dans Google ne
+     clique pas : il ne sait pas ce qu'il trouverait.
+
+     ⚠️ Les savoir-faire sont cités dans les titres, et c'est assumé : une page
+     de catégorie nomme ses enfants, ce n'est pas de la cannibalisation. La
+     règle « ne pas reprendre les mots-clés des compétences » vise la page
+     AGENCE, qui n'est pas leur parente. */
+
+  "metier-film": {
+    id: "page-metier-film",
+    seo: {
+      titre: "Communication & marketing — films, contenus courts, motion design | Bluevista",
+      description: "Films d’entreprise, contenus pour les réseaux et motion design, avec la diffusion pensée avec eux. Toutes nos compétences intégrées, depuis 2004.",
+    },
+  },
+  "metier-evenement": {
+    id: "page-metier-evenement",
+    seo: {
+      titre: "Événementiel — captation, vidéo mapping, diffusion en direct | Bluevista",
+      description: "Contenus scénographiés, captation multicaméra et diffusion en direct pour vos conventions et lancements. Ce qui passe à l’écran se fabrique avant le jour J.",
+    },
+  },
+  "metier-immersion": {
+    id: "page-metier-immersion",
+    seo: {
+      titre: "Immersion — réalité virtuelle, 360° et visites virtuelles | Bluevista",
+      description: "Expériences immersives conçues à partir de ce que le visiteur doit comprendre : casque, salle ou navigateur. Faire essayer ce qu’on ne peut pas encore toucher.",
+    },
+  },
+
   /* ─────────────────────────── VILLES ─────────────────────────── */
 
   "studio-animation-3d-lyon": {
@@ -640,7 +680,10 @@ async function ecrireSanity(cle, o) {
 
   /* ⛔ ON N'ÉCRASE PAS `texte` : c'est le corps repris de l'ancien site, celui
      qui se positionne depuis des années. On remplit ce qui était VIDE. */
-  patch.set.sections = o.sections.map((s, i) => ({
+  /* ⚠️ `sections` est facultatif : les pages MÉTIER n'entrent ici que pour
+     leurs balises, leur corps vit ailleurs. Écrire un tableau vide effacerait
+     leur contenu. */
+  if (o.sections) patch.set.sections = o.sections.map((s, i) => ({
     _key: s.cle,
     _type: "object",
     titre: s.titre,
