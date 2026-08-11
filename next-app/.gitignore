@@ -32,6 +32,11 @@ yarn-error.log*
 
 # env files (can opt-in for committing if needed)
 .env*
+# ⛔ SAUF le modèle : il ne contient AUCUNE valeur, et il documente toutes les
+# variables du site (jetons Podio par app, SMTP de l'alerte, journal).
+# Sans cette exception il restait invisible de Git — donc introuvable le jour
+# où quelqu'un d'autre déploie.
+!.env.local.exemple
 
 # vercel
 .vercel

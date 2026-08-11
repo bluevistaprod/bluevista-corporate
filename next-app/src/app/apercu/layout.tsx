@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Poppins } from "next/font/google";
 import "../globals.css";
+import { CaptureAcquisition } from "./_CaptureAcquisition";
 
 /**
  * Aperçus de direction artistique — pages de travail, jamais publiées.
@@ -41,7 +42,18 @@ export default function ApercuLayout({ children }: { children: React.ReactNode }
       basculer. L'interrupteur reste en place pour continuer à comparer.
     */
     <html lang="fr" className={poppins.variable} data-police="titres">
-      <body className="antialiased">{children}</body>
+      <body className="antialiased">
+        {/*
+          Capte le `gclid` dès la page d'ATTERRISSAGE. Il doit vivre ici et
+          non dans le formulaire : le visiteur arrive par une annonce sur une
+          page de compétence, puis navigue vers contact — à ce moment-là
+          l'URL ne porte plus rien. Sans cette ligne, aucune demande ne serait
+          attribuable à Google Ads, et le recâblage Ads de la semaine 5 n'aurait
+          rien à mesurer.
+        */}
+        <CaptureAcquisition />
+        {children}
+      </body>
     </html>
   );
 }

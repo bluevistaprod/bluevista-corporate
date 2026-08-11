@@ -122,3 +122,6 @@ next-app/public/planche/
 
 # Les identifiants Sanity — le projectId n'est pas secret, le jeton l'est.
 next-app/.env.local
+
+# Le journal des formulaires — demandes de vrais visiteurs, jamais dans Git
+journal-formulaires/
