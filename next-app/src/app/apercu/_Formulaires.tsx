@@ -5,7 +5,6 @@ import { METIERS } from "./_plan-du-site";
 import { BLEU, CLAIR_SOUTENU } from "./_palette";
 import { lireAcquisition } from "@/lib/acquisition-navigateur";
 import {
-  BUDGETS,
   COMPETENCES,
   CONTRATS,
   CHAMP_PIEGE,
@@ -154,8 +153,6 @@ const VIDE = {
 export function Formulaires({ marche = "fr" }: { marche?: Marche } = {}) {
   const [onglet, setOnglet] = useState<Onglet>("ventes");
   const [champs, setChamps] = useState({ ...VIDE });
-  const [pilier, setPilier] = useState<string | null>(null);
-  const [budget, setBudget] = useState("");
   const [contrat, setContrat] = useState("");
   const [competences, setCompetences] = useState<string[]>([]);
   const [consentement, setConsentement] = useState(false);
@@ -178,8 +175,6 @@ export function Formulaires({ marche = "fr" }: { marche?: Marche } = {}) {
     // ⚠️ On ne vide PAS les champs communs (nom, e-mail, téléphone) : quelqu'un
     // qui se trompe d'onglet après avoir saisi son identité ne doit pas être
     // puni en le retapant. Seuls les champs propres à l'onglet quitté partent.
-    setPilier(null);
-    setBudget("");
     setContrat("");
     setCompetences([]);
     setChamps(c => ({ ...c, poste: "", lien: "", debut: "", fin: "", echeance: "" }));
@@ -192,10 +187,6 @@ export function Formulaires({ marche = "fr" }: { marche?: Marche } = {}) {
     // Les vérifications que le navigateur ne fait pas tout seul, dites en
     // clair plutôt que par un `required` sur un bouton-pastille (invisible
     // pour la validation native, donc muet pour le visiteur).
-    if (onglet === "ventes" && !pilier) {
-      setErreur("Indiquez de quoi relève votre projet — ou « Je ne sais pas encore ».");
-      return;
-    }
     if (onglet === "recrutement" && competences.length === 0) {
       setErreur("Choisissez au moins un domaine de compétences.");
       return;
@@ -216,8 +207,6 @@ export function Formulaires({ marche = "fr" }: { marche?: Marche } = {}) {
           type: onglet,
           marche,
           ...champs,
-          pilier,
-          budget,
           contrat,
           competences,
           consentement,
@@ -331,57 +320,21 @@ export function Formulaires({ marche = "fr" }: { marche?: Marche } = {}) {
         {/* ── Ce qui change d'un formulaire à l'autre ────────────────── */}
         {onglet === "ventes" && (
           <>
-            <fieldset>
-              <legend className="text-[14px] font-bold">
-                Votre projet relève de<span style={{ color: BLEU }}> *</span>
-              </legend>
-              <div className="mt-3 flex flex-wrap gap-3">
-                {[...METIERS.map(m => ({ cle: m.cle as string, nom: m.nom })), { cle: "autre", nom: "Je ne sais pas encore" }].map(o => {
-                  const on = pilier === o.cle;
-                  return (
-                    <button
-                      key={o.cle}
-                      type="button"
-                      onClick={() => setPilier(o.cle)}
-                      aria-pressed={on}
-                      className="rounded-md border-2 px-5 py-3 text-[15px] font-semibold transition"
-                      style={{
-                        borderColor: on ? BLEU : "rgba(0,0,0,.12)",
-                        background: on ? BLEU : "transparent",
-                        color: on ? "#fff" : "inherit",
-                      }}
-                    >
-                      {o.nom}
-                    </button>
-                  );
-                })}
-              </div>
-            </fieldset>
+            {/* ⛔ LE PILIER ET LE BUDGET ONT ÉTÉ RETIRÉS — arbitrage de Giz,
+                11/08/2026 : « enlève-les, je ne veux pas contraindre le client ».
 
-            <label className="block">
-              <span className="text-[14px] font-bold">Budget envisagé</span>
-              <span className="ml-2 text-[13px] opacity-45">facultatif</span>
-              {/* ⚠️ Facultatif, et par tranches. L'imposer fait fuir ceux qui
-                  ne savent pas encore — c'est-à-dire beaucoup de bons
-                  projets, et souvent les plus gros.
-                  ⛔ Les tranches sont celles de l'app Ventes, pas d'autres :
-                  des seuils différents obligeraient à ranger « 5 000 à
-                  15 000 € » dans l'une ou l'autre case de Podio,
-                  arbitrairement — donc à fabriquer une donnée fausse. */}
-              <select
-                className={CLASSE_CHAMP}
-                value={budget}
-                onChange={e => setBudget(e.target.value)}
-              >
-                <option value="">Je ne sais pas encore</option>
-                {BUDGETS.map(b => (
-                  <option key={b.cle} value={b.cle}>
-                    {b.libelle}
-                  </option>
-                ))}
-              </select>
-            </label>
+                Ils ne figuraient PAS sur l'ancien webform Podio, alors que sa
+                consigne était de s'y tenir. Je les avais gardés en avançant que
+                le type de demande non DEMANDÉ était la cause du champ Podio qui
+                disait « film » 195 fois sur 210. L'argument reste vrai côté
+                données — il ne pèse pas contre le fait de faire réfléchir un
+                prospect avant qu'il écrive.
 
+                👉 Le correctif du pipeline Ads est de toute façon acquis
+                autrement, et mieux : trois formulaires vers trois apps rendent
+                STRUCTURELLEMENT impossible qu'une candidature atterrisse dans
+                les Ventes. C'était ça, le vrai vecteur des fausses conversions
+                — 106 sur 210. */}
             <Champ
               label="Votre projet"
               type="textarea"

@@ -268,6 +268,11 @@ async function envoyerVente(
   const entreprise = texte(corps.entreprise);
   if (!entreprise) return Promise.reject(new Error("Entreprise manquante"));
 
+  /* ⛔ Le formulaire ne DEMANDE plus le pilier ni le budget — arbitrage de
+     Giz, 11/08/2026 : « je ne veux pas contraindre le client ». On continue
+     néanmoins à les LIRE s'ils arrivent : la route sert aussi le site suisse
+     et servira l'anglais, et un champ qui disparaît du formulaire ne doit pas
+     faire tomber une demande qui l'enverrait encore. */
   const pilier = texte(corps.pilier);
   const budget = texte(corps.budget);
 
