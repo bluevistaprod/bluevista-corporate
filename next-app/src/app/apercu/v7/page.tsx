@@ -372,8 +372,19 @@ export default function V7() {
             className="apparition-hero max-w-[19ch] text-[clamp(2.6rem,7vw,6rem)] font-bold leading-[0.95] tracking-[-0.02em]"
             style={{ "--retard": "1100ms" } as React.CSSProperties}
           >
-            On conçoit, on réalise,{" "}
-            <span style={{ color: BLEU_CLAIR }}>on diffuse</span>.
+            {/* ⛔ TROIS LIGNES FORCÉES, une par verbe — demande de Giz,
+                10/08/2026 : en laissant la césure naturelle, « on diffuse »
+                restait seul en bas et l'accroche se lisait bancale.
+                Chaque segment est un bloc : la coupe tombe donc toujours après
+                la virgule, quelle que soit la largeur. Les segments sont assez
+                courts (onze caractères) pour ne jamais se re-couper, même sur
+                un téléphone étroit — c'est ce qui rend le procédé sûr, là où un
+                <br /> laisserait la ligne déborder. */}
+            <span className="block">On conçoit,</span>
+            <span className="block">on réalise,</span>
+            <span className="block" style={{ color: BLEU_CLAIR }}>
+              on diffuse.
+            </span>
           </h1>
           <p
             className="apparition-hero mt-8 max-w-2xl text-xl leading-relaxed text-white/85"
