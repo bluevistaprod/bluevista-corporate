@@ -6,6 +6,9 @@ import { lirePage, lirePages, lireRealisationsDuProduit, enParagraphes, imageUrl
 import { OFFRES } from "../../_offres";
 import { BLEU, BLEU_CLAIR, CLAIR, CLAIR_SOUTENU, NOIR, SOMBRE, TYPO } from "../../_palette";
 import { alternatesDe } from "../../../../lib/hreflang";
+import { LecteurVideo, BaliseVideo } from "../../_LecteurVideo";
+import { TexteRiche } from "../../_TexteRiche";
+import { Blocs } from "../../_Blocs";
 
 /**
  * LES PAGES DE COMPÉTENCE — le niveau ② de l'architecture.
@@ -85,8 +88,11 @@ export default async function PageCompetence({
     texte: enParagraphes(page.texte),
     sections: (page.sections ?? []).map(s => ({
       titre: s.titre,
-      paragraphes: enParagraphes(s.paragraphes),
+      /* ⛔ On garde les BLOCS, pas seulement le texte aplati : c'est eux qui
+         portent les liens vers les projets cités. Aplatir ici les perdait. */
+      blocs: s.paragraphes,
       image: s.image ? imageUrl(s.image, 1200, 750) : undefined,
+      galerie: (s.galerie ?? []).map(g => imageUrl(g, 700, 440)).filter(Boolean) as string[],
     })),
     faq: page.faq ?? [],
   };
@@ -96,8 +102,56 @@ export default async function PageCompetence({
 
   /* Les produits que cette page de savoir-faire porte — c'est par eux
      qu'on retrouve les réalisations correspondantes. */
+  /* ⭐ LA RÉPARTITION DES VIDÉOS. Une par section, dans l'ordre ; ce qui
+     dépasse va dans un bloc en fin de page. Une page à quatre sections et six
+     vidéos en place donc quatre dans le texte et deux ensemble — au lieu des
+     six empilées, qui donnaient l'impression d'un gabarit rempli à la fin. */
+  /* ⛔ LES VIDÉOS VONT DANS LES SECTIONS QUI N'ONT PAS D'IMAGE, et seulement
+     celles-là. Une première version les distribuait sur les sections dans
+     l'ordre : dès que les images de l'ancien site ont été reposées, chaque
+     section illustrée AVALAIT sa vidéo — le média était choisi par le gabarit,
+     l'image gagnait, et la vidéo disparaissait sans laisser de trace. Poser
+     deux médias au même endroit, c'est en perdre un. */
+  const sansImage = (page.sections ?? [])
+    .map((s, i) => (s.image || s.pleineLargeur ? -1 : i))
+    .filter(i => i >= 0);
+  const videoParSection = new Map<number, NonNullable<typeof page.videos>[number]>();
+  (page.videos ?? []).forEach((v, k) => {
+    if (k < sansImage.length) videoParSection.set(sansImage[k], v);
+  });
+  const videosRestantes = (page.videos ?? []).slice(sansImage.length);
+
   const produits = OFFRES.flatMap(o => o.produits).filter(pr => pr.page === slug).map(pr => pr.slug);
   const projets = produits.length ? await lireRealisationsDuProduit(produits) : [];
+
+  /* ⭐ LA GRILLE DE PROJETS EST PASSÉE AU BLOC QUI LA DEMANDE. Elle était
+     clouée en fin de page ; désormais Giz la place où il veut dans l'ordre des
+     blocs, sans que le choix des réalisations lui échappe — elles restent
+     sélectionnées par leur produit. */
+  const grilleProjets = projets.length > 0 ? (
+    <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+      {projets.map(pr => (
+        <a key={pr.slug} href={`/apercu/realisations/${pr.slug}`}
+           className="group block overflow-hidden rounded-md border transition hover:shadow-lg"
+           style={{ borderColor: "rgba(0,0,0,.1)", background: "#fff" }}>
+          {pr.image ? (
+            <div className="aspect-[16/10] bg-cover bg-center transition duration-700 group-hover:brightness-110"
+                 style={{ backgroundImage: `url('${imageUrl(pr.image, 600, 375)}')` }}
+                 role="img" aria-label={pr.titre} />
+          ) : (
+            <div className="aspect-[16/10]" style={{ background: CLAIR_SOUTENU }} />
+          )}
+          <div className="p-5 text-[15px] font-bold leading-snug" style={{ color: SOMBRE }}>{pr.titre}</div>
+        </a>
+      ))}
+    </div>
+  ) : null;
+
+  /* ⛔ LES DEUX MODÈLES COEXISTENT LE TEMPS DE LA REPRISE. Une page qui porte
+     des blocs les affiche ; celles qui n'en ont pas encore gardent leurs
+     sections. Basculer tout le monde d'un coup viderait les huit pages pas
+     encore reprises. */
+  const enBlocs = (page.blocs?.length ?? 0) > 0;
 
   return (
     <main style={{ background: CLAIR, color: SOMBRE }}>
@@ -135,184 +189,272 @@ export default async function PageCompetence({
         </div>
       </section>
 
+      {enBlocs ? (
+        <>
+          {/* ⛔ LE TEXTE D'INTRODUCTION N'EST PAS UN BLOC, ET IL A FAILLI
+              DISPARAÎTRE. En basculant les pages sur les blocs, le champ
+              `texte` — trois paragraphes par page — n'était plus affiché nulle
+              part : les pages perdaient 80 à 120 mots chacune, sous le
+              plancher d'une page de savoir-faire, sans que rien ne le signale.
+              👉 Il reste rendu ici, entre le hero et les blocs. C'est lui qui
+              porte le vocabulaire commercial de la page. */}
+          {c.texte.length > 0 && (
+            <section className="pb-4 pt-16" style={{ background: CLAIR_SOUTENU }}>
+              <div className="mx-auto max-w-[820px] px-8">
+                <TexteRiche blocs={page.texte} className="text-[1.0625rem] leading-[1.75] opacity-82" />
+              </div>
+            </section>
+          )}
+          <Blocs blocs={page.blocs!} projets={grilleProjets} />
+        </>
+      ) : (
+        <>
       {/* ── Le problème, et ce qu'on prend en charge ──────────────────────
-          On ouvre sur le problème du visiteur, pas sur notre savoir-faire :
-          il arrive d'une recherche, il veut d'abord savoir s'il est au bon
-          endroit. */}
-      <section className="mx-auto max-w-[1500px] px-8 py-24">
-        <div className="grid gap-16 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)]">
-          <div>
-            <div className={`mb-6 flex items-center gap-4 ${TYPO.surTitre}`} style={{ color: BLEU }}>
-              <span className="inline-block h-[3px] w-12 rounded-full" style={{ background: BLEU }} />
-              Le point de départ
-            </div>
-            <p className={`max-w-xl ${TYPO.chapo}`}>{c.probleme}</p>
-          </div>
-          <div>
-            <div className="text-[13px] font-bold uppercase tracking-[0.16em] opacity-45">
-              Ce qu’on prend en charge
-            </div>
-            <ul className="mt-5 grid gap-x-10 gap-y-4 sm:grid-cols-2">
-              {c.ce_qu_on_fait.map(s => (
-                <li
-                  key={s}
-                  className="border-t pt-3 text-[1.0625rem] font-medium"
-                  style={{ borderColor: `${BLEU}33` }}
-                >
-                  {s}
-                </li>
-              ))}
-            </ul>
-          </div>
-        </div>
-      </section>
-
-      {/* ── Le texte de fond ──────────────────────────────────────────
-          Repris de l'ancien site : c'est lui qui fait remonter la page
-          depuis des années. Le réécrire pour le plaisir jetterait un actif. */}
-      {c.texte.length > 0 && (
-        <section style={{ background: CLAIR_SOUTENU }}>
-          <div className="mx-auto max-w-[820px] px-8 py-20">
-            <div className="space-y-6">
-              {c.texte.map((par, i) => (
-                <p key={i} className="text-[1.0625rem] leading-[1.75] opacity-80">
-                  {par}
-                </p>
-              ))}
-            </div>
-          </div>
-        </section>
-      )}
-
-      {/* ── LES SECTIONS DE FOND ────────────────────────────────────────
-          Ajoutées là où le texte repris ne suffisait pas — sous 200 mots,
-          une page ne se défend pas : Google la montre mais ne la classe
-          pas haut.
-
-          La forme n'est pas décorative : un titre par question qu'un client
-          se pose vraiment, des blocs courts, une image tous les deux ou
-          trois blocs. Un mur de texte de 1 200 mots n'est lu par personne,
-          et Google mesure aussi le temps passé. */}
-      {c.sections.length > 0 && (
+            On ouvre sur le problème du visiteur, pas sur notre savoir-faire :
+            il arrive d'une recherche, il veut d'abord savoir s'il est au bon
+            endroit. */}
         <section className="mx-auto max-w-[1500px] px-8 py-24">
-          <div className="space-y-24">
-            {c.sections.map((sec, i) => (
-              <article
-                key={sec.titre}
-                className={`grid gap-12 lg:gap-16 ${
-                  sec.image ? "lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)]" : ""
-                }`}
-              >
-                <div className={sec.image && i % 2 ? "lg:order-last" : ""}>
-                  <div className="text-sm font-bold tabular-nums" style={{ color: BLEU }}>
-                    0{i + 1}
-                  </div>
-                  <h2 className={`mt-3 max-w-[22ch] ${TYPO.titre}`}>{sec.titre}</h2>
-                </div>
-                <div className={sec.image ? "" : "max-w-[820px]"}>
-                  {sec.image && (
-                    <div
-                      className="mb-8 aspect-[16/10] rounded-md bg-cover bg-center"
-                      style={{ backgroundImage: `url('${sec.image}')` }}
-                      role="img"
-                      aria-label={sec.titre}
-                    />
-                  )}
-                  <div className="space-y-5">
-                    {sec.paragraphes.map((par, j) => (
-                      <p key={j} className="text-[1.0625rem] leading-[1.75] opacity-80">
-                        {par}
-                      </p>
-                    ))}
-                  </div>
-                </div>
-              </article>
-            ))}
-          </div>
-        </section>
-      )}
-
-      {/* ── LA FAQ ──────────────────────────────────────────────────────
-          ⛔ Ce n'est pas un remplissage. Les questions longues — « faut-il
-          une autorisation pour un drone », « combien de casques prévoir » —
-          sont celles que les pages vitrines ratent toutes, et ce sont
-          exactement celles que les gens tapent. Elles vaudront aussi un
-          balisage FAQPage en JSON-LD à la mise en ligne. */}
-      {c.faq.length > 0 && (
-        <section style={{ background: CLAIR_SOUTENU }}>
-          <div className="mx-auto max-w-[820px] px-8 py-20">
-            <div className={`mb-7 flex items-center gap-4 ${TYPO.surTitre}`} style={{ color: BLEU }}>
-              <span className="inline-block h-[3px] w-12 rounded-full" style={{ background: BLEU }} />
-              Les questions qu’on nous pose
+          <div className="grid gap-16 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)]">
+            <div>
+              <div className={`mb-6 flex items-center gap-4 ${TYPO.surTitre}`} style={{ color: BLEU }}>
+                <span className="inline-block h-[3px] w-12 rounded-full" style={{ background: BLEU }} />
+                Le point de départ
+              </div>
+              <p className={`max-w-xl ${TYPO.chapo}`}>{c.probleme}</p>
             </div>
-            <div className="mt-10 space-y-8">
-              {c.faq.map(item => (
-                <div key={item.q} className="border-t pt-6" style={{ borderColor: "rgba(0,0,0,.12)" }}>
-                  <h3 className="text-[1.15rem] font-bold leading-snug tracking-tight">{item.q}</h3>
-                  <p className="mt-3 text-[1.0625rem] leading-[1.7] opacity-75">{item.r}</p>
-                </div>
-              ))}
+            <div>
+              <div className="text-[13px] font-bold uppercase tracking-[0.16em] opacity-45">
+                Ce qu’on prend en charge
+              </div>
+              <ul className="mt-5 grid gap-x-10 gap-y-4 sm:grid-cols-2">
+                {c.ce_qu_on_fait.map(s => (
+                  <li
+                    key={s}
+                    className="border-t pt-3 text-[1.0625rem] font-medium"
+                    style={{ borderColor: `${BLEU}33` }}
+                  >
+                    {s}
+                  </li>
+                ))}
+              </ul>
             </div>
           </div>
         </section>
-      )}
 
-      {/* ── Ce qui manque encore, quand rien n'a été repris ───────────── */}
-      {c.texte.length === 0 && c.sections.length === 0 && (
-        <section style={{ background: CLAIR_SOUTENU }}>
-          <div className="mx-auto max-w-[820px] px-8 py-20">
-            <div
-              className="rounded-md border-2 border-dashed px-8 py-10"
-              style={{ borderColor: `${BLEU}55` }}
-            >
-              <div className="text-[13px] font-bold uppercase tracking-[0.16em]" style={{ color: BLEU }}>
-                À reprendre de l’ancien site — {c.clics} clics sur 12 mois
+        {/* ── Le texte de fond ──────────────────────────────────────────
+            Repris de l'ancien site : c'est lui qui fait remonter la page
+            depuis des années. Le réécrire pour le plaisir jetterait un actif. */}
+        {c.texte.length > 0 && (
+          <section style={{ background: CLAIR_SOUTENU }}>
+            <div className="mx-auto max-w-[820px] px-8 py-20">
+              <div className="space-y-6">
+                {c.texte.map((par, i) => (
+                  <p key={i} className="text-[1.0625rem] leading-[1.75] opacity-80">
+                    {par}
+                  </p>
+                ))}
               </div>
             </div>
-          </div>
-        </section>
-      )}
+          </section>
+        )}
 
-      {/* ── LES PROJETS QUI LE PROUVENT ──────────────────────────────────
-          ⛔ CE BLOC MANQUAIT, et c'était le trou du maillage. Les pages de
-          savoir-faire renvoyaient vers un FILTRE de la page réalisations,
-          jamais vers les fiches elles-mêmes. Résultat mesuré : chaque
-          réalisation ne recevait qu'un seul lien entrant.
+        {/* ── LES SECTIONS DE FOND ────────────────────────────────────────
+            Ajoutées là où le texte repris ne suffisait pas — sous 200 mots,
+            une page ne se défend pas : Google la montre mais ne la classe
+            pas haut.
 
-          Ici les fiches sont liées une par une. Une page de savoir-faire
-          qui se positionne bien transmet donc son autorité aux projets
-          qu'elle cite — et le visiteur voit la preuve au lieu d'un lien
-          vers une liste à filtrer. */}
-      {projets.length > 0 && (
-        <section className="mx-auto max-w-[1500px] px-8 py-24">
-          <div className={`mb-7 flex items-center gap-4 ${TYPO.surTitre}`} style={{ color: BLEU }}>
-            <span className="inline-block h-[3px] w-12 rounded-full" style={{ background: BLEU }} />
-            La preuve
-          </div>
-          <h2 className={`max-w-3xl ${TYPO.titre}`}>Des projets, pas des promesses</h2>
-          <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {projets.map(pr => (
-              <a
-                key={pr.slug}
-                href={`/apercu/realisations/${pr.slug}`}
-                className="group block overflow-hidden rounded-md border transition hover:shadow-lg"
-                style={{ borderColor: "rgba(0,0,0,.1)", background: "#fff" }}
+            La forme n'est pas décorative : un titre par question qu'un client
+            se pose vraiment, des blocs courts, une image tous les deux ou
+            trois blocs. Un mur de texte de 1 200 mots n'est lu par personne,
+            et Google mesure aussi le temps passé. */}
+        {c.sections.length > 0 && (
+          <section className="mx-auto max-w-[1500px] px-8 py-24">
+            <div className="space-y-24">
+              {c.sections.map((sec, i) => {
+                /* ⭐ UNE VIDÉO PAR SECTION, DANS L'ORDRE — corrigé le 12/08/2026.
+                   Elles étaient toutes empilées en bas de page, juste avant la
+                   grille des réalisations : deux grilles d'images à la suite, et
+                   quatre sections de texte nu au-dessus. Verdict de Giz sur
+                   l'ancienne page comparée à la nouvelle : « elle faisait
+                   article réel, pas gabarit sans âme » et « les vidéos en bas et
+                   pas réparties font gabarit ».
+                   👉 La colonne média de la section accueille l'image quand il y
+                   en a une, la vidéo sinon. Le texte et le média alternent de
+                   gauche à droite d'une section à l'autre — c'est ce que faisait
+                   l'ancien site, et c'est ce qui donne le rythme. */
+                const media = sec.image ? "image" : videoParSection.get(i) ? "video" : null;
+                return (
+                  <article
+                    key={sec.titre}
+                    className={`grid gap-12 lg:gap-16 ${
+                      media ? "lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)]" : ""
+                    }`}
+                  >
+                    <div className={media && i % 2 ? "lg:order-last" : ""}>
+                      <div className="text-sm font-bold tabular-nums" style={{ color: BLEU }}>
+                        0{i + 1}
+                      </div>
+                      <h2 className={`mt-3 max-w-[22ch] ${TYPO.titre}`}>{sec.titre}</h2>
+                    </div>
+                    <div className={media ? "" : "max-w-[820px]"}>
+                      {media === "image" && (
+                        <>
+                          <div
+                            className="mb-4 aspect-[16/10] rounded-md bg-cover bg-center"
+                            style={{ backgroundImage: `url('${sec.image}')` }}
+                            role="img"
+                            aria-label={sec.titre}
+                          />
+                          {/* ⭐ Les autres vues du MÊME projet. Le showroom GF en
+                              a cinq : n'en montrer qu'une revient à jeter les
+                              quatre autres. */}
+                          {sec.galerie.length > 0 && (
+                            <div className="mb-8 grid grid-cols-3 gap-3">
+                              {sec.galerie.map((g, k) => (
+                                <div
+                                  key={k}
+                                  className="aspect-[16/10] rounded bg-cover bg-center"
+                                  style={{ backgroundImage: `url('${g}')` }}
+                                  role="img"
+                                  aria-label={`${sec.titre} — vue ${k + 2}`}
+                                />
+                              ))}
+                            </div>
+                          )}
+                        </>
+                      )}
+                      {media === "video" && (
+                        <div className="mb-8">
+                          <LecteurVideo video={videoParSection.get(i)!} />
+                        </div>
+                      )}
+                      <TexteRiche blocs={sec.blocs} className="text-[1.0625rem] leading-[1.75] opacity-80" />
+                    </div>
+                  </article>
+                );
+              })}
+            </div>
+          </section>
+        )}
+
+        {/* ── LA FAQ ──────────────────────────────────────────────────────
+            ⛔ Ce n'est pas un remplissage. Les questions longues — « faut-il
+            une autorisation pour un drone », « combien de casques prévoir » —
+            sont celles que les pages vitrines ratent toutes, et ce sont
+            exactement celles que les gens tapent. Elles vaudront aussi un
+            balisage FAQPage en JSON-LD à la mise en ligne. */}
+        {c.faq.length > 0 && (
+          <section style={{ background: CLAIR_SOUTENU }}>
+            <div className="mx-auto max-w-[820px] px-8 py-20">
+              <div className={`mb-7 flex items-center gap-4 ${TYPO.surTitre}`} style={{ color: BLEU }}>
+                <span className="inline-block h-[3px] w-12 rounded-full" style={{ background: BLEU }} />
+                Les questions qu’on nous pose
+              </div>
+              <div className="mt-10 space-y-8">
+                {c.faq.map(item => (
+                  <div key={item.q} className="border-t pt-6" style={{ borderColor: "rgba(0,0,0,.12)" }}>
+                    <h3 className="text-[1.15rem] font-bold leading-snug tracking-tight">{item.q}</h3>
+                    <p className="mt-3 text-[1.0625rem] leading-[1.7] opacity-75">{item.r}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </section>
+        )}
+
+        {/* ── Ce qui manque encore, quand rien n'a été repris ───────────── */}
+        {c.texte.length === 0 && c.sections.length === 0 && (
+          <section style={{ background: CLAIR_SOUTENU }}>
+            <div className="mx-auto max-w-[820px] px-8 py-20">
+              <div
+                className="rounded-md border-2 border-dashed px-8 py-10"
+                style={{ borderColor: `${BLEU}55` }}
               >
-                {pr.image ? (
-                  <div
-                    className="aspect-[16/10] bg-cover bg-center transition duration-700 group-hover:brightness-110"
-                    style={{ backgroundImage: `url('${imageUrl(pr.image, 600, 375)}')` }}
-                    role="img"
-                    aria-label={pr.titre}
-                  />
-                ) : (
-                  <div className="aspect-[16/10]" style={{ background: CLAIR_SOUTENU }} />
-                )}
-                <div className="p-5 text-[15px] font-bold leading-snug">{pr.titre}</div>
-              </a>
-            ))}
-          </div>
-        </section>
+                <div className="text-[13px] font-bold uppercase tracking-[0.16em]" style={{ color: BLEU }}>
+                  À reprendre de l’ancien site — {c.clics} clics sur 12 mois
+                </div>
+              </div>
+            </div>
+          </section>
+        )}
+
+        {/* ── LES VIDÉOS DE LA PAGE ────────────────────────────────────────
+            ⛔ ELLES MANQUAIENT, et c'est le trou le plus visible sur un site
+            d'agence audiovisuelle : neuf pages décrivaient un savoir-faire
+            sans jamais le MONTRER. Les 27 vidéos de l'ancien site ont été
+            récupérées le 12/08/2026.
+
+            ⚠️ Rien n'est chargé tant qu'on ne clique pas — voir _LecteurVideo.
+            Sept lecteurs posés d'emblée sur la page vidéo mapping auraient
+            coûté plus cher en vitesse que les vidéos ne rapportent en preuve.
+
+            ⭐ Le balisage VideoObject part avec : c'est lui qui ouvre les
+            résultats vidéo de Google, invisibles sans lui. */}
+        {videosRestantes.length > 0 && (
+          <section style={{ background: CLAIR_SOUTENU }}>
+            <div className="mx-auto max-w-[1500px] px-8 py-24">
+              <div className={`mb-7 flex items-center gap-4 ${TYPO.surTitre}`} style={{ color: BLEU }}>
+                <span className="inline-block h-[3px] w-12 rounded-full" style={{ background: BLEU }} />
+                À l’écran
+              </div>
+              <h2 className={`max-w-3xl ${TYPO.titre}`}>Les autres vidéos</h2>
+              <div className="mt-12 grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
+                {videosRestantes.map((v, i) => (
+                  <LecteurVideo key={v._key ?? `${v.url}-${i}`} video={v} />
+                ))}
+              </div>
+            </div>
+            
+          </section>
+        )}
+
+        {/* ⭐ Le balisage couvre TOUTES les vidéos de la page, réparties ou
+            non : Google lit l'en-tête, pas la mise en page. */}
+        {(page.videos?.length ?? 0) > 0 && <BaliseVideo videos={page.videos!} page={page.titre} />}
+
+        {/* ── LES PROJETS QUI LE PROUVENT ──────────────────────────────────
+            ⛔ CE BLOC MANQUAIT, et c'était le trou du maillage. Les pages de
+            savoir-faire renvoyaient vers un FILTRE de la page réalisations,
+            jamais vers les fiches elles-mêmes. Résultat mesuré : chaque
+            réalisation ne recevait qu'un seul lien entrant.
+
+            Ici les fiches sont liées une par une. Une page de savoir-faire
+            qui se positionne bien transmet donc son autorité aux projets
+            qu'elle cite — et le visiteur voit la preuve au lieu d'un lien
+            vers une liste à filtrer. */}
+        {projets.length > 0 && (
+          <section className="mx-auto max-w-[1500px] px-8 py-24">
+            <div className={`mb-7 flex items-center gap-4 ${TYPO.surTitre}`} style={{ color: BLEU }}>
+              <span className="inline-block h-[3px] w-12 rounded-full" style={{ background: BLEU }} />
+              La preuve
+            </div>
+            <h2 className={`max-w-3xl ${TYPO.titre}`}>Des projets, pas des promesses</h2>
+            <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+              {projets.map(pr => (
+                <a
+                  key={pr.slug}
+                  href={`/apercu/realisations/${pr.slug}`}
+                  className="group block overflow-hidden rounded-md border transition hover:shadow-lg"
+                  style={{ borderColor: "rgba(0,0,0,.1)", background: "#fff" }}
+                >
+                  {pr.image ? (
+                    <div
+                      className="aspect-[16/10] bg-cover bg-center transition duration-700 group-hover:brightness-110"
+                      style={{ backgroundImage: `url('${imageUrl(pr.image, 600, 375)}')` }}
+                      role="img"
+                      aria-label={pr.titre}
+                    />
+                  ) : (
+                    <div className="aspect-[16/10]" style={{ background: CLAIR_SOUTENU }} />
+                  )}
+                  <div className="p-5 text-[15px] font-bold leading-snug">{pr.titre}</div>
+                </a>
+              ))}
+            </div>
+          </section>
+        )}
+
+        </>
       )}
 
       {/* ── Le maillage interne ───────────────────────────────────────── */}

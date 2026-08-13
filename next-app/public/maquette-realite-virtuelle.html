@@ -1,0 +1,531 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Maquette — Agence de réalité virtuelle | Bluevista</title>
+<!--
+  MAQUETTE DE TRAVAIL — 12/08/2026, à regarder et à corriger AVANT de coder.
+
+  ⛔ POURQUOI CETTE MAQUETTE EXISTE. Deux fois de suite, on a découvert le
+  problème après avoir codé : la page était montée, et c'est en la regardant
+  qu'on voyait qu'elle ne tenait pas. Giz : « je suis aujourd'hui INSATISFAIT
+  du design de ces pages et de leur contenu ». Cette fois on regarde d'abord.
+
+  ⭐ CE QUI CHANGE PAR RAPPORT À LA PAGE ACTUELLE :
+  ① SEPT TYPES DE BLOCS au lieu d'un seul répété quatre fois. C'est ça qui
+     faisait « gabarit » : numéro, titre, texte, média — quatre fois. L'ancien
+     site alternait six formats différents, et c'est ce qui le fait vivre.
+  ② L'ALTERNANCE CLAIR / SOMBRE, prévue dans la direction validée et absente
+     de ces pages : tout y était clair du hero au pied de page.
+  ③ LES VISUELS GÉNÉRIQUES SONT ASSUMÉS comme tels — bannières d'ambiance —
+     et ne prétendent plus illustrer un projet nommé.
+
+  Palette et typographie reprises telles quelles du site : Poppins, les deux
+  bleus, le blanc cassé chaud, le bleu sombre pour la marque et le noir
+  profond réservé aux bandes d'image.
+-->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bleu:#12607E; --bleu-clair:#5BC8DE; --gris:#CCCCCC;
+    --clair:#F7F6F2; --clair-soutenu:#EBE8E1;
+    --sombre:#07222B; --sombre-profond:#04161C; --noir:#04070A;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:Poppins,system-ui,sans-serif;background:var(--clair);color:var(--sombre);
+       -webkit-font-smoothing:antialiased}
+  .large{max-width:1500px;margin:0 auto;padding:0 2rem}
+  .etroit{max-width:820px;margin:0 auto;padding:0 2rem}
+  section{padding:8rem 0}
+  .sombre{background:var(--sombre);color:var(--clair)}
+  .noir{background:var(--noir);color:var(--clair)}
+  .soutenu{background:var(--clair-soutenu)}
+
+  .surtitre{font-size:clamp(13px,1.15vw,18px);font-weight:700;text-transform:uppercase;letter-spacing:.16em;
+            color:var(--bleu);display:flex;align-items:center;gap:1rem;margin-bottom:1.75rem}
+  .depart .surtitre{margin-bottom:1.1rem}
+  .sombre .surtitre,.noir .surtitre{color:var(--bleu-clair)}
+  .surtitre::before{content:"";display:block;width:clamp(3rem,4vw,4.5rem);height:3px;border-radius:99px;background:currentColor}
+  h2{font-size:clamp(1.9rem,3.4vw,3rem);font-weight:700;line-height:1.08;letter-spacing:-.02em;max-width:22ch}
+  h3{font-size:1.35rem;font-weight:700;line-height:1.3;letter-spacing:-.01em}
+  p{font-size:1.0625rem;line-height:1.75;opacity:.82;max-width:62ch}
+  p+p{margin-top:1.25rem}
+  /* ⛔ LE LIEN SOULIGNÉ NE TENAIT PAS SUR UNE IMAGE. « GF Machining
+     Solutions » posé en bleu de marque sur la photo du showroom était
+     illisible — deuxième fois que le même défaut remonte, après le mot en
+     couleur. La cause est la même : une couleur de texte dépend de ce qu'il y
+     a derrière, une pastille non.
+     👉 Décision de Giz : le lien prend le surlignage. Un fond qui lui
+     appartient, donc lisible partout. */
+  a{color:#fff;background:var(--bleu);text-decoration:none;font-weight:600;
+    padding:.12em .45em;border-radius:5px;box-decoration-break:clone;
+    -webkit-box-decoration-break:clone;transition:background .18s}
+  a:hover{background:var(--sombre)}
+  .sombre a,.noir a,.banniere a{background:var(--bleu-clair);color:var(--noir)}
+  .sombre a:hover,.noir a:hover,.banniere a:hover{background:#fff}
+  .fil a,.bouton,.usage h3 a{background:none;padding:0;font-weight:inherit}
+
+  /* ── ① HERO ─────────────────────────────────────────────────────────── */
+  .hero{min-height:62vh;display:flex;flex-direction:column;justify-content:flex-end;
+        position:relative;overflow:hidden;background:var(--noir);padding:10rem 0 4rem}
+  .hero .fond{position:absolute;inset:0;background:url('/media/px-pilier-immersion.jpg') center/cover;}
+  .hero .voile{position:absolute;inset:0;
+        background:linear-gradient(to top,#04070AF2 8%,#04070A95 48%,#04070A45 100%)}
+  .hero .large{position:relative;z-index:2;color:#fff}
+  .fil{font-size:14px;color:#ffffff99;margin-bottom:1.5rem}
+  .fil a{color:#ffffff99;text-decoration:none} .fil a:hover{color:#fff}
+  h1{font-size:clamp(2.2rem,5vw,4rem);font-weight:700;line-height:1.02;letter-spacing:-.02em;max-width:18ch}
+  .hero p{color:#ffffffcc;opacity:1;font-size:1.15rem;margin-top:1.5rem;max-width:44ch}
+
+  /* ── ② POINT DE DÉPART ──────────────────────────────────────────────── */
+  .depart{display:grid;gap:4rem;grid-template-columns:1.05fr 1fr;align-items:start}
+  .prise-liste{list-style:none;margin-top:0;display:grid;grid-template-columns:1fr;gap:.55rem}
+  .prise-liste li{padding-bottom:.6rem;border-bottom:1px solid #0722221a;font-size:.98rem}
+  .prise-liste b{color:var(--bleu);font-weight:600}
+
+  /* ── ③ TEXTE + MÉDIA ────────────────────────────────────────────────── */
+  .duo{display:grid;gap:5rem;grid-template-columns:1fr 1fr;align-items:start}
+  .duo.inverse .txt{order:2}
+  .num{font-size:.875rem;font-weight:700;color:var(--bleu);font-variant-numeric:tabular-nums}
+  .sombre .num{color:var(--bleu-clair)}
+  .media{border-radius:6px;overflow:hidden;background:var(--sombre)}
+  .media img{width:100%;display:block}
+  .lecteur{position:relative;aspect-ratio:16/9;background-size:cover;background-position:center;cursor:pointer}
+  .lecteur::after{content:"";position:absolute;inset:0;background:#04070a59}
+  .play{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:66px;height:66px;
+        border-radius:99px;background:var(--bleu-clair);display:grid;place-items:center;z-index:2}
+  .play svg{margin-left:4px}
+  .legende{margin-top:.9rem;font-size:.95rem;font-weight:600}
+
+  /* ── ④ BANNIÈRE PLEINE LARGEUR ──────────────────────────────────────── */
+  .banniere{position:relative;min-height:60vh;display:grid;place-items:center;text-align:center;
+            background-size:cover;background-position:center;padding:6rem 2rem}
+  .banniere::before{content:"";position:absolute;inset:0;background:#04070ab3}
+  .banniere > div{position:relative;z-index:2;color:#fff;max-width:44ch}
+  .banniere h2{color:#fff;margin:0 auto}
+  .banniere p{color:#ffffffd9;opacity:1;margin:1.25rem auto 2rem}
+  .bouton{display:inline-block;background:var(--bleu-clair);color:var(--noir);font-weight:700;
+          padding:.9rem 1.8rem;border-radius:4px;text-decoration:none;font-size:.95rem}
+
+  /* ── ⑤ LISTE D'USAGES ───────────────────────────────────────────────── */
+  .usages{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:#ffffff1f;margin-top:4rem}
+  .usage{background:var(--sombre);padding:2.75rem 2.25rem}
+  .usage h3{font-size:1.05rem;margin-bottom:.6rem}
+  .usage p{font-size:.9rem;opacity:.7;margin:0}
+  .usage a{font-size:.9rem;font-weight:600}
+
+  /* ── ⑥ GALERIE ──────────────────────────────────────────────────────── */
+  .galerie{display:grid;grid-template-columns:repeat(3,1fr);gap:.75rem;margin-top:.75rem}
+  .galerie img{width:100%;border-radius:4px;display:block}
+
+  /* ── ⑦ APARTÉ ───────────────────────────────────────────────────────── */
+  .aparte{border-left:3px solid var(--bleu-clair);padding:.25rem 0 .25rem 1.5rem;margin-top:2rem}
+  .aparte p{font-size:1rem;opacity:.62;font-style:italic;max-width:52ch}
+
+  /* ── QUESTIONS ──────────────────────────────────────────────────────── */
+  .question{border-top:1px solid #0722221f;padding-top:2rem;margin-top:2.75rem}
+  .question p{margin-top:.75rem;opacity:.75}
+
+  /* ── PREUVE ─────────────────────────────────────────────────────────── */
+  .projets{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;margin-top:3rem}
+  .projet{background:#fff;border:1px solid #0000001a;border-radius:6px;overflow:hidden}
+  .projet .vign{aspect-ratio:16/10;background:var(--clair-soutenu);background-size:cover;background-position:center}
+  .projet div.t{padding:1.25rem;font-weight:700;font-size:.95rem;line-height:1.35}
+
+  /* ── ⑻ LES TROIS AFFIRMATIONS ───────────────────────────────────────
+     Le procédé d'ouverture de splashr.io : trois phrases courtes, empilées,
+     en grand. Elles disent ce que fait la page avant qu'on explique comment.
+     ⚠️ Chacune doit passer le test : une autre agence pourrait-elle la
+     signer ? Si oui, elle ne dit rien. */
+  .trois{display:grid;gap:.45rem;margin:0}
+  /* ⛔ ON NE CRÉE PAS UN CINQUIÈME NIVEAU. L'échelle du site en compte quatre,
+     et c'est une règle posée après ton « on a du mal à savoir ce qu'il faut
+     lire » : sur-titre, titre, chapô, sous-titre. Les affirmations prennent
+     donc le SOUS-TITRE, 1,35 rem — le niveau intermédiaire existait déjà, il
+     n'était simplement pas utilisé ici. */
+  .trois div{font-size:1.35rem;font-weight:700;line-height:1.35;letter-spacing:-.01em;
+             display:flex;align-items:baseline;gap:.9rem}
+  .trois .puce{flex:0 0 auto;width:.5em;height:.5em;border-radius:99px;
+               background:var(--bleu-clair);transform:translateY(-.12em)}
+
+  /* ── LES REPÈRES DE LECTURE ─────────────────────────────────────────
+     ⛔ PAS DE PICTOS : une bibliothèque d'icônes génériques sur un site qui
+     vend l'image dit « gabarit acheté ». Splashr n'en a aucun non plus.
+     ✅ Ce qui guide l'œil sans rien acheter : une puce ronde bleue, une
+     flèche sur les liens de liste, et un surlignage sur les mots qui portent.
+
+     ⚠️ LE SURLIGNAGE N'EST PAS BLEU PLEIN, et c'est délibéré : le bleu plein
+     souligné est déjà la marque du LIEN. Colorer un mot ordinaire de la même
+     façon ferait cliquer dans le vide. Un fond teinté très clair marque sans
+     promettre une destination. */
+  .prise-liste li{position:relative;padding-left:1.35rem}
+  .prise-liste li::before{content:"";position:absolute;left:0;top:.62em;width:7px;height:7px;
+                          border-radius:99px;background:var(--bleu)}
+  .usage h3{position:relative;padding-left:1.7rem}
+  /* ⭐ Un triangle plein aux angles arrondis plutôt qu'une flèche de clavier.
+     Le « → » d'une police change de dessin d'un système à l'autre ; celui-ci
+     est le même partout, et il s'accorde au bouton de lecture des vidéos. */
+  .usage h3::before{content:"";position:absolute;left:0;top:.28em;width:.72em;height:.72em;
+    background:url('data:image/svg+xml;utf8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2016%2016%22%3E%3Cpath%20d%3D%22M4.5%203.2l7%204.8-7%204.8z%22%20fill%3D%22%235BC8DE%22%20stroke%3D%22%235BC8DE%22%20stroke-width%3D%222.6%22%20stroke-linejoin%3D%22round%22%2F%3E%3C%2Fsvg%3E') center/contain no-repeat}
+  /* ⚠️ LES MOTS EN COULEUR SE DISTINGUENT DES LIENS PAR LE SOULIGNEMENT,
+     et par rien d'autre. Le lien est bleu ET souligné ; l'emphase est bleue,
+     grasse, jamais soulignée. Sans cette différence, le lecteur clique dans
+     le vide — c'est le seul risque de ce procédé, et il se règle là. */
+  /* ⚠️ POURQUOI UNE PASTILLE ET PAS UNE COULEUR DE TEXTE : sur la bannière,
+     le bleu de marque est posé sur une photo sombre et s'y perd. Une pastille
+     porte son propre fond, donc sa lisibilité ne dépend plus de ce qu'il y a
+     derrière. Et elle ne ressemble à aucun lien — le lien est souligné, jamais
+     encadré. */
+  /* ⭐ LA RÈGLE, VALIDÉE LE 12/08 : LA COULEUR VEUT TOUJOURS DIRE CLIQUABLE.
+     Les liens portent la pastille ; une emphase qui ne mène nulle part passe
+     en gras, dans la couleur du texte. Sans cette règle, on fait cliquer dans
+     le vide — et le lecteur qui a essayé une fois n'essaie plus. */
+  mark{background:none;color:inherit;font-weight:700}
+
+  /* ── SÉPARATEUR ENTRE DEUX SECTIONS DE MÊME FOND ────────────────────
+     Un filet dans la largeur du contenu, pas bord à bord : posé à l'intérieur
+     du conteneur, il se lit comme un choix de mise en page ; collé aux bords,
+     il ressemble à une bordure de gabarit. */
+  .trait > .large::before,.trait > .etroit::before{
+    content:"";display:block;height:1px;background:#0722222e;margin-bottom:4.5rem}
+  .sombre.trait > .large::before,.noir.trait > .large::before{background:#ffffff2e}
+
+  .fin{text-align:center}
+  .fin h2{margin:0 auto}
+  .fin p{margin:1.25rem auto 2rem}
+
+  .note{background:#12607E12;border-left:3px solid var(--bleu);padding:1rem 1.25rem;margin:0 auto 2rem;
+        max-width:1500px;font-size:.85rem;line-height:1.6;border-radius:0 4px 4px 0}
+  .note b{color:var(--bleu)}
+  @media(max-width:900px){
+    .depart,.duo{grid-template-columns:1fr;gap:2.5rem}
+    .duo.inverse .txt{order:0}
+    .usages,.projets,.galerie{grid-template-columns:1fr}
+    .prise-liste{grid-template-columns:1fr}
+  }
+
+  /* ── L'APPARITION AU DÉFILEMENT ─────────────────────────────────────
+     ⛔ CE N'EST PAS DU PARALLAXE, et la distinction compte : le parallaxe
+     déplace un élément pendant tout le défilement et dégrade les indicateurs
+     que Google mesure. Ici chaque bloc monte de 18 px une seule fois, en
+     220 ms, puis ne bouge plus. Aucun calcul continu.
+     ⚠️ `prefers-reduced-motion` coupe tout : certains visiteurs souffrent
+     physiquement du mouvement à l'écran, et c'est un réglage de leur système,
+     pas une préférence esthétique. */
+  .apparait{opacity:0;transform:translateY(18px);
+            transition:opacity .5s ease-out,transform .5s ease-out}
+  .apparait.vu{opacity:1;transform:none}
+  @media(prefers-reduced-motion:reduce){
+    .apparait{opacity:1;transform:none;transition:none}
+  }
+</style>
+</head>
+<body>
+
+<div class="note large" style="margin-top:1.5rem">
+  <b>Maquette de travail.</b> Sept types de blocs au lieu d'un seul répété, et l'alternance clair / sombre
+  réintroduite. Les textes et les médias sont les vrais. Les blocs sont numérotés ⑴ à ⑺ dans le commentaire
+  du code — dis-moi ceux qui vont, ceux qui sautent, et ceux qui manquent.
+</div>
+
+<!-- ⑴ HERO — plein écran, coupe franche, aucun fondu vers le clair -->
+<header class="hero">
+  <div class="fond"></div><div class="voile"></div>
+  <div class="large">
+    <nav class="fil"><a href="#">Accueil</a> · <a href="#">Immersion</a></nav>
+    <h1>Réalité virtuelle</h1>
+    <p>Faire vivre une situation impossible à montrer autrement — et mesurer ce qu'il en reste.</p>
+  </div>
+</header>
+
+<!-- ⑵ CE QUI VOUS AMÈNE + CE QU'ON PREND EN CHARGE — une seule bande.
+     ⛔ Elles occupaient DEUX sections pleine largeur de texte nu, l'une sous
+     l'autre, juste après le hero. Giz : « ENORME en entrée de site sans rien
+     sur fond blanc, ça va faire partir le visiteur ». Il a raison : la
+     première chose qu'on voyait après l'image, c'était du vide.
+     ⭐ Elles tiennent côte à côte MAINTENANT, et pas avant : c'est la descente
+     des affirmations de 3 rem à 1,35 rem qui l'a rendu possible. À 3 rem elles
+     écrasaient la colonne de droite — même problème, cause opposée. -->
+<section style="padding:3.25rem 0 2.75rem">
+  <div class="large depart">
+    <div>
+      <div class="surtitre">Ce qui vous amène</div>
+      <div class="trois">
+        <div><span class="puce"></span>Un lieu qu’on ne peut pas visiter.</div>
+        <div><span class="puce"></span>Un geste qu’on ne peut pas refaire.</div>
+        <div><span class="puce"></span>Un risque qu’on ne peut pas montrer.</div>
+      </div>
+    </div>
+    <div>
+      <div class="surtitre">Ce qu’on prend en charge</div>
+      <ul class="prise-liste">
+        <li><b>Conception</b> du parcours et du scénario d’usage</li>
+        <li><b>Captation 360°</b> ou environnement 3D</li>
+        <li><b>Développement</b> de l’application</li>
+        <li><b>Installation</b>, casques et exploitation</li>
+        <li><b>Statistiques</b> de session</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ⑶ TEXTE + MÉDIA — le projet est nommé dans la première phrase, le média suit -->
+<section class="soutenu">
+  <div class="large duo">
+    <div class="txt">
+      <div class="num">01</div>
+      <h2 style="margin:.75rem 0 1.5rem">Ce qu'on a déjà mis dans un casque</h2>
+      <p>Pour le Vision Tour de <b>Nikon</b>, nous avons reconstitué le parcours de fabrication d'un verre
+        de lunette en combinant prises de vue réelles et <a href="#">modélisation 3D</a>, l'ensemble diffusé
+        en réalité virtuelle. Le visiteur suit le verre d'un poste à l'autre, dans l'ordre où le procédé
+        se déroule.</p>
+      <p>C'est le format qui convient quand le sujet est trop grand, trop lointain ou trop dangereux pour
+        être montré autrement — une ligne de production, un chantier, un geste technique.</p>
+    </div>
+    <div>
+      <div class="media"><img src="https://cdn.sanity.io/images/q3n3nhoh/production/26e9b990dd07f6557298b3264f702b1335855125-1436x926.jpg?w=1200&auto=format" alt="Vision Tour de Nikon"></div>
+      <div class="legende">Nikon — Vision Tour</div>
+    </div>
+  </div>
+</section>
+
+<!-- ⑷ BANNIÈRE PLEINE LARGEUR — le bloc qui manquait, et qui donne le rythme.
+     C'est l'équivalent du « Découvrez le Vision Tour » de l'ancien site. -->
+<section class="banniere" style="background-image:url('https://cdn.sanity.io/images/q3n3nhoh/production/84d168f97d3da30c4f2de265cc67782c92f6dda4-2560x1315.png?w=2000&auto=format');padding:0">
+  <div>
+    <h2>Parcourir un site sans s'y rendre</h2>
+    <p>Chez <a href="https://www.gfms.com" target="_blank" rel="noopener">GF Machining Solutions</a>,
+      la visite virtuelle se parcourt depuis un navigateur, poste par poste. <mark>Aucun casque, aucune installation : un lien suffit.</mark></p>
+    <a class="bouton" href="#">Voir le showroom</a>
+  </div>
+</section>
+
+<!-- ⑹ GALERIE — collée à sa bannière, parce qu'elle montre LE MÊME projet.
+     Elle était posée sous la vidéo Prats : trois vues du showroom GF sous un
+     texte qui parle d'une ligne de production. Le média suit son sujet, pas
+     la place qui reste. -->
+<section class="noir" style="padding:0 0 5rem">
+  <div class="large galerie">
+    <img src="https://cdn.sanity.io/images/q3n3nhoh/production/85fe585190343e9b2862ab23546b2b24f3f3a4fc-2560x1315.png?w=900&auto=format" alt="Showroom GF Machining Solutions, vue 2">
+    <img src="https://cdn.sanity.io/images/q3n3nhoh/production/74ff8a6de5a55f2a472305de52e6445dc0d7cca1-2560x1315.png?w=900&auto=format" alt="Showroom GF Machining Solutions, vue 3">
+    <img src="https://cdn.sanity.io/images/q3n3nhoh/production/b693a7b4349989a3556933bb05fe90acaf80005f-2560x1315.png?w=900&auto=format" alt="Showroom GF Machining Solutions, vue 4">
+  </div>
+</section>
+
+<!-- ⑸ LISTE D'USAGES — six entrées cliquables, chacune vers une réalisation.
+     ⭐ C'est du maillage interne pur, et c'est ce que faisait l'ancien site avec
+     « Découverte touristique · Visite d'entreprise · Concerts · Événements ». -->
+<section class="sombre">
+  <div class="large">
+    <div class="surtitre">Où ça sert</div>
+    <h2>Six situations, un même principe</h2>
+    <div class="usages">
+      <div class="usage">
+        <h3>Visiter une usine</h3>
+        <p>Montrer une ligne de production sans interrompre la production.</p>
+        <a href="#">BBGR — visite 360 de l'usine →</a>
+      </div>
+      <div class="usage">
+        <h3>Découvrir un lieu</h3>
+        <p>Faire entrer dans un espace avant que le visiteur s'y déplace.</p>
+        <a href="#">Radisson Blu — vidéo 360 VR →</a>
+      </div>
+      <div class="usage">
+        <h3>Expliquer un métier</h3>
+        <p>Faire vivre un poste de travail qu'on ne peut pas approcher.</p>
+        <a href="#">Pisten Bully — dameuse 360 VR →</a>
+      </div>
+      <div class="usage">
+        <h3>Présenter un territoire</h3>
+        <p>Donner l'échelle d'un site, d'un parc, d'un projet d'aménagement.</p>
+        <a href="#">SERL — Parc Puy d'Or 360 VR →</a>
+      </div>
+      <div class="usage">
+        <h3>Tenir un salon</h3>
+        <p>Un espace configurable selon le temps dont dispose le visiteur.</p>
+        <a href="#">Virtual Korner →</a>
+      </div>
+      <div class="usage">
+        <h3>Former des équipes</h3>
+        <p>Répéter un geste ou un protocole sans mobiliser l'atelier.</p>
+        <a href="#">Cémoi — grands crus cacao VR →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ⑶ bis TEXTE + VIDÉO, en miroir — le format revient mais inversé -->
+<section>
+  <div class="large duo inverse">
+    <div class="txt">
+      <div class="num">02</div>
+      <h2 style="margin:.75rem 0 1.5rem">La durée d'une session décide de tout</h2>
+      <p>Sur un salon, un visiteur accorde trois à cinq minutes ; en formation, il peut rester vingt
+        minutes. Cette durée détermine le scénario, le nombre d'interactions et le nombre de casques
+        nécessaires pour absorber le flux sans file d'attente.</p>
+      <p><b>Virtual Korner</b>, notre outil personnalisable de salon virtuel, part de cette contrainte :
+        l'espace se configure selon le temps dont vous disposez et le nombre de visiteurs attendus.</p>
+      <!-- ⑺ APARTÉ — le gimmick backstage, une seule fois par page -->
+      <div class="aparte">
+        <p>(On fixe cette durée avec vous avant l'écriture. Ce n'est pas de la méthode pour la méthode :
+          c'est elle qui change le budget, pas le nombre de plans.)</p>
+      </div>
+    </div>
+    <div>
+      <div class="media">
+        <div class="lecteur" style="background-image:url('https://i.vimeocdn.com/video/1497856681-289c2f3540262b6fcb302a0bb48a2202feb87dea10cfa477df1649b759e3ffd9-d_640x360?region=us')">
+          <span class="play"><svg width="20" height="24" viewBox="0 0 20 24"><path d="M0 0v24l20-12z" fill="#07222B"/></svg></span>
+        </div>
+      </div>
+      <div class="legende">Bluevista — Virtual Korner</div>
+    </div>
+  </div>
+</section>
+
+<!-- ⑹ GALERIE — les autres vues du MÊME projet -->
+<section class="soutenu">
+  <div class="large duo">
+    <div class="txt">
+      <div class="num">03</div>
+      <h2 style="margin:.75rem 0 1.5rem">Essayer avant de promettre</h2>
+      <p>Chez <b>Prats</b>, le même sujet a été traité en vidéo 360 sur la ligne de production réelle :
+        <mark>pas de reconstitution, les machines tournent pendant qu'on filme</mark>. Voir son propre
+        atelier plutôt qu'une image de synthèse, c'est souvent ce qui emporte la décision.</p>
+      <p>Nous avons notre propre parc de casques et nous testons l'expérience sur de vrais visiteurs
+        avant les vôtres, dans les conditions du lieu : debout, avec du bruit, sans mode d'emploi.</p>
+    </div>
+    <div>
+      <div class="media">
+        <div class="lecteur" style="background-image:url('https://i.vimeocdn.com/video/832532820-9503c0926f9f271b70100b5372609f43ed5aad29701f8efe4e50954c451f6c8f-d_640x360?region=us')">
+          <span class="play"><svg width="20" height="24" viewBox="0 0 20 24"><path d="M0 0v24l20-12z" fill="#07222B"/></svg></span>
+        </div>
+      </div>
+      <div class="legende">Prats — 360 sur ligne de production</div>
+    </div>
+  </div>
+</section>
+
+<!-- QUESTIONS — le SEO longue traîne, inchangé parce qu'il est bon -->
+<!-- ⚠️ LES QUESTIONS CHANGENT DE FOND. Elles étaient collées à la section
+     précédente, sur le même clair soutenu : rien ne disait qu'on changeait de
+     chapitre. Le fond clair les détache, et l'alternance reprend son rôle. -->
+<section>
+  <div class="etroit">
+    <div class="surtitre">Les questions qu'on nous pose</div>
+    <div class="question">
+      <h3>Sur quels casques et quels supports vos expériences fonctionnent-elles ?</h3>
+      <p>Nos productions 360 se lisent sur ordinateur, tablette et téléphone, et dans les casques du
+        marché, Meta Quest compris. Le choix se fait selon l'usage.</p>
+    </div>
+    <div class="question">
+      <h3>Combien de casques faut-il prévoir sur un salon ?</h3>
+      <p>Un casque permet environ dix passages par heure pour une expérience de cinq minutes, en comptant
+        l'accueil et l'hygiène. Deux à quatre casques couvrent la plupart des stands.</p>
+    </div>
+    <div class="question">
+      <h3>L'expérience fonctionne-t-elle sans casque ?</h3>
+      <p>Oui, et c'est souvent utile de le prévoir : la même expérience se décline en version navigateur,
+        consultable depuis un ordinateur ou une tablette.</p>
+    </div>
+    <div class="question">
+      <h3>Que devient l'expérience après l'événement ?</h3>
+      <p>Elle reste exploitable en interne — accueil de visiteurs, formation, salons suivants — et elle se
+        met à jour quand votre produit évolue.</p>
+    </div>
+  </div>
+</section>
+
+<!-- PROJETS — liés un par un, jamais un lien vers une liste à filtrer.
+     ⚠️ Même fond que les questions juste au-dessus : c'est le filet qui dit
+     qu'on change de chapitre. -->
+<section class="trait">
+  <div class="large">
+    <div class="surtitre">Déjà réalisé</div>
+    <h2>Des projets, pas des promesses</h2>
+    <div class="projets">
+      <div class="projet"><div class="vign" style="background-image:url('https://cdn.sanity.io/images/q3n3nhoh/production/84d168f97d3da30c4f2de265cc67782c92f6dda4-2560x1315.png?w=600&auto=format')"></div><div class="t">BBGR — video 360 usine</div></div>
+      <div class="projet"><div class="vign"></div><div class="t">Cémoi — video 3D 360 VR</div></div>
+      <div class="projet"><div class="vign"></div><div class="t">Radisson Blu — video 360 VR</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- FIN — un prochain pas avec options, jamais un « contactez-nous » nu -->
+<section class="sombre fin">
+  <div class="etroit">
+    <h2>Un projet de réalité virtuelle ?</h2>
+    <p>Parlons de vos objectifs avant de parler de format.</p>
+    <a class="bouton" href="#">Contactez-nous</a>
+  </div>
+</section>
+
+<script>
+/* ── L'APPARITION AU DÉFILEMENT ───────────────────────────────────────────
+   ⛔ DEUX VERSIONS RATÉES AVANT CELLE-CI, MÊME CAUSE : je faisais reposer
+   l'effet sur `IntersectionObserver` seul, avec un filet de sécurité qui
+   révélait TOUT quand l'observation ne partait pas. Or elle ne part pas
+   partout — pas dans mon navigateur d'inspection, et visiblement pas chez
+   Giz non plus : « c'est tous les blocs en même temps, pas au scroll ».
+   Le filet ne rattrapait pas l'effet, il le remplaçait.
+
+   ⭐ CETTE VERSION NE DÉPEND DE RIEN. Une seule fonction décide si un bloc
+   est entré dans l'écran, et elle est appelée par les deux chemins :
+   l'observation quand elle fonctionne, le défilement sinon. Le résultat est
+   le même, et il ne peut pas y avoir de « tout d'un coup ».
+
+   ⚠️ Le défilement est lu dans une trame d'animation, jamais directement :
+   un écouteur qui calcule des positions à chaque pixel est précisément ce
+   qui dégrade la réactivité que Google mesure. */
+const blocs = [...document.querySelectorAll("section:not(.hero) > div, .banniere > div")];
+blocs.forEach(el => el.classList.add("apparait"));
+
+/** Révèle ce qui est entré dans l'écran. Le seul endroit qui décide. */
+function reveler() {
+  const limite = innerHeight * 0.88;
+  for (const el of blocs) {
+    if (el.classList.contains("vu")) continue;
+    const r = el.getBoundingClientRect();
+    if (r.top < limite && r.bottom > 0) el.classList.add("vu");
+  }
+}
+
+/* Chemin 1 — l'observation, quand le navigateur la fait vraiment. */
+if ("IntersectionObserver" in window) {
+  const obs = new IntersectionObserver(es => {
+    for (const e of es) if (e.isIntersecting) { e.target.classList.add("vu"); obs.unobserve(e.target); }
+  }, { rootMargin: "0px 0px -12% 0px" });
+  blocs.forEach(el => obs.observe(el));
+}
+
+/* Chemin 2 — le défilement, qui marche partout et rattrape le premier. */
+let enAttente = false;
+addEventListener("scroll", () => {
+  if (enAttente) return;
+  enAttente = true;
+  requestAnimationFrame(() => { reveler(); enAttente = false; });
+}, { passive: true });
+
+addEventListener("resize", reveler, { passive: true });
+requestAnimationFrame(reveler);
+
+/* ── LE DERNIER FILET, ET SA CONDITION EST ÉTROITE ────────────────────────
+   Il ne se déclenche QUE si les deux chemins sont morts : rien n'a jamais été
+   révélé, ET un bloc est pourtant dans l'écran. C'est le cas dans mon
+   navigateur d'inspection, où ni l'observation ni l'événement de défilement
+   ne partent — d'où trois tentatives passées à corriger à l'aveugle.
+   ⚠️ Dans un navigateur normal, au moins un des deux chemins fonctionne, donc
+   ce filet ne s'active jamais et l'effet suit bien le défilement. */
+setTimeout(() => {
+  const rienRevele = !blocs.some(el => el.classList.contains("vu"));
+  const pourtantVisible = blocs.some(el => {
+    const r = el.getBoundingClientRect();
+    return r.top < innerHeight && r.bottom > 0;
+  });
+  if (rienRevele && pourtantVisible) blocs.forEach(el => el.classList.add("vu"));
+}, 3000);
+</script>
+</body>
+</html>

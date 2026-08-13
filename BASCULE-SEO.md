@@ -48,6 +48,204 @@ trafic.** Une page déjà exclue de l'index n'a pas besoin d'une redirection tra
 les raisons de non-indexation par propriété **au moment du plan**, pas avant. Une page déjà
 désindexée se redirige différemment.
 
+### ⛔⛔ `ancienneUrl` NE PEUT PAS PRODUIRE LES 301 — 93 fiches sur 170 sont en collision `[mesuré le 12/08/2026]`
+
+**Le champ `ancienneUrl` du schéma `realisation` porte la mention « ⛔ Ne pas modifier : c'est elle
+qui produit la redirection 301 ». Il est inexploitable en l'état.**
+
+Relevé sur les 170 fiches publiées dans Sanity :
+
+| | |
+|---|---|
+| fiches portant une `ancienneUrl` | **170 / 170** |
+| adresses **distinctes** revendiquées | **98** |
+| adresses revendiquées par **plus d'une** fiche | **21** |
+| fiches prises dans une collision | **93** — soit **54 %** |
+| fiches à l'adresse propre, 1 pour 1 | 77 |
+
+Les quatre pires, et ce sont les articles qui portent le plus de trafic :
+**13 fiches** revendiquent `/actualites/motion-design-3d-et-mapping-a-paris-au-musee-rodin/`
+(9 clics/an) · **11** revendiquent `/actualites/carte-de-voeux-video/` (4 clics) · **11**
+revendiquent `/actualites/bluevista-video-showreel-2023/` (5 clics) · **9** revendiquent
+`/actualites/video-mapping-lyon-intercontinental-grand-hotel-dieu/` (8 clics).
+
+⭐ **La cause est écrite en clair dans la source, et n'a jamais franchi la frontière.**
+`src/app/apercu/_realisations.ts` prévient en tête de fichier : *« ⚠️ CE QUI RESTE DÉDUIT, ET DONC
+À RELIRE : … l'ancienne URL quand aucun rapprochement n'a été trouvé »*. Le rapprochement s'est
+fait **par mots-clés du titre**, pas par identité de projet. L'import a recopié le champ tel quel,
+et le schéma Sanity l'a promu **source de vérité des 301** — un champ documenté comme *déduit* en
+amont est devenu *contraignant* en aval.
+
+👉 **Deux redirections fausses, vérifiées à la main** : la fiche `ENSTO – Showroom virtuel`
+revendique l'article **GF Machining Solutions** — deux clients différents, et GF est justement la
+référence citable côté suisse. La fiche `Motion Design Sodexo` revendique l'article **Musée
+Rodin** — le meilleur article du lot, 9 clics et 705 impressions, envoyé chez un autre client.
+
+⛔ **LE PIÈGE DE MÉTHODE, ET IL A DÉJÀ FAILLI PASSER** : mon premier contrôle comparait
+`PLAN-REDIRECTIONS.csv` à `ancienneUrl` et annonçait **zéro divergence**. Les deux étaient
+construits **depuis la même déduction** — le contrôle confirmait l'erreur au lieu de la lever.
+Le contrôle qui tranche est venu d'un autre côté : **comparer le titre de l'article WordPress au
+titre de la fiche.** *(Même famille que les treize « ✓ » écrits dans des champs que personne ne
+lit.)*
+
+**Le geste retenu :**
+1. ⛔ **Ne jamais générer les 301 depuis `ancienneUrl`.** La carte se construit depuis l'**article**
+   (63 en français, comptés en direct sur l'API WordPress), pas depuis la fiche.
+2. **Vider `ancienneUrl` sur les 93 fiches en collision.** Une adresse revendiquée par treize
+   fiches ne transmet rien et produit une redirection fausse ; vide vaut mieux que fausse.
+   Les 77 propres restent. ⏳ *En attente de l'accord de Giz — écriture dans Sanity.*
+3. **Corriger la source aussi**, `src/app/apercu/_realisations.ts` : sinon un ré-import réinstalle
+   les 93 collisions.
+4. ⚠️ **Le même doute pèse sur les 85 `ancienneUrl` en `/nos-realisations/`** — mêmes collisions
+   (6 fiches sur `olinn-video-publicitaire`, 5 sur `verizon-connect-video-de-presentation`). À
+   reprendre avec la même méthode avant d'attaquer les 751 redirections.
+
+⚠️ **`PLAN-REDIRECTIONS.csv` n'a pas de colonne de domaine** : la même URL relative y figure deux
+ou trois fois (FR, EN, CH) et ne se distingue que par sa position dans le fichier. À corriger avant
+de s'en servir pour générer quoi que ce soit.
+
+### ⛔⛔ LA CAUSE PROFONDE : 26 fiches du portfolio ont été FABRIQUÉES À PARTIR D'ARTICLES `[12/08/2026]`
+
+Sur les 170 fiches `realisation` publiées dans Sanity, **26 portent le slug ou le titre exact d'un
+article WordPress**. Le portfolio réel en compte 145 — l'écart est là.
+
+**Une bonne moitié ne sont pas des projets clients du tout** : *Notre premier vol de drone, c'était
+en 2012 !* · *La réalité virtuelle Oculus à Bluevista* · *Nouveau matériel – Motion control
+Kessler* · *Nos dernières interviews* · *Découvrez notre nouvelle bande démo 3D* · *Streaming Live
+et WebTV démo 2018* · *Un tournage en préparation dans le Vercors* · *Le Métaverse bluevista* ·
+*GETLIVE TV 3.0* · *Film d'entreprise – vidéo 15 ans d'expérience* · *Vidéo immersive 360°* ·
+*Projet de réalisation vidéo 360* · *Social wall pour espace VIP*.
+
+**Et plusieurs doublent une fiche réelle** : `50ans-de-lpa-une-histoire-lyonnaise` double
+`lpa-50ans-video-anniversaire` · `mase-4-motions` double `mase-rhone-alpes-motion-design` ·
+`artcurial-20ans` double `artcurial-video-mapping` · `stann` double
+`stann-presentation-video-de-l-application` · `video-et-site-web-funseaker-yacht` double
+`funseaker-presentation`.
+
+⭐ **La signature qui les trahit, et elle est mécanique** : sur ces fiches, le champ `client` est le
+**premier mot du titre** — « Notre », « Nouveau », « Nos », « La », « Le », « Un », « Vidéo »,
+« Série », « Social », « Streaming », « Découvrez », « Projection », « Animation », « Live »,
+« Sport », « Film », « 50ans ». Un client ne s'appelle pas « Notre ».
+👉 **Le contrôle réutilisable** : `client == premier mot du titre` désigne une fiche dont le client
+n'a jamais été renseigné. 70 fiches sur 170 sont dans ce cas — la plupart légitimement (le titre
+commence vraiment par le nom du client, `TETRO`, `SANTOS`, `KOESIO`), **mais c'est le filtre qui
+fait sortir les 26**.
+
+### ⭐⭐ LA RÈGLE QUI CLÔT LE SUJET `[Giz, 12/08/2026]`
+
+*« en gros tout ce qui est noté avec le slug actualités est une actualité »* — et
+*« comme c'est une actualité on parle des projets larges. DONC il peut y avoir plusieurs vidéos
+dedans […] on parle d'un projet global à chaque fois. »*
+
+👉 **Une actualité et une réalisation sont deux objets, pas deux rangements du même.** Une
+actualité couvre un **projet large** — plusieurs vidéos, des photos, une mise en page riche ; une
+réalisation couvre **un** projet. Demander « à quelle réalisation correspond cette actualité ? »
+est une question mal posée.
+
+⛔ **Conséquence sur ce chantier, et elle est radicale** : les 63 pages `/actualites/` **restent
+des actualités et gardent leur adresse**. Il n'y a ni migration vers les réalisations, ni table de
+redirection à construire pour elles. C'était la prémisse du chantier n°1 — elle était fausse.
+
+⛔ **Vocabulaire** : ne jamais écrire « fiche » dans un échange avec Giz. On dit **une
+réalisation**, **une actualité**, ou **un cas client** si un troisième objet est créé.
+
+**Le seul arbitrage qui reste, et il est à deux conditions CUMULATIVES** : une actualité **peu
+fournie** ET qui **chevauche vraiment** une réalisation identique. Deux issues, pas une —
+*« soit on vire l'actualité, soit on change les mots clefs pour parler du même projet de manière
+différente »*. La réécriture est la sortie par défaut quand l'actualité est riche.
+
+**Le geste retenu :**
+1. ✅ **Fait** — les 25 réalisations créées depuis `/actualites/` sont supprimées de Sanity
+   (`next-app/scripts/curer-realisations-inventees.mjs`, sauvegarde JSON à côté). Le portfolio est
+   retombé à **145**, exactement le nombre du vrai export. L'importeur ne lit plus
+   `_realisations-migrees.ts` : le relire les recréerait.
+2. ✅ **Fait** — `CLASSEMENT-ACTUALITES.csv` porte les 63 articles relus depuis leur contenu, avec
+   la **preuve** de chaque ligne (client nommé, lien sortant vers le site du client, réalisation
+   liée par l'article lui-même).
+3. ⏳ **Reste** — le test de concurrence, mesuré sur `fr-page-x-requete.csv` : voir ci-dessous.
+
+### 📊 La concurrence actualité / réalisation, MESURÉE `[12/08/2026]`
+
+Croisement page × requête de la photo Search Console, requêtes de marque écartées. **Sept couples**
+où les deux pages se présentent sur les mêmes requêtes :
+
+| actualité | mots | impr. | réalisation | impr. |
+|---|---|---|---|---|
+| `stann` | 458 | **7 084** | `stann-lapplication-de-gestion-dentreprise` | 4 736 |
+| `aravi-saison-2022-2023` | 455 | 773 | `aravi-saison-2022-2023` | 19 |
+| `guitare-en-scene-2023` | 457 | 148 | `guitare-en-scene-edition-2023` | 25 |
+| `animation-3d-produit-hitachi-csnet-manager` | 269 | 77 | `hitachi-cs-net` | 203 |
+| `koesio-carte-de-voeux-2023` | 495 | 65 | `koesio-voeux-2023` | 13 |
+| `realisation-immersion-360-…-pisten-bully` | 272 | 54 | `pisten-bully-dameuse-360-vr` | 35 |
+| `video-immersive-360` | 392 | 31 | `radisson-360-vr`, `serl-video-360-vr`… | 223 |
+
+⛔ **Aucune de ces pages ne fait le moindre clic** — ni l'actualité, ni la réalisation, sauf STANN
+où la réalisation en fait 4. Le problème n'est donc pas qu'une page en vole une autre : **les deux
+sont trop basses pour convertir**, et elles se partagent l'autorité au lieu de l'additionner.
+*(Même mécanisme que la paire Genève FR/CH — le partage, pas le vol.)*
+
+⚠️ **Aucune de ces actualités n'est « peu fournie »** : 269 à 495 mots. La première condition de
+Giz n'est donc remplie nulle part. 👉 **La sortie est la réécriture des mots-clés, pas la
+suppression.**
+
+### ⛔ ET EN REGARDANT REQUÊTE PAR REQUÊTE, TROIS COUPLES SEULEMENT SE BATTENT
+
+Le tableau ci-dessus appariait sur « au moins une requête commune ». C'est trop large. Au détail :
+
+- **Vraie concurrence — 3** : STANN, ARAVI, Guitare en Scène 2023. ⭐ **Les trois se battent sur le
+  nom d'un TIERS** — le logiciel, l'écurie, l'affiche du festival. **8 300 impressions, 2 clics** :
+  aucune de ces recherches n'a d'acheteur, et celle qui gagnerait ne gagnerait rien. 👉 **Ne rien
+  réécrire.** Seul geste, gratuit : que la réalisation porte *client + prestation* (sa règle de
+  titre) et l'actualité *l'histoire du projet*.
+- **Déjà séparés tout seuls — 3** : Hitachi (l'actualité tient « csnet manager », la réalisation
+  tient « cs net » et « csnet lite ») · Pisten Bully (l'actualité tient le sujet, la réalisation
+  tient la technique) · Koesio. Garder chaque titre sur le terme qu'il occupe déjà.
+- **Pas une concurrence, une occasion — 1** : voir ci-dessous.
+
+### ⭐⭐ LE VRAI SUJET : DEUX ACTUALITÉS SE BATTENT AVEC LES PAGES SAVOIR-FAIRE
+
+**① Vidéo immersive — l'actualité de 2014 est en PREMIÈRE PAGE, la page savoir-faire est en page 3.**
+
+| page | impressions/an | position |
+|---|---|---|
+| `/actualites/video-immersive-360/` | **2 727** | **9,9** sur « vidéo immersive » (1 452 impr.) |
+| `/nos-competences/creation-immersive-realite-virtuelle/` | 1 502 | 55,9 sur « agence réalité virtuelle » · 32,2 sur « création de vidéo immersive 360 » |
+
+⛔ **Écrire la nouvelle page savoir-faire sur « vidéo immersive » la ferait affronter une page
+installée depuis dix ans. Les deux y perdraient** — partage d'autorité, pas vol.
+
+✅ **Appliqué le 12/08** (`next-app/scripts/caler-page-realite-virtuelle.mjs`) : la page savoir-faire
+prend la moitié **commerciale** — *agence*, *production*, *showroom virtuel* ; l'actualité garde la
+moitié **descriptive** — *vidéo immersive*, *expérience vidéo 360*.
+⚠️ Au passage, le champ `texte` de cette page portait encore la prose de l'ANCIEN site, **visible au
+rendu**, fautes comprises (« sensibiliser votre audiences ! », « font parti », « cette univers ») et
+finissant sur « notre vidéo immersive pour Cémoi : » suivi de rien. 👉 **À vérifier sur les autres
+pages savoir-faire : le même import a pu laisser le même résidu.**
+
+**② Carte de vœux vidéo — vue 1 988 fois, choisie zéro fois.**
+
+L'actualité générique tient seule toute la famille « vœux » (1 905 des 1 988 impressions), aux
+**positions 19 à 24**. Aucune page savoir-faire ne couvre ce marché. Être vu deux mille fois en
+page 2 sans un seul clic n'est pas un problème de contenu : **c'est le titre et la description qui
+ne donnent pas envie**. C'est le geste le moins cher du chantier.
+
+### 📌 À APPLIQUER À LA MIGRATION — les titres et descriptions de deux actualités
+
+⛔ **On ne touche pas à l'ancien site** : ces textes se posent le jour où les actualités passent sur
+le nouveau. Chaque élément ci-dessous vient du texte de l'article, rien n'est inventé.
+
+**`/actualites/carte-de-voeux-video/`** — garde son adresse, et la famille « carte de vœux vidéo ».
+- Titre : `Carte de vœux vidéo d'entreprise : nos réalisations | Bluevista` *(62 signes)*
+- Description : `Motion design, film décalé avec vos collaborateurs ou réalité augmentée : nous concevons vos vœux en vidéo depuis 2004, de l'idée à la diffusion.` *(146)*
+
+**`/actualites/koesio-carte-de-voeux-2023/`** — ⛔ **retirer « 2023 » du titre.** La page dérive
+aujourd'hui sur « carte de voeux 2023 » en **position 67** — des gens qui cherchent une carte à
+envoyer, pas une agence. Recentrer sur Koesio et la fabrication.
+- Titre : `Koesio — la carte de vœux peinte par 25 enfants | Bluevista` *(58)*
+- Description : `Studio parisien, cyclo blanc, 25 enfants de collaborateurs peignent en direct, Louis Bertignac joue la musique. Une vue de la vidéo = 1 € pour Arc En Ciel.` *(153)*
+- ⚠️ L'adresse, elle, ne change pas : `koesio-carte-de-voeux-2023` porte « koesio studio »
+  (64 impr.). Changer le slug coûterait une redirection pour rien.
+
 ---
 
 ## 2. ⛔⛔ Le site suisse est un CLONE, slug pour slug — c'est le plus gros sujet

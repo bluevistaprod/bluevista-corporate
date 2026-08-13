@@ -110,12 +110,66 @@ export const page = defineType({
             { name: "titre", title: "Titre", type: "string", validation: r => r.required() },
             { name: "paragraphes", title: "Texte", type: "array", of: [{ type: "block" }] },
             { name: "image", title: "Image", type: "image", options: { hotspot: true } },
+            /* ⭐ LA GALERIE — plusieurs vues du même sujet, quand il y en a.
+               Le showroom GF Machining Solutions a cinq photos en 2560 px dans
+               la médiathèque ; n'en montrer qu'une revient à jeter les quatre
+               autres. ⚠️ Elle ne sert QUE ça : des vues d'un même projet. Ce
+               n'est pas un espace de remplissage — trois images qui ne
+               racontent rien valent moins qu'une image qui raconte. */
+            /* ⛔⛔ CE CHAMP EXISTE PARCE QUE LE GABARIT NE DOIT PAS DÉCIDER
+               À LA PLACE DE L'ÉDITEUR. Il répartissait les vidéos sur les
+               sections sans image, dans l'ordre — et posait donc le survol
+               d'un parc éolien sur un paragraphe qui parle du cadre légal.
+               Une section de méthode, sans projet nommé, ne porte RIEN : elle
+               se lit en pleine largeur. Le dire explicitement est la seule
+               façon d'empêcher la distribution automatique de reprendre la
+               main. */
+            {
+              name: "pleineLargeur",
+              title: "Sans média, en pleine largeur",
+              type: "boolean",
+              initialValue: false,
+              description: "À cocher sur les sections de méthode : aucun projet à montrer, donc aucun média.",
+            },
+            {
+              name: "galerie",
+              title: "Autres vues",
+              type: "array",
+              of: [{ type: "image", options: { hotspot: true } }],
+              description: "D’autres vues du MÊME projet. Laisser vide s’il n’y en a qu’une.",
+            },
           ],
           preview: { select: { title: "titre", media: "image" } },
         },
       ],
       description: "Un titre par question qu’un client se pose vraiment. Une image toutes les deux ou trois sections.",
     }),
+    /**
+     * ⭐ LES BLOCS — la composition libre, validée par Giz le 12/08/2026.
+     *
+     * ⛔ ILS REMPLACENT `sections` À TERME, mais les deux coexistent le temps
+     * de la reprise page par page : une page qui n'a pas encore de blocs
+     * continue de s'afficher avec ses sections. Supprimer `sections` avant que
+     * les neuf pages soient reprises viderait celles qui restent.
+     *
+     * ⚠️ L'ORDRE DES BLOCS EST L'ORDRE DE LA PAGE. Le fond — clair, soutenu,
+     * sombre — n'est PAS un choix d'éditeur : il se calcule à l'affichage,
+     * pour que l'alternance reste juste quoi qu'on déplace.
+     */
+    defineField({
+      name: "blocs",
+      title: "Blocs de la page",
+      type: "array",
+      group: "sections",
+      of: [
+        { type: "blocEntree" }, { type: "blocTexteMedia" }, { type: "blocBanniere" },
+        { type: "blocGalerie" }, { type: "blocUsages" }, { type: "blocAparte" },
+        { type: "blocQuestions" }, { type: "blocProjets" },
+      ],
+      description:
+        "Glisser pour changer l’ordre. Le fond et l’alternance se calculent tout seuls — il n’y a rien à régler.",
+    }),
+
     defineField({
       name: "faq",
       title: "Questions fréquentes",
@@ -133,6 +187,62 @@ export const page = defineType({
       ],
       description:
         "Ce n’est pas du remplissage : « faut-il une autorisation pour un drone » est une vraie recherche, que les pages vitrines ratent toutes.",
+    }),
+
+    /**
+     * ⭐ LES VIDÉOS DE LA PAGE — récupérées de l'ancien site le 12/08/2026.
+     *
+     * ⛔ POURQUOI CE CHAMP EXISTE. Les 9 pages de savoir-faire de l'ancien
+     * site portaient 27 vidéos ; le nouveau site n'en affichait aucune. Sur
+     * un site d'agence audiovisuelle, une page qui décrit un savoir-faire
+     * sans le MONTRER se prive de sa meilleure preuve — et d'un canal
+     * entier, les résultats vidéo de Google, qui ne s'ouvre qu'avec un
+     * balisage `VideoObject` posé sur une vidéo réellement présente.
+     *
+     * 📌 PLUSIEURS VIDÉOS PAR PAGE, à la demande de Giz : la page vidéo
+     * mapping en portait 7 à elle seule.
+     *
+     * ⚠️ `vignetteUrl` est préremplie avec la miniature Vimeo. Elle sert
+     * d'affiche AVANT le clic : la vidéo n'est chargée qu'au clic, sinon
+     * sept lecteurs sur une page effondreraient les indicateurs de vitesse
+     * que Google mesure. 👉 En passant une vidéo sur Livid, changer AUSSI la
+     * vignette : elle pointe aujourd'hui vers le CDN de Vimeo, et mourra
+     * avec lui.
+     */
+    defineField({
+      name: "videos",
+      title: "Vidéos de la page",
+      type: "array",
+      group: "contenu",
+      of: [
+        {
+          type: "object",
+          fields: [
+            {
+              name: "url",
+              title: "Lien de la vidéo",
+              type: "url",
+              validation: r => r.required(),
+              description: "Vimeo aujourd’hui, Livid à terme. Le lecteur reconnaît les deux.",
+            },
+            {
+              name: "titre",
+              title: "Titre affiché",
+              type: "string",
+              validation: r => r.required(),
+              description:
+                "Ce que lit le visiteur sous la vignette, et ce que lira Google. « Mapping — Hôtel-Dieu, Lyon » vaut mieux que « Vidéo 3 ».",
+            },
+            {
+              name: "vignetteUrl",
+              title: "Image d’affiche",
+              type: "url",
+              description: "Préremplie depuis Vimeo. À remettre à jour en passant sur Livid.",
+            },
+          ],
+          preview: { select: { title: "titre", subtitle: "url" } },
+        },
+      ],
     }),
 
     /**

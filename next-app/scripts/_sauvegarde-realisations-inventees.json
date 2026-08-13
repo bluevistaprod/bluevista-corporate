@@ -1,0 +1,548 @@
+[
+  {
+    "_createdAt": "2026-08-02T14:00:53Z",
+    "_id": "drafts.8b057f50-3535-4b9f-ad2b-cfa67e6f8970",
+    "_rev": "Bk0wLbxlDiIlSPvlS8ansi",
+    "_type": "realisation",
+    "_updatedAt": "2026-08-02T14:00:53Z",
+    "aRelire": true,
+    "ancienneUrl": "/actualites/video-et-site-web-funseaker-yacht/",
+    "client": "Vidéo",
+    "language": "fr-ch",
+    "marches": [
+      "fr"
+    ],
+    "metier": "film",
+    "produit": "corporate",
+    "slug": {
+      "_type": "slug",
+      "current": "video-et-site-web-funseaker-yacht"
+    },
+    "titre": "Vidéo et site web – Funseaker Yacht"
+  },
+  {
+    "_createdAt": "2026-08-02T14:00:36Z",
+    "_id": "realisation-50ans-de-lpa-une-histoire-lyonnaise",
+    "_rev": "uRAaNS3DcI72FPZjqhcfje",
+    "_type": "realisation",
+    "_updatedAt": "2026-08-02T14:00:36Z",
+    "aRelire": true,
+    "ancienneUrl": "/actualites/50ans-de-lpa-une-histoire-lyonnaise/",
+    "client": "50ans",
+    "language": "fr",
+    "marches": [
+      "fr"
+    ],
+    "metier": "film",
+    "produit": "corporate",
+    "slug": {
+      "_type": "slug",
+      "current": "50ans-de-lpa-une-histoire-lyonnaise"
+    },
+    "titre": "50ans de LPA, une histoire Lyonnaise"
+  },
+  {
+    "_createdAt": "2026-08-02T14:00:31Z",
+    "_id": "realisation-animation-3d-grande-arche-de-la-defense",
+    "_rev": "Bk0wLbxlDiIlSPvlS8ZWka",
+    "_type": "realisation",
+    "_updatedAt": "2026-08-02T14:00:31Z",
+    "aRelire": true,
+    "ancienneUrl": "/actualites/animation-3d-grande-arche-de-la-defense/",
+    "client": "Animation",
+    "language": "fr",
+    "marches": [
+      "fr"
+    ],
+    "metier": "film",
+    "produit": "motion-promo",
+    "slug": {
+      "_type": "slug",
+      "current": "animation-3d-grande-arche-de-la-defense"
+    },
+    "titre": "Animation 3D Grande Arche de la Défense"
+  },
+  {
+    "_createdAt": "2026-08-02T14:00:47Z",
+    "_id": "realisation-artcurial-20ans",
+    "_rev": "uRAaNS3DcI72FPZjqhcj9a",
+    "_type": "realisation",
+    "_updatedAt": "2026-08-02T14:00:47Z",
+    "aRelire": true,
+    "ancienneUrl": "/actualites/artcurial-20ans/",
+    "client": "Artcurial",
+    "language": "fr",
+    "marches": [
+      "fr"
+    ],
+    "metier": "evenement",
+    "produit": "mapping-architectural",
+    "slug": {
+      "_type": "slug",
+      "current": "artcurial-20ans"
+    },
+    "titre": "Artcurial : Mapping 20ans"
+  },
+  {
+    "_createdAt": "2026-08-02T14:00:35Z",
+    "_id": "realisation-barpi-prevention-accidents",
+    "_rev": "h9RgWSv7SNE1Mfebd7y2UK",
+    "_type": "realisation",
+    "_updatedAt": "2026-08-02T14:00:35Z",
+    "aRelire": true,
+    "ancienneUrl": "/actualites/barpi-prevention-accidents/",
+    "client": "BARPI",
+    "language": "fr",
+    "marches": [
+      "fr"
+    ],
+    "metier": "film",
+    "produit": "corporate",
+    "slug": {
+      "_type": "slug",
+      "current": "barpi-prevention-accidents"
+    },
+    "titre": "BARPI : Prévention d'accidents industriels"
+  },
+  {
+    "_createdAt": "2026-08-02T14:00:41Z",
+    "_id": "realisation-blueverse",
+    "_rev": "Bk0wLbxlDiIlSPvlS8ZXoU",
+    "_type": "realisation",
+    "_updatedAt": "2026-08-02T14:00:41Z",
+    "aRelire": true,
+    "ancienneUrl": "/actualites/blueverse/",
+    "client": "Le",
+    "language": "fr",
+    "marches": [
+      "fr"
+    ],
+    "metier": "film",
+    "produit": "corporate",
+    "slug": {
+      "_type": "slug",
+      "current": "blueverse"
+    },
+    "titre": "Le Métaverse bluevista : le blueverse"
+  },
+  {
+    "_createdAt": "2026-08-02T14:00:40Z",
+    "_id": "realisation-decouvrez-notre-nouvelle-bande-demo-3d",
+    "_rev": "Bk0wLbxlDiIlSPvlS8ZXdV",
+    "_type": "realisation",
+    "_updatedAt": "2026-08-02T14:00:40Z",
+    "aRelire": true,
+    "ancienneUrl": "/actualites/decouvrez-notre-nouvelle-bande-demo-3d/",
+    "client": "Découvrez",
+    "language": "fr",
+    "marches": [
+      "fr"
+    ],
+    "metier": "film",
+    "produit": "motion-promo",
+    "slug": {
+      "_type": "slug",
+      "current": "decouvrez-notre-nouvelle-bande-demo-3d"
+    },
+    "titre": "Découvrez notre nouvelle bande démo 3D"
+  },
+  {
+    "_createdAt": "2026-08-02T14:00:50Z",
+    "_id": "realisation-film-dentreprise-video-15-ans-dexperience",
+    "_rev": "h9RgWSv7SNE1Mfebd7y6pb",
+    "_type": "realisation",
+    "_updatedAt": "2026-08-02T14:00:50Z",
+    "aRelire": true,
+    "ancienneUrl": "/actualites/film-dentreprise-video-15-ans-dexperience/",
+    "client": "Film",
+    "language": "fr",
+    "marches": [
+      "fr"
+    ],
+    "metier": "film",
+    "produit": "corporate",
+    "slug": {
+      "_type": "slug",
+      "current": "film-dentreprise-video-15-ans-dexperience"
+    },
+    "titre": "Film d’entreprise – vidéo 15 ans d’expérience"
+  },
+  {
+    "_createdAt": "2026-08-02T14:00:39Z",
+    "_id": "realisation-getlive-tv-3-0-la-wbe-tv-selon-bluevista",
+    "_rev": "uRAaNS3DcI72FPZjqhcgGc",
+    "_type": "realisation",
+    "_updatedAt": "2026-08-02T14:00:39Z",
+    "aRelire": true,
+    "ancienneUrl": "/actualites/getlive-tv-3-0-la-wbe-tv-selon-bluevista/",
+    "client": "GETLIVE",
+    "language": "fr",
+    "marches": [
+      "fr"
+    ],
+    "metier": "film",
+    "produit": "corporate",
+    "slug": {
+      "_type": "slug",
+      "current": "getlive-tv-3-0-la-wbe-tv-selon-bluevista"
+    },
+    "titre": "GETLIVE TV 3.0 – La web TV selon Bluevista"
+  },
+  {
+    "_createdAt": "2026-08-02T14:00:46Z",
+    "_id": "realisation-la-realite-virtuelle-oculus-a-bluevista",
+    "_rev": "uRAaNS3DcI72FPZjqhcivS",
+    "_type": "realisation",
+    "_updatedAt": "2026-08-02T14:00:46Z",
+    "aRelire": true,
+    "ancienneUrl": "/actualites/la-realite-virtuelle-oculus-a-bluevista/",
+    "client": "La",
+    "language": "fr",
+    "marches": [
+      "fr"
+    ],
+    "metier": "immersion",
+    "produit": "visite-vr",
+    "slug": {
+      "_type": "slug",
+      "current": "la-realite-virtuelle-oculus-a-bluevista"
+    },
+    "titre": "La réalité virtuelle Oculus à Bluevista"
+  },
+  {
+    "_createdAt": "2026-08-02T14:00:44Z",
+    "_id": "realisation-live-video-homeserve-20ans",
+    "_rev": "Bk0wLbxlDiIlSPvlS8ZYHm",
+    "_type": "realisation",
+    "_updatedAt": "2026-08-02T14:00:44Z",
+    "aRelire": true,
+    "ancienneUrl": "/actualites/live-video-homeserve-20ans/",
+    "client": "Live",
+    "language": "fr",
+    "marches": [
+      "fr"
+    ],
+    "metier": "evenement",
+    "produit": "streaming",
+    "slug": {
+      "_type": "slug",
+      "current": "live-video-homeserve-20ans"
+    },
+    "titre": "Live streaming des 20 ans Homeserve"
+  },
+  {
+    "_createdAt": "2026-08-02T14:00:32Z",
+    "_id": "realisation-mase-4-motions",
+    "_rev": "Bk0wLbxlDiIlSPvlS8ZWzE",
+    "_type": "realisation",
+    "_updatedAt": "2026-08-02T14:00:32Z",
+    "aRelire": true,
+    "ancienneUrl": "/actualites/mase-4-motions/",
+    "client": "MASE",
+    "language": "fr",
+    "marches": [
+      "fr"
+    ],
+    "metier": "film",
+    "produit": "motion-promo",
+    "slug": {
+      "_type": "slug",
+      "current": "mase-4-motions"
+    },
+    "titre": "MASE Rhône Alpes : Motions"
+  },
+  {
+    "_createdAt": "2026-08-02T14:00:38Z",
+    "_id": "realisation-nos-dernieres-interviews",
+    "_rev": "h9RgWSv7SNE1Mfebd7y36n",
+    "_type": "realisation",
+    "_updatedAt": "2026-08-02T14:00:38Z",
+    "aRelire": true,
+    "ancienneUrl": "/actualites/nos-dernieres-interviews/",
+    "client": "Nos",
+    "language": "fr",
+    "marches": [
+      "fr"
+    ],
+    "metier": "film",
+    "produit": "corporate",
+    "slug": {
+      "_type": "slug",
+      "current": "nos-dernieres-interviews"
+    },
+    "titre": "Nos dernières interviews"
+  },
+  {
+    "_createdAt": "2026-08-02T14:00:42Z",
+    "_id": "realisation-nouveau-materiel-motion-control-kessler",
+    "_rev": "uRAaNS3DcI72FPZjqhchdO",
+    "_type": "realisation",
+    "_updatedAt": "2026-08-02T14:00:42Z",
+    "aRelire": true,
+    "ancienneUrl": "/actualites/nouveau-materiel-motion-control-kessler/",
+    "client": "Nouveau",
+    "language": "fr",
+    "marches": [
+      "fr"
+    ],
+    "metier": "film",
+    "produit": "motion-promo",
+    "slug": {
+      "_type": "slug",
+      "current": "nouveau-materiel-motion-control-kessler"
+    },
+    "titre": "Nouveau matériel – Motion control Kessler"
+  },
+  {
+    "_createdAt": "2026-08-02T14:00:37Z",
+    "_id": "realisation-peninsula-octobre-rose",
+    "_rev": "h9RgWSv7SNE1Mfebd7y2ph",
+    "_type": "realisation",
+    "_updatedAt": "2026-08-02T14:00:37Z",
+    "aRelire": true,
+    "ancienneUrl": "/actualites/peninsula-octobre-rose/",
+    "client": "Peninsula",
+    "language": "fr",
+    "marches": [
+      "fr"
+    ],
+    "metier": "film",
+    "produit": "corporate",
+    "slug": {
+      "_type": "slug",
+      "current": "peninsula-octobre-rose"
+    },
+    "titre": "Peninsula : Octobre Rose"
+  },
+  {
+    "_createdAt": "2026-08-02T14:00:52Z",
+    "_id": "realisation-premier-vol-drone",
+    "_rev": "uRAaNS3DcI72FPZjqhckMw",
+    "_type": "realisation",
+    "_updatedAt": "2026-08-02T14:00:52Z",
+    "aRelire": true,
+    "ancienneUrl": "/actualites/premier-vol-drone/",
+    "client": "Notre",
+    "language": "fr",
+    "marches": [
+      "fr"
+    ],
+    "metier": "film",
+    "produit": "drone",
+    "slug": {
+      "_type": "slug",
+      "current": "premier-vol-drone"
+    },
+    "titre": "Notre premier vol de drone, c’était en 2012 !"
+  },
+  {
+    "_createdAt": "2026-08-02T14:00:49Z",
+    "_id": "realisation-projection-semi-transparente-immersive-pour-linauguration-dun-batiment",
+    "_rev": "Bk0wLbxlDiIlSPvlS8ZYoj",
+    "_type": "realisation",
+    "_updatedAt": "2026-08-02T14:00:49Z",
+    "aRelire": true,
+    "ancienneUrl": "/actualites/projection-semi-transparente-immersive-pour-linauguration-dun-batiment/",
+    "client": "Projection",
+    "language": "fr",
+    "marches": [
+      "fr"
+    ],
+    "metier": "immersion",
+    "produit": "salle-immersive",
+    "slug": {
+      "_type": "slug",
+      "current": "projection-semi-transparente-immersive-pour-linauguration-dun-batiment"
+    },
+    "titre": "Projection semi-transparente immersive pour l’inauguration d’un bâtiment"
+  },
+  {
+    "_createdAt": "2026-08-02T14:00:33Z",
+    "_id": "realisation-projet-de-realisation-video-360",
+    "_rev": "uRAaNS3DcI72FPZjqhcetq",
+    "_type": "realisation",
+    "_updatedAt": "2026-08-02T14:00:33Z",
+    "aRelire": true,
+    "ancienneUrl": "/actualites/projet-de-realisation-video-360/",
+    "client": "Vidéo",
+    "language": "fr",
+    "marches": [
+      "fr"
+    ],
+    "metier": "immersion",
+    "produit": "visite-vr",
+    "slug": {
+      "_type": "slug",
+      "current": "projet-de-realisation-video-360"
+    },
+    "titre": "Vidéo 360 drone"
+  },
+  {
+    "_createdAt": "2026-08-02T14:00:45Z",
+    "_id": "realisation-serie-de-6-videos-promotionnelles-pour-les-produits-abb-snk",
+    "_rev": "Bk0wLbxlDiIlSPvlS8ZYSl",
+    "_type": "realisation",
+    "_updatedAt": "2026-08-02T14:00:45Z",
+    "aRelire": true,
+    "ancienneUrl": "/actualites/serie-de-6-videos-promotionnelles-pour-les-produits-abb-snk/",
+    "client": "Série",
+    "language": "fr",
+    "marches": [
+      "fr"
+    ],
+    "metier": "film",
+    "produit": "motion-promo",
+    "slug": {
+      "_type": "slug",
+      "current": "serie-de-6-videos-promotionnelles-pour-les-produits-abb-snk"
+    },
+    "titre": "Série de 6 vidéos promotionnelles pour les produits ABB SNK"
+  },
+  {
+    "_createdAt": "2026-08-02T14:00:51Z",
+    "_id": "realisation-social-wall-pour-espace-vip",
+    "_rev": "h9RgWSv7SNE1Mfebd7y72Q",
+    "_type": "realisation",
+    "_updatedAt": "2026-08-02T14:00:51Z",
+    "aRelire": true,
+    "ancienneUrl": "/actualites/social-wall-pour-espace-vip/",
+    "client": "Social",
+    "language": "fr",
+    "marches": [
+      "fr"
+    ],
+    "metier": "film",
+    "produit": "corporate",
+    "slug": {
+      "_type": "slug",
+      "current": "social-wall-pour-espace-vip"
+    },
+    "titre": "Social wall pour espace VIP"
+  },
+  {
+    "_createdAt": "2026-08-02T14:00:34Z",
+    "_id": "realisation-sport-boules-16eme-trophee-emile-terrier",
+    "_rev": "uRAaNS3DcI72FPZjqhcf7y",
+    "_type": "realisation",
+    "_updatedAt": "2026-08-02T14:00:34Z",
+    "aRelire": true,
+    "ancienneUrl": "/actualites/sport-boules-16eme-trophee-emile-terrier/",
+    "client": "Sport",
+    "language": "fr",
+    "marches": [
+      "fr"
+    ],
+    "metier": "film",
+    "produit": "corporate",
+    "slug": {
+      "_type": "slug",
+      "current": "sport-boules-16eme-trophee-emile-terrier"
+    },
+    "titre": "Sport Boules : 16ème Trophée Émile Terrier"
+  },
+  {
+    "_createdAt": "2026-08-02T14:00:29Z",
+    "_id": "realisation-stann",
+    "_rev": "Bk0wLbxlDiIlSPvlS8ZWVw",
+    "_type": "realisation",
+    "_updatedAt": "2026-08-02T14:00:29Z",
+    "aRelire": true,
+    "ancienneUrl": "/actualites/stann/",
+    "client": "STANN.",
+    "language": "fr",
+    "marches": [
+      "fr"
+    ],
+    "metier": "film",
+    "produit": "corporate",
+    "slug": {
+      "_type": "slug",
+      "current": "stann"
+    },
+    "titre": "STANN."
+  },
+  {
+    "_createdAt": "2026-08-02T14:00:43Z",
+    "_id": "realisation-streaming-live-et-webtv-demo-2018",
+    "_rev": "Bk0wLbxlDiIlSPvlS8ZY38",
+    "_type": "realisation",
+    "_updatedAt": "2026-08-02T14:00:43Z",
+    "aRelire": true,
+    "ancienneUrl": "/actualites/streaming-live-et-webtv-demo-2018/",
+    "client": "Streaming",
+    "language": "fr",
+    "marches": [
+      "fr"
+    ],
+    "metier": "evenement",
+    "produit": "streaming",
+    "slug": {
+      "_type": "slug",
+      "current": "streaming-live-et-webtv-demo-2018"
+    },
+    "titre": "Streaming Live et WebTV démo 2018"
+  },
+  {
+    "_createdAt": "2026-08-02T14:00:48Z",
+    "_id": "realisation-un-tournage-en-preparation-dans-le-parc-naturel-regional-du-vercors",
+    "_rev": "Bk0wLbxlDiIlSPvlS8ZYdk",
+    "_type": "realisation",
+    "_updatedAt": "2026-08-02T14:00:48Z",
+    "aRelire": true,
+    "ancienneUrl": "/actualites/un-tournage-en-preparation-dans-le-parc-naturel-regional-du-vercors/",
+    "client": "Un",
+    "language": "fr",
+    "marches": [
+      "fr"
+    ],
+    "metier": "film",
+    "produit": "corporate",
+    "slug": {
+      "_type": "slug",
+      "current": "un-tournage-en-preparation-dans-le-parc-naturel-regional-du-vercors"
+    },
+    "titre": "Un tournage en préparation dans le Parc Naturel Régional du Vercors"
+  },
+  {
+    "_createdAt": "2026-08-02T14:00:53Z",
+    "_id": "realisation-video-et-site-web-funseaker-yacht",
+    "_rev": "uRAaNS3DcI72FPZjqhckb4",
+    "_type": "realisation",
+    "_updatedAt": "2026-08-02T14:00:53Z",
+    "aRelire": true,
+    "ancienneUrl": "/actualites/video-et-site-web-funseaker-yacht/",
+    "client": "Vidéo",
+    "language": "fr",
+    "marches": [
+      "fr"
+    ],
+    "metier": "film",
+    "produit": "corporate",
+    "slug": {
+      "_type": "slug",
+      "current": "video-et-site-web-funseaker-yacht"
+    },
+    "titre": "Vidéo et site web – Funseaker Yacht"
+  },
+  {
+    "_createdAt": "2026-08-02T14:00:30Z",
+    "_id": "realisation-video-immersive-360",
+    "_rev": "h9RgWSv7SNE1Mfebd7y20P",
+    "_type": "realisation",
+    "_updatedAt": "2026-08-02T14:00:30Z",
+    "aRelire": true,
+    "ancienneUrl": "/actualites/video-immersive-360/",
+    "client": "Vidéo",
+    "language": "fr",
+    "marches": [
+      "fr"
+    ],
+    "metier": "immersion",
+    "produit": "visite-vr",
+    "slug": {
+      "_type": "slug",
+      "current": "video-immersive-360"
+    },
+    "titre": "Vidéo immersive 360°"
+  }
+]

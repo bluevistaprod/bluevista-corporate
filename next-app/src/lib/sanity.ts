@@ -105,8 +105,12 @@ export type PageSanity = {
   accroche?: string;
   image?: unknown;
   texte?: BlocTexte[];
-  sections?: { _key?: string; titre: string; paragraphes?: BlocTexte[]; image?: unknown }[];
+  sections?: { _key?: string; titre: string; paragraphes?: BlocTexte[]; image?: unknown; galerie?: unknown[]; pleineLargeur?: boolean }[];
   faq?: { _key?: string; q: string; r: string }[];
+  /** Récupérées de l'ancien site : plusieurs par page, Vimeo aujourd'hui. */
+  videos?: { _key?: string; url: string; titre: string; vignetteUrl?: string }[];
+  /** La composition libre : huit blocs typés, ordre choisi dans le studio. */
+  blocs?: { _key?: string; _type: string; [k: string]: unknown }[];
   titreSeo?: string;
   descriptionSeo?: string;
   projets?: string[];
@@ -115,7 +119,7 @@ export type PageSanity = {
 
 const CHAMPS_PAGE = `
   _id, genre, "slug": slug.current, titre, surTitre, accroche, image,
-  texte, sections, faq, projets, ancienneUrl, titreSeo, descriptionSeo
+  texte, sections, faq, videos, blocs, projets, ancienneUrl, titreSeo, descriptionSeo
 `;
 
 export async function lirePage(genre: string, slug: string, version: Version = "fr") {

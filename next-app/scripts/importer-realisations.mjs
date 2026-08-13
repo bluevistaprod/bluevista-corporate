@@ -42,9 +42,26 @@ const dataset = env.NEXT_PUBLIC_SANITY_DATASET || process.env.NEXT_PUBLIC_SANITY
 const token = env.SANITY_TOKEN || process.env.SANITY_TOKEN;
 
 // ── La source : le fichier que la maquette utilise déjà ────────────────
+/**
+ * ⛔⛔ `_realisations-migrees.ts` N'EST PLUS LU — retiré le 12/08/2026.
+ *
+ * Il portait 25 « réalisations » construites à partir de pages /actualites/,
+ * sur la foi d'un tri qui affirmait qu'une seule de ces 63 pages était un vrai
+ * article. Relecture du contenu réel : 25 en sont. Le premier vol de drone de
+ * 2012, l'arrivée des casques Oculus, le motion control Kessler, les showreels
+ * annuels — ce sont des actualités, pas des projets clients.
+ *
+ * ⭐ LA RÈGLE DE GIZ, 12/08/2026 : « tout ce qui est noté avec le slug
+ * actualités est une actualité ». Une actualité couvre un projet LARGE, avec
+ * plusieurs vidéos et des photos ; une réalisation couvre un projet. Deux
+ * objets, pas deux rangements du même.
+ *
+ * Les 25 documents ont été supprimés de Sanity par
+ * `scripts/curer-realisations-inventees.mjs` (sauvegarde à côté). Remettre
+ * cette lecture les recréerait à l'identique.
+ */
 function lireRealisations() {
-  const brut = fs.readFileSync(path.join(RACINE, "src/app/apercu/_realisations.ts"), "utf8")
-    + fs.readFileSync(path.join(RACINE, "src/app/apercu/_realisations-migrees.ts"), "utf8");
+  const brut = fs.readFileSync(path.join(RACINE, "src/app/apercu/_realisations.ts"), "utf8");
   const fiches = [];
   // Chaque entrée est un objet littéral ; on relit champ par champ plutôt que
   // d'évaluer le fichier — évaluer du code pour en extraire des données est

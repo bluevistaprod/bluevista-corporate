@@ -6,6 +6,7 @@ import { apiVersion, dataset, projectId } from "./sanity/env";
 import { structure } from "./sanity/structure";
 import { realisation } from "./sanity/schemas/realisation";
 import { page } from "./sanity/schemas/page";
+import { BLOCS } from "./sanity/schemas/blocs";
 
 /**
  * LE STUDIO BLUEVISTA — l'interface d'édition, servie par l'application
@@ -72,5 +73,5 @@ export default defineConfig({
     // Console de requêtes — elle me sert à auditer le contenu en une ligne.
     visionTool({ defaultApiVersion: apiVersion }),
   ],
-  schema: { types: [realisation, page] },
+  schema: { types: [realisation, page, ...BLOCS] },
 });
