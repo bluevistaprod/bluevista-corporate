@@ -1,0 +1,328 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Maquette — page actualité (STANN)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+  /* ══════════════════════════════════════════════════════════════════════
+     MAQUETTE DE LA PAGE ACTUALITÉ — gabarit des 63.
+
+     ⭐ MÊME LANGAGE GRAPHIQUE que les savoir-faire validés le 12/08 :
+     mêmes couleurs, mêmes quatre niveaux typographiques, mêmes pastilles de
+     lien, même filet entre deux chapitres de même fond. Un visiteur ne doit
+     pas sentir qu'il change de site en passant d'une page à l'autre.
+
+     ⛔ CE QUI CHANGE, ET C'EST TOUT LE SUJET : une actualité RACONTE UN
+     PROJET, elle ne vend pas une compétence. Trois conséquences de dessin :
+       · elle est DATÉE et porte le nom du client dès le haut de page ;
+       · elle n'a ni « ce qu'on prend en charge », ni « les questions qu'on
+         nous pose », ni argumentaire générique — tout ça vit sur la page de
+         savoir-faire, et c'est précisément ce qui les faisait se concurrencer ;
+       · elle finit par un renvoi EXPLICITE vers la réalisation du même projet.
+         L'actualité tient l'histoire, la réalisation tient la carte.
+     ══════════════════════════════════════════════════════════════════════ */
+  :root{
+    --bleu:#12607E; --bleu-clair:#5BC8DE;
+    --clair:#F7F6F2; --clair-soutenu:#EBE8E1;
+    --sombre:#07222B; --noir:#04070A;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:Poppins,system-ui,sans-serif;background:var(--clair);color:var(--sombre);
+       -webkit-font-smoothing:antialiased}
+  .large{max-width:1500px;margin:0 auto;padding:0 2rem}
+  .etroit{max-width:780px;margin:0 auto;padding:0 2rem}
+  section{padding:5rem 0 3rem}
+  .sombre{background:var(--sombre);color:var(--clair)}
+  .noir{background:var(--noir);color:var(--clair)}
+  .soutenu{background:var(--clair-soutenu)}
+
+  .surtitre{font-size:clamp(13px,1.15vw,18px);font-weight:700;text-transform:uppercase;letter-spacing:.16em;
+            color:var(--bleu);display:flex;align-items:center;gap:1rem;margin-bottom:1.5rem}
+  .sombre .surtitre,.noir .surtitre{color:var(--bleu-clair)}
+  .surtitre::before{content:"";display:block;width:clamp(3rem,4vw,4.5rem);height:3px;border-radius:99px;background:currentColor}
+  h1{font-size:clamp(2.1rem,4.4vw,3.5rem);font-weight:700;line-height:1.04;letter-spacing:-.02em;max-width:20ch}
+  h2{font-size:clamp(1.6rem,2.6vw,2.25rem);font-weight:700;line-height:1.12;letter-spacing:-.02em;max-width:24ch}
+  h3{font-size:1.35rem;font-weight:700;line-height:1.3;letter-spacing:-.01em}
+  p{font-size:1.0625rem;line-height:1.75;opacity:.82;max-width:64ch}
+  p+p{margin-top:1.25rem}
+
+  /* La pastille : un lien porte son propre fond, donc il reste lisible quel
+     que soit ce qu'il y a derrière. Et la couleur veut dire CLIQUABLE. */
+  a{color:#fff;background:var(--bleu);text-decoration:none;font-weight:600;
+    padding:.12em .45em;border-radius:5px;box-decoration-break:clone;
+    -webkit-box-decoration-break:clone;transition:background .18s}
+  a:hover{background:var(--sombre)}
+  .sombre a,.noir a{background:var(--bleu-clair);color:var(--noir)}
+  .sombre a:hover,.noir a:hover{background:#fff}
+  .fil a,.bouton,.suite a,.retour{background:none;padding:0;font-weight:inherit}
+
+  /* ── ① L'EN-TÊTE ────────────────────────────────────────────────────
+     ⚠️ PAS DE GRANDE IMAGE DE COUVERTURE ICI, et c'est un choix mesuré :
+     28 des 63 actualités n'ont AUCUNE photo à elles. Un gabarit qui exige
+     une couverture obligerait à en inventer une — c'est exactement ce qui a
+     produit « la photo de NightSwapping sous le texte d'Amplitude ».
+     L'en-tête tient donc debout sans image, et l'accueille quand elle existe. */
+  .entete{background:var(--noir);color:#fff;padding:9rem 0 4rem}
+  .fil{font-size:14px;color:#ffffff8c;margin-bottom:1.75rem}
+  .fil a{color:#ffffff8c} .fil a:hover{color:#fff}
+  .entete h1{color:#fff}
+  .reperes{display:flex;flex-wrap:wrap;gap:.75rem 2rem;margin-top:1.75rem;
+           font-size:.95rem;color:#ffffffb3}
+  .reperes b{color:var(--bleu-clair);font-weight:600}
+
+  /* ── ② LE CHAPÔ ─────────────────────────────────────────────────────
+     Une seule phrase, plus grande que le corps : ce que le projet était.
+     C'est aussi ce que Google reprend le plus souvent. */
+  .chapo p{font-size:1.3rem;line-height:1.55;opacity:1;font-weight:600;max-width:34ch}
+
+  /* ── ③ TEXTE + MÉDIA ────────────────────────────────────────────────
+     ⛔ UN MÉDIA NE SE POSE QUE SUR UNE PHRASE QUI LE NOMME. Règle héritée
+     des savoir-faire, payée deux fois. Les blocs sans média assumé restent
+     en pleine largeur de colonne de texte — un trou vaut mieux qu'un
+     rapprochement faux. */
+  .duo{display:grid;gap:4rem;grid-template-columns:1fr 1fr;align-items:start}
+  .duo.inverse .txt{order:2}
+  .media{border-radius:6px;overflow:hidden;background:var(--sombre)}
+  .media img{width:100%;display:block}
+  .lecteur{position:relative;aspect-ratio:16/9;background-size:cover;background-position:center;
+           cursor:pointer;border:0;padding:0;width:100%;display:block;background-color:var(--sombre)}
+  .lecteur::after{content:"";position:absolute;inset:0;background:#04070a59}
+  .play{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:66px;height:66px;
+        border-radius:99px;background:var(--bleu-clair);display:grid;place-items:center;z-index:2}
+  .play svg{margin-left:4px}
+  .legende{margin-top:.9rem;font-size:.95rem;font-weight:600}
+  .legende span{display:block;font-weight:400;opacity:.6;font-size:.875rem;margin-top:.15rem}
+  iframe{width:100%;aspect-ratio:16/9;border:0;display:block}
+
+  /* ── ④ L'APARTÉ ─────────────────────────────────────────────────────
+     Phrase sérieuse au-dessus, note de coulisses ici. ⛔ Une par page. */
+  .aparte{border-left:3px solid var(--bleu-clair);padding:.25rem 0 .25rem 1.5rem;margin-top:2rem}
+  .aparte p{font-size:1rem;opacity:.62;font-style:italic;max-width:52ch}
+
+  /* ── ⑤ LA RÉALISATION LIÉE ──────────────────────────────────────────
+     ⭐ LE BLOC QUI RÈGLE LA CONCURRENCE. Sept couples actualité/réalisation
+     se présentaient sur les mêmes requêtes, dont celui-ci : 7 084 impressions
+     pour l'actualité contre 4 736 pour la réalisation, et zéro clic des deux
+     côtés. Les deux pages restent — la règle est écrite — mais elles cessent
+     de se disputer le sujet dès lors qu'elles se citent. */
+  .liee{display:grid;grid-template-columns:1fr 1.1fr;gap:3rem;align-items:center;
+        background:var(--sombre);color:#fff;border-radius:8px;overflow:hidden}
+  .liee .vign{aspect-ratio:16/10;background-size:cover;background-position:center;background-color:#0d3543}
+  .liee .txt{padding:2.5rem 3rem 2.5rem 0}
+  .liee h3{color:#fff;margin-bottom:.6rem}
+  .liee p{opacity:.72;font-size:.98rem}
+  .bouton{display:inline-block;background:var(--bleu-clair);color:var(--noir);font-weight:700;
+          padding:.85rem 1.6rem;border-radius:5px;margin-top:1.5rem;font-size:.95rem}
+  .bouton:hover{background:#fff}
+
+  /* ── ⑥ LA SUITE ─────────────────────────────────────────────────────── */
+  .suite{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;margin-top:2.5rem}
+  .carte{background:#fff;border:1px solid #0000001a;border-radius:6px;overflow:hidden;display:block}
+  .carte .vign{aspect-ratio:16/10;background:var(--clair-soutenu);background-size:cover;background-position:center}
+  .carte .t{padding:1.15rem;font-weight:700;font-size:.95rem;line-height:1.35}
+  .carte .d{padding:0 1.15rem 1.15rem;font-size:.82rem;opacity:.55;font-weight:400}
+  .retour{display:inline-block;margin-top:3rem;font-weight:600;color:var(--bleu)}
+
+  /* Le filet : deux blocs de même fond qui se suivent ont besoin d'une
+     frontière, sinon on croit lire le même chapitre. */
+  .filet{border-top:1px solid #0722221f;padding-top:3.5rem}
+
+  /* ⛔⛔ L'APPARITION AU DÉFILEMENT — LE MASQUAGE N'EST PAS DANS LE CSS.
+     Première version de cette maquette : `.anim{opacity:0}` écrit en dur.
+     Vérifié dans le navigateur, et pris la main dans le sac — la page est
+     ressortie ENTIÈREMENT BLANCHE. Cause : quand l'onglet n'est pas au
+     premier plan, le navigateur suspend `IntersectionObserver`. Rien ne
+     révèle les blocs, et le CSS les garde à zéro.
+     👉 Ça n'arrive pas qu'en test : un visiteur qui ouvre le lien dans un
+     onglet d'arrière-plan, puis y revient, voit une page vide.
+     ✅ Le masque est donc posé PAR LE SCRIPT (classe `js` sur <html>). Sans
+     JavaScript — erreur, vieux navigateur, réseau coupé — tout reste
+     visible. C'est la même règle que dans `_Apparait.tsx` : on ne livre
+     jamais un contenu que seul le script peut rendre visible. */
+  .js .anim{opacity:0;transform:translateY(18px);transition:opacity .5s ease-out,transform .5s ease-out}
+  .js .anim.vu{opacity:1;transform:none}
+  @media(prefers-reduced-motion:reduce){.js .anim{opacity:1;transform:none;transition:none}}
+
+  @media(max-width:900px){
+    .duo,.liee{grid-template-columns:1fr;gap:2.5rem}
+    .liee .txt{padding:0 2rem 2.5rem}
+    .suite{grid-template-columns:1fr}
+    section{padding:3.5rem 0 2rem}
+    .entete{padding:6rem 0 3rem}
+  }
+</style>
+</head>
+<body>
+<script>if(!matchMedia("(prefers-reduced-motion: reduce)").matches)document.documentElement.className="js";</script>
+
+<!-- ① EN-TÊTE ───────────────────────────────────────────────────────── -->
+<header class="entete">
+  <div class="large">
+    <div class="fil"><a href="#">Accueil</a> · <a href="#">Actualités</a></div>
+    <h1>Le film qui montre STANN sur le terrain, pas sur un écran</h1>
+    <div class="reperes">
+      <div>Client : <b>STANN</b></div>
+      <div>Publié le <b>5 février 2024</b></div>
+      <div>Tournage à <b>Grenoble</b></div>
+    </div>
+  </div>
+</header>
+
+<!-- ② CHAPÔ ────────────────────────────────────────────────────────── -->
+<section class="soutenu chapo">
+  <div class="etroit anim">
+    <p>Une application de gestion se démontre mal en salle de réunion.
+       On est donc allés la filmer là où elle sert : chez un client de
+       <a href="https://www.stann.app/" target="_blank" rel="noopener">STANN</a>, une journée, en conditions réelles.</p>
+  </div>
+</section>
+
+<!-- ③ LE FILM ──────────────────────────────────────────────────────── -->
+<section class="soutenu">
+  <div class="large anim">
+    <div class="filet duo">
+      <div class="txt">
+        <div class="surtitre">Le projet</div>
+        <h2>Trois minutes pour faire comprendre un logiciel</h2>
+        <p>STANN édite un logiciel de gestion pour les entrepreneurs :
+           clients, facturation, comptabilité, ressources humaines. Le film
+           devait présenter <b>l'application sur le terrain</b> plutôt que ses
+           écrans — c'est ce qui décide un acheteur qui hésite entre deux outils.</p>
+        <p>Le montage suit trois temps : une introduction, la mise en situation
+           chez un client, puis une conclusion en animation 2D qui reprend les
+           points évoqués.</p>
+        <div class="aparte">
+          <p>Le storyboard a été écrit avant le premier repérage. C'est le seul
+             moyen de tenir une journée de tournage sans rien laisser au hasard —
+             et de savoir, le soir, qu'on a tout.</p>
+        </div>
+      </div>
+      <div class="media">
+        <button class="lecteur" data-livid="KzPh3QGxA_sk"
+                style="background-image:url('https://www.bluevistaprod.com/wp-content/uploads/2024/02/motion-renard.png')">
+          <span class="play"><svg width="20" height="24" viewBox="0 0 20 24"><path d="M0 0l20 12L0 24z" fill="#04070A"/></svg></span>
+        </button>
+        <div class="legende">STANN — film de présentation de l'application
+          <span>3 min 12 · tourné à Grenoble</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ④ LA FABRICATION ───────────────────────────────────────────────── -->
+<section class="soutenu">
+  <div class="large anim">
+    <div class="filet duo inverse">
+      <div class="txt">
+        <div class="surtitre">Comment on l'a fait</div>
+        <h2>Une journée de tournage, deux métiers au montage</h2>
+        <p>L'équipe a tourné en une journée sur Grenoble. En post-production,
+           le montage et la partie <b>animation 2D</b> ont été fabriqués en
+           parallèle : la conclusion animée reprend, en trente secondes, ce que
+           la démonstration a mis deux minutes à montrer.</p>
+        <p>Le film sert aujourd'hui sur le site de STANN, sur ses réseaux
+           sociaux, et sur ses salons — trois usages, un seul tournage.</p>
+      </div>
+      <div class="media">
+        <img src="https://www.bluevistaprod.com/wp-content/uploads/2024/02/motion-renard.png"
+             alt="Image de l'animation 2D réalisée pour la conclusion du film STANN">
+        <div class="legende">L'animation 2D de la conclusion</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ⑤ LA RÉALISATION LIÉE ──────────────────────────────────────────── -->
+<section>
+  <div class="large anim">
+    <div class="liee">
+      <div class="vign" style="background-image:url('https://www.bluevistaprod.com/wp-content/uploads/2024/02/motion-renard.png')"></div>
+      <div class="txt">
+        <div class="surtitre">La réalisation</div>
+        <h3>Stann — présentation vidéo de l'application</h3>
+        <p>Cette actualité raconte comment le film a été fait. La réalisation,
+           elle, donne le projet en bref : client, métier, produit, et les autres
+           projets du même type.</p>
+        <a class="bouton" href="#">Voir la réalisation</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ⑥ LA SUITE ─────────────────────────────────────────────────────── -->
+<section class="soutenu">
+  <div class="large anim">
+    <div class="surtitre">À lire aussi</div>
+    <h2>Les projets qui ressemblent à celui-là</h2>
+    <div class="suite">
+      <a class="carte" href="#"><div class="vign"></div>
+        <div class="t">MASE Rhône-Alpes : quatre motions pour une seule campagne</div>
+        <div class="d">12 septembre 2023</div></a>
+      <a class="carte" href="#"><div class="vign"></div>
+        <div class="t">GETLIVE TV 3.0 — la web TV selon Bluevista</div>
+        <div class="d">4 avril 2023</div></a>
+      <a class="carte" href="#"><div class="vign"></div>
+        <div class="t">BARPI : rendre lisible la prévention des accidents industriels</div>
+        <div class="d">18 janvier 2023</div></a>
+    </div>
+    <a class="retour" href="#">← Toutes les actualités</a>
+  </div>
+</section>
+
+<script>
+  /* Le lecteur ne charge la vidéo qu'au clic : 63 pages avec deux embeds
+     chacune, chargés d'office, c'est une page lente pour un visiteur qui,
+     la plupart du temps, ne lancera qu'une seule vidéo. */
+  document.querySelectorAll('.lecteur').forEach(function (b) {
+    b.addEventListener('click', function () {
+      var f = document.createElement('iframe');
+      f.src = 'https://livid.com/embed/' + b.dataset.livid + '?autoplay=1';
+      f.allow = 'autoplay; fullscreen; picture-in-picture';
+      f.setAttribute('allowfullscreen', '');
+      f.title = b.parentNode.querySelector('.legende').firstChild.textContent.trim();
+      b.replaceWith(f);
+    });
+  });
+
+  /* L'apparition au défilement. Deux chemins : l'observateur quand il existe,
+     et le défilement en repli. Aucun filet qui révèle tout au bout de n
+     secondes — un garde-fou qui s'applique toujours n'est plus un garde-fou,
+     c'est le comportement par défaut. */
+  (function () {
+    if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    var blocs = [].slice.call(document.querySelectorAll('.anim'));
+    function montre(el) { el.classList.add('vu'); }
+    if ('IntersectionObserver' in window) {
+      var obs = new IntersectionObserver(function (es) {
+        es.forEach(function (e) { if (e.isIntersecting) { montre(e.target); obs.unobserve(e.target); } });
+      }, { rootMargin: '0px 0px -12% 0px' });
+      blocs.forEach(function (b) { obs.observe(b); });
+    } else {
+      var check = function () {
+        blocs.forEach(function (b) {
+          var r = b.getBoundingClientRect();
+          if (r.top < innerHeight * 0.88 && r.bottom > 0) montre(b);
+        });
+      };
+      addEventListener('scroll', check, { passive: true });
+      addEventListener('resize', check);
+      check();
+    }
+    /* ⚠️ L'observateur est suspendu tant que l'onglet est en arrière-plan.
+       Au retour, on révèle ce qui est déjà à l'écran — sinon la page reste
+       vide jusqu'au premier défilement. */
+    addEventListener('visibilitychange', function () {
+      if (document.hidden) return;
+      blocs.forEach(function (b) {
+        var r = b.getBoundingClientRect();
+        if (r.top < innerHeight * 0.95 && r.bottom > 0) montre(b);
+      });
+    });
+  })();
+</script>
+</body>
+</html>

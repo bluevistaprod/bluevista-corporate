@@ -1,0 +1,144 @@
+{
+  "_createdAt": "2026-08-02T14:40:40Z",
+  "_id": "page-ville-realisation-video-geneve",
+  "_rev": "84yru1YmbtjxTzqq0hqr4M",
+  "_type": "page",
+  "_updatedAt": "2026-08-10T14:34:31Z",
+  "ancienneUrl": "/realisation-video-geneve/",
+  "faq": [
+    {
+      "_key": "faq0",
+      "_type": "object",
+      "q": "Facturez-vous en francs suisses ?",
+      "r": "Oui, les projets suisses sont facturés en francs par notre entité genevoise. Le budget vous est présenté dans cette monnaie dès la proposition, sans conversion à la livraison."
+    },
+    {
+      "_key": "faq1",
+      "_type": "object",
+      "q": "Produisez-vous des versions multilingues ?",
+      "r": "Régulièrement : voix off en plusieurs langues, sous-titrage, et déclinaisons du montage quand les textes à l’image changent. Cela se prépare dès le storyboard, parce que la durée d’une phrase varie d’une langue à l’autre."
+    }
+  ],
+  "genre": "ville",
+  "language": "fr",
+  "projets": [
+    "ONU Genève — captation et production audiovisuelle",
+    "Hôtel Président Wilson — dispositif immersif"
+  ],
+  "sections": [
+    {
+      "_key": "sp0",
+      "_type": "object",
+      "paragraphes": [
+        {
+          "_key": "sc-realisation-video-geneve-0-0",
+          "_type": "block",
+          "children": [
+            {
+              "_key": "sc-realisation-video-geneve-0-0s",
+              "_type": "span",
+              "marks": [],
+              "text": "Les projets suisses sont portés par notre entité genevoise : facturation locale, équipes qui interviennent sur l’ensemble du territoire, et interlocuteurs qui connaissent les usages de la région."
+            }
+          ],
+          "markDefs": [],
+          "style": "normal"
+        },
+        {
+          "_key": "sc-realisation-video-geneve-0-1",
+          "_type": "block",
+          "children": [
+            {
+              "_key": "sc-realisation-video-geneve-0-1s",
+              "_type": "span",
+              "marks": [],
+              "text": "Pour vos services achats, cela veut dire un fournisseur suisse et un règlement en francs."
+            }
+          ],
+          "markDefs": [],
+          "style": "normal"
+        }
+      ],
+      "titre": "Une facturation et des équipes en Suisse"
+    },
+    {
+      "_key": "sp1",
+      "_type": "object",
+      "paragraphes": [
+        {
+          "_key": "sc-realisation-video-geneve-1-0",
+          "_type": "block",
+          "children": [
+            {
+              "_key": "sc-realisation-video-geneve-1-0s",
+              "_type": "span",
+              "marks": [],
+              "text": "Filmer pour une organisation internationale demande des habitudes précises : accréditations et contrôles d’accès, tournages multilingues, versions sous-titrées en plusieurs langues, et validations qui passent par plusieurs services."
+            }
+          ],
+          "markDefs": [],
+          "style": "normal"
+        },
+        {
+          "_key": "sc-realisation-video-geneve-1-1",
+          "_type": "block",
+          "children": [
+            {
+              "_key": "sc-realisation-video-geneve-1-1s",
+              "_type": "span",
+              "marks": [],
+              "text": "Nous produisons régulièrement dans ce cadre, et nous en tenons compte dès le calendrier — c’est presque toujours la validation, jamais le tournage, qui décide de la date de livraison."
+            }
+          ],
+          "markDefs": [],
+          "style": "normal"
+        }
+      ],
+      "titre": "Les organisations internationales, un contexte à part"
+    }
+  ],
+  "slug": {
+    "_type": "slug",
+    "current": "realisation-video-geneve"
+  },
+  "surTitre": "Genève",
+  "texte": [
+    {
+      "_key": "t0",
+      "_type": "block",
+      "children": [
+        {
+          "_key": "ts0",
+          "_type": "span",
+          "text": "Nous maitrisons tous les stades de réalisation et production vidéo : conception, storyboard, tournage, montage, motion design, animation 3D. Nos équipes se déplacent sur l’ensemble du territoire suisse pour la réalisation de votre vidéo d’entreprise avec du matériel haut de gamme et des experts dans leur domaine. Nous adaptons nos équipes à toute taille de projet. Qu’il s’agisse d’une simple interview en région genevoise face au jet d’eau ou d’un film corporate multi-techniques, nous saurons vous accompagner. Plus qu’une société de production vidéo à Genève, nous sommes une agence de réalisation vidéo sur Genève complète à même de vous accompagner dans tous vos projets. Cela autant pour du tournage, du motion design, du drone ou de l’ animation 3D."
+        }
+      ],
+      "style": "normal"
+    },
+    {
+      "_key": "t1",
+      "_type": "block",
+      "children": [
+        {
+          "_key": "ts1",
+          "_type": "span",
+          "text": "Envie de nous suivre nous et notre travail ? Envie de travailler avec une boite de prod lyonnaise ? Suivez nous sur nos réseaux sociaux !"
+        }
+      ],
+      "style": "normal"
+    },
+    {
+      "_key": "t2",
+      "_type": "block",
+      "children": [
+        {
+          "_key": "ts2",
+          "_type": "span",
+          "text": "Notre équipe est composée d’experts dans leurs domaines : concepteurs / réalisateurs / caméramen / monteurs / graphistes. Notre agence vidéo de Genève intervient sur l’ensemble du territoire suisse avec une grande expérience en communication des entreprises de la région. Notre société de production vidéo est en évolution permanente. La réalisation de vidéo est notre domaine ainsi que tous les nouveaux supports. Que votre projet soit de diffuser votre film sur votre site internet, lors d’une convention d’entreprise ou bien dans un casque de réalité virtuelle, nous saurons vous accompagner. Vous souhaitez découvrir nos compétences ? Allez faire un tour sur notre page réalisations. Vous découvrirez un ensemble de projets vidéos réalisés en suisse."
+        }
+      ],
+      "style": "normal"
+    }
+  ],
+  "titre": "Réalisation vidéo à Genève"
+}
