@@ -198,7 +198,7 @@ export type MediaActualite = {
 export type BlocActualite = {
   _key?: string;
   surTitre?: string;
-  titre: string;
+  titre?: string;
   paragraphes?: BlocTexte[];
   medias?: MediaActualite[];
   aparte?: string;

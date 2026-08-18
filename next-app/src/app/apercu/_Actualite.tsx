@@ -85,12 +85,14 @@ function UnBloc({ bloc, rang }: { bloc: BlocActualite; rang: number }) {
   const texte = (
     <div>
       {bloc.surTitre && <SurTitre enfant={bloc.surTitre} />}
-      <h2
-        className="mb-6 font-bold"
-        style={{ fontSize: "clamp(1.6rem,2.6vw,2.25rem)", lineHeight: 1.12, letterSpacing: "-.02em", maxWidth: "24ch" }}
-      >
-        {bloc.titre}
-      </h2>
+      {bloc.titre ? (
+        <h2
+          className="mb-6 font-bold"
+          style={{ fontSize: "clamp(1.6rem,2.6vw,2.25rem)", lineHeight: 1.12, letterSpacing: "-.02em", maxWidth: "24ch" }}
+        >
+          {bloc.titre}
+        </h2>
+      ) : null}
       <TexteRiche blocs={bloc.paragraphes} className="max-w-[64ch] text-[1.0625rem] leading-[1.75] opacity-[.82]" />
       {bloc.aparte && (
         <div className="mt-8 border-l-[3px] py-1 pl-6" style={{ borderColor: BLEU_CLAIR }}>

@@ -66,17 +66,33 @@ def pleine_taille(u: str) -> str:
 
 def images(html: str) -> tuple[str, list[tuple[str, str]]]:
     """Renvoie (image d'en-tête, [(url, texte alternatif)…]) dans l'ordre de la page."""
+    # ⛔⛔ L'IMAGE MISE EN AVANT NE S'AFFICHE PAS DANS L'ARTICLE, ET C'EST
+    # POUR ÇA QU'ELLE ÉCHAPPAIT AU COMPTAGE. Le thème Elementor ne la rend
+    # nulle part dans le corps : ni <img>, ni fond CSS. Elle n'existe dans la
+    # page que sous forme de balise `og:image` — celle que Facebook et
+    # LinkedIn affichent en couverture.
+    # 👉 Giz l'a vue avant moi : « y'a un logo au moins un truc ? je vois une
+    # photo en couverture ». Trois sources successives ont manqué la même
+    # image — l'API, puis les <img>, puis les fonds CSS. Chercher là où on
+    # sait chercher n'est pas chercher.
     hero = ""
-    m = re.search(r'data-rocket-preload as="image" href="([^"]+)"', html)
-    if m and not EXCLUS.search(m.group(1)):
-        hero = pleine_taille(m.group(1))
+    for motif in (r'property="og:image"\s+content="([^"]+\.(?:jpe?g|png|webp))"',
+                  r'data-rocket-preload as="image" href="([^"]+\.(?:jpe?g|png|webp))"'):
+        m = re.search(motif, html)
+        if m and not EXCLUS.search(m.group(1)):
+            hero = pleine_taille(m.group(1))
+            break
 
     vues, sortie = set(), []
     for balise in re.findall(r"<img[^>]+>", html):
         # ⭐ LE FILTRE QUI SÉPARE LES DEUX FAMILLES.
         if "wp-image-" not in balise:
             continue
-        src = re.search(r'src="([^"]+\.(?:jpe?g|png|webp))"', balise)
+        # ⛔ WP ROCKET REMPLACE `src` PAR UN SVG VIDE ET RANGE LA VRAIE
+        # ADRESSE DANS `data-lazy-src`. Lire `src` seul fait disparaître des
+        # photos sans le moindre signe — la balise est là, l'image non.
+        src = (re.search(r'data-lazy-src="([^"]+\.(?:jpe?g|png|webp))"', balise)
+               or re.search(r'src="([^"]+\.(?:jpe?g|png|webp))"', balise))
         if not src or EXCLUS.search(src.group(1)):
             continue
         u = pleine_taille(src.group(1))

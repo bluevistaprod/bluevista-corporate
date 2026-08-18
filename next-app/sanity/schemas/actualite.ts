@@ -169,7 +169,13 @@ export const actualite = defineType({
         name: "bloc",
         fields: [
           defineField({ name: "surTitre", type: "string" }),
-          defineField({ name: "titre", type: "string", validation: r => r.required() }),
+          /* ⚠️ FACULTATIF, ET C'EST UN CONSTAT DE SOURCE : 61 des 63 articles
+             de l'ancien site n'ont AUCUN intertitre. Le rendre obligatoire
+             obligerait à en inventer 126 — c'est-à-dire à fabriquer du texte
+             de titre par une règle, ce qui est exactement le « gabarit sans
+             âme » qu'on vient de quitter. Un bloc sans titre s'affiche sans
+             titre, et le compte des titres manquants reste lisible. */
+          defineField({ name: "titre", type: "string" }),
           defineField({
             name: "paragraphes", ...texteRiche,
             description:
