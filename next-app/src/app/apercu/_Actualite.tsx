@@ -27,6 +27,12 @@ import { Apparait } from "./_Apparait";
 
 const LARGE = "mx-auto max-w-[1500px] px-8";
 
+/** L'adresse publique traduite pour les routes de prévisualisation. */
+function apercu(href: string) {
+  if (/^https?:\/\//.test(href)) return href;
+  return `/apercu${href.replace(/^\/savoir-faire\//, "/competence/").replace(/\/$/, "")}`;
+}
+
 function SurTitre({ enfant, sombre }: { enfant: string; sombre?: boolean }) {
   const c = sombre ? BLEU_CLAIR : BLEU;
   return (
@@ -203,7 +209,13 @@ export function Actualite({
                 <TexteRiche blocs={a.projets.paragraphes} sombre className="max-w-[70ch] text-base leading-[1.75] opacity-[.78]" />
                 {a.projets.boutonLibelle && a.projets.boutonLien && (
                   <Link
-                    href={a.projets.boutonLien.startsWith("http") ? a.projets.boutonLien : `/apercu${a.projets.boutonLien.replace(/\/$/, "")}`}
+                    /* ⛔ MÊME TRADUCTION D'ADRESSE QUE DANS `TexteRiche`, et
+                       l'oublier ici a produit un lien mort : le contenu stocke
+                       l'adresse PUBLIQUE `/savoir-faire/…`, les routes
+                       d'aperçu vivent sous `/apercu/competence/…`. Une règle
+                       écrite à un endroit ne se transporte pas toute seule
+                       dans le fichier suivant. */
+                    href={apercu(a.projets.boutonLien)}
                     className="mt-6 inline-block rounded-[5px] px-6 py-3 text-[.95rem] font-bold no-underline transition hover:bg-white"
                     style={{ background: BLEU_CLAIR, color: NOIR }}
                   >
