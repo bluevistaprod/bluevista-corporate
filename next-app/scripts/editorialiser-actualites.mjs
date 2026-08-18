@@ -310,6 +310,124 @@ const PLANS = {
       boutonLien: "/savoir-faire/creation-immersive-realite-virtuelle/",
     },
   },
+  /* 1 clic · le showreel 2020. Aucune photo de contenu : le film porte seul. */
+  "bluevista-video-showreel-2020": {
+    blocs: [
+      { surTitre: "L’année en images", titre: "Ce que l’équipe a produit en 2019", paras: [0, 1], medias: ["video:*"] },
+    ],
+  },
+
+  /* 1 clic · même famille, année suivante. */
+  "bluevista-video-showreel-2021": {
+    blocs: [
+      { surTitre: "L’année en images", titre: "Du drone au film technique, une saison de production", paras: [0, 1], medias: ["video:*"] },
+    ],
+  },
+
+  /* 1 clic · un article de MÉTIER : ce qui fait qu'une interview tient ou
+     s'effondre. Le seul du lot à être vraiment didactique — il mérite ses
+     quatre chapitres. */
+  "nos-dernieres-interviews": {
+    blocs: [
+      { surTitre: "Le sujet", titre: "Filmer une interview, ce n’est pas poser une caméra", paras: [0], medias: ["video:*"] },
+      { surTitre: "Ce qui se joue avant", titre: "Le lien avec l’intervieweur, et la direction du regard", paras: [1, 2], medias: [] },
+      { surTitre: "Ce qu’on n’entend que quand c’est raté", titre: "Le son passe avant l’image", paras: [3], medias: [] },
+      { surTitre: "Le reste", titre: "Éclairage, cadre, et ce sur quoi le spectateur juge", paras: [4, 5], medias: [] },
+    ],
+    projets: {
+      titre: "L’interview, le format qu’on croit simple",
+      paras: [
+        ["Une interview réussie ne se voit pas : on écoute ce qui est dit. Une interview ratée, on ne voit qu’elle — le regard qui cherche, le son qui siffle, la lumière qui écrase."],
+        ["D’où une règle de tournage qui n’a rien de spectaculaire : un micro de secours toujours branché, une direction de regard décidée avant la première question, et quelqu’un en face qui mène vraiment l’échange."],
+      ],
+      boutonLibelle: "Nos films d’entreprise",
+      boutonLien: "/savoir-faire/video-corporate-film-dentreprise/",
+    },
+  },
+
+  /* 1 clic · MASE. Les § 4 à 9 sont l'argumentaire générique sur le motion
+     design : il appartient à la page savoir-faire, pas à ce projet. */
+  "mase-4-motions": {
+    blocs: [
+      { surTitre: "Le projet", titre: "Quatre films pour prévenir quatre risques", paras: [0, 1], medias: ["video:*"] },
+      { surTitre: "Comment on l’a fait", titre: "Une voix off enregistrée en studio, posée sur l’animation", paras: [2], medias: ["image:*"] },
+    ],
+    projets: {
+      titre: "Le motion design de prévention, lu par des gens pressés",
+      paras: [
+        ["Un film de prévention est regardé en début de poste, souvent debout, parfois sur un téléphone. Il doit tenir en quelques minutes et se comprendre sans son — puis se re-comprendre avec."],
+        [
+          "Ces quatre films ont été produits pour ", { texte: "MASE Rhône-Alpes", href: "https://mase-asso.fr/" },
+          ", qui accompagne les entreprises de la métallurgie et de la construction métallique : meuleuse, engins de levage, installations fluidiques, nettoyage haute pression.",
+        ],
+      ],
+      boutonLibelle: "Notre studio de motion design",
+      boutonLien: "/savoir-faire/motion-design/",
+    },
+  },
+
+  /* 1 clic · deux ans de saison suivie : le rythme de production est le sujet. */
+  "aravi-saison-2022-2023": {
+    blocs: [
+      { surTitre: "Le projet", titre: "Six Grands Prix, deux films par week-end", paras: [0, 1], medias: ["video:*"] },
+      { surTitre: "Comment on l’a fait", titre: "Des GoPro dans les camions, un monteur sur le circuit", paras: [2, 3, 4], medias: ["image:*"] },
+    ],
+    projets: {
+      titre: "Suivre une saison, c’est produire au rythme de l’événement",
+      paras: [
+        ["Un reportage de course ne se monte pas au retour : il sort le soir même, pendant que le public est encore là et que les réseaux tournent. Deux à trois personnes sur place, et le montage qui avance en même temps que la journée."],
+        [
+          "L’équipe suit ", { texte: "ARAVI Racing", href: "https://aravi-racing.com/" },
+          " depuis deux saisons, du Castellet à Albi en passant par Charade, Nogaro et le Nürburgring. Un film le samedi soir, un le dimanche.",
+        ],
+      ],
+      boutonLibelle: "Nos aftermovies et captations",
+      boutonLien: "/savoir-faire/aftermovie-captation-evenementielle/",
+    },
+  },
+
+  /* 1 clic · Equita. Les § 6 à 9 sont une liste d'arguments commerciaux —
+     ils sortent. */
+  "equita-lyon-dailynews": {
+    blocs: [
+      { surTitre: "Le projet", titre: "Six jours de salon, six vidéos du jour", paras: [0, 1, 2], medias: ["video:*"] },
+      { surTitre: "Comment on l’a fait", titre: "Un thème par jour, deux minutes maximum", paras: [3, 4, 5], medias: ["image:*"] },
+    ],
+    projets: {
+      titre: "La vidéo du jour, quand l’événement dure plus d’une journée",
+      paras: [
+        ["Un salon de six jours ne se résume pas en un seul film : le visiteur du mardi ne vient pas voir la même chose que celui du samedi. Une vidéo par jour, avec son thème, parle à chacun au moment où il décide de venir."],
+        [
+          "Sur ", { texte: "Equita Lyon", href: "https://www.equitalyon.com/fr" },
+          ", salon international du cheval qui accueille plus de 140 000 visiteurs, l’équipe accompagne ",
+          { texte: "GL Events Audiovisual", href: "https://www.gl-events-audiovisual-and-power.com/fr" },
+          " depuis plusieurs années.",
+        ],
+      ],
+      boutonLibelle: "Nos aftermovies et captations",
+      boutonLien: "/savoir-faire/aftermovie-captation-evenementielle/",
+    },
+  },
+
+  /* 1 clic · Peninsula. Aucune vidéo, deux photos de la soirée. */
+  "peninsula-octobre-rose": {
+    blocs: [
+      { surTitre: "Le projet", titre: "Une façade parisienne passée au rose", paras: [0, 1], medias: ["image:*"] },
+      { surTitre: "La soirée", titre: "Un rideau holographique, un discours, une vente aux enchères", paras: [2, 3], medias: [] },
+    ],
+    projets: {
+      titre: "La scénographie lumière, quand le lieu devient le message",
+      paras: [
+        ["Habiller un bâtiment pour un soir demande de composer avec ce qu’on ne peut pas modifier : une façade classée, une entrée qui doit rester praticable, et des invités qui arrivent tous en même temps."],
+        [
+          "Pour l’édition Octobre Rose du ", { texte: "Peninsula Paris", href: "https://www.peninsula.com/fr/paris/5-star-luxury-hotel-16th-arrondissement" },
+          ", en soutien à Europa Donna France : rideau de fils holographique à l’entrée, façade en rose, et une ambiance sonore et visuelle réglée pour la soirée entière.",
+        ],
+      ],
+      boutonLibelle: "Nos projections sur façade",
+      boutonLien: "/savoir-faire/video-mapping/",
+    },
+  },
 };
 
 /* ── Application ──────────────────────────────────────────────────────── */

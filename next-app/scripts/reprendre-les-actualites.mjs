@@ -19,6 +19,17 @@
  * sont empilés dans l'ordre de la page d'origine, qui est le seul ordre dont
  * on soit sûr.
  *
+ * ⛔⛔ CE SCRIPT ÉCRASE TOUT — Y COMPRIS LE TRAVAIL ÉDITORIAL. Il utilise
+ * `createOrReplace` : c'est ce qui le rend rejouable, et c'est aussi ce qui a
+ * effacé la page STANN écrite à la main pour la maquette. Elle est revenue à
+ * « STANN. », sans client, sans repère, sans bloc projets.
+ * 👉 L'ORDRE DE LA CHAÎNE N'EST PAS UNE PRÉFÉRENCE, C'EST UNE CONTRAINTE :
+ *      1. reprendre-les-actualites.mjs      (remet les 63 à plat)
+ *      2. rapatrier-les-liens-des-actualites.mjs
+ *      3. editorialiser-actualites.mjs
+ *      4. creer-actualite-stann.mjs         (la page écrite à la main, en DERNIER)
+ * Lancer celui-ci seul, c'est perdre 3 et 4 sans le moindre message.
+ *
  * ⚠️ LES IMAGES SONT TÉLÉVERSÉES, pas pointées sur l'ancien site : celui-ci
  * s'éteint le 4 septembre.
  */
