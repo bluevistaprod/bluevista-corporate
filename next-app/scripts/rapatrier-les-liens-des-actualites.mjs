@@ -43,7 +43,24 @@ for (const l of lignes) {
   if (r.code === "410") continue;
   CARTE.set(r.ancienne_adresse, r.nouvelle_adresse);
 }
-console.log(`⭐ ${CARTE.size} adresses connues du plan.\n`);
+/**
+ * ⛔⛔ TROIS ADRESSES QUE LE PLAN NE CONNAÎT PAS, ET AUCUNE N'EST MORTE.
+ * L'ancien site se cite lui-même en slugs COURTS — `/realisations/gloupii/` —
+ * alors que la fiche s'appelle `gloupii-motion-design`. Ces adresses n'ont
+ * jamais existé comme pages : ce sont des liens écrits à la main, à l'époque,
+ * vers des slugs qui ont changé depuis.
+ * 👉 Je m'apprêtais à les retirer comme liens morts. Giz : « gloupii la
+ * réalisation existe bien, étrange ». Les trois avaient bien une destination.
+ * Une adresse absente du plan n'est pas une page absente du site.
+ */
+const REPRISES = new Map([
+  ["/actualites/video-mapping-lyon-intercontinental/", "/actualites/video-mapping-lyon-intercontinental-grand-hotel-dieu/"],
+  ["/realisations/gloupii/", "/realisations/gloupii-motion-design/"],
+  ["/realisations/gf-ds-family/", "/realisations/gf-ds-family-video-corporate-3d-motion-design/"],
+]);
+for (const [a, b] of REPRISES) CARTE.set(a, b);
+
+console.log(`⭐ ${CARTE.size} adresses connues du plan (dont ${REPRISES.size} rattrapées à la main).\n`);
 
 const inconnues = new Map();
 
