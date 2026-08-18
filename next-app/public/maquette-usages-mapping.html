@@ -1,0 +1,140 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Maquette — bloc usages et bannière (vidéo mapping)</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+  /* ══════════════════════════════════════════════════════════════════
+     LES DEUX BLOCS QUI MANQUENT AUX PAGES DE SAVOIR-FAIRE.
+
+     ⛔ CE N'EST PAS UN PROBLÈME DE DESSIN, C'EST UN MANQUE DE CONTENU.
+     Le gabarit prévoit depuis le 12/08 un bloc « usages » sur fond SOMBRE
+     et une bannière sur fond NOIR. Les neuf pages n'en ont aucun des deux :
+     elles n'ont donc que du beige, et l'alternance ne se voit nulle part.
+     Ces deux blocs existent déjà dans le studio — il leur manque leur
+     contenu, pas leur code.
+
+     ⭐ CE QUE LE BLOC USAGES RAPPORTE, ET C'EST LE MEILLEUR RAPPORT DE LA
+     PAGE : six situations, six liens vers des réalisations. C'est la zone
+     qui envoie le plus d'autorité vers le portfolio pour la place qu'elle
+     occupe. L'ancien site faisait ça avec « Découverte touristique ·
+     Visite d'entreprise ».
+     ══════════════════════════════════════════════════════════════════ */
+  :root{ --bleu:#12607E; --bleu-clair:#5BC8DE; --clair:#F7F6F2;
+         --clair-soutenu:#EBE8E1; --sombre:#07222B; --noir:#04070A; }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:Poppins,system-ui,sans-serif;background:var(--clair-soutenu);color:var(--sombre);-webkit-font-smoothing:antialiased}
+  .large{max-width:1500px;margin:0 auto;padding:0 2rem}
+  section{padding:5rem 0 3rem}
+  .sombre{background:var(--sombre);color:var(--clair)}
+  .surtitre{font-size:clamp(13px,1.15vw,18px);font-weight:700;text-transform:uppercase;letter-spacing:.16em;
+            color:var(--bleu);display:flex;align-items:center;gap:1rem;margin-bottom:1.5rem}
+  .sombre .surtitre{color:var(--bleu-clair)}
+  .surtitre::before{content:"";display:block;width:clamp(3rem,4vw,4.5rem);height:3px;border-radius:99px;background:currentColor}
+  h2{font-size:clamp(1.6rem,2.6vw,2.25rem);font-weight:700;line-height:1.12;letter-spacing:-.02em;max-width:24ch}
+  p{font-size:1.0625rem;line-height:1.75;opacity:.82;max-width:64ch}
+
+  /* ── LE BLOC USAGES ──────────────────────────────────────────────
+     Six cases séparées par un filet d'un pixel : pas de cartes, pas
+     d'ombres. Le fond sombre fait le travail de séparation. */
+  .usages{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:#ffffff1f;margin-top:3.5rem}
+  .usage{background:var(--sombre);padding:2.75rem 2.25rem}
+  .usage h3{font-size:1.05rem;font-weight:700;margin-bottom:.6rem;position:relative;padding-left:1.7rem;line-height:1.3}
+  /* ⭐ Un triangle plein aux angles arrondis, pas une flèche de clavier :
+     le « → » d'une police change de dessin d'un système à l'autre. */
+  .usage h3::before{content:"";position:absolute;left:0;top:.28em;width:.72em;height:.72em;
+    background:url('data:image/svg+xml;utf8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2016%2016%22%3E%3Cpath%20d%3D%22M4.5%203.2l7%204.8-7%204.8z%22%20fill%3D%22%235BC8DE%22%20stroke%3D%22%235BC8DE%22%20stroke-width%3D%222.6%22%20stroke-linejoin%3D%22round%22%2F%3E%3C%2Fsvg%3E') center/contain no-repeat}
+  .usage p{font-size:.9rem;opacity:.7;margin:0 0 1rem}
+  .usage a{color:var(--noir);background:var(--bleu-clair);text-decoration:none;font-weight:600;
+           padding:.12em .45em;border-radius:5px;font-size:.9rem;box-decoration-break:clone;-webkit-box-decoration-break:clone}
+  .usage a:hover{background:#fff}
+
+  /* ── LA BANNIÈRE ─────────────────────────────────────────────────
+     ⚠️ UNE SEULE PAR PAGE : deux et l'effet tombe. Elle sert le grand
+     moment, pas la respiration — la respiration, c'est le filet. */
+  .banniere{position:relative;min-height:60vh;display:grid;place-items:center;text-align:center;
+            background:url('https://www.bluevistaprod.com/wp-content/uploads/2019/11/Inauguration_Intercontinental-1.jpg') center/cover;padding:6rem 2rem}
+  .banniere::before{content:"";position:absolute;inset:0;background:#04070ab3}
+  .banniere>div{position:relative;z-index:2;color:#fff;max-width:46ch}
+  .banniere h2{color:#fff;margin:0 auto}
+  .banniere p{color:#ffffffd9;opacity:1;margin:1.25rem auto 2rem}
+  .banniere a{color:var(--noir);background:var(--bleu-clair);text-decoration:none;font-weight:700;
+              padding:.85rem 1.6rem;border-radius:5px;display:inline-block}
+  .note{background:#fff;border-left:4px solid var(--bleu);padding:1.5rem 2rem;margin:0 auto;max-width:1436px}
+  .note b{color:var(--bleu)}
+  @media(max-width:900px){.usages{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+
+<section style="padding:3rem 0 1rem">
+  <div class="note large" style="padding-left:2rem">
+    <p style="max-width:none"><b>Ce que montre cette maquette</b> — les deux blocs qui manquent aux neuf pages
+    de savoir-faire, sur l'exemple du vidéo mapping. C'est eux qui apportent l'alternance sombre / clair,
+    et le bloc « usages » est la zone qui envoie le plus de liens vers les réalisations pour la place qu'elle occupe.</p>
+  </div>
+</section>
+
+<!-- ── LE BLOC USAGES ─────────────────────────────────────────────── -->
+<section class="sombre">
+  <div class="large">
+    <div class="surtitre">Où ça sert</div>
+    <h2>Six situations où une façade vaut mieux qu'un écran</h2>
+    <div class="usages">
+      <div class="usage">
+        <h3>Inaugurer un bâtiment</h3>
+        <p>Le lieu qu'on inaugure devient l'objet du spectacle. La projection se règle sur son architecture réelle, corniches comprises.</p>
+        <a href="/realisations/tetro-video-fete-des-lumieres-lyon-2022/">InterContinental Lyon</a>
+      </div>
+      <div class="usage">
+        <h3>Annoncer un changement de marque</h3>
+        <p>Changer d'identité, pour un commerce, c'est changer ce que les gens voient depuis la rue. La façade porte l'annonce.</p>
+        <a href="/realisations/printemps-video-mapping/">Printemps de Lyon</a>
+      </div>
+      <div class="usage">
+        <h3>Fêter un anniversaire d'entreprise</h3>
+        <p>Quarante ans se racontent mal en discours. Une projection tient trois minutes et se regarde debout, verre à la main.</p>
+        <a href="/realisations/40-ans-siparex-videomapping/">40 ans de Siparex</a>
+      </div>
+      <div class="usage">
+        <h3>Habiller une soirée de gala</h3>
+        <p>Sur une table de banquet ou une maquette, le même principe joue à petite échelle — sans écran ni casque, sous les yeux des convives.</p>
+        <a href="/realisations/artcurial-video-mapping/">Artcurial</a>
+      </div>
+      <div class="usage">
+        <h3>Lancer un produit devant un public</h3>
+        <p>La projection habille l'objet lui-même. La voiture n'est plus posée sur un stand : elle est dessinée par la lumière.</p>
+        <a href="/realisations/video-mapping-vehicule-audi-a8/">Audi A8</a>
+      </div>
+      <div class="usage">
+        <h3>Participer à une fête des lumières</h3>
+        <p>Un rendez-vous public impose des contraintes que l'événement privé ignore : flux de visiteurs, sécurité, éclairage urbain à négocier.</p>
+        <a href="/realisations/tetro-video-fete-des-lumieres-lyon-2021/">Fête des Lumières</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── LA BANNIÈRE ────────────────────────────────────────────────── -->
+<section class="banniere" style="padding:6rem 2rem">
+  <div>
+    <h2>Le dôme du Grand Hôtel-Dieu, deux mois de travail</h2>
+    <p>Production, image, technique de projection et musique : quatre métiers
+       qui ne travaillent pas ensemble le reste de l'année, réunis sur une soirée.</p>
+    <a href="/realisations/tetro-video-fete-des-lumieres-lyon-2022/">Voir la réalisation</a>
+  </div>
+</section>
+
+<section>
+  <div class="note large" style="padding-left:2rem">
+    <p style="max-width:none"><b>À vérifier avant de décliner</b> — les six situations et leurs six liens sont
+    écrits pour le mapping ; il en faudra six par page, soit 54 en tout.
+    ⚠️ La bannière utilise une photo de l'ancien site : sur les huit autres pages,
+    il faudra une image du Cloud Store.</p>
+  </div>
+</section>
+
+</body>
+</html>
