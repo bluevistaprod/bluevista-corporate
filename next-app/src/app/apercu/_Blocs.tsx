@@ -155,21 +155,15 @@ function UnBloc({
       return (
         <div className={large}>
           {trait}
-          {/* ⭐ AVEC UNE IMAGE, LA GRILLE CHANGE DE SENS — 18/08, deuxième
-              passage. Première version : l'image en pleine largeur SOUS les
-              deux colonnes. Giz : « toujours ce bloc en entrée tout vide…
-              possible de mettre la photo à côté du texte dans CE bloc plutôt
-              que toute seule en bas ? ». Il a raison : posée dessous, elle
-              n'agrémentait pas le bloc, elle le SUIVAIT — le vide restait
-              entier au-dessus d'elle.
-              👉 Les deux listes passent donc l'une sous l'autre à gauche, et
-              l'image prend toute la hauteur à droite. Elle est dans le bloc,
-              pas après lui.
-              ⚠️ Sans image, on garde les deux colonnes côte à côte : c'est
-              ce qui avait réglé le « ÉNORME en entrée de site sans rien ». */}
-          <div className={b.image ? "grid gap-14 lg:grid-cols-[1fr_1fr]" : "grid gap-16 lg:grid-cols-[1.05fr_1fr]"}>
-            <div className={b.image ? "grid gap-12" : ""}>
-              <div>
+          {/* ⛔ L'IMAGE N'EST PAS RENDUE ICI, ET C'EST UNE CORRECTION.
+              Elle est SAISIE sur ce bloc dans le studio — c'est là que
+              l'éditeur la range naturellement — mais elle s'affiche à côté du
+              TEXTE D'INTRODUCTION, plus haut dans la page. J'avais d'abord
+              cru que « le bloc d'entrée est vide » désignait ce bloc-ci ; le
+              vide était au-dessus, dans la bande de texte nu qui suit l'image
+              de couverture. Voir `competence/[slug]/page.tsx`. */}
+          <div className="grid gap-16 lg:grid-cols-[1.05fr_1fr]">
+            <div>
               <SurTitre enfant={(b.surTitre as string) ?? "Ce qui vous amène"} sombre={sombre} />
               <div className="grid gap-[.45rem]">
                 {((b.affirmations as string[]) ?? []).map((a, k) => (
@@ -182,8 +176,8 @@ function UnBloc({
                   </div>
                 ))}
               </div>
-              </div>
-              <div>
+            </div>
+            <div>
               <SurTitre enfant={(b.surTitrePrise as string) ?? "Ce qu’on prend en charge"} sombre={sombre} />
               <ul className="grid gap-[.55rem]">
                 {((b.prestations as string[]) ?? []).map((p, k) => {
@@ -207,16 +201,7 @@ function UnBloc({
                   );
                 })}
               </ul>
-              </div>
             </div>
-            {b.image ? (
-              <img
-                src={imageUrl(b.image, 1400) ?? ""}
-                alt=""
-                className="block h-full w-full rounded-md"
-                style={{ objectFit: "cover", minHeight: "22rem", background: CLAIR_SOUTENU }}
-              />
-            ) : null}
           </div>
         </div>
       );

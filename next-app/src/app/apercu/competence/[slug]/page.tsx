@@ -152,6 +152,10 @@ export default async function PageCompetence({
      sections. Basculer tout le monde d'un coup viderait les huit pages pas
      encore reprises. */
   const enBlocs = (page.blocs?.length ?? 0) > 0;
+  /* L'image d'ouverture est portée par le bloc d'entrée dans le studio —
+     c'est là que l'éditeur la range — mais elle s'affiche à côté du texte
+     d'introduction, qui est la première zone de la page. */
+  const imageIntro = (page.blocs ?? []).find(b => b._type === "blocEntree")?.image;
 
   return (
     <main style={{ background: CLAIR, color: SOMBRE }}>
@@ -198,10 +202,31 @@ export default async function PageCompetence({
               plancher d'une page de savoir-faire, sans que rien ne le signale.
               👉 Il reste rendu ici, entre le hero et les blocs. C'est lui qui
               porte le vocabulaire commercial de la page. */}
+          {/* ⭐ L'IMAGE VIENT ICI, PAS DANS LE BLOC D'ENTRÉE — corrigé le
+              18/08 au deuxième essai. Giz : « NON tu as placé l'image à côté
+              au mauvais endroit, je la voulais à côté de ce texte : Projeté
+              sur un bâtiment, un vidéo mapping consiste… ».
+              👉 Je l'avais posée dans le bloc d'entrée parce que c'est LUI
+              qu'il avait appelé « vide » la fois d'avant. Mais le vide qu'on
+              voit en haut d'une page ne se situe pas là où on a nommé le
+              bloc : c'est la BANDE D'INTRODUCTION, juste sous l'image de
+              couverture, qui sortait en texte nu sur toute la largeur.
+              ⚠️ Le texte reste à sa largeur de lecture — il ne s'élargit pas
+              parce qu'une image est arrivée à côté. */}
           {c.texte.length > 0 && (
             <section className="pb-4 pt-16" style={{ background: CLAIR_SOUTENU }}>
-              <div className="mx-auto max-w-[820px] px-8">
-                <TexteRiche blocs={page.texte} className="text-[1.0625rem] leading-[1.75] opacity-82" />
+              <div className="mx-auto max-w-[1500px] px-8">
+                <div className={imageIntro ? "grid items-center gap-14 lg:grid-cols-[1fr_1fr]" : "mx-auto max-w-[820px]"}>
+                  <TexteRiche blocs={page.texte} className="max-w-[62ch] text-[1.0625rem] leading-[1.75] opacity-82" />
+                  {imageIntro ? (
+                    <img
+                      src={imageUrl(imageIntro, 1400) ?? ""}
+                      alt=""
+                      className="block w-full rounded-md"
+                      style={{ aspectRatio: "4/3", objectFit: "cover", background: "#EBE8E1" }}
+                    />
+                  ) : null}
+                </div>
               </div>
             </section>
           )}
