@@ -61,23 +61,28 @@
   .fil a,.bouton,.suite a,.retour{background:none;padding:0;font-weight:inherit}
 
   /* ── ① L'EN-TÊTE ────────────────────────────────────────────────────
-     ⚠️ PAS DE GRANDE IMAGE DE COUVERTURE ICI, et c'est un choix mesuré :
-     28 des 63 actualités n'ont AUCUNE photo à elles. Un gabarit qui exige
-     une couverture obligerait à en inventer une — c'est exactement ce qui a
-     produit « la photo de NightSwapping sous le texte d'Amplitude ».
-     L'en-tête tient donc debout sans image, et l'accueille quand elle existe. */
-  .entete{background:var(--noir);color:#fff;padding:9rem 0 4rem}
+     ⛔ LA BANDE NOIRE VIDE ÉTAIT UN MAUVAIS CALCUL. Je l'avais justifiée par
+     une mesure fausse — « 28 des 63 actualités n'ont aucune photo » — tirée
+     de l'API de WordPress, qui ne voit pas tout ce qu'Elementor affiche. En
+     lisant les pages EN LIGNE, il y a 137 photos sur 42 actualités, médiane
+     4. La règle s'inverse donc : l'en-tête porte une image, et les 21
+     actualités qui n'en ont aucune retombent sur un aplat.
+
+     ⭐ ET LE CHAPÔ EST DEDANS. Seul sur sa bande claire, il faisait « vide
+     au milieu ». Posé sur l'image, il devient ce qu'il est : la phrase qui
+     dit de quoi il s'agit avant qu'on fasse défiler. */
+  .entete{position:relative;background:var(--noir);color:#fff;padding:11rem 0 4.5rem;overflow:hidden}
+  .entete .fond{position:absolute;inset:0;background-size:cover;background-position:center;opacity:.55}
+  .entete .voile{position:absolute;inset:0;
+        background:linear-gradient(to top,#04070AF7 6%,#04070AC7 46%,#04070A6B 100%)}
+  .entete .large{position:relative;z-index:2}
   .fil{font-size:14px;color:#ffffff8c;margin-bottom:1.75rem}
   .fil a{color:#ffffff8c} .fil a:hover{color:#fff}
   .entete h1{color:#fff}
-  .reperes{display:flex;flex-wrap:wrap;gap:.75rem 2rem;margin-top:1.75rem;
-           font-size:.95rem;color:#ffffffb3}
+  .chapo{font-size:1.25rem;line-height:1.6;color:#ffffffdb;max-width:52ch;margin-top:1.75rem}
+  .reperes{display:flex;flex-wrap:wrap;gap:.75rem 2rem;margin-top:2.25rem;padding-top:1.75rem;
+           border-top:1px solid #ffffff2b;font-size:.95rem;color:#ffffffb3}
   .reperes b{color:var(--bleu-clair);font-weight:600}
-
-  /* ── ② LE CHAPÔ ─────────────────────────────────────────────────────
-     Une seule phrase, plus grande que le corps : ce que le projet était.
-     C'est aussi ce que Google reprend le plus souvent. */
-  .chapo p{font-size:1.3rem;line-height:1.55;opacity:1;font-weight:600;max-width:34ch}
 
   /* ── ③ TEXTE + MÉDIA ────────────────────────────────────────────────
      ⛔ UN MÉDIA NE SE POSE QUE SUR UNE PHRASE QUI LE NOMME. Règle héritée
@@ -86,17 +91,39 @@
      rapprochement faux. */
   .duo{display:grid;gap:4rem;grid-template-columns:1fr 1fr;align-items:start}
   .duo.inverse .txt{order:2}
-  .media{border-radius:6px;overflow:hidden;background:var(--sombre)}
-  .media img{width:100%;display:block}
+  /* ⛔⛔ LE BANDEAU SOMBRE SOUS CHAQUE IMAGE VENAIT D'ICI, ET LA CAUSE VAUT
+     D'ÊTRE RETENUE. `.media` portait un FOND sombre, des coins arrondis et
+     `overflow:hidden` — et il enveloppait à la fois le visuel ET sa légende.
+     Le visuel remplissait sa part, la légende non : le fond du conteneur
+     restait visible sous l'image, en bande pleine, et le texte de la légende
+     s'y perdait en sombre sur sombre.
+     👉 Un conteneur ne doit porter un fond que s'il est censé se voir. Ici il
+     ne servait qu'à combler l'espace pendant le chargement de l'image — un
+     confort d'une demi-seconde payé par un défaut permanent.
+     ✅ `.media` redevient une simple pile. Les coins arrondis et le fond
+     d'attente vont sur le VISUEL lui-même, qui a la bonne hauteur. */
+  .media{display:block}
+  .media img{width:100%;display:block;border-radius:6px;background:var(--clair-soutenu)}
   .lecteur{position:relative;aspect-ratio:16/9;background-size:cover;background-position:center;
-           cursor:pointer;border:0;padding:0;width:100%;display:block;background-color:var(--sombre)}
+           cursor:pointer;border:0;padding:0;width:100%;display:block;border-radius:6px;
+           overflow:hidden;background-color:var(--sombre)}
   .lecteur::after{content:"";position:absolute;inset:0;background:#04070a59}
   .play{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:66px;height:66px;
         border-radius:99px;background:var(--bleu-clair);display:grid;place-items:center;z-index:2}
   .play svg{margin-left:4px}
-  .legende{margin-top:.9rem;font-size:.95rem;font-weight:600}
+  .legende{margin-top:.9rem;margin-bottom:2rem;font-size:.95rem;font-weight:600}
+  .legende:last-child{margin-bottom:0}
   .legende span{display:block;font-weight:400;opacity:.6;font-size:.875rem;margin-top:.15rem}
-  iframe{width:100%;aspect-ratio:16/9;border:0;display:block}
+  /* ⚠️ Le lecteur Livid ajoute sa propre barre de commandes SOUS l'image :
+     à 16/9 pile, la vidéo est rognée ou cernée d'un liseré. On lui laisse la
+     place de sa barre plutôt que de lui imposer un format qui n'est pas le
+     sien. */
+  iframe{width:100%;aspect-ratio:16/9;border:0;display:block;border-radius:6px;
+         background:var(--sombre)}
+
+  /* ── LA GALERIE — d'autres vues du MÊME projet, jamais du remplissage. */
+  .galerie{display:grid;grid-template-columns:repeat(3,1fr);gap:.75rem;margin-top:.75rem}
+  .galerie img{width:100%;border-radius:4px;display:block}
 
   /* ── ④ L'APARTÉ ─────────────────────────────────────────────────────
      Phrase sérieuse au-dessus, note de coulisses ici. ⛔ Une par page. */
@@ -109,12 +136,12 @@
      pour l'actualité contre 4 736 pour la réalisation, et zéro clic des deux
      côtés. Les deux pages restent — la règle est écrite — mais elles cessent
      de se disputer le sujet dès lors qu'elles se citent. */
-  .liee{display:grid;grid-template-columns:1fr 1.1fr;gap:3rem;align-items:center;
+  .liee{display:block;
         background:var(--sombre);color:#fff;border-radius:8px;overflow:hidden}
   .liee .vign{aspect-ratio:16/10;background-size:cover;background-position:center;background-color:#0d3543}
-  .liee .txt{padding:2.5rem 3rem 2.5rem 0}
-  .liee h3{color:#fff;margin-bottom:.6rem}
-  .liee p{opacity:.72;font-size:.98rem}
+  .liee .txt{padding:3rem 3.5rem}
+  .liee h3{color:#fff;margin-bottom:.9rem;font-size:1.5rem}
+  .liee p{opacity:.78;font-size:1rem;max-width:70ch}
   .bouton{display:inline-block;background:var(--bleu-clair);color:var(--noir);font-weight:700;
           padding:.85rem 1.6rem;border-radius:5px;margin-top:1.5rem;font-size:.95rem}
   .bouton:hover{background:#fff}
@@ -161,93 +188,106 @@
 
 <!-- ① EN-TÊTE ───────────────────────────────────────────────────────── -->
 <header class="entete">
+  <div class="fond" style="background-image:url('https://www.bluevistaprod.com/wp-content/uploads/2023/10/Stan-3.png')"></div>
+  <div class="voile"></div>
   <div class="large">
     <div class="fil"><a href="#">Accueil</a> · <a href="#">Actualités</a></div>
-    <h1>Le film qui montre STANN sur le terrain, pas sur un écran</h1>
+    <h1>Filmer une application de gestion là où elle sert vraiment</h1>
+    <p class="chapo">Un logiciel se démontre mal en salle de réunion. Pour
+       <a href="https://www.stann.app/" target="_blank" rel="noopener">STANN</a>, on est
+       allés le filmer chez un de ses clients — une journée de tournage à Grenoble, en
+       conditions réelles, et une conclusion en animation 2D.</p>
     <div class="reperes">
       <div>Client : <b>STANN</b></div>
       <div>Publié le <b>5 février 2024</b></div>
-      <div>Tournage à <b>Grenoble</b></div>
+      <div><b>Film produit</b> · tournage + animation 2D</div>
     </div>
   </div>
 </header>
 
-<!-- ② CHAPÔ ────────────────────────────────────────────────────────── -->
-<section class="soutenu chapo">
-  <div class="etroit anim">
-    <p>Une application de gestion se démontre mal en salle de réunion.
-       On est donc allés la filmer là où elle sert : chez un client de
-       <a href="https://www.stann.app/" target="_blank" rel="noopener">STANN</a>, une journée, en conditions réelles.</p>
-  </div>
-</section>
-
-<!-- ③ LE FILM ──────────────────────────────────────────────────────── -->
+<!-- ② LE FILM ──────────────────────────────────────────────────────── -->
 <section class="soutenu">
   <div class="large anim">
-    <div class="filet duo">
+    <div class="duo">
       <div class="txt">
         <div class="surtitre">Le projet</div>
         <h2>Trois minutes pour faire comprendre un logiciel</h2>
-        <p>STANN édite un logiciel de gestion pour les entrepreneurs :
-           clients, facturation, comptabilité, ressources humaines. Le film
-           devait présenter <b>l'application sur le terrain</b> plutôt que ses
-           écrans — c'est ce qui décide un acheteur qui hésite entre deux outils.</p>
-        <p>Le montage suit trois temps : une introduction, la mise en situation
-           chez un client, puis une conclusion en animation 2D qui reprend les
-           points évoqués.</p>
+        <p>STANN édite une application de gestion pour les entrepreneurs :
+           clients, devis, facturation, comptabilité, ressources humaines. La
+           difficulté d'un <a href="/savoir-faire/video-corporate-film-dentreprise/">film produit</a>
+           sur un logiciel est toujours la même — filmer des écrans ne montre
+           rien, et un acheteur qui compare deux outils veut voir le sien
+           fonctionner chez quelqu'un.</p>
+        <p>Le film est donc construit en trois temps : une introduction, la
+           mise en situation de l'application chez un client de STANN, puis une
+           conclusion en <a href="/savoir-faire/motion-design/">animation 2D</a>
+           qui reprend en trente secondes ce que la démonstration a mis deux
+           minutes à établir.</p>
         <div class="aparte">
-          <p>Le storyboard a été écrit avant le premier repérage. C'est le seul
+          <p>Le storyboard était écrit avant le premier repérage. C'est le seul
              moyen de tenir une journée de tournage sans rien laisser au hasard —
              et de savoir, le soir, qu'on a tout.</p>
         </div>
       </div>
       <div class="media">
         <button class="lecteur" data-livid="KzPh3QGxA_sk"
-                style="background-image:url('https://www.bluevistaprod.com/wp-content/uploads/2024/02/motion-renard.png')">
+                style="background-image:url('https://www.bluevistaprod.com/wp-content/uploads/2023/10/Stan-2.png')">
           <span class="play"><svg width="20" height="24" viewBox="0 0 20 24"><path d="M0 0l20 12L0 24z" fill="#04070A"/></svg></span>
         </button>
         <div class="legende">STANN — film de présentation de l'application
-          <span>3 min 12 · tourné à Grenoble</span></div>
+          <span>3 min 12 · le film s'ouvre sur le dirigeant de STANN</span></div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ④ LA FABRICATION ───────────────────────────────────────────────── -->
+<!-- ③ LA FABRICATION ───────────────────────────────────────────────── -->
 <section class="soutenu">
   <div class="large anim">
     <div class="filet duo inverse">
       <div class="txt">
         <div class="surtitre">Comment on l'a fait</div>
         <h2>Une journée de tournage, deux métiers au montage</h2>
-        <p>L'équipe a tourné en une journée sur Grenoble. En post-production,
-           le montage et la partie <b>animation 2D</b> ont été fabriqués en
-           parallèle : la conclusion animée reprend, en trente secondes, ce que
-           la démonstration a mis deux minutes à montrer.</p>
-        <p>Le film sert aujourd'hui sur le site de STANN, sur ses réseaux
-           sociaux, et sur ses salons — trois usages, un seul tournage.</p>
+        <p>L'équipe a tourné en une journée sur Grenoble : les plans de
+           l'entreprise cliente, les séquences d'utilisation de l'application,
+           et les prises de parole. Tourner chez l'utilisateur plutôt qu'en
+           studio impose de composer avec un lieu qu'on ne choisit pas — c'est
+           aussi ce qui rend les images crédibles.</p>
+        <p>En post-production, le montage et l'animation 2D ont été fabriqués en
+           parallèle. Le film sert aujourd'hui sur le site de STANN, sur ses
+           réseaux sociaux et sur ses salons : trois usages pour un seul
+           tournage, ce qui est généralement ce qui décide un budget vidéo.</p>
       </div>
       <div class="media">
-        <img src="https://www.bluevistaprod.com/wp-content/uploads/2024/02/motion-renard.png"
-             alt="Image de l'animation 2D réalisée pour la conclusion du film STANN">
-        <div class="legende">L'animation 2D de la conclusion</div>
+        <img src="https://www.bluevistaprod.com/wp-content/uploads/2023/10/Stan-4.png" alt="Image de l'animation 2D qui conclut le film : les cinq modules de l'application STANN">
+        <div class="legende">L'animation 2D de la conclusion
+          <span>Les cinq modules repris en trente secondes</span></div>
+        <img src="https://www.bluevistaprod.com/wp-content/uploads/2023/10/Stan-5.png"
+             alt="Relevé effectué depuis l'application STANN pendant une intervention">
+        <div class="legende">Une séquence d'utilisation, tournée sur place</div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ⑤ LA RÉALISATION LIÉE ──────────────────────────────────────────── -->
+<!-- ④ LE MÊME TRAVAIL, AILLEURS ────────────────────────────────────── -->
 <section>
   <div class="large anim">
     <div class="liee">
-      <div class="vign" style="background-image:url('https://www.bluevistaprod.com/wp-content/uploads/2024/02/motion-renard.png')"></div>
       <div class="txt">
-        <div class="surtitre">La réalisation</div>
-        <h3>Stann — présentation vidéo de l'application</h3>
-        <p>Cette actualité raconte comment le film a été fait. La réalisation,
-           elle, donne le projet en bref : client, métier, produit, et les autres
-           projets du même type.</p>
-        <a class="bouton" href="#">Voir la réalisation</a>
+        <div class="surtitre">Des projets du même type</div>
+        <h3>Le film produit, du logiciel à la machine-outil</h3>
+        <p>Un film produit répond toujours à la même commande : montrer un
+           produit en fonctionnement plutôt qu'en fiche technique. Le sujet
+           change, la méthode non — repérage, storyboard, tournage court,
+           montage nerveux.</p>
+        <p>Chez <a href="/realisations/santos-film-produit/">SANTOS</a>, c'était
+           du matériel de cuisine professionnelle en studio. Chez
+           <a href="/realisations/abb-af-contactor-film-produit/">ABB</a>, un
+           composant électrique qu'il fallait rendre lisible. Chez
+           <a href="/realisations/riso-comcolor-video-produit/">RISO</a>, une
+           imprimante de production. Et chez STANN, un logiciel.</p>
+        <a class="bouton" href="/realisations/stann-presentation-video-de-l-application/">Voir la réalisation STANN</a>
       </div>
     </div>
   </div>

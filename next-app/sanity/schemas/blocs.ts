@@ -153,10 +153,10 @@ export const blocUsages = defineType({
       of: [{
         type: "object",
         fields: [
-          { name: "titre", type: "string", validation: (r: never) => (r as { required: () => unknown }).required() },
-          { name: "texte", type: "text", rows: 2 },
-          { name: "lienLibelle", title: "Libellé du lien", type: "string" },
-          { name: "lien", title: "Adresse", type: "string" },
+          defineField({ name: "titre", type: "string", validation: r => r.required() }),
+          defineField({ name: "texte", type: "text", rows: 2 }),
+          defineField({ name: "lienLibelle", title: "Libellé du lien", type: "string" }),
+          defineField({ name: "lien", title: "Adresse", type: "string" }),
         ],
         preview: { select: { title: "titre", subtitle: "lien" } },
       }],
@@ -189,8 +189,8 @@ export const blocQuestions = defineType({
       of: [{
         type: "object",
         fields: [
-          { name: "q", type: "string", validation: (r: never) => (r as { required: () => unknown }).required() },
-          { name: "r", type: "text", rows: 3, validation: (r: never) => (r as { required: () => unknown }).required() },
+          defineField({ name: "q", type: "string", validation: r => r.required() }),
+          defineField({ name: "r", type: "text", rows: 3, validation: r => r.required() }),
         ],
         preview: { select: { title: "q" } },
       }],

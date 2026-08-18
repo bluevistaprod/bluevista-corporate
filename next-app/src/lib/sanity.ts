@@ -176,3 +176,74 @@ export async function lireRealisationsDuProduit(produits: string[], version: Ver
     { next: { revalidate: 60 } }
   );
 }
+
+/* ══════════════════════════════════════════════════════════════════════════
+   LES ACTUALITÉS — troisième objet du site, ajouté le 18/08/2026.
+
+   ⛔ Elles ne passent PAS par `page` : une actualité raconte un projet daté,
+   une page vend une compétence. Les mélanger, c'est ce qui avait produit
+   26 réalisations fabriquées à partir d'articles, puis supprimées.
+   ══════════════════════════════════════════════════════════════════════════ */
+
+export type MediaActualite = {
+  _key?: string;
+  image?: unknown;
+  videoUrl?: string;
+  videoAffiche?: unknown;
+  legende?: string;
+  sousLegende?: string;
+  texteAlternatif?: string;
+};
+
+export type BlocActualite = {
+  _key?: string;
+  surTitre?: string;
+  titre: string;
+  paragraphes?: BlocTexte[];
+  medias?: MediaActualite[];
+  aparte?: string;
+};
+
+export type ActualiteSanity = {
+  _id: string;
+  slug: string;
+  titre: string;
+  chapo?: BlocTexte[];
+  imageEntete?: unknown;
+  client?: string;
+  clientUrl?: string;
+  datePublication: string;
+  repere?: string;
+  blocs?: BlocActualite[];
+  projets?: {
+    surTitre?: string;
+    titre?: string;
+    paragraphes?: BlocTexte[];
+    boutonLibelle?: string;
+    boutonLien?: string;
+  };
+  titreSeo?: string;
+  descriptionSeo?: string;
+};
+
+const CHAMPS_ACTUALITE = `
+  _id, "slug": slug.current, titre, chapo, imageEntete, client, clientUrl,
+  datePublication, repere, blocs, projets, titreSeo, descriptionSeo
+`;
+
+export async function lireActualite(slug: string, version: Version = "fr") {
+  return sanity.fetch<ActualiteSanity | null>(
+    `*[_type == "actualite" && language == $v && slug.current == $s][0] { ${CHAMPS_ACTUALITE} }`,
+    { v: version, s: slug },
+    { next: { revalidate: 60 } }
+  );
+}
+
+/** Les plus récentes, pour le bloc « à lire aussi » et pour l'index. */
+export async function lireActualites(version: Version = "fr", limite = 12) {
+  return sanity.fetch<ActualiteSanity[]>(
+    `*[_type == "actualite" && language == $v] | order(datePublication desc) [0...$n] { ${CHAMPS_ACTUALITE} }`,
+    { v: version, n: limite },
+    { next: { revalidate: 60 } }
+  );
+}

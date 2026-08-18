@@ -6,6 +6,7 @@ import { apiVersion, dataset, projectId } from "./sanity/env";
 import { structure } from "./sanity/structure";
 import { realisation } from "./sanity/schemas/realisation";
 import { page } from "./sanity/schemas/page";
+import { actualite } from "./sanity/schemas/actualite";
 import { BLOCS } from "./sanity/schemas/blocs";
 
 /**
@@ -68,10 +69,10 @@ export default defineConfig({
         { id: "fr-ch", title: "bluevista.ch — Français" },
         { id: "en-ch", title: "bluevista.ch — English" },
       ],
-      schemaTypes: ["realisation", "page"],
+      schemaTypes: ["realisation", "page", "actualite"],
     }),
     // Console de requêtes — elle me sert à auditer le contenu en une ligne.
     visionTool({ defaultApiVersion: apiVersion }),
   ],
-  schema: { types: [realisation, page, ...BLOCS] },
+  schema: { types: [realisation, page, actualite, ...BLOCS] },
 });
