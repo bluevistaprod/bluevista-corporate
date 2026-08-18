@@ -20,8 +20,8 @@ import { BLEU, BLEU_CLAIR, NOIR } from "./_palette";
  * signalent qu'on n'a pas su hiérarchiser en écrivant.
  */
 export function TexteRiche({
-  blocs, className, sombre,
-}: { blocs?: BlocTexte[]; className?: string; sombre?: boolean }) {
+  blocs, className, sombre, publique,
+}: { blocs?: BlocTexte[]; className?: string; sombre?: boolean; publique?: boolean }) {
   if (!blocs?.length) return null;
   return (
     <div className="space-y-5">
@@ -61,7 +61,15 @@ export function TexteRiche({
                      `/apercu` devant produisait des liens morts, que Giz a
                      trouvés avant moi. La traduction se fait ici, à un seul
                      endroit, et le contenu reste juste. */
-                  href={externe ? href : `/apercu${href.replace(/^\/savoir-faire\//, "/competence/").replace(/\/$/, "")}`}
+                  /* ⛔ LA TRADUCTION D'ADRESSE NE VAUT QUE POUR L'APERÇU.
+                     Le contenu stocke l'adresse PUBLIQUE — `/savoir-faire/…`,
+                     `/actualites/…` — qui est juste telle quelle sur le site.
+                     Les routes de prévisualisation, elles, vivent ailleurs.
+                     Traduire dans les deux cas enverrait les visiteurs du vrai
+                     site sur `/apercu/…`, c'est-à-dire nulle part. */
+                  href={externe || publique
+                    ? href
+                    : `/apercu${href.replace(/^\/savoir-faire\//, "/competence/").replace(/\/$/, "")}`}
                   {...(externe ? { target: "_blank", rel: "noopener" } : {})}
                   /* ⭐ LA PASTILLE, ET PAS UN SOULIGNEMENT — règle validée le
                      12/08 après deux constats de Giz : un lien bleu posé sur

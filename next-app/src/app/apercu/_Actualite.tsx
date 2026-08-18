@@ -27,9 +27,16 @@ import { Apparait } from "./_Apparait";
 
 const LARGE = "mx-auto max-w-[1500px] px-8";
 
-/** L'adresse publique traduite pour les routes de prévisualisation. */
-function apercu(href: string) {
+/**
+ * L'adresse d'un lien selon le contexte.
+ * ⛔ Sur le SITE, l'adresse stockée est déjà la bonne. Dans l'APERÇU, les
+ * routes vivent ailleurs et il faut traduire. Une seule fonction pour les
+ * deux, appelée partout — c'est en la réécrivant à la main dans un coin
+ * qu'on a produit un bouton mort.
+ */
+function lien(href: string, publique?: boolean) {
   if (/^https?:\/\//.test(href)) return href;
+  if (publique) return href;
   return `/apercu${href.replace(/^\/savoir-faire\//, "/competence/").replace(/\/$/, "")}`;
 }
 
@@ -80,7 +87,7 @@ function Media({ media }: { media: MediaActualite }) {
   );
 }
 
-function UnBloc({ bloc, rang }: { bloc: BlocActualite; rang: number }) {
+function UnBloc({ bloc, rang, publique }: { bloc: BlocActualite; rang: number; publique?: boolean }) {
   const medias = (bloc.medias ?? []).filter(m => m.image || m.videoUrl);
   /* ⛔ L'ALTERNANCE COMPTE LES BLOCS, PAS LEUR POSITION DANS LA PAGE. */
   const inverse = rang % 2 === 1;
@@ -99,7 +106,7 @@ function UnBloc({ bloc, rang }: { bloc: BlocActualite; rang: number }) {
           {bloc.titre}
         </h2>
       ) : null}
-      <TexteRiche blocs={bloc.paragraphes} className="max-w-[64ch] text-[1.0625rem] leading-[1.75] opacity-[.82]" />
+      <TexteRiche blocs={bloc.paragraphes} publique={publique} className="max-w-[64ch] text-[1.0625rem] leading-[1.75] opacity-[.82]" />
       {bloc.aparte && (
         <div className="mt-8 border-l-[3px] py-1 pl-6" style={{ borderColor: BLEU_CLAIR }}>
           <p className="text-base italic opacity-[.62]" style={{ maxWidth: "52ch" }}>{bloc.aparte}</p>
@@ -138,10 +145,15 @@ function UnBloc({ bloc, rang }: { bloc: BlocActualite; rang: number }) {
 export function Actualite({
   actualite: a,
   suite,
+  publique,
 }: {
   actualite: ActualiteSanity;
   suite: ActualiteSanity[];
+  /** true sur le site, false (par défaut) sur les routes d'aperçu. */
+  publique?: boolean;
 }) {
+  const racine = publique ? "" : "/apercu";
+  const versActualite = (s: string) => (publique ? `/actualites/${s}/` : `/apercu/actualite/${s}`);
   const date = new Date(a.datePublication).toLocaleDateString("fr-FR", {
     day: "numeric", month: "long", year: "numeric",
   });
@@ -165,9 +177,9 @@ export function Actualite({
         />
         <div className={`relative z-10 ${LARGE}`}>
           <div className="mb-7 text-sm" style={{ color: "#ffffff8c" }}>
-            <Link href="/apercu" className="hover:text-white">Accueil</Link>
+            <Link href={racine || "/"} className="hover:text-white">Accueil</Link>
             {" · "}
-            <Link href="/apercu/actualites" className="hover:text-white">Actualités</Link>
+            <Link href={publique ? "/actualites/" : "/apercu/actualites"} className="hover:text-white">Actualités</Link>
           </div>
           <h1
             className="font-bold text-white"
@@ -177,7 +189,7 @@ export function Actualite({
           </h1>
           {a.chapo && (
             <div className="mt-7" style={{ maxWidth: "52ch" }}>
-              <TexteRiche blocs={a.chapo} sombre className="max-w-[52ch] text-[1.25rem] leading-[1.6]" />
+              <TexteRiche blocs={a.chapo} sombre publique={publique} className="max-w-[52ch] text-[1.25rem] leading-[1.6]" />
             </div>
           )}
           <div
@@ -192,7 +204,7 @@ export function Actualite({
       </header>
 
       {/* ── ② LE RÉCIT ─────────────────────────────────────────────────── */}
-      {(a.blocs ?? []).map((b, i) => <UnBloc key={b._key ?? i} bloc={b} rang={i} />)}
+      {(a.blocs ?? []).map((b, i) => <UnBloc key={b._key ?? i} bloc={b} rang={i} publique={publique} />)}
 
       {/* ── ③ DES PROJETS DU MÊME TYPE ─────────────────────────────────
           ⭐ LE BLOC QUI DÉSAMORCE LA CONCURRENCE avec la réalisation.
@@ -206,7 +218,7 @@ export function Actualite({
               <div className="overflow-hidden rounded-lg px-14 py-12 text-white" style={{ background: SOMBRE }}>
                 {a.projets.surTitre && <SurTitre enfant={a.projets.surTitre} sombre />}
                 <h3 className="mb-4 text-2xl font-bold leading-tight">{a.projets.titre}</h3>
-                <TexteRiche blocs={a.projets.paragraphes} sombre className="max-w-[70ch] text-base leading-[1.75] opacity-[.78]" />
+                <TexteRiche blocs={a.projets.paragraphes} sombre publique={publique} className="max-w-[70ch] text-base leading-[1.75] opacity-[.78]" />
                 {a.projets.boutonLibelle && a.projets.boutonLien && (
                   <Link
                     /* ⛔ MÊME TRADUCTION D'ADRESSE QUE DANS `TexteRiche`, et
@@ -215,7 +227,7 @@ export function Actualite({
                        d'aperçu vivent sous `/apercu/competence/…`. Une règle
                        écrite à un endroit ne se transporte pas toute seule
                        dans le fichier suivant. */
-                    href={apercu(a.projets.boutonLien)}
+                    href={lien(a.projets.boutonLien, publique)}
                     className="mt-6 inline-block rounded-[5px] px-6 py-3 text-[.95rem] font-bold no-underline transition hover:bg-white"
                     style={{ background: BLEU_CLAIR, color: NOIR }}
                   >
@@ -241,7 +253,7 @@ export function Actualite({
                 {suite.map(s => (
                   <Link
                     key={s._id}
-                    href={`/apercu/actualite/${s.slug}`}
+                    href={versActualite(s.slug)}
                     className="block overflow-hidden rounded-md border bg-white no-underline"
                     style={{ borderColor: "#0000001a", color: "inherit" }}
                   >
@@ -259,7 +271,7 @@ export function Actualite({
                   </Link>
                 ))}
               </div>
-              <Link href="/apercu/actualites" className="mt-12 inline-block font-semibold no-underline" style={{ color: BLEU }}>
+              <Link href={publique ? "/actualites/" : "/apercu/actualites"} className="mt-12 inline-block font-semibold no-underline" style={{ color: BLEU }}>
                 ← Toutes les actualités
               </Link>
             </div>
