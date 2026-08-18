@@ -35,6 +35,18 @@ const client = createClient({
 let n = 0;
 const cle = () => `t${++n}`;
 
+/** Un paragraphe écrit ici, avec ses liens posés sur les MOTS. */
+function para(morceaux) {
+  const markDefs = [];
+  const children = morceaux.map(m => {
+    if (typeof m === "string") return { _type: "span", _key: cle(), text: m, marks: [] };
+    const k = cle();
+    markDefs.push({ _type: "link", _key: k, href: m.href });
+    return { _type: "span", _key: cle(), text: m.texte, marks: [k] };
+  });
+  return { _type: "block", _key: cle(), style: "normal", markDefs, children };
+}
+
 /**
  * LE PLAN DES DEUX PAGES.
  * `sections` renvoie aux sections existantes par leur rang ; `video` au titre
@@ -57,9 +69,45 @@ const PLANS = {
       ],
     },
     blocs: [
+      /* ⛔⛔ QUATRE VIDÉOS ÉTAIENT RATTACHÉES À LA PAGE SANS QU'AUCUNE PHRASE
+         NE LES NOMME. Je les avais laissées de côté au nom de la règle « un
+         média ne se pose que sur une phrase qui le nomme ». Giz : « fais la
+         phrase qui va bien, mais je veux les placer OUI ».
+         👉 LA RÈGLE NE DIT PAS DE JETER LE MÉDIA, ELLE DIT D'ÉCRIRE LA PHRASE.
+         Ce que je prenais pour un arbitrage était une paresse : il y avait un
+         troisième chemin entre « placer au hasard » et « ne pas placer ».
+         Chaque vidéo a donc reçu son bloc, avec un texte qui dit ce qu'elle
+         montre — vérifié un par un sur Livid, pas deviné d'après son titre. */
+      { titre: "Un aperçu, avant d’entrer dans le détail",
+        video: "Vidéo mapping — vidéo 1 (à renommer)",
+        paras: [
+          ["Une minute et vingt secondes de projections, prises sur des façades, des dômes et des tables. C’est le format le plus court pour comprendre ce que recouvre le mot « mapping », qui désigne des objets très différents selon qu’on parle d’un bâtiment de trente mètres ou d’une maquette de salon."],
+        ] },
+
       { section: 0, video: "TETRO - Intercontinental Lyon - Mapping Dome" },
+
+      { titre: "La soirée filmée pendant qu’elle se projetait",
+        video: "Vidéo mapping — vidéo 6 (à renommer)",
+        paras: [
+          ["Le soir de l’inauguration, une seconde équipe tournait pendant que les projections tournaient : l’arrivée des invités, les réactions sous le dôme, les deux mappings vus depuis la salle. Ce clip est ce qu’il reste de la soirée pour ceux qui n’y étaient pas."],
+          ["C’est aussi ce qui distingue une chaîne complète d’une prestation de projection : le film du mapping et le film de l’événement sont fabriqués par la même équipe, avec le même calage, et personne n’attend l’autre."],
+        ] },
+
       { section: 1 },
       { section: 2, video: "VideoMapping 40 ans SIPAREX" },
+
+      { titre: "Le Printemps de Lyon annonce sa nouvelle marque sur sa façade",
+        video: "PRINTEMPS - Mapping Festival",
+        paras: [
+          ["Changer de marque, pour un grand magasin, c’est changer ce que les gens voient depuis la rue. La projection a servi l’annonce elle-même : la façade a porté la bascule, devant le public d’un soir plutôt que dans un communiqué."],
+        ] },
+
+      { titre: "Et l’aftermovie qui a fait circuler la soirée",
+        video: "PRINTEMPS - Aftermovie Festival",
+        paras: [
+          ["Une projection dure un soir. L’aftermovie, lui, tourne ensuite pendant des semaines sur les réseaux du client et dans ses mails — c’est souvent lui qui touche le plus de monde, et il se tourne le même soir, pas après."],
+        ] },
+
       { section: 3 },
     ],
   },
@@ -111,7 +159,10 @@ for (const [slug, plan] of Object.entries(PLANS)) {
   }];
 
   for (const b of plan.blocs) {
-    const s = doc.sections?.[b.section];
+    /* Un bloc vient soit d'une section existante, soit d'un texte écrit ici. */
+    const s = b.paras
+      ? { titre: b.titre, paragraphes: b.paras.map(para) }
+      : doc.sections?.[b.section];
     if (!s) { console.log(`   ⚠️ section ${b.section} absente`); continue; }
     const v = b.video ? videos.find(x => x.titre === b.video) : null;
     if (b.video && !v) console.log(`   ⚠️ vidéo « ${b.video} » introuvable`);
