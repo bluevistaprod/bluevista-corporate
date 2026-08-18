@@ -155,8 +155,21 @@ function UnBloc({
       return (
         <div className={large}>
           {trait}
-          <div className="grid gap-16 lg:grid-cols-[1.05fr_1fr]">
-            <div>
+          {/* ⭐ AVEC UNE IMAGE, LA GRILLE CHANGE DE SENS — 18/08, deuxième
+              passage. Première version : l'image en pleine largeur SOUS les
+              deux colonnes. Giz : « toujours ce bloc en entrée tout vide…
+              possible de mettre la photo à côté du texte dans CE bloc plutôt
+              que toute seule en bas ? ». Il a raison : posée dessous, elle
+              n'agrémentait pas le bloc, elle le SUIVAIT — le vide restait
+              entier au-dessus d'elle.
+              👉 Les deux listes passent donc l'une sous l'autre à gauche, et
+              l'image prend toute la hauteur à droite. Elle est dans le bloc,
+              pas après lui.
+              ⚠️ Sans image, on garde les deux colonnes côte à côte : c'est
+              ce qui avait réglé le « ÉNORME en entrée de site sans rien ». */}
+          <div className={b.image ? "grid gap-14 lg:grid-cols-[1fr_1fr]" : "grid gap-16 lg:grid-cols-[1.05fr_1fr]"}>
+            <div className={b.image ? "grid gap-12" : ""}>
+              <div>
               <SurTitre enfant={(b.surTitre as string) ?? "Ce qui vous amène"} sombre={sombre} />
               <div className="grid gap-[.45rem]">
                 {((b.affirmations as string[]) ?? []).map((a, k) => (
@@ -169,8 +182,8 @@ function UnBloc({
                   </div>
                 ))}
               </div>
-            </div>
-            <div>
+              </div>
+              <div>
               <SurTitre enfant={(b.surTitrePrise as string) ?? "Ce qu’on prend en charge"} sombre={sombre} />
               <ul className="grid gap-[.55rem]">
                 {((b.prestations as string[]) ?? []).map((p, k) => {
@@ -194,29 +207,17 @@ function UnBloc({
                   );
                 })}
               </ul>
+              </div>
             </div>
+            {b.image ? (
+              <img
+                src={imageUrl(b.image, 1400) ?? ""}
+                alt=""
+                className="block h-full w-full rounded-md"
+                style={{ objectFit: "cover", minHeight: "22rem", background: CLAIR_SOUTENU }}
+              />
+            ) : null}
           </div>
-          {/* ⭐ L'IMAGE D'OUVERTURE, AJOUTÉE LE 18/08 — Giz : « la section
-              d'entrée manque d'image… on a de belles images, agrémente un
-              peu non ? ». Le bloc d'entrée était le seul de la page à
-              n'être que du texte, juste après un en-tête déjà textuel :
-              deux écrans sans une image avant la première preuve.
-              ⚠️ ELLE EST EN PLEINE LARGEUR ET SOUS LES COLONNES, pas à côté.
-              Posée en troisième colonne, elle aurait écrasé les
-              affirmations — c'est déjà pour cette raison qu'elles sont au
-              niveau sous-titre et non titre.
-              ⚠️ Et elle n'illustre AUCUNE phrase en particulier : c'est une
-              vue large du savoir-faire. La règle « un média se pose sur la
-              phrase qui le nomme » vaut pour les blocs qui racontent un
-              projet, pas pour une ouverture. */}
-          {b.image ? (
-            <img
-              src={imageUrl(b.image, 2000) ?? ""}
-              alt=""
-              className="mt-14 block w-full rounded-md"
-              style={{ aspectRatio: "21/9", objectFit: "cover", background: CLAIR_SOUTENU }}
-            />
-          ) : null}
         </div>
       );
 
