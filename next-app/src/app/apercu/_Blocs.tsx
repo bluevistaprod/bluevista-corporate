@@ -196,6 +196,27 @@ function UnBloc({
               </ul>
             </div>
           </div>
+          {/* ⭐ L'IMAGE D'OUVERTURE, AJOUTÉE LE 18/08 — Giz : « la section
+              d'entrée manque d'image… on a de belles images, agrémente un
+              peu non ? ». Le bloc d'entrée était le seul de la page à
+              n'être que du texte, juste après un en-tête déjà textuel :
+              deux écrans sans une image avant la première preuve.
+              ⚠️ ELLE EST EN PLEINE LARGEUR ET SOUS LES COLONNES, pas à côté.
+              Posée en troisième colonne, elle aurait écrasé les
+              affirmations — c'est déjà pour cette raison qu'elles sont au
+              niveau sous-titre et non titre.
+              ⚠️ Et elle n'illustre AUCUNE phrase en particulier : c'est une
+              vue large du savoir-faire. La règle « un média se pose sur la
+              phrase qui le nomme » vaut pour les blocs qui racontent un
+              projet, pas pour une ouverture. */}
+          {b.image ? (
+            <img
+              src={imageUrl(b.image, 2000) ?? ""}
+              alt=""
+              className="mt-14 block w-full rounded-md"
+              style={{ aspectRatio: "21/9", objectFit: "cover", background: CLAIR_SOUTENU }}
+            />
+          ) : null}
         </div>
       );
 

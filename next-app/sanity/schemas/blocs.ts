@@ -68,6 +68,14 @@ export const blocEntree = defineType({
     }),
     defineField({ name: "surTitrePrise", type: "string", initialValue: "Ce qu’on prend en charge" }),
     defineField({
+      name: "image",
+      title: "Image d’ouverture",
+      type: "image",
+      options: { hotspot: true },
+      description:
+        "⭐ Une vue large du savoir-faire, posée sous les deux colonnes. Elle n’illustre pas une phrase précise : elle donne à voir avant qu’on lise. Facultative — sans elle le bloc tient debout.",
+    }),
+    defineField({
       name: "prestations",
       title: "Ce qu’on prend en charge",
       type: "array",
