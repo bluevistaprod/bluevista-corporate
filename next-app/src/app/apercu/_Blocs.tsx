@@ -213,7 +213,7 @@ function UnBloc({
     case "blocTexteMedia": {
       const img = b.image ? imageUrl(b.image, 1200, 750) : undefined;
       const video = b.videoUrl
-        ? { url: b.videoUrl as string, titre: (b.videoTitre as string) ?? "", vignetteUrl: b.videoAffiche as string | undefined }
+        ? { url: b.videoUrl as string, titre: (b.videoTitre as string) ?? "", vignetteUrl: imageUrl(b.videoAffiche, 1200) }
         : null;
       const galerie = ((b.galerie as unknown[]) ?? []).map(g => imageUrl(g, 700, 440)).filter(Boolean) as string[];
       const media = img || video;

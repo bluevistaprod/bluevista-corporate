@@ -184,6 +184,17 @@ export const OFFRES: Offre[] = [
       "Votre événement continue d’exister au-delà des murs.",
     produits: [
       { nom: "Live streaming & web TV", slug: "streaming", page: "live-streaming-webtv" },
+      /* ⛔ LA PAGE LIVE STREAMING ÉLARGIE À « captation » ET « convention ».
+         En reclassant trois fiches mal rangées, le produit `streaming` est
+         tombé à UNE seule réalisation — et la grille de projets de la page
+         avec. Le portefeuille contient pourtant des directs, rangés sous
+         captation et convention : « tournage et montage sur le vif » d'une
+         convention EST du direct, quel que soit le mot choisi à l'époque.
+         👉 Décision de Giz, 19/08. Le classement d'une fiche décrit ce qu'on
+         a livré ; la page vend un savoir-faire. Les deux ne se recouvrent pas
+         toujours, et c'est la page qui doit s'élargir, pas la fiche mentir. */
+      { nom: "Captation d’événement", slug: "captation", page: "live-streaming-webtv" },
+      { nom: "Convention", slug: "convention", page: "live-streaming-webtv" },
       { nom: "Aftermovie", slug: "aftermovie", page: "aftermovie-captation-evenementielle" },
       { nom: "Événement hybride", slug: "hybride" },
     ],

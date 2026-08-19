@@ -42,11 +42,23 @@ const media = [
     description: "Ce que lit le visiteur sous le lecteur, et ce que lit Google.",
     hidden: ({ parent }) => !parent?.videoUrl,
   }),
+  /* ⛔⛔ IMAGE ET NON `url`, ET C'EST UNE CORRECTION QUI A COÛTÉ UNE
+     JOURNÉE DE FAUX SILENCE. Le champ était typé `url` : une chaîne. Le
+     script qui est allé chercher les affiches sur Livid y a écrit un OBJET
+     image Sanity — l'écriture a réussi, le contrôle « toutes les vidéos
+     ont-elles une affiche ? » a répondu OUI sur 19 sur 19, et le lecteur a
+     continué d'afficher son dégradé bleu.
+     👉 Giz : « la 1ere vidéo montre une miniature toute bleue ». Un champ
+     rempli n'est pas un champ affiché — même famille que les treize « ✓ »
+     écrits dans des champs que personne ne lit.
+     ⚠️ Une image téléversée vaut mieux qu'une adresse : elle ne dépend plus
+     du format d'URL d'un prestataire. */
   defineField({
     name: "videoAffiche",
     title: "Image d’affiche de la vidéo",
-    type: "url",
-    description: "Ce qu’on voit avant de cliquer. Sans elle, Google ignore le balisage vidéo.",
+    type: "image",
+    options: { hotspot: true },
+    description: "Ce qu’on voit avant de cliquer. Sans elle, le lecteur sort un dégradé de marque, et Google ignore le balisage vidéo.",
     hidden: ({ parent }) => !parent?.videoUrl,
   }),
 ];

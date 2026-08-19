@@ -32,6 +32,19 @@ const builder = imageUrlBuilder({ projectId, dataset });
  */
 export function imageUrl(source: unknown, largeur = 1200, hauteur?: number) {
   if (!source) return undefined;
+  /* ⛔⛔ UNE CHAÎNE N'EST PAS UNE RÉFÉRENCE D'IMAGE, ET LE CONSTRUCTEUR NE LE
+     DIT PAS GENTIMENT : il fabrique un identifiant bricolé à partir du texte
+     reçu, puis le serveur rend une 500 — « Malformed asset _ref ». Toute la
+     page tombe, pas seulement l'image.
+     👉 D'où ça vient : le champ « affiche de la vidéo » était typé `url` sur
+     l'ancien schéma des blocs. Certaines pages portent donc encore une
+     ADRESSE là où les autres portent une image téléversée. En faisant passer
+     le champ à `image`, j'ai envoyé les anciennes chaînes dans un
+     constructeur qui n'en veut pas.
+     ⚠️ Une adresse reste parfaitement utilisable telle quelle : on la renvoie
+     au lieu de la refuser. Une migration de type doit accepter les deux
+     formes tant que l'ancienne existe dans les données. */
+  if (typeof source === "string") return source;
   let u = builder.image(source as never).width(largeur).auto("format").quality(78);
   if (hauteur) u = u.height(hauteur).fit("crop").crop("focalpoint");
   return u.url();
