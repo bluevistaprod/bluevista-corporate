@@ -37,8 +37,22 @@ export function generateOrganizationSchema() {
     name: "Blue Vista Productions",
     url: "https://www.bluevistaprod.com",
     logo: "https://www.bluevistaprod.com/logo.png",
+    /* ⛔⛔ « AGENCE DE COMMUNICATION » EST FAUX, ET C'EST UNE CORRECTION DE
+   POSITIONNEMENT, PAS DE STYLE. Giz, 19/08 : « on n'est pas une agence de
+   communication ». Une agence de communication conseille et pilote ; Bluevista
+   FABRIQUE — films, motion design, 3D, mapping, direct. La formule exacte,
+   donnée par lui, est le seul libellé à employer :
+     « Agence de création de contenus - communication & marketing,
+       événementiel et immersion. Toutes nos compétences intégrées,
+       depuis 2004. »
+   ⚠️ Le tiret sépare le MÉTIER (création de contenus) des TERRAINS où il
+   s'exerce. Les écrire au même niveau, c'était se ranger dans une catégorie
+   qui n'est pas la sienne. */
+    /* ⚠️ « depuis plus de 20 ans » remplacé par « depuis 2004 » : un compte
+       d'années vieillit tout seul et devient faux sans que personne ne le
+       relise. La date, elle, reste juste. */
     description:
-      "Agence de communication, événementiel et immersion depuis plus de 20 ans",
+      "Agence de création de contenus - communication & marketing, événementiel et immersion, depuis 2004",
     sameAs: [
       "https://www.facebook.com/bluevista",
       "https://www.linkedin.com/company/bluevista",
@@ -85,7 +99,7 @@ export function generateLocalBusinessSchema(city: string, phone: string, address
     "@type": "LocalBusiness",
     name: `Blue Vista Productions - ${city}`,
     image: "https://www.bluevistaprod.com/logo.png",
-    description: "Agence de communication, événementiel et immersion",
+    description: "Agence de création de contenus - communication & marketing, événementiel et immersion",
     address: {
       "@type": "PostalAddress",
       streetAddress: address,

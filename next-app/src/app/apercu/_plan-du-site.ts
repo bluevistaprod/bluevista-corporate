@@ -642,7 +642,7 @@ export const VILLES: PageVille[] = [
     texte: [
       "Notre agence vidéo à Lyon réalise des films d’entreprise déjà plus de 15ans. Nous sommes présent sur toutes les étapes de production : conception, storyboard, tournage, montage, motion design, animation 3D. Nos studios gèrent et réalisent l’entièreté de votre film d’entreprise à l’aide de notre set de matériel haut de gamme ainsi que de nos équipes de spécialistes. Quelle que soit le projet, de la simple interview au film corporate complet, nous pouvons vous accompagner et répondre à vos besoins. bluevista n’est pas qu’une « boite de prod », nous sommes une société de production vidéo à Lyon prête à vous accompagner dans tous vos projets. Que ce soit pour de la prise de vue, du motion design, du drone ou de l’animation 3D.",
       "Envie de nous suivre nous et notre travail ? Envie de travailler avec une boite de prod lyonnaise ? Suivez nous sur nos réseaux sociaux !",
-      "Mais qui sommes nous ? Bluevista est une agence de communication vidéo lyonnaise mêlant les savoir-faire au profit de votre communication, notre expertise au service de votre vidéo promotionnelle.",
+      "Mais qui sommes nous ? Bluevista est une agence lyonnaise de création de contenus mêlant les savoir-faire au profit de votre communication, notre expertise au service de votre vidéo promotionnelle.",
     ],
     specificites: [
       {

@@ -48,7 +48,7 @@ import { OFFRES as CATALOGUE } from "../_offres";
  *        « vérifiable » : il l'était comme volume de portfolio, pas comme
  *        volume de production. Une source mal étiquetée reste une erreur.
  *      · et surtout, compter des FILMS positionne une maison de production.
- *        Bluevista se repositionne en agence de communication, d'événementiel
+ *        Bluevista se repositionne en agence de création de contenus, d'événementiel
  *        et d'immersion : un compteur de films tire dans l'autre sens.
  *    Tout chiffre doit venir d'une source qui mesure ce qu'elle prétend
  *    mesurer, et servir le positionnement — pas seulement être exact.

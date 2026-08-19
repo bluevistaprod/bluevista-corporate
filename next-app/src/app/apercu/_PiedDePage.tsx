@@ -132,9 +132,9 @@ export function PiedDePage() {
                   ✅ « Toutes nos compétences intégrées » — ça répond à la seule
                   question qui intéresse le client (y a-t-il une zone grise ?)
                   sans promettre un lieu de fabrication ni concéder une limite. */}
-              Agence de communication &amp; marketing, d’événementiel et
-              d’immersion. Toutes nos compétences intégrées,
-              depuis&nbsp;2004.
+              Agence de création de contenus &ndash; communication &amp;
+              marketing, événementiel et immersion. Toutes nos compétences
+              intégrées, depuis&nbsp;2004.
             </p>
           </div>
 

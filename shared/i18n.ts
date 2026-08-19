@@ -142,7 +142,7 @@ export const translations = {
       en: "Our Philosophy",
     },
     philosophy_text: {
-      fr: "La philosophie de notre agence de communication vidéo est d'appréhender les dernières innovations technologiques afin de les mettre au service de la création et du design. Depuis plus de 20 ans, nous imaginons et réalisons des contenus vidéo variés.",
+      fr: "La philosophie de notre agence de création de contenus est d'appréhender les dernières innovations technologiques afin de les mettre au service de la création et du design. Depuis plus de 20 ans, nous imaginons et réalisons des contenus vidéo variés.",
       en: "The philosophy of our video communication agency is to understand the latest technological innovations in order to put them at the service of creation and design. For over 20 years, we have imagined and created varied video content.",
     },
     philosophy_text_2: {
