@@ -122,7 +122,51 @@ export default async function PageCompetence({
   const videosRestantes = (page.videos ?? []).slice(sansImage.length);
 
   const produits = OFFRES.flatMap(o => o.produits).filter(pr => pr.page === slug).map(pr => pr.slug);
-  const projets = produits.length ? await lireRealisationsDuProduit(produits) : [];
+  const candidats = produits.length ? await lireRealisationsDuProduit(produits) : [];
+
+  /**
+   * ⭐ LES SIX PROJETS SE CHOISISSENT, ILS NE SE SUBISSENT PLUS.
+   * Trois critères, dans cet ordre :
+   *   ① une VIDÉO — c'est une agence audiovisuelle ; une fiche sans film
+   *     n'est pas une preuve, c'est une intention. Giz : « souvent il manque
+   *     des vidéos, on a que des photos » ;
+   *   ② une IMAGE — sans elle la carte sort en aplat gris ;
+   *   ③ un CLIENT DIFFÉRENT à chaque fois, tant que c'est possible. Six
+   *     cartes du même client donnent l'impression d'un seul dossier, pas
+   *     d'un portefeuille.
+   * ⚠️ On complète ensuite avec le reste plutôt que de rendre une grille
+   * incomplète : mieux vaut deux fiches d'un même client que quatre cases.
+   */
+  const note = (r: (typeof candidats)[number]) => (r.video ? 2 : 0) + (r.image ? 1 : 0);
+  /* ⛔ « ARAVI » ET « ARAVI RACING » SONT LE MÊME CLIENT, et la première
+     version les a laissés passer tous les deux : elle comparait les noms à
+     l'identique. Le portefeuille contient plusieurs variantes du même nom —
+     avec ou sans raison sociale, avec ou sans mention d'activité. On considère
+     donc deux noms comme un seul quand l'un commence par l'autre, à partir de
+     quatre caractères — assez pour rapprocher aravi/araviracing sans
+     confondre GF et GFMS. */
+  const cle = (r: (typeof candidats)[number]) =>
+    (r.client ?? "").toLowerCase().replace(/[^a-z0-9]/g, "");
+  const memeClient = (a: string, b: string) =>
+    a.length >= 4 && b.length >= 4 && (a.startsWith(b) || b.startsWith(a));
+
+  const vus: string[] = [];
+  const retenus: typeof candidats = [];
+  for (const r of [...candidats].sort((a, b) => note(b) - note(a))) {
+    const c = cle(r);
+    if (c && vus.some(v => memeClient(v, c))) continue;
+    if (c) vus.push(c);
+    retenus.push(r);
+    if (retenus.length === 6) break;
+  }
+  if (retenus.length < 6) {
+    for (const r of [...candidats].sort((a, b) => note(b) - note(a))) {
+      if (retenus.includes(r)) continue;
+      retenus.push(r);
+      if (retenus.length === 6) break;
+    }
+  }
+  const projets = retenus;
 
   /* ⭐ LA GRILLE DE PROJETS EST PASSÉE AU BLOC QUI LA DEMANDE. Elle était
      clouée en fin de page ; désormais Giz la place où il veut dans l'ordre des

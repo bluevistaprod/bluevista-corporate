@@ -169,9 +169,18 @@ export async function lireVoisines(slug: string, produit: string | null, metier:
 }
 
 /** Les réalisations d'un savoir-faire — pour les lister sur sa page. */
+/**
+ * ⛔⛔ ON RAMÈNE LARGE ET ON CHOISIT ENSUITE — la version précédente prenait
+ * `order(titre asc)[0...6]`, c'est-à-dire les SIX PREMIÈRES DANS L'ALPHABET.
+ * Giz : « les projets en bas sont soit souvent les mêmes soit pas adaptés du
+ * tout ». Évidemment : deux pages qui partagent un produit recevaient les six
+ * mêmes fiches, et l'alphabet ne sait rien de la qualité d'une vignette.
+ * 👉 Le tri se fait maintenant dans la page, sur ce qui compte : une vidéo,
+ * une image, et des clients différents.
+ */
 export async function lireRealisationsDuProduit(produits: string[], version: Version = "fr") {
   return sanity.fetch<RealisationSanity[]>(
-    `*[_type == "realisation" && language == $v && produit in $p] | order(titre asc) [0...6] { ${CHAMPS} }`,
+    `*[_type == "realisation" && language == $v && produit in $p] | order(titre asc) [0...60] { ${CHAMPS} }`,
     { v: version, p: produits },
     { next: { revalidate: 60 } }
   );

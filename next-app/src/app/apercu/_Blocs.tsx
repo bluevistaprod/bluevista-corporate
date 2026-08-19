@@ -302,15 +302,48 @@ function UnBloc({
        ⭐ Le meilleur rapport maillage / place de la page : chaque entrée
        renvoie à une réalisation, et le visiteur entre par SON cas plutôt que
        par notre vocabulaire. */
-    case "blocUsages":
+    case "blocUsages": {
+      const entrees = (b.entrees as Record<string, string>[]) ?? [];
+      /* Quatre entrées tiennent mieux en deux colonnes qu'en trois avec un
+         trou. Au-delà, trois colonnes, et la dernière comble la rangée. */
+      const cols = entrees.length === 4 ? 2 : 3;
+      const reste = entrees.length % cols;
+      const etale = reste === 0 ? 1 : cols - reste + 1;
       return (
         <div className={large}>
           {trait}
           <SurTitre enfant={(b.surTitre as string) ?? "Où ça sert"} sombre />
           <h2 className={`max-w-3xl ${TYPO.titre}`}>{b.titre}</h2>
-          <div className="mt-16 grid gap-px sm:grid-cols-2 lg:grid-cols-3" style={{ background: "#ffffff1f" }}>
-            {((b.entrees as Record<string, string>[]) ?? []).map((e, k) => (
-              <div key={k} style={{ background: SOMBRE }} className="px-9 py-11">
+          {/* ⛔⛔ LA CELLULE VIDE SE VOYAIT, ET ELLE SE VOYAIT BIEN.
+              La grille tire ses séparateurs d'un `gap` d'un pixel posé sur un
+              fond clair : c'est élégant à six entrées, et ça devient un défaut
+              à quatre ou cinq — les cases manquantes laissent apparaître ce
+              fond en grand aplat. Giz : « une sorte de bande bleu plus claire
+              qui met en avant l'espace vide ».
+              👉 On ne remplit pas la grille avec du vide : on la RÉTRÉCIT.
+              Quatre entrées passent en deux colonnes ; cinq restent en trois
+              et la dernière s'étale sur les colonnes qui resteraient nues.
+              ⚠️ Le calcul vaut pour n'importe quel nombre — sept, huit — parce
+              qu'un jour quelqu'un en ajoutera une septième. */}
+          <div
+            className={`mt-16 grid gap-px sm:grid-cols-2 ${cols === 2 ? "lg:grid-cols-2" : "lg:grid-cols-3"}`}
+            style={{ background: "#ffffff1f" }}
+          >
+            {entrees.map((e, k) => (
+              <div
+                key={k}
+                style={{
+                  background: SOMBRE,
+                  ...(k === entrees.length - 1 && etale > 1 ? { gridColumn: `span ${etale}` } : {}),
+                }}
+                className="px-9 py-11"
+                /* ⚠️ L'étalement passe par le style et non par une classe :
+                   Tailwind lit le code SOURCE pour produire son CSS, il ne
+                   connaît donc pas une classe assemblée à l'exécution.
+                   `lg:col-span-${n}` n'aurait jamais existé dans la feuille —
+                   défaut silencieux, visible seulement à l'écran. */
+                ref={undefined}
+              >
                 <h3 className="relative mb-[.6rem] pl-7 text-[1.05rem] font-bold leading-snug">
                   {/* Un triangle plein aux angles arrondis, en SVG : le « → »
                       d'une police change de dessin d'un système à l'autre. */}
@@ -334,6 +367,7 @@ function UnBloc({
           </div>
         </div>
       );
+    }
 
     /* ── APARTÉ — le gimmick, une fois par page et jamais sur une frustration. */
     case "blocAparte":
