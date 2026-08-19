@@ -16,7 +16,8 @@ import { Actualite } from "../../../apercu/_Actualite";
  * traduits vers les routes d'aperçu, et le vrai site enverrait ses visiteurs
  * sur `/apercu/…` — c'est-à-dire nulle part.
  */
-export const revalidate = 60;
+/* ⚠️ Zéro en recette : un cache qui montre le passé se diagnostique mal. */
+export const revalidate = process.env.NODE_ENV === "production" ? 60 : 0;
 
 export async function generateMetadata({ params }: { params: Promise<{ lang: string; slug: string }> }) {
   const { lang, slug } = await params;

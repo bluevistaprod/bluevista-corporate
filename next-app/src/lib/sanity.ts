@@ -72,6 +72,22 @@ export type RealisationSanity = {
   casResultat?: string;
 };
 
+/**
+ * LE DÉLAI DE RECONSTRUCTION DES PAGES.
+ *
+ * ⛔⛔ SOIXANTE SECONDES, C'ÉTAIT UN RÉGLAGE DE PRODUCTION APPLIQUÉ À UN
+ * SERVEUR DE RECETTE — et ça a coûté cher en confiance. Trois fois dans la
+ * même journée, une correction faite était invisible à l'écran : Giz voyait
+ * une page périmée, moi aussi. J'ai failli « corriger » deux fois quelque
+ * chose qui marchait déjà.
+ * 👉 En production, ce délai protège le serveur. En recette, il ne protège
+ * personne : il ment. Zéro seconde en développement, soixante en production.
+ *
+ * ⚠️ Le mensonge d'un cache est le pire à diagnostiquer : il ne produit
+ * aucune erreur, il montre simplement le passé.
+ */
+export const DELAI_CACHE = process.env.NODE_ENV === "production" ? 60 : 0;
+
 const CHAMPS = `
   _id,
   "slug": slug.current,
@@ -85,7 +101,7 @@ export async function lireRealisations(version: Version = "fr") {
     { v: version },
     /* Les pages sont regénérées au plus toutes les 60 s : une correction
        dans le studio se voit sans reconstruire le site entier. */
-    { next: { revalidate: 60 } }
+    { next: { revalidate: DELAI_CACHE } }
   );
 }
 
@@ -93,7 +109,7 @@ export async function lireRealisation(slug: string, version: Version = "fr") {
   return sanity.fetch<RealisationSanity | null>(
     `*[_type == "realisation" && language == $v && slug.current == $s][0] { ${CHAMPS} }`,
     { v: version, s: slug },
-    { next: { revalidate: 60 } }
+    { next: { revalidate: DELAI_CACHE } }
   );
 }
 
@@ -139,7 +155,7 @@ export async function lirePage(genre: string, slug: string, version: Version = "
   return sanity.fetch<PageSanity | null>(
     `*[_type == "page" && language == $v && genre == $g && slug.current == $s][0] { ${CHAMPS_PAGE} }`,
     { v: version, g: genre, s: slug },
-    { next: { revalidate: 60 } }
+    { next: { revalidate: DELAI_CACHE } }
   );
 }
 
@@ -147,7 +163,7 @@ export async function lirePages(genre: string, version: Version = "fr") {
   return sanity.fetch<PageSanity[]>(
     `*[_type == "page" && language == $v && genre == $g] { ${CHAMPS_PAGE} }`,
     { v: version, g: genre },
-    { next: { revalidate: 60 } }
+    { next: { revalidate: DELAI_CACHE } }
   );
 }
 
@@ -177,7 +193,7 @@ export async function lireVoisines(slug: string, produit: string | null, metier:
        && (produit == $p || metier == $m)]
      | order(select(produit == $p => 0, 1) asc, titre asc) [0...3] { ${CHAMPS} }`,
     { v: version, s: slug, p: produit, m: metier },
-    { next: { revalidate: 60 } }
+    { next: { revalidate: DELAI_CACHE } }
   );
 }
 
@@ -195,7 +211,7 @@ export async function lireRealisationsDuProduit(produits: string[], version: Ver
   return sanity.fetch<RealisationSanity[]>(
     `*[_type == "realisation" && language == $v && produit in $p] | order(titre asc) [0...60] { ${CHAMPS} }`,
     { v: version, p: produits },
-    { next: { revalidate: 60 } }
+    { next: { revalidate: DELAI_CACHE } }
   );
 }
 
@@ -257,7 +273,7 @@ export async function lireActualite(slug: string, version: Version = "fr") {
   return sanity.fetch<ActualiteSanity | null>(
     `*[_type == "actualite" && language == $v && slug.current == $s][0] { ${CHAMPS_ACTUALITE} }`,
     { v: version, s: slug },
-    { next: { revalidate: 60 } }
+    { next: { revalidate: DELAI_CACHE } }
   );
 }
 
@@ -266,6 +282,6 @@ export async function lireActualites(version: Version = "fr", limite = 12) {
   return sanity.fetch<ActualiteSanity[]>(
     `*[_type == "actualite" && language == $v] | order(datePublication desc) [0...$n] { ${CHAMPS_ACTUALITE} }`,
     { v: version, n: limite },
-    { next: { revalidate: 60 } }
+    { next: { revalidate: DELAI_CACHE } }
   );
 }

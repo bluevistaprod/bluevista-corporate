@@ -21,7 +21,8 @@ import { Apparait } from "../_Apparait";
  * porte sa date en clair : la masquer pour faire paraître le site actif serait
  * mentir sur la seule chose qu'un lecteur peut vérifier.
  */
-export const revalidate = 60;
+/* ⚠️ Zéro en recette : un cache qui montre le passé se diagnostique mal. */
+export const revalidate = process.env.NODE_ENV === "production" ? 60 : 0;
 
 export const metadata = {
   title: "Actualités — les projets, racontés | Bluevista",

@@ -17,7 +17,8 @@ import { Apparait } from "../../apercu/_Apparait";
  * ⚠️ La langue vient du segment de route, pas du navigateur : c'est la
  * condition pour que Google indexe une page par langue.
  */
-export const revalidate = 60;
+/* ⚠️ Zéro en recette : un cache qui montre le passé se diagnostique mal. */
+export const revalidate = process.env.NODE_ENV === "production" ? 60 : 0;
 
 export async function generateMetadata({ params }: { params: Promise<{ lang: string }> }) {
   const { lang } = await params;

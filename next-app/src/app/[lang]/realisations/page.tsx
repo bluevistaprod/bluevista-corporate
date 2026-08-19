@@ -29,7 +29,8 @@ import { BLEU_CLAIR, CLAIR, NOIR, SOMBRE, TYPO } from "../../apercu/_palette";
  * est « plus de 2 000 projets depuis 2004 ». Les confondre est la faute qui
  * avait fait retirer « 145 films » de l'accueil.
  */
-export const revalidate = 60;
+/* ⚠️ Zéro en recette : un cache qui montre le passé se diagnostique mal. */
+export const revalidate = process.env.NODE_ENV === "production" ? 60 : 0;
 
 export async function generateMetadata({ params }: { params: Promise<{ lang: string }> }) {
   const { lang } = await params;

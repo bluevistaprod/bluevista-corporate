@@ -9,7 +9,8 @@ import { Actualite } from "../../_Actualite";
  * reprise à l'identique de l'ancien site — les 63 gardent leur adresse, aucune
  * ne part en redirection.
  */
-export const revalidate = 60;
+/* ⚠️ Zéro en recette : un cache qui montre le passé se diagnostique mal. */
+export const revalidate = process.env.NODE_ENV === "production" ? 60 : 0;
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
