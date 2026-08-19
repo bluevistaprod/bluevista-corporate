@@ -38,7 +38,9 @@ function adresseIntegration(url: string): string {
      qu'elle vient de Livid lui-même. Relevé le 12/08/2026 : 159 des 191
      vidéos avaient l'intégration coupée. */
   const livid = url.match(/livid\.com\/(?:watch|embed)\/([\w-]+)/);
-  if (livid) return `https://livid.com/embed/${livid[1]}?autoplay=1`;
+  /* Pas d'autoplay : l'iframe arrive AVANT le clic, il n'y a donc aucun
+       geste à transmettre — le visiteur clique sur le lecteur lui-même. */
+  if (livid) return `https://livid.com/embed/${livid[1]}`;
 
   /* ⛔ LE JETON DES VIDÉOS NON LISTÉES. `vimeo.com/276258421/3dee65778a` :
      le second segment n'est pas décoratif, c'est lui qui autorise la
@@ -61,12 +63,33 @@ export type VideoDePage = { url: string; titre: string; vignetteUrl?: string };
 
 export function LecteurVideo({ video }: { video: VideoDePage }) {
   const [lance, setLance] = useState(false);
+  /* ⛔⛔ DEUX CLICS POUR LANCER UNE VIDÉO — Giz : « une fois ça charge le
+     player livid, une 2e fois sur le play de livid ».
+     Ce que fait `autoplay=1` : il DEMANDE la lecture, il ne l'obtient pas.
+     Un navigateur refuse de démarrer un son sans geste de l'utilisateur, et
+     le geste qui a créé l'iframe ne se transmet pas au lecteur d'un autre
+     domaine. La demande partait, elle était ignorée, et le clic suivant
+     tombait sur le bouton de Livid.
+
+     LA SORTIE N'EST PAS DE FORCER LA LECTURE, C'EST DE PRÉPARER LE LECTEUR
+     AVANT LE CLIC. Le survol — ou le premier contact au doigt, ou l'arrivée
+     au clavier — charge l'iframe. Quand le clic arrive, le lecteur est déjà
+     là : il tombe directement sur le bouton de Livid, et il n'en faut qu'un.
+
+     ⚠️ ET LA PAGE NE PAIE RIEN AU CHARGEMENT, ce qui était la crainte : rien
+     n'est chargé tant que personne n'approche. Une page qu'on parcourt sans
+     s'arrêter sur une vidéo ne demande aucun lecteur — le coût suit
+     l'intention du visiteur au lieu de la précéder. */
+  const prepare = () => setLance(true);
 
   return (
     <figure className="m-0">
       <div
         className="relative aspect-video overflow-hidden rounded-md"
         style={{ background: SOMBRE }}
+        onMouseEnter={prepare}
+        onTouchStart={prepare}
+        onFocus={prepare}
       >
         {lance ? (
           <iframe
