@@ -253,6 +253,23 @@ export const page = defineType({
      * réalisés dans cette ville est le seul contenu qui ne peut pas exister
      * ailleurs — donc la seule parade au contenu quasi dupliqué.
      */
+    /* ⛔⛔ LES SIX PROJETS SE CHOISISSENT MAINTENANT À LA MAIN QUAND ON LE
+       VEUT. Ils étaient sélectionnés automatiquement par le produit, ce qui
+       donne un résultat correct en moyenne et faux en particulier : Giz, sur
+       la page mapping, « on enlève SIPAREX / SHOWREEL 2022 / DEEPWEB /
+       PRINTEMPS et on rajoute Audi A8 ».
+       👉 Une sélection automatique est un bon point de départ, jamais une
+       décision. Ce champ laisse la décision à l'éditeur, et ne fait rien tant
+       qu'il est vide — la sélection automatique reprend la main. */
+    defineField({
+      name: "projetsChoisis",
+      title: "Projets à montrer (choix manuel)",
+      type: "array",
+      of: [{ type: "string" }],
+      group: "sections",
+      description:
+        "Les slugs des réalisations à afficher, dans l'ordre voulu — par exemple « artcurial-video-mapping ». ⚠️ Laisser VIDE pour que la sélection se fasse toute seule par le produit.",
+    }),
     defineField({
       name: "projets",
       title: "Projets réalisés ici",

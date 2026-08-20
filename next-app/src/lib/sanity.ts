@@ -143,12 +143,14 @@ export type PageSanity = {
   titreSeo?: string;
   descriptionSeo?: string;
   projets?: string[];
+  /** Choix manuel des réalisations à montrer. Vide = sélection automatique. */
+  projetsChoisis?: string[];
   ancienneUrl?: string;
 };
 
 const CHAMPS_PAGE = `
   _id, genre, "slug": slug.current, titre, surTitre, accroche, image,
-  texte, sections, faq, videos, blocs, projets, ancienneUrl, titreSeo, descriptionSeo
+  texte, sections, faq, videos, blocs, projets, projetsChoisis, ancienneUrl, titreSeo, descriptionSeo
 `;
 
 export async function lirePage(genre: string, slug: string, version: Version = "fr") {
@@ -284,4 +286,19 @@ export async function lireActualites(version: Version = "fr", limite = 12) {
     { v: version, n: limite },
     { next: { revalidate: DELAI_CACHE } }
   );
+}
+
+
+/**
+ * Les réalisations désignées une par une, DANS L'ORDRE DEMANDÉ.
+ * ⚠️ GROQ rend les documents dans son ordre à lui : on réordonne ici, sinon
+ * le choix de l'éditeur serait respecté sur le contenu et ignoré sur la suite.
+ */
+export async function lireRealisationsParSlugs(slugs: string[], version: Version = "fr") {
+  const r = await sanity.fetch<RealisationSanity[]>(
+    `*[_type == "realisation" && language == $v && slug.current in $s] { ${CHAMPS} }`,
+    { v: version, s: slugs },
+    { next: { revalidate: DELAI_CACHE } }
+  );
+  return slugs.map(s => r.find(x => x.slug === s)).filter(Boolean) as RealisationSanity[];
 }

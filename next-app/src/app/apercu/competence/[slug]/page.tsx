@@ -2,7 +2,7 @@ import { notFound } from "next/navigation";
 import { EnTete } from "../../_EnTete";
 import { PiedDePage } from "../../_PiedDePage";
 import { COMPETENCES, METIERS, competencesDuMetier } from "../../_plan-du-site";
-import { lirePage, lirePages, lireRealisationsDuProduit, enParagraphes, imageUrl } from "../../../../lib/sanity";
+import { lirePage, lirePages, lireRealisationsDuProduit, lireRealisationsParSlugs, enParagraphes, imageUrl } from "../../../../lib/sanity";
 import { OFFRES } from "../../_offres";
 import { BLEU, BLEU_CLAIR, CLAIR, CLAIR_SOUTENU, NOIR, SOMBRE, TYPO } from "../../_palette";
 import { alternatesDe } from "../../../../lib/hreflang";
@@ -122,7 +122,13 @@ export default async function PageCompetence({
   const videosRestantes = (page.videos ?? []).slice(sansImage.length);
 
   const produits = OFFRES.flatMap(o => o.produits).filter(pr => pr.page === slug).map(pr => pr.slug);
-  const candidats = produits.length ? await lireRealisationsDuProduit(produits) : [];
+  /* ⭐ LE CHOIX MANUEL PASSE DEVANT. Vide, la sélection automatique reprend
+     la main — c'est ce qui évite d'avoir à renseigner neuf pages pour en
+     corriger une. */
+  const choisis = page.projetsChoisis ?? [];
+  const candidats = choisis.length
+    ? await lireRealisationsParSlugs(choisis)
+    : produits.length ? await lireRealisationsDuProduit(produits) : [];
 
   /**
    * ⭐ LES SIX PROJETS SE CHOISISSENT, ILS NE SE SUBISSENT PLUS.
@@ -166,7 +172,7 @@ export default async function PageCompetence({
       if (retenus.length === 6) break;
     }
   }
-  const projets = retenus;
+  const projets = choisis.length ? candidats : retenus;
 
   /* ⭐ LA GRILLE DE PROJETS EST PASSÉE AU BLOC QUI LA DEMANDE. Elle était
      clouée en fin de page ; désormais Giz la place où il veut dans l'ordre des

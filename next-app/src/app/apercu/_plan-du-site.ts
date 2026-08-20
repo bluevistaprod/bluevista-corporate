@@ -112,6 +112,15 @@ export type Competence = {
   clics: number;
 };
 
+/* ⛔⛔ CES ACCROCHES EXISTENT EN DOUBLE, DANS LE CODE ET DANS SANITY.
+   La page affiche celle de Sanity ; les CARTES qui renvoient d'une page de
+   savoir-faire à l'autre affichent celle-ci. Corrigée d'un seul côté, la
+   phrase reste fausse sur huit pages et juste sur une — c'est exactement ce
+   qui vient d'arriver : « et sans plateau » retiré dans Sanity le 19/08,
+   toujours visible sur la page animation 3D une minute plus tard.
+   👉 Un texte qui vit à deux endroits sera corrigé à un seul. Tant que ces
+   accroches ne sont pas lues depuis Sanity, TOUTE correction d'accroche se
+   fait ICI AUSSI. */
 export const COMPETENCES: Competence[] = [
   {
     slug: "video-mapping",
@@ -230,7 +239,7 @@ export const COMPETENCES: Competence[] = [
     nom: "Motion design",
     metier: "film",
     accroche:
-      "Rendre lisible ce qui est complexe, en quelques secondes et sans plateau.",
+      "Rendre lisible ce qui est complexe, en quelques secondes.",
     probleme:
       "Vous devez expliquer une offre, un chiffre ou un processus à des gens qui ne vous accorderont pas trois minutes.",
     ce_qu_on_fait: [
