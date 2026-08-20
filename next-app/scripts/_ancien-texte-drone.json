@@ -1,0 +1,58 @@
+[
+  {
+    "_key": "t0",
+    "_type": "block",
+    "children": [
+      {
+        "_key": "ts0",
+        "_type": "span",
+        "marks": [],
+        "text": "BLUEVISTA réalise des prises de vue vidéo aériennes par drone en intérieur et extérieur, et partout en France que ce soit en agglomération ( Paris, Lyon, Genève, etc) ou en zone rurale. Pour mettre en valeur vos sujets que ce soit votre entreprise, une inauguration ou une convention, la prise de vue en drone saura donner une nouvelle dimension à vos films."
+      }
+    ],
+    "markDefs": [],
+    "style": "normal"
+  },
+  {
+    "_key": "t2",
+    "_type": "block",
+    "children": [
+      {
+        "_key": "ts2",
+        "_type": "span",
+        "marks": [],
+        "text": "Grâce à nos différentes offres de services drones, plus personne ne vous prendra de haut! Profitez de vos rencontres dans nos agence à Lyon, Paris et Genève pour découvrir les possibilités de nos drones."
+      }
+    ],
+    "markDefs": [],
+    "style": "normal"
+  },
+  {
+    "_key": "t3",
+    "_type": "block",
+    "children": [
+      {
+        "_key": "ts3",
+        "_type": "span",
+        "marks": [],
+        "text": "Réaliser un film ne s’improvise pas, c’est pourquoi Bluevista dispose de la double compétence réalisation et pilotage."
+      }
+    ],
+    "markDefs": [],
+    "style": "normal"
+  },
+  {
+    "_key": "t4",
+    "_type": "block",
+    "children": [
+      {
+        "_key": "ts4",
+        "_type": "span",
+        "marks": [],
+        "text": "Certifications légales en France et en Suisse."
+      }
+    ],
+    "markDefs": [],
+    "style": "normal"
+  }
+]

@@ -3,7 +3,7 @@ import { isLanguage } from "@/shared/urls";
 import { metadonnees } from "@/shared/seo";
 import { LANGUAGES } from "@/shared/urls";
 import { lireActualite, lireActualites } from "../../../../lib/sanity";
-import { Actualite } from "../../../apercu/_Actualite";
+import { Actualite } from "../../../../composants/Actualite";
 
 /**
  * UNE ACTUALITÉ PUBLIQUE — `/actualites/<slug>/`.

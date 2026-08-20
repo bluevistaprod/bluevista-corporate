@@ -2,8 +2,10 @@ import { notFound } from "next/navigation";
 import { isLanguage } from "@/shared/urls";
 import { metadonnees } from "@/shared/seo";
 import { lireRealisations } from "../../../lib/sanity";
-import { GalerieRealisations } from "../../apercu/_GalerieRealisations";
-import { BLEU_CLAIR, CLAIR, NOIR, SOMBRE, TYPO } from "../../apercu/_palette";
+import { GalerieRealisations } from "../../../composants/GalerieRealisations";
+import { BLEU_CLAIR, CLAIR, NOIR, SOMBRE, TYPO } from "../../../composants/palette";
+import { EnTete } from "../../../composants/EnTete";
+import { PiedDePage } from "../../../composants/PiedDePage";
 
 /**
  * L'INDEX PUBLIC DES RÉALISATIONS — `/realisations/`.
@@ -58,6 +60,10 @@ export default async function Page({
   const realisations = await lireRealisations(lang as "fr");
 
   return (
+    <>
+      {/* ⛔ Ces pages sont nées avant l'en-tête Bluevista : elles sortaient
+          sans logo, sans menu et sans pied de page. */}
+      <EnTete opaque publique />
     <main style={{ background: CLAIR, color: SOMBRE }}>
       <section className="relative overflow-hidden" style={{ background: NOIR, color: "#fff" }}>
         <div className="mx-auto max-w-[1500px] px-8 pb-20 pt-44">
@@ -79,8 +85,10 @@ export default async function Page({
       </section>
 
       <section className="mx-auto max-w-[1500px] px-8 py-20">
-        <GalerieRealisations realisations={realisations} produitInitial={produit ?? null} />
+        <GalerieRealisations realisations={realisations} produitInitial={produit ?? null} publique />
       </section>
     </main>
+      <PiedDePage publique />
+    </>
   );
 }

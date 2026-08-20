@@ -199,14 +199,49 @@ export async function alternatives(id: string, genre: Genre): Promise<Alternativ
  * dépend pas des traductions, et une page sans canonique laisse Google
  * choisir entre ses variantes d'adresse (avec ou sans paramètres).
  */
-export async function alternatesDe(id: string, genre: Genre, version: Version) {
+/** L'adresse d'une version, quelle que soit l'existence des autres. */
+function adresseDe(version: Version, genre: Genre, slug: string) {
+  const segment = SEGMENTS[genre][version];
+  return (
+    DOMAINES[version] +
+    PREFIXE[version] +
+    (segment ? `/${segment}` : "") +
+    `/${slug}/`
+  );
+}
+
+export async function alternatesDe(id: string, genre: Genre, version: Version, slug?: string) {
+  /* ⛔⛔ LE CANONIQUE PARTAIT AVEC LES TRADUCTIONS, ET IL NE DEVAIT PAS.
+     La fonction renvoyait `undefined` dès qu'il y avait moins de DEUX versions
+     publiées — ce qui est le cas de toutes les pages aujourd'hui, l'anglais
+     n'existant pas encore. Résultat : les neuf pages de savoir-faire, les trois
+     offres et les trois pages de ville sortaient SANS adresse canonique.
+     C'est-à-dire les pages qui portent l'essentiel du référencement du site.
+
+     👉 Le commentaire juste au-dessus de cette fonction l'annonçait déjà —
+     « le canonique est posé même quand il n'y a pas d'alternative » — mais le
+     code faisait l'inverse. L'intention était écrite, pas appliquée : c'est le
+     pire des deux mondes, parce qu'on relit le commentaire et on passe.
+
+     ⚠️ Les deux déclarations n'ont pas la même règle et c'est tout le sujet :
+       · le CANONIQUE ne dépend que de la page elle-même — toujours posé ;
+       · le HREFLANG ne se déclare qu'à partir de deux versions réellement
+         publiées, sinon on annonce à Google des pages qui n'existent pas. */
+  const versions = (await versionsPubliees(id))?.filter(v => v?.language && v?.slug) ?? [];
+  const moi = versions.find(v => v.language === version);
+
+  /* ⛔ ET LE PIÈGE DE SECOND NIVEAU : tant qu'aucune traduction n'existe, il
+     n'y a AUCUN document `translation.metadata` — `versions` est donc vide, et
+     se fier à lui laissait encore la page sans canonique. Le slug passé par la
+     route est la seule source qui existe toujours. */
+  const sien = moi?.slug ?? slug;
+  const canonical = sien ? adresseDe(version, genre, sien) : undefined;
+
+  if (versions.length < 2) return canonical ? { canonical } : undefined;
+
   const alts = await alternatives(id, genre);
-  const moi = alts.find(a => a.version === version);
-
-  if (!alts.length) return undefined;
-
   return {
-    canonical: moi?.url,
+    canonical: canonical ?? alts.find(a => a.version === version)?.url,
     languages: {
       ...Object.fromEntries(alts.map(a => [a.code, a.url])),
       "x-default": alts.find(a => a.version === "fr")?.url ?? alts[0].url,

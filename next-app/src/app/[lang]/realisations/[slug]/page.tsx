@@ -16,13 +16,13 @@
  * volontairement : c'est ce qui a été validé.
  */
 import { notFound } from "next/navigation";
-import { EnTete } from "../../../apercu/_EnTete";
-import { PiedDePage } from "../../../apercu/_PiedDePage";
+import { EnTete } from "../../../../composants/EnTete";
+import { PiedDePage } from "../../../../composants/PiedDePage";
 import { lireRealisation, lireRealisations, lireVoisines, imageUrl } from "../../../../lib/sanity";
 import { alternatesDe } from "../../../../lib/hreflang";
-import { COMPETENCES, METIERS } from "../../../apercu/_plan-du-site";
-import { OFFRES } from "../../../apercu/_offres";
-import { BLEU, BLEU_CLAIR, CLAIR, CLAIR_SOUTENU, NOIR, SOMBRE, TYPO } from "../../../apercu/_palette";
+import { COMPETENCES, METIERS } from "../../../../composants/plan-du-site";
+import { OFFRES } from "../../../../composants/offres";
+import { BLEU, BLEU_CLAIR, CLAIR, CLAIR_SOUTENU, NOIR, SOMBRE, TYPO } from "../../../../composants/palette";
 
 /**
  * LE GABARIT DE RÉALISATION — 140 pages sortiront de ce fichier.
@@ -64,7 +64,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const { slug } = await params;
   const r = await lireRealisation(slug);
   if (!r) return {};
-  return { alternates: await alternatesDe(r._id, "realisation", "fr") };
+  return { alternates: await alternatesDe(r._id, "realisation", "fr", r.slug) };
 }
 
 const BLOCS = [
@@ -121,7 +121,10 @@ export default async function PageRealisation({
 
   return (
     <main style={{ background: CLAIR, color: SOMBRE }}>
-      <EnTete opaque />
+      {/* ⛔ `publique` : sans lui, l'en-tête et le pied de page d'une fiche
+          publique renvoyaient vers /apercu/… — dix-sept liens morts par page,
+          sur les 146 fiches. */}
+      <EnTete opaque publique />
 
       <section style={{ background: NOIR, color: "#fff" }}>
         <div className="mx-auto max-w-[1500px] px-8 pb-16 pt-44">
@@ -376,7 +379,7 @@ export default async function PageRealisation({
           </a>
         </div>
       </section>
-      <PiedDePage />
+      <PiedDePage publique />
     </main>
   );
 }

@@ -3,8 +3,10 @@ import { notFound } from "next/navigation";
 import { isLanguage, basePath, type Language } from "@/shared/urls";
 import { metadonnees } from "@/shared/seo";
 import { lireActualites, imageUrl } from "../../../lib/sanity";
-import { BLEU, BLEU_CLAIR, CLAIR_SOUTENU, NOIR } from "../../apercu/_palette";
-import { Apparait } from "../../apercu/_Apparait";
+import { BLEU, BLEU_CLAIR, CLAIR_SOUTENU, NOIR } from "../../../composants/palette";
+import { Apparait } from "../../../composants/Apparait";
+import { EnTete } from "../../../composants/EnTete";
+import { PiedDePage } from "../../../composants/PiedDePage";
 
 /**
  * L'INDEX PUBLIC DES ACTUALITÉS — `/actualites/`.
@@ -46,6 +48,10 @@ export default async function Page({ params }: { params: Promise<{ lang: string 
   const actualites = await lireActualites(lang as "fr", 100);
 
   return (
+    <>
+      {/* ⛔ Ces pages sont nées avant l'en-tête Bluevista : elles sortaient
+          sans logo, sans menu et sans pied de page. */}
+      <EnTete opaque publique />
     <main>
       <header className="relative overflow-hidden pb-[4.5rem] pt-[11rem] text-white" style={{ background: NOIR }}>
         <div className={`relative z-10 ${LARGE}`}>
@@ -104,5 +110,7 @@ export default async function Page({ params }: { params: Promise<{ lang: string 
         </Apparait>
       </section>
     </main>
+      <PiedDePage publique />
+    </>
   );
 }

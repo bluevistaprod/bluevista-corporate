@@ -1,0 +1,263 @@
+import { BLEU_CLAIR, SOMBRE_PROFOND } from "./palette";
+import { LienCookies } from "./Consentement";
+import { COMPETENCES } from "./plan-du-site";
+import { liens } from "../shared/liens";
+
+/**
+ * LE PIED DE PAGE — partagé par toutes les pages.
+ *
+ * ⛔⛔ QUATRIÈME VERSION. Ce commentaire existe pour qu'on ne refasse pas le
+ * tour du problème, parce que chaque correction a cassé la précédente.
+ *
+ * V1 — colonnes par métier + deux bandes. Presque un écran de haut.
+ * V2 — colonnes supprimées : compact, mais neuf liens à la file ne se
+ *      lisent plus. « Maintenant tout se chevauche ».
+ * V3 — colonnes rendues, sans groupement par métier. Bonne structure.
+ * V4 — la présente, et le déclencheur n'était PAS un défaut de conception.
+ *
+ * ⚠️ CE QUE LA CAPTURE DE GIZ MONTRAIT VRAIMENT : un logo géant et une
+ * barre du bas sans aucun espace entre les liens — « gence Réalisations
+ * Contact Mentions légales ». Or dans le navigateur, au même moment, le
+ * logo mesurait 24 px et l'espacement 28 px. Sa feuille de style compilée
+ * était en retard sur le code : Tailwind n'avait pas encore régénéré les
+ * classes d'un composant fraîchement créé.
+ *
+ * 👉 LA LEÇON, ET ELLE VAUT AU-DELÀ DU PIED DE PAGE : quand un défaut visuel
+ * est invraisemblable — un logo dix fois trop grand n'est pas une erreur de
+ * conception —, la première hypothèse doit être une feuille de style
+ * périmée, pas une faute dans le code.
+ *
+ * ⭐ D'où deux garde-fous ajoutés ici, qui rendent le rendu correct MÊME si
+ * des classes manquent :
+ *   · la hauteur du logo est en style direct, pas en classe utilitaire ;
+ *   · les liens du bas sont séparés par un « · » explicite, donc lisibles
+ *     même sans espacement.
+ * Ce n'est pas de la paranoïa : ce pied de page s'affiche sur toutes les
+ * pages, et un défaut y est visible partout à la fois.
+ *
+ * 📌 Les neuf savoir-faire restent listés en clair : ce sont les pages qui
+ * portent le référencement du site, et les citer partout leur donne un lien
+ * entrant depuis chaque page.
+ *
+ * ⛔ NE JAMAIS ÉCRIRE « bureau commercial » pour Paris ni Genève, et ne
+ * jamais affirmer qu'il y a un STUDIO là-bas : ce serait faux. On cite les
+ * villes sans les qualifier.
+ */
+
+/**
+ * LES TROIS IMPLANTATIONS — adresses et numéros RELEVÉS SUR LE SITE EN
+ * LIGNE le 02/08/2026, pas reconstitués de mémoire.
+ *
+ * ⛔ J'avais écrit « Lyon — siège social » et rangé Genève sous
+ * « bluevista.ch, Suisse romande », sans rue ni téléphone. C'était de
+ * l'approximation : une adresse fausse sur un site est une erreur qu'un
+ * client découvre en se déplaçant, et un numéro manquant est un appel
+ * qu'on ne reçoit pas.
+ *
+ * ⛔ NE JAMAIS ÉCRIRE « bureau commercial » pour Paris ni Genève, et ne
+ * jamais affirmer qu'il y a un STUDIO là-bas : ce serait faux. On cite les
+ * villes sans les qualifier — c'est exact, et ça nourrit le référencement
+ * local.
+ *
+ * 📌 Chaque numéro est collé à SON adresse. Un numéro isolé en bas de
+ * colonne, comme dans la version précédente, laisse croire qu'il vaut pour
+ * les trois villes.
+ */
+const VILLES = [
+  {
+    nom: "Lyon",
+    adresse: ["8 rue Jean Élysée Dupuy", "69410 Champagne-au-Mont-d’Or"],
+    tel: "+33 (0)4 72 34 51 89",
+    telLien: "+33472345189",
+  },
+  {
+    nom: "Paris",
+    adresse: ["92 avenue Victor Hugo", "92100 Boulogne-Billancourt"],
+    tel: "+33 (0)1 83 64 58 96",
+    telLien: "+33183645896",
+  },
+  {
+    nom: "Genève",
+    adresse: ["Bd Georges-Favon 43", "1204 Genève, Suisse"],
+    tel: "+41 (0)22 519 28 48",
+    telLien: "+41225192848",
+  },
+];
+
+const BAS = [
+  { nom: "L’agence", cle: "agence" as const },
+  { nom: "Réalisations", cle: "realisations" as const },
+  { nom: "Contact", cle: "contact" as const },
+];
+
+export function PiedDePage({ publique }: { publique?: boolean }) {
+  const L = liens(publique);
+  return (
+    <footer style={{ background: SOMBRE_PROFOND, color: "#fff" }}>
+      <div
+        className="mx-auto max-w-[1500px] px-8"
+        style={{ paddingTop: 56, paddingBottom: 40 }}
+      >
+        <div
+          style={{
+            display: "grid",
+            gap: 48,
+            gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))",
+          }}
+        >
+          {/* ── L'identité ─────────────────────────────────────────────── */}
+          <div>
+            {/* ⛔ Hauteur en style direct : une classe utilitaire absente de
+                la feuille compilée laisserait l'image à sa taille naturelle,
+                soit un logo qui mange la moitié du pied de page. */}
+            <a href={L.accueil} aria-label="Bluevista — accueil">
+              <img
+                src="/media/logo-bluevista-blanc.png"
+                alt="Bluevista"
+                style={{ height: 24, width: "auto", display: "block" }}
+              />
+            </a>
+            <p
+              className="text-[14px] leading-relaxed text-white/50"
+              style={{ marginTop: 16, maxWidth: "34ch" }}
+            >
+              {/* ⛔⛔ RÈGLE POSÉE PAR GIZ, 10/08/2026 — on affirme l'intégration
+                  des COMPÉTENCES, jamais une proportion de production.
+                  Trois formulations essayées, et l'échec des deux premières est
+                  instructif :
+                  · « toute la chaîne de production en interne » → trop absolu,
+                    et faux : le renfort d'un spécialiste est admis.
+                  · « l'essentiel de la production en interne » → « vraiment
+                    restrictif » (ses mots). Un quantificateur partiel est une
+                    négation déguisée : le lecteur n'entend pas les 80 %, il
+                    entend les 20 % qui manquent.
+                  ✅ « Toutes nos compétences intégrées » — ça répond à la seule
+                  question qui intéresse le client (y a-t-il une zone grise ?)
+                  sans promettre un lieu de fabrication ni concéder une limite. */}
+              Agence de création de contenus &ndash; communication &amp;
+              marketing, événementiel et immersion. Toutes nos compétences
+              intégrées, depuis&nbsp;2004.
+            </p>
+          </div>
+
+          {/* ── Les savoir-faire ───────────────────────────────────────────
+              Pas de groupement par métier : c'est lui qui créait le vide de
+              la V1, puisque la répartition est 5/3/1 et qu'une grille
+              réserve à toutes ses colonnes la hauteur de la plus longue.
+              Sans groupement, neuf entrées se rangent d'elles-mêmes.
+              Le groupement par métier vit dans le menu « Offres ». */}
+          <nav aria-label="Nos savoir-faire" style={{ gridColumn: "span 2" }}>
+            <div
+              className="text-[12px] font-bold uppercase tracking-[0.16em]"
+              style={{ color: BLEU_CLAIR }}
+            >
+              Nos savoir-faire
+            </div>
+            <ul
+              style={{
+                marginTop: 16,
+                display: "grid",
+                gap: "10px 32px",
+                gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))",
+              }}
+            >
+              {COMPETENCES.map(c => (
+                <li key={c.slug}>
+                  <a
+                    href={L.competence(c.slug)}
+                    className="text-[14px] leading-snug text-white/55 transition hover:text-white"
+                  >
+                    {c.nom}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </nav>
+
+          {/* ── Les villes ────────────────────────────────────────────── */}
+          <div>
+            <div
+              className="text-[12px] font-bold uppercase tracking-[0.16em]"
+              style={{ color: BLEU_CLAIR }}
+            >
+              Nous trouver
+            </div>
+            <div style={{ marginTop: 16, display: "grid", gap: 16 }}>
+              {VILLES.map(v => (
+                <address key={v.nom} className="not-italic text-[14px] leading-snug">
+                  <span className="font-semibold text-white/75">{v.nom}</span>
+                  {v.adresse.map(l => (
+                    <span key={l} className="block text-white/45">
+                      {l}
+                    </span>
+                  ))}
+                  <a
+                    href={`tel:${v.telLien}`}
+                    className="transition hover:text-white"
+                    style={{ color: BLEU_CLAIR, display: "inline-block", marginTop: 4 }}
+                  >
+                    {v.tel}
+                  </a>
+                </address>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div style={{ borderTop: "1px solid rgba(255,255,255,.10)" }}>
+        <div
+          className="mx-auto max-w-[1500px] px-8 text-[13px] text-white/40"
+          style={{
+            display: "flex",
+            flexWrap: "wrap",
+            alignItems: "center",
+            justifyContent: "space-between",
+            gap: "12px 32px",
+            paddingTop: 20,
+            paddingBottom: 20,
+          }}
+        >
+          {/* ⛔ Séparateurs « · » EXPLICITES entre les liens. Sans eux, une
+              feuille de style en retard colle les intitulés les uns aux
+              autres — c'est très exactement ce que montrait la capture de
+              Giz : « gence Réalisations Contact Mentions légales ». */}
+          <nav style={{ display: "flex", flexWrap: "wrap", alignItems: "center", gap: "6px 10px" }}>
+            {BAS.map((l, i) => (
+              <span key={l.cle} style={{ display: "inline-flex", alignItems: "center", gap: 10 }}>
+                {i > 0 && <span aria-hidden style={{ opacity: 0.4 }}>·</span>}
+                <a href={L[l.cle]} className="transition hover:text-white">
+                  {l.nom}
+                </a>
+              </span>
+            ))}
+            {/* ⚠️ Obligatoires pour un site commercial français. Elles
+                n'existent pas encore — le texte le dit plutôt que de faire
+                semblant, et ⛔ ne doit jamais rester en « # ». */}
+            {/* ⛔ « Cookies » N'EST PAS UN LIEN DE PLUS : c'est lui qui rend
+                VRAIE la promesse de retrait écrite dans la politique de
+                confidentialité. Sans lui, le bandeau disparaît au premier choix
+                et le texte ment. Ne jamais le retirer sans retirer la phrase. */}
+            <span style={{ display: "inline-flex", alignItems: "center", gap: 10 }}>
+              <span aria-hidden style={{ opacity: 0.4 }}>·</span>
+              <LienCookies className="transition hover:text-white" />
+            </span>
+            {/* ⭐ Les deux pages existent enfin : elles étaient affichées en
+                gris avec l'infobulle « à créer avant la mise en ligne » — un
+                aveu poli, mais un aveu. Ce sont maintenant de vrais liens. */}
+            {[
+              { t: "Mentions légales", h: L.mentionsLegales },
+              { t: "Politique de confidentialité", h: L.confidentialite },
+            ].map(({ t, h }) => (
+              <span key={t} style={{ display: "inline-flex", alignItems: "center", gap: 10 }}>
+                <span aria-hidden style={{ opacity: 0.4 }}>·</span>
+                <a href={h} className="transition hover:text-white">{t}</a>
+              </span>
+            ))}
+          </nav>
+          <div>© {new Date().getFullYear()} Bluevista</div>
+        </div>
+      </div>
+    </footer>
+  );
+}

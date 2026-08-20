@@ -1,13 +1,26 @@
 import { notFound } from "next/navigation";
 import { isLanguage } from "@/shared/urls";
 import { metadonnees } from "@/shared/seo";
+import { CorpsAccueil } from "../../composants/PageAccueil";
+import { EnTete } from "../../composants/EnTete";
+import { PiedDePage } from "../../composants/PiedDePage";
 
 /**
- * Page d'accueil — preuve de concept du rendu serveur.
+ * LA PAGE D'ACCUEIL.
  *
- * Le texte ci-dessous est volontairement celui de la maquette : l'objet de
- * cette étape n'est pas de réécrire le contenu, mais de démontrer qu'il arrive
- * ENTIER dans le HTML livré, dans la bonne langue, avec ses balises.
+ * ⛔⛔ CE QUI ÉTAIT EN LIGNE N'ÉTAIT PAS L'ACCUEIL DU SITE. C'était la preuve
+ * de concept du rendu serveur : un titre, une accroche, trois cartes. Quatre
+ * titres en tout, 37 Ko. Pendant ce temps la vraie page d'accueil — dix
+ * sections, les trois piliers, la méthode, les témoins, les logos clients —
+ * vivait sous `/apercu/v7` et n'était accessible à personne.
+ * 👉 C'est la page la plus vue du site. Elle était finie et invisible, comme
+ * les neuf savoir-faire, mais en pire.
+ *
+ * ⚠️ SEUL LE FRANÇAIS BASCULE. L'anglais et l'espagnol gardent le texte
+ * d'origine : ils ne sont pas encore traduits, et servir la version française
+ * sous `/en/` serait pire qu'une page courte — ce serait une page dans la
+ * mauvaise langue, que Google indexerait comme telle.
+ * 📌 La traduction EN est en semaine 2 du plan du 4 septembre.
  */
 
 const CONTENU = {
@@ -62,7 +75,15 @@ export default async function Accueil({ params }: { params: Promise<{ lang: stri
   if (!isLanguage(lang)) notFound();
   const c = CONTENU[lang];
 
+  /* ⭐ Le français reçoit la vraie page. Les deux autres attendent leur
+     traduction — voir le commentaire en tête de fichier. */
+  if (lang === "fr") return <CorpsAccueil publique />;
+
   return (
+    <>
+      {/* ⛔ Ces pages sont nées avant l'en-tête Bluevista : elles sortaient
+          sans logo, sans menu et sans pied de page. */}
+      <EnTete opaque publique />
     <main style={{ padding: "3rem 1.5rem", maxWidth: 900, margin: "0 auto" }}>
       <h1 style={{ fontSize: "2.5rem", fontWeight: 800, lineHeight: 1.1 }}>{c.h1}</h1>
       <p style={{ marginTop: "1rem", fontSize: "1.125rem", opacity: 0.8 }}>{c.accroche}</p>
@@ -76,5 +97,7 @@ export default async function Accueil({ params }: { params: Promise<{ lang: stri
         ))}
       </section>
     </main>
+      <PiedDePage publique />
+    </>
   );
 }

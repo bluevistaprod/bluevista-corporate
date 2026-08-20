@@ -1,0 +1,72 @@
+[
+  {
+    "_key": "t0",
+    "_type": "block",
+    "children": [
+      {
+        "_key": "ts0",
+        "_type": "span",
+        "marks": [],
+        "text": "Chez Bluevista, nous accompagnons une multitude d’entreprise dans leur communication vidéo. Grâce à notre savoir-faire en captation et montage, nous sommes capables de délivrer rapidement des films. Ces films sont alors forts en émotions et synthétisent toute l’ambiance de l’événement. Nous maitrisons toute la chaîne de production et sommes à même d’organiser efficacement la captation de tout événement en France ou partout dans le monde !"
+      }
+    ],
+    "markDefs": [],
+    "style": "normal"
+  },
+  {
+    "_key": "t1",
+    "_type": "block",
+    "children": [
+      {
+        "_key": "ts1",
+        "_type": "span",
+        "marks": [],
+        "text": "Chaque événement étant totalement différent, nous nous adaptons à chaque projet ! Que ce soit en petite équipe ou sur des conventions à plusieurs milliers de personnes. Les mots ont leurs limites, découvrez plutôt quelques exemples de clients et événements que nous avons pu couvrir !"
+      }
+    ],
+    "markDefs": [],
+    "style": "normal"
+  },
+  {
+    "_key": "t2",
+    "_type": "block",
+    "children": [
+      {
+        "_key": "ts2",
+        "_type": "span",
+        "marks": [],
+        "text": "Il y a quelques temps, la société Koesio a mis en place un événement hors norme pour son changement de nom. Nous les avons accompagnés en réalisant un multitude de contenu diffusés à cet occasion ainsi que de multiples aftermovie / report de ce weekend riche en émotions ! Comme souvent, le montage a été réalisé en direct et en parallèle de la captation. Bien que cet exercice soit périlleux, cela reste un bon moyen de délivrer une sensation d’instantanéité et de créer une surprise qui marquera les participants."
+      }
+    ],
+    "markDefs": [],
+    "style": "normal"
+  },
+  {
+    "_key": "t3",
+    "_type": "block",
+    "children": [
+      {
+        "_key": "ts3",
+        "_type": "span",
+        "marks": [],
+        "text": "Plus récemment, l’ agence CWT nous a fait confiance dans la captation et le montage retraçant l’événement des 100 ans de Valrhona. Nous les avons accompagnés en réalisant un aftermovie / report monté en direct !"
+      }
+    ],
+    "markDefs": [],
+    "style": "normal"
+  },
+  {
+    "_key": "t4",
+    "_type": "block",
+    "children": [
+      {
+        "_key": "ts4",
+        "_type": "span",
+        "marks": [],
+        "text": "Autre anniversaire, nous avons travaillé avec l’agence Ludico pour retracer la soirée des 100ans de l’entreprise Crouzet. Un montage en direct, captation de la soirée et une réalisation vibrante !"
+      }
+    ],
+    "markDefs": [],
+    "style": "normal"
+  }
+]

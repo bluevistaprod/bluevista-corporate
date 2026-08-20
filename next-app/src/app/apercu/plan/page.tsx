@@ -1,8 +1,8 @@
-import { EnTete } from "../_EnTete";
-import { PiedDePage } from "../_PiedDePage";
-import { COMPETENCES, METIERS, PAGES_FIXES, VILLES, competencesDuMetier } from "../_plan-du-site";
-import { TOUTES_REALISATIONS } from "../_realisations";
-import { BLEU, CLAIR, CLAIR_SOUTENU, SOMBRE, TYPO } from "../_palette";
+import { EnTete } from "../../../composants/EnTete";
+import { PiedDePage } from "../../../composants/PiedDePage";
+import { COMPETENCES, METIERS, PAGES_FIXES, VILLES, competencesDuMetier } from "../../../composants/plan-du-site";
+import { TOUTES_REALISATIONS } from "../../../composants/realisations";
+import { BLEU, CLAIR, CLAIR_SOUTENU, SOMBRE, TYPO } from "../../../composants/palette";
 
 /**
  * LE PLAN DE LA MAQUETTE — page de travail, pas une page du site.

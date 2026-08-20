@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 import { Poppins } from "next/font/google";
 import "../globals.css";
-import { Consentement } from "./_Consentement";
-import { CaptureAcquisition } from "./_CaptureAcquisition";
+import { Consentement } from "../../composants/Consentement";
+import { CaptureAcquisition } from "../../composants/CaptureAcquisition";
 
 /**
  * Aperçus de direction artistique — pages de travail, jamais publiées.
