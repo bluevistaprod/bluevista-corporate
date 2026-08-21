@@ -308,8 +308,13 @@ export function CorpsAgence({  publique }: {  publique?: boolean }) {
               le site d'une agence d'image, le pire endroit pour ne rien montrer.
             · une foule de spectateurs à un événement qu'on avait filmé. Vrai,
               spectaculaire — et on n'y voyait personne de chez nous.
-            · quatre personnes en régie, casques sur les oreilles, mains sur le
-              clavier. C'est ce que fait l'agence, fait par l'agence.
+            · quatre personnes en régie — écartée : Giz, « Alizé a une tête
+              bizarre sur celle-là ». Un visage figé par le hasard d'un
+              déclenchement devient, en héros, la première chose que voit un
+              visiteur. Aucun cadrage ne rattrape ça.
+            · quatre personnes sur un toit, casques de chantier et gilets,
+              autour d'un drone, la ville derrière. C'est ce que fait
+              l'agence, fait par l'agence — et personne n'y est en gros plan.
           👉 Une image de héros ne doit pas être la plus impressionnante, elle
           doit être la plus JUSTE. Une salle comble raconte le client ; une
           régie raconte celui qui la tient.
@@ -840,11 +845,12 @@ export function CorpsAgence({  publique }: {  publique?: boolean }) {
                   tiennent : sur une section qui parle de moyens, une image de
                   matériel SEUL aurait dit « loueur », le reproche exact fait à
                   la grue de six mètres.
-                  ⚠️ Retirée du carrousel au passage : la même photo à deux
-                  endroits d'une même page se remarque et fait pauvre. */}
+                  ⚠️ La photo du toit est passée en héros : celle-ci prend sa
+                  place. Deux personnes au mélangeur pendant un direct, avec le
+                  client au premier plan — le matériel ET les gens. */}
               <img
                 src="/media/equipe-regie.jpg"
-                alt="Quatre personnes de l’équipe, casques de chantier et gilets, préparant un vol de drone sur un toit"
+                alt="Deux personnes de l’équipe au mélangeur pendant un direct, casque sur les oreilles"
                 className="mt-10 block w-full rounded-md object-cover"
                 style={{ aspectRatio: "4 / 3" }}
               />
