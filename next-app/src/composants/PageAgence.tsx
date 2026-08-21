@@ -248,7 +248,6 @@ const AU_TRAVAIL: [string, string][] = [
   ["/media/coulisses-installation.jpg", "En installation"],
   ["/media/coulisses-studio-deux.jpg", "En studio"],
   ["/media/coulisses-multicamera.jpg", "Avant l’ouverture des portes"],
-  ["/media/coulisses-console-son.jpg", "À la console son"],
   ["/media/coulisses-fond-vert.jpg", "Sur fond vert"],
 ];
 
