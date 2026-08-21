@@ -459,46 +459,17 @@ export function CorpsAgence({  publique }: {  publique?: boolean }) {
             promesse « un seul interlocuteur ». D'où le titre reformulé — ce
             n'est plus un catalogue de compétences, c'est la réponse à
             « pourquoi vous n'aurez pas quatre prestataires ». */}
-        <h2 className={`max-w-3xl ${TYPO.titre}`}>
-          Un seul interlocuteur, parce que les quatre métiers sont dans la
-          maison.
-        </h2>
-
-        {/* ⭐ CE PARAGRAPHE VIENT DE L'AUDIO DE GIZ (« anecdotes », 5-réactivité),
-            et c'est le seul endroit de la page qui explique COMMENT la promesse
-            tient un mois d'août. Sans lui, « un seul interlocuteur » est un
-            argument que n'importe qui peut écrire. */}
-        {/* ⭐ LA VIDÉO EST À DROITE DU TEXTE, pas dessous — correction de Giz
-            le 21/08 : « c'est moche et ça prend de la place en bas ». Il a
-            raison, et la raison est structurelle : une vidéo verticale posée
-            sous un paragraphe pousse toute la page vers le bas pour rien,
-            alors qu'à côté elle occupe la colonne que le texte laisse vide.
-            ⚠️ Le texte de la vidéo passe SOUS la vidéo, pas à côté : c'est sa
-            légende, elle doit rester attachée à elle. */}
-        {/* ⛔ LE CHAPÔ EST DESCENDU DANS LA COLONNE DE GAUCHE. Il était
-            au-dessus de la grille, et il ne restait qu'un paragraphe face à une
-            vidéo verticale de 440 px de haut : un trou blanc de la moitié de
-            l'écran sous le texte. Giz, capture à l'appui : « change ces
-            alignements ».
-            👉 La règle qui s'en dégage : une colonne étroite et HAUTE (un 9/16)
-            ne se met pas à côté de trois lignes. Soit on lui donne assez de
-            texte en face, soit on la met ailleurs. Ici il y avait le texte, il
-            était juste au mauvais endroit. */}
-        <div className="mt-8 grid items-center gap-14 md:grid-cols-[1fr_minmax(0,210px)]">
-          <div className="max-w-2xl">
-            <p className={TYPO.chapo}>
-              Vidéo, son, infographie, développement. Concepteurs, réalisateurs,
-              infographistes, cadreurs, monteurs, développeurs : les mêmes
-              personnes suivent votre projet du premier rendez-vous à la mise
-              en ligne.
-            </p>
-            <p className={`mt-6 ${TYPO.corps}`}>
-              Tout le monde travaille sur les mêmes logiciels, avec la même
-              méthode et la même nomenclature. C’est ce qui fait qu’une demande
-              de modification n’attend pas le retour de la personne qui était
-              dessus : quelqu’un d’autre ouvre le projet et le reprend.
-            </p>
-          </div>
+        {/* ⭐ DISPOSITION C, choisie par Giz sur maquette le 21/08 : la vidéo
+            à GAUCHE, le texte à droite. Elle cesse d'être une annexe posée au
+            bord de la page — c'est elle que le regard rencontre en premier, et
+            sur un site d'agence vidéo ce n'est pas un détail.
+            ⚠️ Le titre est DANS la colonne de texte, pas au-dessus des deux :
+            sinon la vidéo commence sous le titre et flotte au milieu du vide
+            qu'il laisse à sa gauche.
+            👉 Trois essais avaient échoué avant, tous en réglant l'ALIGNEMENT.
+            Ce qui se règle, face à un 9/16, c'est la quantité de texte en
+            face — et ici, quel élément commence la ligne. */}
+        <div className="grid items-start gap-14 lg:grid-cols-[minmax(0,250px)_1fr]">
           <div>
             <LecteurVideo
               format="portrait"
@@ -509,8 +480,28 @@ export function CorpsAgence({  publique }: {  publique?: boolean }) {
                 vignetteUrl: "/media/anecdote-reactivite.jpg",
               }}
             />
-            <div className={`mt-4 ${TYPO.sousTitre}`}>Pourquoi une modification n’attend pas</div>
-            <p className="mt-2 text-[15px] opacity-60">En vidéo — 1 min</p>
+            <div className="mt-4 text-[1.0625rem] font-bold leading-snug">
+              Pourquoi une modification n’attend pas
+            </div>
+            <p className="mt-1.5 text-[15px] opacity-55">En vidéo — 1 min</p>
+          </div>
+
+          <div style={{ maxWidth: "62ch" }}>
+            <h2 className={TYPO.titre}>
+              Un seul interlocuteur, parce que les quatre métiers sont dans la
+              maison.
+            </h2>
+            <p className={`mt-7 ${TYPO.chapo}`}>
+              Conception, contenu vidéo et son, infographie, développement :
+              les mêmes personnes suivent votre projet du premier rendez-vous à
+              la mise en ligne.
+            </p>
+            <p className={`mt-6 ${TYPO.corps}`}>
+              Tout le monde travaille sur les mêmes logiciels, avec la même
+              méthode et la même nomenclature. C’est ce qui fait qu’une demande
+              de modification n’attend pas le retour de la personne qui était
+              dessus : quelqu’un d’autre ouvre le projet et le reprend.
+            </p>
           </div>
         </div>
 
@@ -578,46 +569,32 @@ export function CorpsAgence({  publique }: {  publique?: boolean }) {
              ne se déduit pas d'un nom de fichier. */}
       <section style={{ background: SOMBRE, color: "#fff" }}>
         <div className="mx-auto max-w-[1500px] px-8 py-24">
-          {/* ⛔ LA GRILLE COMMENCE AU SUR-TITRE, pas après le H2. Deux essais
-              ont échoué avant : aligné en haut, tout l'écart tombait sous le
-              texte ; centré, il se glissait ENTRE le titre et le premier
-              paragraphe — pire, parce qu'un titre détaché de son texte se lit
-              comme une erreur. En remontant le titre dans la colonne, celle-ci
-              devient plus haute que la vidéo et il n'y a plus d'écart à
-              placer. */}
-          <div className="grid items-start gap-14 lg:grid-cols-[1fr_minmax(0,240px)]">
-            <div className="max-w-3xl">
-              <div className={`mb-7 flex items-center gap-4 ${TYPO.surTitre}`} style={{ color: BLEU_CLAIR }}>
-                <span className="inline-block h-[3px] w-12 rounded-full" style={{ background: BLEU_CLAIR }} />
-                Ce qu’on regarde et que personne ne regarde
-              </div>
-              <h2 className={`max-w-4xl ${TYPO.titre}`}>
-                Vous payez peut-être deux fois la même vidéo.
-              </h2>
-              <p className={`mt-10 ${TYPO.chapo}`}>
-                Dans une entreprise qui grandit, plusieurs services commandent
-                des vidéos sans se coordonner. Le même salon, le même site, la
-                même usine se retrouvent tournés deux fois, à quelques semaines
-                d’intervalle, par deux prestataires qui s’ignorent.
-              </p>
-              <p className={`mt-5 ${TYPO.corps}`}>
-                Nous commençons donc par une question que personne ne pose :
-                qu’est-ce qui se tourne ailleurs chez vous, et pour qui ?
-                Souvent, la réponse permet de partager des images plutôt que de
-                les refaire, ou d’orienter chaque film vers un objectif
-                distinct.
-              </p>
-              <p className={`mt-5 ${TYPO.corps}`}>
-                Pour un client dont trois entités communiquaient chacune de son
-                côté — mobilier, aménagement, structure et signalétique — nous
-                avons regroupé les tournages. Chacune a pris sa part du budget
-                du même déplacement.{" "}
-                <strong className="font-semibold">
-                  Trois films, trois objectifs, un seul tournage.
-                </strong>
-              </p>
-            </div>
-            <div>
+          {/* ⛔ UN FILET, parce que DEUX SECTIONS SOMBRES SE SUIVENT. « Notre
+              histoire » et celle-ci partagent le même fond : sans frontière,
+              on croit lire le même chapitre et le changement de sujet passe
+              inaperçu. Giz : « attention à bien le séparer avec un trait
+              séparateur ».
+              ⚠️ C'est la même règle que sur les actualités, où deux blocs de
+              même fond qui se suivent portent un filet. Une règle de mise en
+              page ne vaut que si on la retrouve d'une page à l'autre. */}
+          <span className="mb-20 block h-px" style={{ background: "#ffffff26" }} />
+
+          {/* ⭐ DISPOSITION B, validée par Giz sur maquette : la vidéo FLOTTE
+              à droite et les paragraphes se replient autour d'elle. C'est la
+              seule des trois où un vide ne peut pas apparaître — le texte
+              occupe toujours la place qui reste, quelle que soit sa longueur.
+              👉 Ça compte ici précisément parce que ces textes bougent encore.
+              ⚠️ Sur téléphone le flottant est neutralisé : la vidéo repasse
+              au-dessus, pleine largeur. C'est le comportement voulu.
+
+              ⛔ UNE SEULE TAILLE DE CORPS pour les trois paragraphes. Il y en
+              avait deux — 1,25 rem et 1,06 rem — dans un rapport de 1,18 :
+              trop faible pour lire comme une hiérarchie, assez marqué pour
+              qu'on sente une erreur. Giz : « 2 tailles de polices mais trop
+              proches, c'est bizarre ». L'accent est porté par la phrase en
+              gras, qui elle se voit vraiment. */}
+          <div style={{ maxWidth: "1180px" }}>
+            <div className="float-none mb-8 w-full sm:float-right sm:mb-6 sm:ml-12 sm:w-[230px]">
               <LecteurVideo
                 format="portrait"
                 sansLegende
@@ -628,8 +605,34 @@ export function CorpsAgence({  publique }: {  publique?: boolean }) {
                 }}
               />
               <div className="mt-4 text-[1.0625rem] font-bold leading-snug">Éliminer les zones grises</div>
-              <p className="mt-2 text-[14px] text-white/60">En vidéo — 1 min 17</p>
+              <p className="mt-1.5 text-[14px] text-white/55">En vidéo — 1 min 17</p>
             </div>
+
+            <h2 className={`max-w-[24ch] ${TYPO.titre}`}>
+              Vous payez peut-être deux fois la même vidéo.
+            </h2>
+            <p className={`mt-8 ${TYPO.corps}`}>
+              Dans une entreprise qui grandit, plusieurs services commandent
+              des vidéos sans se coordonner. Le même salon, le même site, la
+              même usine se retrouvent tournés deux fois, à quelques semaines
+              d’intervalle, par deux prestataires qui s’ignorent.
+            </p>
+            <p className={`mt-5 ${TYPO.corps}`}>
+              Nous commençons donc par une question que personne ne pose :
+              qu’est-ce qui se tourne ailleurs chez vous, et pour qui ?
+              Souvent, la réponse permet de partager des images plutôt que de
+              les refaire, ou d’orienter chaque film vers un objectif distinct.
+            </p>
+            <p className={`mt-5 ${TYPO.corps}`}>
+              Pour un client dont trois entités communiquaient chacune de son
+              côté — mobilier, aménagement, structure et signalétique — nous
+              avons regroupé les tournages. Chacune a pris sa part du budget du
+              même déplacement.{" "}
+              <strong className="font-semibold" style={{ opacity: 1 }}>
+                Trois films, trois objectifs, un seul tournage.
+              </strong>
+            </p>
+            <div className="clear-both" />
           </div>
         </div>
       </section>
