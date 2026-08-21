@@ -80,7 +80,7 @@ const POLES = [
   {
     nom: "Conception",
     detail:
-      "Le concept, le scénario, la direction artistique — et la coordination quand un projet mobilise plusieurs métiers à la fois. Le pôle qui travaille avant qu’on filme quoi que ce soit.",
+      "Le concept, le scénario, la direction artistique — et la coordination quand un projet mobilise plusieurs métiers à la fois. Le pôle qui travaille avant qu’on réalise quoi que ce soit.",
   },
   {
     nom: "Contenu vidéo et son",
@@ -122,7 +122,7 @@ const FRUSTRATIONS = [
       "Le brief, les textes, les visuels, les contacts, les autorisations : vous fournissez tout et vous relancez vos collègues, alors que vous aviez confié le projet.",
   },
   {
-    titre: "Le projet prend du retard, pas votre date",
+    titre: "Le projet prend du retard, votre date de diffusion, elle, ne change pas",
     texte: "L’événement, lui, ne se décale pas.",
   },
   {
@@ -147,8 +147,8 @@ const FRUSTRATIONS = [
  */
 const CONVICTIONS = [
   "Un concept n’est retenu que si nous sommes fiers de le produire.",
-  "Un projet qui n’est pas diffusé n’a rien produit : la diffusion fait partie du travail, pas des options.",
-  "Vous nous exposez un problème, nous vous proposons une solution — et quand nous ne sommes pas d’accord, nous le disons.",
+  "On ne conçoit pas un projet avant de savoir comment il sera diffusé : à qui il doit parler, sur quels canaux, et comment y toucher le plus de monde.",
+  "Vous nous exposez un besoin, nous vous proposons une solution — et quand nous ne sommes pas d’accord, nous alimentons le débat pour décider ensemble.",
 ];
 
 /**
@@ -197,7 +197,7 @@ const HISTOIRES = [
     affiche: "/media/anecdote-berliet.jpg",
     duree: "1 min 13",
     texte:
-      "Un client fêtait un anniversaire avec un nouveau visuel de barils d’huile, et voulait de la visibilité. Plutôt qu’un film de présentation envoyé sur les réseaux — ce qui n’y marche pas — nous avons proposé un FOOH : des barils géants qui traversent la ville, filmés comme une scène de rue.",
+      "Un client lançait un nouveau visuel de marque, et voulait de la visibilité. Plutôt qu’un film de présentation envoyé sur les réseaux — ce qui est classique — nous avons proposé un FOOH : des barils géants qui traversent la ville, filmés comme une scène de rue.",
     chute:
       "Le post a fait environ dix fois leurs vues et leurs likes habituels.",
   },
@@ -216,6 +216,16 @@ const HISTOIRES = [
  * aucune photo de conception ni de montage. Garder les mots en collant
  * dessous une image qui montre autre chose, c'est la faute que je viens de
  * corriger trois fois sur les actualités. On nomme ce qu'on montre.
+ *
+ * ⭐⭐ L'ÉQUIPE ENTRE ENFIN DANS LA PAGE, et pas par une photo posée. Giz
+ * voulait « une notion d'équipe » ; les cinq photos qu'il a déposées la
+ * donnent mieux qu'un groupe aligné contre un mur : quatre personnes casquées
+ * sur un toit avec le drone, et l'équipe en polos, casques sur les oreilles,
+ * devant des gradins pleins. On voit des gens qui travaillent ENSEMBLE, ce
+ * qui est le sujet — pas un effectif à compter, ce que la règle interdit.
+ * ⭐ « En montage » comble un manque ancien : aucune photo de montage
+ * n'existait au Cloud Store, d'où un libellé retiré la semaine dernière. Elle
+ * était dans l'export du groupe de validation.
  *
  * ⭐ TROIS PHOTOS AJOUTÉES le 21/08 depuis le groupe WhatsApp de validation :
  * le plateau, la régie de direct (elle remplace la précédente — l'opérateur y
@@ -243,12 +253,14 @@ const HISTOIRES = [
 const AU_TRAVAIL: [string, string][] = [
   ["/media/coulisses-reperage.jpg", "En repérage"],
   ["/media/coulisses-interview.jpg", "En tournage"],
+  ["/media/coulisses-chantier.jpg", "Sur un chantier"],
   ["/media/coulisses-plateau.jpg", "Sur le plateau"],
   ["/media/coulisses-regie-direct.jpg", "En régie"],
+  ["/media/coulisses-montage.jpg", "En montage"],
   ["/media/coulisses-installation.jpg", "En installation"],
   ["/media/coulisses-studio-deux.jpg", "En studio"],
-  ["/media/coulisses-multicamera.jpg", "Avant l’ouverture des portes"],
   ["/media/coulisses-fond-vert.jpg", "Sur fond vert"],
+  ["/media/coulisses-equipe-jour-j.jpg", "Le jour J"],
 ];
 
 /**
@@ -308,7 +320,7 @@ export function CorpsAgence({  publique }: {  publique?: boolean }) {
             L’agence
           </div>
           <h1 className="max-w-[22ch] text-[clamp(2.2rem,5vw,4rem)] font-bold leading-[1.02] tracking-[-0.02em]">
-            Agence de création de contenus audiovisuels depuis 2004
+            Agence de création de contenus depuis 2004
           </h1>
           <p className="mt-8 max-w-2xl text-[1.35rem] font-semibold leading-snug">
             Vous nous confiez un sujet, pas un dossier.
@@ -329,8 +341,8 @@ export function CorpsAgence({  publique }: {  publique?: boolean }) {
       <section style={{ background: SOMBRE, color: "#fff" }}>
         <div className="mx-auto max-w-[1500px] px-8 py-24">
           <h2 className={`max-w-4xl ${TYPO.titre}`}>
-            Si vous avez déjà confié un projet à une agence, ces situations vous
-            diront quelque chose.
+            Si vous avez déjà confié un projet à un prestataire, ces situations vous
+            parleront peut-être.
           </h2>
 
           <div className="mt-14 grid gap-x-14 gap-y-10 md:grid-cols-2">
@@ -404,16 +416,23 @@ export function CorpsAgence({  publique }: {  publique?: boolean }) {
               cadre n'a pas.
               ⚠️ Une colonne s'écroule sous 1024 px (`lg:`) : sur téléphone le
               titre repasse simplement au-dessus du texte. */}
+          {/* ⚠️ LA COLONNE DE DROITE EST BRIDÉE À 62 CARACTÈRES. Sans borne
+              elle occupait toute la largeur restante — des lignes de 110
+              signes, presque le double de ce qui se lit sans effort, et un
+              gris de texte qui partait à la dérive à droite. Giz : « dans
+              notre méthode l'alignement à droite est bof ».
+              👉 Une colonne large ne veut pas dire une ligne large : la
+              mesure de lecture est un réglage à part. */}
           <div className="grid gap-x-16 gap-y-8 lg:grid-cols-[minmax(0,26rem)_1fr]">
             <h2 className={TYPO.titre}>
               Six étapes simples et une boucle d’amélioration.
             </h2>
-            <div>
-          <p className={`max-w-3xl ${TYPO.chapo}`}>
+            <div style={{ maxWidth: "62ch" }}>
+          <p className={TYPO.chapo}>
             Avant toute production, nous analysons vos communications existantes
             et leurs résultats.
           </p>
-          <p className={`mt-5 max-w-3xl ${TYPO.corps}`}>
+          <p className={`mt-5 ${TYPO.corps}`}>
             Des points d’étape réguliers et définis, qui vous font gagner du
             temps sans perdre en flexibilité.{" "}
             {/* ⭐ LE GIMMICK — phrase sérieuse, puis note backstage. C'est sa
@@ -427,7 +446,7 @@ export function CorpsAgence({  publique }: {  publique?: boolean }) {
               dernière minute. Elles ne remettent pas le concept en cause.)
             </em>
           </p>
-          <p className={`mt-5 max-w-3xl ${TYPO.corps}`}>
+          <p className={`mt-5 ${TYPO.corps}`}>
             Le concept vous arrive chiffré dès la conception, et la même méthode
             vaut pour{" "}
             {/* 🔗 Trois liens internes demandés par le texte validé. C'est le
@@ -502,20 +521,20 @@ export function CorpsAgence({  publique }: {  publique?: boolean }) {
               sansLegende
               video={{
                 url: "https://livid.com/watch/xWoXOR2H7RcC",
-                titre: "Pourquoi une modification n’attend pas",
+                titre: "Une réactivité conservée depuis 2004",
                 vignetteUrl: "/media/anecdote-reactivite.jpg",
               }}
             />
             <div className="mt-4 text-[1.0625rem] font-bold leading-snug">
-              Pourquoi une modification n’attend pas
+              Une réactivité conservée depuis 2004
             </div>
             <p className="mt-1.5 text-[15px] opacity-55">En vidéo — 1 min</p>
           </div>
 
           <div style={{ maxWidth: "62ch" }}>
             <h2 className={TYPO.titre}>
-              Un seul interlocuteur, parce que les quatre métiers sont dans la
-              maison.
+              Un seul interlocuteur, parce que les quatre métiers sont en
+              interne.
             </h2>
             <p className={`mt-7 ${TYPO.chapo}`}>
               Conception, contenu vidéo et son, infographie, développement :
@@ -580,8 +599,8 @@ export function CorpsAgence({  publique }: {  publique?: boolean }) {
             <strong>Agence de création de contenus née à Lyon en 2004</strong>,
             Bluevista travaille aujourd’hui à Lyon, Paris et Genève. Les outils ont
             changé, des premiers casques Oculus aux plateformes web 3D. La
-            première question n’a pas bougé : qu’est-ce que ce projet doit
-            produire ?
+            première question n’a pas bougé : quels objectifs ce projet
+            doit-il atteindre ?
           </p>
           {/* ⛔⛔ DEUX CHIFFRES QUI NE MESURENT PAS LA MÊME CHOSE, et les
               confondre est la faute qui avait fait retirer « 145 films » de
@@ -657,8 +676,8 @@ export function CorpsAgence({  publique }: {  publique?: boolean }) {
               Vous payez peut-être deux fois la même vidéo.
             </h2>
             <p className={`mt-8 ${TYPO.corps}`}>
-              Dans une entreprise qui grandit, plusieurs services commandent
-              des vidéos sans se coordonner. Le même salon, le même site, la
+              Dans une entreprise qui grandit, la communication entre services
+              devient de plus en plus complexe. Le même salon, le même site, la
               même usine se retrouvent tournés deux fois, à quelques semaines
               d’intervalle, par deux prestataires qui s’ignorent.
             </p>
@@ -791,9 +810,9 @@ export function CorpsAgence({  publique }: {  publique?: boolean }) {
             <h2 className={TYPO.titre}>Le matériel est à nous.</h2>
             <div>
           <p className={`max-w-3xl ${TYPO.chapo}`}>
-            Une régie de direct qui part en caisses, un parc de casques qu’on
-            emmène en réunion, des drones, des caméras 360, un studio fond vert
-            et les moteurs temps réel — Unreal Engine, Blender, Cinema 4D.
+            Une vraie régie de direct, un parc de casques VR qu’on emmène en
+            réunion, des drones, des caméras 360, un studio fond vert —
+            Unreal Engine, Blender, Cinema 4D…
           </p>
           <p className={`mt-4 max-w-3xl ${TYPO.corps}`}>
             Tout est à nous, et c’est ce qui change la conversation : on ne
