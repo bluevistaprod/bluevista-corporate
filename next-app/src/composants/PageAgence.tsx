@@ -270,6 +270,11 @@ const AU_TRAVAIL: [string, string][] = [
  * l'accueil : AGENCE DE CRÉATION DE CONTENUS — communication & marketing,
  * événementiel et immersion.
  *
+ * ⭐ « AUDIOVISUELS » A ÉTÉ RETIRÉ PUIS REMIS, le 21/08. Giz l'avait coupé,
+ * puis : « remets audiovisuel, je n'avais pas en tête le référencement ».
+ * C'est exactement pourquoi une contrainte se dit AVANT qu'on exécute, pas
+ * après : sans la note ci-dessous, personne n'aurait su ce qu'on jetait.
+ *
  * ⚠️ MAIS LE H1 N'EST PAS UN SLOGAN, ET LE CHANGER COÛTE. Le mot
  * « audiovisuelle » est présent dans presque toutes les requêtes qui
  * atteignent cette page, et elle est déjà en position 1 à 2 dessus. Le retirer
@@ -320,7 +325,7 @@ export function CorpsAgence({  publique }: {  publique?: boolean }) {
             L’agence
           </div>
           <h1 className="max-w-[22ch] text-[clamp(2.2rem,5vw,4rem)] font-bold leading-[1.02] tracking-[-0.02em]">
-            Agence de création de contenus depuis 2004
+            Agence de création de contenus audiovisuels depuis 2004
           </h1>
           <p className="mt-8 max-w-2xl text-[1.35rem] font-semibold leading-snug">
             Vous nous confiez un sujet, pas un dossier.
@@ -593,7 +598,22 @@ export function CorpsAgence({  publique }: {  publique?: boolean }) {
               ⚠️ Une colonne s'écroule sous 1024 px (`lg:`) : sur téléphone le
               titre repasse simplement au-dessus du texte. */}
           <div className="grid gap-x-16 gap-y-8 lg:grid-cols-[minmax(0,26rem)_1fr]">
-            <h2 className={TYPO.titre}>Vingt ans, et la même première question.</h2>
+            <div>
+              <h2 className={TYPO.titre}>Vingt ans, et la même première question.</h2>
+              {/* ⭐ UNE PHOTO D'ÉQUIPE, demandée par Giz le 21/08 : « y'a que MOI
+                  sur cette page, agrémente un peu avec l'équipe ». Il avait
+                  raison et c'était visible — les cinq vidéos le montrent LUI,
+                  et une page d'agence qui ne donne à voir qu'une personne dit
+                  le contraire de « les quatre métiers sont en interne ».
+                  ⚠️ La colonne de gauche portait un titre et 400 px de vide en
+                  dessous : la photo ne prend la place de rien. */}
+              <img
+                src="/media/equipe-groupe.jpg"
+                alt="Une partie de l’équipe Bluevista, réunie au studio"
+                className="mt-10 block w-full rounded-md object-cover"
+                style={{ aspectRatio: "4 / 3" }}
+              />
+            </div>
             <div>
           <p className="max-w-3xl text-[1.35rem] leading-relaxed">
             <strong>Agence de création de contenus née à Lyon en 2004</strong>,
@@ -807,7 +827,20 @@ export function CorpsAgence({  publique }: {  publique?: boolean }) {
               ⚠️ Une colonne s'écroule sous 1024 px (`lg:`) : sur téléphone le
               titre repasse simplement au-dessus du texte. */}
           <div className="grid gap-x-16 gap-y-8 lg:grid-cols-[minmax(0,26rem)_1fr]">
-            <h2 className={TYPO.titre}>Le matériel est à nous.</h2>
+            <div>
+              <h2 className={TYPO.titre}>Le matériel est à nous.</h2>
+              {/* ⭐ La régie en fonctionnement, à quatre : elle montre le
+                  matériel ET les gens qui le tiennent. Sur une section qui
+                  parle de moyens, une photo de matériel seul aurait dit
+                  « loueur » — le reproche exact que Giz faisait à la grue de
+                  six mètres. */}
+              <img
+                src="/media/equipe-regie.jpg"
+                alt="Quatre personnes de l’équipe en régie pendant un direct, casques sur les oreilles"
+                className="mt-10 block w-full rounded-md object-cover"
+                style={{ aspectRatio: "4 / 3" }}
+              />
+            </div>
             <div>
           <p className={`max-w-3xl ${TYPO.chapo}`}>
             Une vraie régie de direct, un parc de casques VR qu’on emmène en
