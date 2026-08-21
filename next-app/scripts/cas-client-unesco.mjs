@@ -20,10 +20,13 @@
  * cahier des charges). Nous ne les avons pas modélisés — nous les avons
  * rendus explorables. Écrire « huit sites modélisés » serait un vol.
  *
- * ⛔ UNE PHOTO EST ÉCARTÉE : un visiteur casque sur la tête, visage
- * parfaitement reconnaissable. C'est la plus forte du lot, et elle attend
- * l'accord de Giz — un événement public ne vaut pas autorisation de publier
- * quelqu'un sur un site commercial.
+ * ⭐ LA PHOTO AU CASQUE EST PUBLIÉE, sur autorisation explicite de Giz le
+ * 21/08/2026 (« j'ai l'autorisation »). Elle était écartée jusque-là : un
+ * visage parfaitement reconnaissable, et un événement public ne vaut pas
+ * autorisation de publier quelqu'un sur un site commercial. C'est la plus
+ * forte du lot — la seule qui montre l'expérience EN USAGE.
+ * ⛔ Si l'autorisation venait à être retirée, c'est cette image-ci qu'il faut
+ * retirer, et elle seule : `unesco-visiteur-casque-vr.jpg`.
  *
  * ⛔⛔ LE PIÈGE DE CE DOSSIER : Podio contient le CAHIER DES CHARGES COMPLET
  * de l'UNESCO — scénographie, écrans, globe physique, photomaton, cartes
@@ -70,6 +73,7 @@ console.log("Téléversement des photos de l’exposition…");
 const ecranTimgad  = await img("06.jpg", "unesco-ecran-tactile-timgad.jpg");
 const pincement    = await img("02.jpg", "unesco-ecran-tactile-vue-aerienne.jpg");
 const posteVR      = await img("04.jpg", "unesco-poste-vr-deux-casques.jpg");
+const casqueEnUsage = await img("03.jpg", "unesco-visiteur-casque-vr.jpg");
 const salle        = await img("12.jpg", "unesco-salle-exposition.jpg");
 const entree       = await img("13.jpg", "unesco-entree-dive-in.jpg");
 const public_      = await img("15.jpg", "unesco-lancement-public.jpg");
@@ -111,7 +115,10 @@ const blocs = [{
     para("La différence n’est pas technique, elle est de nature. Une photo à 360° affichée telle quelle reste une image dans laquelle on tourne la tête. Mise en scène, avec un ordre, des points d’arrêt et une manière d’en sortir, elle devient un endroit où l’on va — et c’est ce qu’on retient en enlevant le casque."),
     para("Deux casques étaient installés dans la salle, en libre essai. Aucune formation, aucune notice : on prend, on regarde, on repose."),
   ],
-  medias: [{ _key: cle(), _type: "media", image: posteVR, texteAlternatif: "Socle portant deux casques de réalité virtuelle et leurs manettes, devant un écran affichant « A digital dive into heritage »", legende: "Le poste de réalité virtuelle avant l’ouverture — et les derniers câblages" }],
+  medias: [
+    { _key: cle(), _type: "media", image: casqueEnUsage, texteAlternatif: "Un visiteur en costume, casque de réalité virtuelle sur la tête et manettes en main, devant l’écran « A digital dive into heritage »", legende: "L’expérience en usage, le jour du lancement" },
+    { _key: cle(), _type: "media", image: posteVR, texteAlternatif: "Socle portant deux casques de réalité virtuelle et leurs manettes, devant un écran affichant « A digital dive into heritage »", legende: "Le poste de réalité virtuelle avant l’ouverture — et les derniers câblages" },
+  ],
 }, {
   _type: "bloc", _key: cle(),
   titre: "Une interface pour manipuler le patrimoine",
@@ -157,4 +164,4 @@ const doc = {
 const existe = await client.fetch(`*[_id==$i][0]._id`, { i: doc._id });
 await client.createOrReplace(doc);
 console.log(`${existe ? "♻️ remplacée" : "✅ créée"} : /actualites/${SLUG}/`);
-console.log(`   ${blocs.length} blocs, 6 photos de l'exposition.`);
+console.log(`   ${blocs.length} blocs, 7 photos de l'exposition.`);

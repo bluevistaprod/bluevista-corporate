@@ -166,12 +166,30 @@ const HISTOIRES = [
   },
 ];
 
-/** ⚠️ Photos AU TRAVAIL. Jamais un groupe posé, jamais de tête à compter. */
+/**
+ * PHOTOS AU TRAVAIL. Jamais un groupe posé, jamais de tête à compter.
+ *
+ * ⛔⛔ TROIS DES QUATRE ÉTAIENT DES PHOTOS DE BANQUE D'IMAGES — préfixe `px-`,
+ * celui des visuels de gabarit. Une page qui dit « la compétence est ici »
+ * l'illustrait avec des photos achetées. Remplacées le 21/08/2026 par des
+ * images du Cloud Store, une fois celui-ci remonté.
+ *
+ * ⛔ LES LIBELLÉS ONT CHANGÉ, ET C'EST VOULU. L'ancienne série annonçait
+ * « En conception / En montage / En test » : je n'ai trouvé au Cloud Store
+ * aucune photo de conception ni de montage. Garder les mots en collant
+ * dessous une image qui montre autre chose, c'est la faute que je viens de
+ * corriger trois fois sur les actualités. On nomme ce qu'on montre.
+ *
+ * ⚠️ ET J'AI FAILLI ME TROMPER SUR LA PREMIÈRE. Sur la planche de contact,
+ * j'avais lu « quelqu'un avec des manettes VR sur fond vert ». En ouvrant la
+ * photo : c'est un DÉFROISSEUR, et il défroisse le fond vert. Une vignette de
+ * 180 pixels ne se lit pas, elle se devine — et deviner, c'est inventer.
+ */
 const AU_TRAVAIL = [
+  ["/media/coulisses-preparation-fond-vert.jpg", "Avant le tournage"],
   ["/media/coulisses-interview.jpg", "En tournage"],
-  ["/media/px-methode-1.jpg", "En conception"],
-  ["/media/px-methode-4.jpg", "En montage"],
-  ["/media/px-pilier-immersion.jpg", "En test"],
+  ["/media/coulisses-multicamera.jpg", "Avant l’ouverture des portes"],
+  ["/media/coulisses-regie-direct.jpg", "En régie"],
 ];
 
 /**
