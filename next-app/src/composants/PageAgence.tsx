@@ -53,16 +53,35 @@ import { liens } from "../shared/liens";
  * ⚠️ On nomme les MÉTIERS sans les compter (règle 3) : c'est ce qui permet
  * de dire l'intégration sans donner de signal de taille.
  */
+/**
+ * LES QUATRE PÔLES — refondus le 21/08/2026, sur la direction de Giz.
+ *
+ * ⛔ CE QUI NE TENAIT PLUS : « Vidéo » et « Son » séparés. Giz : « ne pas
+ * séparer vidéo et son, mettre tout ça sous contenu vidéo ». Il a raison, et
+ * pas seulement pour la forme — personne n'achète du son tout seul. Les
+ * séparer donnait deux cases de production là où le client voit un livrable.
+ *
+ * ⭐ ET LE PÔLE QUI MANQUAIT : la CONCEPTION. Giz : « on coordonne des projets
+ * events maintenant ». C'est vérifiable, pas déclaratif — sur WorldSkills, le
+ * devis facture une « conception scénographique », un « bureau d'étude » et
+ * des journées d'accompagnement technique, en plus des contenus. Sur UNESCO,
+ * un « apport au scénario » et de la gestion sur place. Ce travail-là existait
+ * déjà et n'apparaissait nulle part sur le site.
+ *
+ * ⚠️ LA COORDINATION EST DANS « CONCEPTION », PAS EN CINQUIÈME PÔLE. Un pôle
+ * décrit un métier qu'on exerce ; coordonner n'est pas un métier de plus, c'est
+ * ce que fait la conception quand le projet mobilise les trois autres.
+ */
 const POLES = [
   {
-    nom: "Vidéo",
+    nom: "Conception",
     detail:
-      "Tournage, montage, harmonisation des couleurs. Le métier d’origine, et celui qui donne le rythme aux trois autres.",
+      "Le concept, le scénario, la direction artistique — et la coordination quand un projet mobilise plusieurs métiers à la fois. Le pôle qui travaille avant qu’on filme quoi que ce soit.",
   },
   {
-    nom: "Son",
+    nom: "Contenu vidéo et son",
     detail:
-      "Prise de son, voix off, création sonore, podcast. C’est ce qu’on entend en premier quand c’est mal fait.",
+      "Tournage, montage, harmonisation des couleurs, prise de son, voix off, création sonore. Le son ne se rajoute pas à la fin : c’est ce qu’on entend en premier quand c’est mal fait.",
   },
   {
     nom: "Infographie",
@@ -180,16 +199,25 @@ const HISTOIRES = [
  * dessous une image qui montre autre chose, c'est la faute que je viens de
  * corriger trois fois sur les actualités. On nomme ce qu'on montre.
  *
- * ⚠️ ET J'AI FAILLI ME TROMPER SUR LA PREMIÈRE. Sur la planche de contact,
- * j'avais lu « quelqu'un avec des manettes VR sur fond vert ». En ouvrant la
- * photo : c'est un DÉFROISSEUR, et il défroisse le fond vert. Une vignette de
- * 180 pixels ne se lit pas, elle se devine — et deviner, c'est inventer.
+ * ⚠️ ET J'AI FAILLI ME TROMPER SUR LA PREMIÈRE VERSION. Sur la planche de
+ * contact j'avais lu « quelqu'un avec des manettes VR sur fond vert ». En
+ * ouvrant la photo : c'est un DÉFROISSEUR. Une vignette de 180 pixels ne se
+ * lit pas, elle se devine — et deviner, c'est inventer.
+ *
+ * ⛔⛔ ET MÊME JUSTE, ELLE ÉTAIT MAUVAISE. Giz : « un stagiaire avec un fer à
+ * repasser à la main sur un petit fond vert, ça fait pas rêver ». Le reproche
+ * ne porte pas sur l'exactitude : une photo peut être vraie ET dire le
+ * contraire de ce qu'on vend. Celle-ci disait « petite agence » sur une page
+ * dont l'argument est qu'on prend un projet en entier.
+ * 👉 Les quatre actuelles montrent chacune une ÉQUIPE au travail, à l'échelle
+ * d'un vrai chantier : repérage sur plans, tournage sur un stand, accroche
+ * d'un projecteur sur structure, régie de direct à quatre.
  */
 const AU_TRAVAIL = [
-  ["/media/coulisses-preparation-fond-vert.jpg", "Avant le tournage"],
+  ["/media/coulisses-reperage.jpg", "En repérage"],
   ["/media/coulisses-interview.jpg", "En tournage"],
-  ["/media/coulisses-multicamera.jpg", "Avant l’ouverture des portes"],
-  ["/media/coulisses-regie-direct.jpg", "En régie"],
+  ["/media/coulisses-installation.jpg", "En installation"],
+  ["/media/coulisses-regie-equipe.jpg", "En régie"],
 ];
 
 /**
