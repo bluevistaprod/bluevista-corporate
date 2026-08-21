@@ -217,7 +217,12 @@ const AU_TRAVAIL = [
   ["/media/coulisses-reperage.jpg", "En repérage"],
   ["/media/coulisses-interview.jpg", "En tournage"],
   ["/media/coulisses-installation.jpg", "En installation"],
-  ["/media/coulisses-regie-equipe.jpg", "En régie"],
+  /* ⚠️ RETOUR À CETTE PHOTO-CI le 21/08. J'avais préféré une régie à quatre
+     personnes, pour montrer une équipe. Giz : « celle-ci est moins bien
+     rangée ». Il a raison — sur une page qui vend la maîtrise, un plan de
+     travail encombré dit le contraire du propos, même s'il montre plus de
+     monde. L'ordre à l'image compte autant que ce qu'il y a dedans. */
+  ["/media/coulisses-regie-direct.jpg", "En régie"],
 ];
 
 /**
