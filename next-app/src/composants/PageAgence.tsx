@@ -253,7 +253,6 @@ const HISTOIRES = [
 const AU_TRAVAIL: [string, string][] = [
   ["/media/coulisses-reperage.jpg", "En repérage"],
   ["/media/coulisses-interview.jpg", "En tournage"],
-  ["/media/coulisses-chantier.jpg", "Sur un chantier"],
   ["/media/coulisses-plateau.jpg", "Sur le plateau"],
   ["/media/coulisses-regie-direct.jpg", "En régie"],
   ["/media/coulisses-montage.jpg", "En montage"],
@@ -303,13 +302,20 @@ export function CorpsAgence({  publique }: {  publique?: boolean }) {
              dans presque toutes les requêtes qui atteignent cette page, et
              elle est déjà en position 1 à 2 dessus.
              ⛔ PAS de « Genève » ici. */}
-      {/* ⭐ UNE IMAGE DE HÉROS, ajoutée le 21/08 : « pas de photo héros, ça me
-          pose un souci ». La page ouvrait sur un aplat noir — sur le site
-          d'une agence d'image, c'est le pire endroit possible pour n'avoir
-          rien à montrer.
-          ⚠️ Un événement que NOUS avons filmé, pas une image d'ambiance
-          achetée. Et le voile sombre n'est pas de la décoration : sans lui le
-          texte blanc devient illisible dès que la photo s'éclaircit. */}
+      {/* ⭐⭐ LE HÉROS MONTRE L'ÉQUIPE AU TRAVAIL — dernier état, 21/08. Il a
+          changé deux fois dans la journée, et la progression dit quelque chose :
+            · un aplat noir. « Pas de photo héros, ça me pose un souci » — sur
+              le site d'une agence d'image, le pire endroit pour ne rien montrer.
+            · une foule de spectateurs à un événement qu'on avait filmé. Vrai,
+              spectaculaire — et on n'y voyait personne de chez nous.
+            · quatre personnes en régie, casques sur les oreilles, mains sur le
+              clavier. C'est ce que fait l'agence, fait par l'agence.
+          👉 Une image de héros ne doit pas être la plus impressionnante, elle
+          doit être la plus JUSTE. Une salle comble raconte le client ; une
+          régie raconte celui qui la tient.
+
+          ⚠️ Elle a aussi la bonne forme : le tiers gauche est déjà sombre,
+          donc le texte blanc s'y pose sans que le voile ait à tout écraser. */}
       <section className="relative overflow-hidden" style={{ background: NOIR, color: "#fff" }}>
         <div
           className="absolute inset-0 bg-cover bg-center"
@@ -829,14 +835,16 @@ export function CorpsAgence({  publique }: {  publique?: boolean }) {
           <div className="grid gap-x-16 gap-y-8 lg:grid-cols-[minmax(0,26rem)_1fr]">
             <div>
               <h2 className={TYPO.titre}>Le matériel est à nous.</h2>
-              {/* ⭐ La régie en fonctionnement, à quatre : elle montre le
-                  matériel ET les gens qui le tiennent. Sur une section qui
-                  parle de moyens, une photo de matériel seul aurait dit
-                  « loueur » — le reproche exact que Giz faisait à la grue de
-                  six mètres. */}
+              {/* ⭐ LE CHANTIER, et non plus la régie — celle-ci est passée en
+                  héros. La photo montre le matériel ET les gens qui le
+                  tiennent : sur une section qui parle de moyens, une image de
+                  matériel SEUL aurait dit « loueur », le reproche exact fait à
+                  la grue de six mètres.
+                  ⚠️ Retirée du carrousel au passage : la même photo à deux
+                  endroits d'une même page se remarque et fait pauvre. */}
               <img
                 src="/media/equipe-regie.jpg"
-                alt="Quatre personnes de l’équipe en régie pendant un direct, casques sur les oreilles"
+                alt="Quatre personnes de l’équipe, casques de chantier et gilets, préparant un vol de drone sur un toit"
                 className="mt-10 block w-full rounded-md object-cover"
                 style={{ aspectRatio: "4 / 3" }}
               />
