@@ -1,5 +1,7 @@
 import { EnTete } from "./EnTete";
+import { BoutonAppel } from "./BoutonAppel";
 import { CarrouselHistoires } from "./CarrouselHistoires";
+import { CarrouselPhotos } from "./CarrouselPhotos";
 import { LecteurVideo } from "./LecteurVideo";
 import { PiedDePage } from "./PiedDePage";
 import { MethodeChapeau } from "./MethodeChapeau";
@@ -180,7 +182,7 @@ const HISTOIRES = [
     chute: "Le film de la journée a été projeté le soir même, dans la soirée.",
   },
   {
-    titre: "La demande arrivée le premier jour",
+    titre: "La demande de dernière minute",
     video: "https://livid.com/watch/8bFaVBE38-A_",
     affiche: "/media/anecdote-cannes.jpg",
     duree: "1 min 07",
@@ -229,19 +231,33 @@ const HISTOIRES = [
  * d'un vrai chantier : repérage sur plans, tournage sur un stand, accroche
  * d'un projecteur sur structure, régie de direct à quatre.
  */
-const AU_TRAVAIL = [
+const AU_TRAVAIL: [string, string][] = [
   ["/media/coulisses-reperage.jpg", "En repérage"],
   ["/media/coulisses-interview.jpg", "En tournage"],
   ["/media/coulisses-installation.jpg", "En installation"],
-  /* ⚠️ RETOUR À CETTE PHOTO-CI le 21/08. J'avais préféré une régie à quatre
-     personnes, pour montrer une équipe. Giz : « celle-ci est moins bien
-     rangée ». Il a raison — sur une page qui vend la maîtrise, un plan de
-     travail encombré dit le contraire du propos, même s'il montre plus de
-     monde. L'ordre à l'image compte autant que ce qu'il y a dedans. */
   ["/media/coulisses-regie-direct.jpg", "En régie"],
+  ["/media/coulisses-multicamera.jpg", "Avant l’ouverture des portes"],
+  ["/media/coulisses-console-son.jpg", "À la console son"],
+  ["/media/coulisses-studio-interview.jpg", "En studio"],
+  ["/media/coulisses-fond-vert.jpg", "Sur fond vert"],
 ];
 
 /**
+ * ⭐ LE POSITIONNEMENT CORRIGÉ le 21/08/2026. La page s'annonçait « agence de
+ * production audiovisuelle » — le message que le repositionnement abandonne.
+ * Giz : « change ça, tu connais le BON MESSAGE VALIDÉ ». Le voici, celui de
+ * l'accueil : AGENCE DE CRÉATION DE CONTENUS — communication & marketing,
+ * événementiel et immersion.
+ *
+ * ⚠️ MAIS LE H1 N'EST PAS UN SLOGAN, ET LE CHANGER COÛTE. Le mot
+ * « audiovisuelle » est présent dans presque toutes les requêtes qui
+ * atteignent cette page, et elle est déjà en position 1 à 2 dessus. Le retirer
+ * sec, c'est jeter un actif qui rapporte.
+ * 👉 D'où « agence de création de contenus AUDIOVISUELS » : le positionnement
+ * validé passe devant, et le mot qui porte le référencement reste dans la
+ * phrase. Ce n'est pas un compromis mou, c'est la seule version qui ne
+ * sacrifie ni l'un ni l'autre — à confirmer par Giz.
+ *
  * ⛔ LES BALISES, validées le 10/08/2026 — et elles ne sont PAS de la voix.
  * Un `<title>` porte le mot que les gens tapent, pas une accroche.
  * ⛔⛔ « Genève » n'y figure pas, et c'est mesuré : cette page capte déjà 236
@@ -261,14 +277,29 @@ export function CorpsAgence({  publique }: {  publique?: boolean }) {
              dans presque toutes les requêtes qui atteignent cette page, et
              elle est déjà en position 1 à 2 dessus.
              ⛔ PAS de « Genève » ici. */}
-      <section style={{ background: NOIR, color: "#fff" }}>
-        <div className="mx-auto max-w-[1500px] px-8 pb-20 pt-44">
+      {/* ⭐ UNE IMAGE DE HÉROS, ajoutée le 21/08 : « pas de photo héros, ça me
+          pose un souci ». La page ouvrait sur un aplat noir — sur le site
+          d'une agence d'image, c'est le pire endroit possible pour n'avoir
+          rien à montrer.
+          ⚠️ Un événement que NOUS avons filmé, pas une image d'ambiance
+          achetée. Et le voile sombre n'est pas de la décoration : sans lui le
+          texte blanc devient illisible dès que la photo s'éclaircit. */}
+      <section className="relative overflow-hidden" style={{ background: NOIR, color: "#fff" }}>
+        <div
+          className="absolute inset-0 bg-cover bg-center"
+          style={{ backgroundImage: "url('/media/agence-hero.jpg')" }}
+        />
+        <div
+          className="absolute inset-0"
+          style={{ background: "linear-gradient(100deg, rgba(4,7,10,.94) 0%, rgba(4,7,10,.82) 46%, rgba(4,7,10,.55) 100%)" }}
+        />
+        <div className="relative mx-auto max-w-[1500px] px-8 pb-20 pt-44">
           <div className={`mb-6 flex items-center gap-4 ${TYPO.surTitre}`} style={{ color: BLEU_CLAIR }}>
             <span className="inline-block h-[3px] w-12 rounded-full" style={{ background: BLEU_CLAIR }} />
             L’agence
           </div>
           <h1 className="max-w-[22ch] text-[clamp(2.2rem,5vw,4rem)] font-bold leading-[1.02] tracking-[-0.02em]">
-            Agence de production vidéo et audiovisuelle depuis 2004
+            Agence de création de contenus audiovisuels depuis 2004
           </h1>
           <p className="mt-8 max-w-2xl text-[1.35rem] font-semibold leading-snug">
             Vous nous confiez un sujet, pas un dossier.
@@ -320,6 +351,29 @@ export function CorpsAgence({  publique }: {  publique?: boolean }) {
         </div>
       </section>
 
+      {/* ── AU TRAVAIL ───────────────────────────────────────────────────
+             ⭐ REMONTÉE ICI le 21/08, demande de Giz : « avant notre méthode,
+             je veux remontrer un peu de nous ». Elle était après les quatre
+             pôles, c'est-à-dire après deux écrans de texte — on parlait de
+             méthode et d'organisation à quelqu'un qui n'avait encore rien vu
+             de la maison.
+
+             ⛔ PHOTOS AU TRAVAIL — décision du 10/08 : « plutôt photos
+             d'équipe mais pas complète, au travail ; et on cite les métiers,
+             pas les personnes ». Aucune image où l'on puisse compter les
+             têtes : ce serait un signal de taille.
+             ⛔ Aucune image IA pour ce qui prétend montrer Bluevista. */}
+      <section className="mx-auto max-w-[1500px] px-8 pb-4 pt-24">
+        <div className={`mb-7 flex items-center gap-4 ${TYPO.surTitre}`} style={{ color: BLEU }}>
+          <span className="inline-block h-[3px] w-12 rounded-full" style={{ background: BLEU }} />
+          Au travail
+        </div>
+        <h2 className={`mb-12 max-w-3xl ${TYPO.titre}`}>
+          Voilà à quoi ressemblent nos journées.
+        </h2>
+        <CarrouselPhotos photos={AU_TRAVAIL} />
+      </section>
+
       {/* ── LA MÉTHODE — la preuve qui paie la pique ─────────────────────── */}
       <section style={{ background: CLAIR_SOUTENU }}>
         <div className="mx-auto max-w-[1500px] px-8 py-28">
@@ -354,15 +408,15 @@ export function CorpsAgence({  publique }: {  publique?: boolean }) {
             vaut pour{" "}
             {/* 🔗 Trois liens internes demandés par le texte validé. C'est le
                 vrai rôle SEO de cette page : distribuer vers ce qui range. */}
-            <a href={L.metier("film")} className="font-semibold underline decoration-2 underline-offset-4" style={{ color: BLEU }}>
+            <a href={L.metier("film")} className="rounded-[5px] font-semibold no-underline" style={{ background: BLEU, color: "#fff", padding: ".12em .45em", boxDecorationBreak: "clone" }}>
               un film
             </a>
             ,{" "}
-            <a href={L.metier("evenement")} className="font-semibold underline decoration-2 underline-offset-4" style={{ color: BLEU }}>
+            <a href={L.metier("evenement")} className="rounded-[5px] font-semibold no-underline" style={{ background: BLEU, color: "#fff", padding: ".12em .45em", boxDecorationBreak: "clone" }}>
               un événement
             </a>{" "}
             ou{" "}
-            <a href={L.metier("immersion")} className="font-semibold underline decoration-2 underline-offset-4" style={{ color: BLEU }}>
+            <a href={L.metier("immersion")} className="rounded-[5px] font-semibold no-underline" style={{ background: BLEU, color: "#fff", padding: ".12em .45em", boxDecorationBreak: "clone" }}>
               une expérience immersive
             </a>
             .
@@ -410,37 +464,34 @@ export function CorpsAgence({  publique }: {  publique?: boolean }) {
             et c'est le seul endroit de la page qui explique COMMENT la promesse
             tient un mois d'août. Sans lui, « un seul interlocuteur » est un
             argument que n'importe qui peut écrire. */}
-        <p className={`mt-5 max-w-2xl ${TYPO.corps}`}>
-          Tout le monde travaille sur les mêmes logiciels, avec la même méthode
-          et la même nomenclature. C’est ce qui fait qu’une demande de
-          modification n’attend pas le retour de la personne qui était dessus :
-          quelqu’un d’autre ouvre le projet et le reprend.
-        </p>
-
-        {/* ⭐ LA VIDÉO PROUVE LE PARAGRAPHE AU-DESSUS. C'est le seul endroit de
-            la page où l'on peut vérifier une promesse d'organisation : « un
-            seul interlocuteur » est une phrase que toute agence peut écrire,
-            la nomenclature commune est un fait qu'on peut entendre expliquer.
-            ⚠️ Colonne étroite : la vidéo est en 9/16. */}
-        <div className="mt-12 grid items-start gap-10 md:grid-cols-[minmax(0,260px)_1fr]">
-          <LecteurVideo
-            format="portrait"
-            sansLegende
-            video={{
-              url: "https://livid.com/watch/xWoXOR2H7RcC",
-              titre: "Pourquoi une modification n’attend pas",
-              vignetteUrl: "/media/anecdote-reactivite.jpg",
-            }}
-          />
-          <div className="max-w-xl">
-            <div className={TYPO.sousTitre}>Pourquoi une modification n’attend pas</div>
-            <p className={`mt-3 ${TYPO.corps}`}>
-              Plus il y a de clients, plus il est difficile de rester réactif.
-              La réponse n’est pas d’embaucher : c’est que chacun travaille de
-              la même façon, pour que n’importe qui puisse reprendre le projet
-              d’un autre.
+        {/* ⭐ LA VIDÉO EST À DROITE DU TEXTE, pas dessous — correction de Giz
+            le 21/08 : « c'est moche et ça prend de la place en bas ». Il a
+            raison, et la raison est structurelle : une vidéo verticale posée
+            sous un paragraphe pousse toute la page vers le bas pour rien,
+            alors qu'à côté elle occupe la colonne que le texte laisse vide.
+            ⚠️ Le texte de la vidéo passe SOUS la vidéo, pas à côté : c'est sa
+            légende, elle doit rester attachée à elle. */}
+        <div className="mt-8 grid items-start gap-12 md:grid-cols-[1fr_minmax(0,250px)]">
+          <div>
+            <p className={`max-w-2xl ${TYPO.corps}`}>
+              Tout le monde travaille sur les mêmes logiciels, avec la même
+              méthode et la même nomenclature. C’est ce qui fait qu’une demande
+              de modification n’attend pas le retour de la personne qui était
+              dessus : quelqu’un d’autre ouvre le projet et le reprend.
             </p>
-            <p className="mt-3 text-[15px] opacity-60">En vidéo — 1 min</p>
+          </div>
+          <div>
+            <LecteurVideo
+              format="portrait"
+              sansLegende
+              video={{
+                url: "https://livid.com/watch/xWoXOR2H7RcC",
+                titre: "Pourquoi une modification n’attend pas",
+                vignetteUrl: "/media/anecdote-reactivite.jpg",
+              }}
+            />
+            <div className={`mt-4 ${TYPO.sousTitre}`}>Pourquoi une modification n’attend pas</div>
+            <p className="mt-2 text-[15px] opacity-60">En vidéo — 1 min</p>
           </div>
         </div>
 
@@ -456,25 +507,6 @@ export function CorpsAgence({  publique }: {  publique?: boolean }) {
           ))}
         </div>
 
-        {/* ⛔ PHOTOS AU TRAVAIL — décision de Giz, 10/08/2026 : « plutôt
-            photos d'équipe mais pas complète, au travail ; et on cite les
-            métiers, pas les personnes ». La grille de portraits et la photo de
-            groupe qui étaient ici ont été retirées : toute image où l'on peut
-            compter les têtes donne un signal de taille.
-            ⛔ Aucune image IA pour ce qui prétend montrer Bluevista. */}
-        <div className="mt-16 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-          {AU_TRAVAIL.map(([src, legende]) => (
-            <figure key={legende}>
-              <div
-                className="aspect-[4/3] rounded-md bg-cover bg-center"
-                style={{ backgroundImage: `url('${src}')` }}
-                role="img"
-                aria-label={legende}
-              />
-              <figcaption className="mt-2.5 text-[14px] opacity-55">{legende}</figcaption>
-            </figure>
-          ))}
-        </div>
       </section>
 
       {/* ── L'HISTOIRE ───────────────────────────────────────────────────── */}
@@ -485,7 +517,7 @@ export function CorpsAgence({  publique }: {  publique?: boolean }) {
             Notre histoire
           </div>
           <p className="text-[1.35rem] leading-relaxed">
-            <strong>Agence de production audiovisuelle née à Lyon en 2004</strong>,
+            <strong>Agence de création de contenus née à Lyon en 2004</strong>,
             Bluevista travaille aujourd’hui à Lyon, Paris et Genève. Les outils ont
             changé, des premiers casques Oculus aux plateformes web 3D. La
             première question n’a pas bougé : qu’est-ce que ce projet doit
@@ -528,28 +560,37 @@ export function CorpsAgence({  publique }: {  publique?: boolean }) {
             Vous payez peut-être deux fois la même vidéo.
           </h2>
 
-          <div className="mt-12 grid items-start gap-14 lg:grid-cols-[1fr_minmax(0,300px)]">
+          {/* ⛔ LE PREMIER JET RACONTAIT LA FAUTE — « on a failli tourner le
+              même film que… ». Giz : « un peu trop niais, sois plus
+              professionnel, parle positif de ce qu'on a évité ». Il a raison
+              sur le fond : un cas où l'on s'est rattrapé de justesse met en
+              scène le risque, pas la compétence. Ce qui se vend, c'est ce
+              qu'on a économisé au client — pas l'accident qu'on a esquivé.
+              ⚠️ Et la mise en page : la vidéo tombait en bas à droite avec du
+              vide sous le texte. Les deux colonnes commencent maintenant en
+              haut, et la légende est sous la vidéo. */}
+          <div className="mt-12 grid items-start gap-14 lg:grid-cols-[1fr_minmax(0,260px)]">
             <div className="max-w-3xl">
               <p className={TYPO.chapo}>
-                Sur un salon, nous avons failli tourner le même film que le
-                prestataire du service communication du même client — l’un
-                commandé par l’organisateur, l’autre par la marque, sans que
-                les deux services se soient parlé.
+                Dans une entreprise qui grandit, plusieurs services commandent
+                des vidéos sans se coordonner. Le même salon, le même site, la
+                même usine se retrouvent tournés deux fois, à quelques semaines
+                d’intervalle, par deux prestataires qui s’ignorent.
               </p>
               <p className={`mt-5 ${TYPO.corps}`}>
-                Ce n’est pas un accident, c’est ce qui arrive quand une
-                entreprise grandit. Nous cherchons donc systématiquement à
-                savoir ce qui se tourne ailleurs chez vous — pour partager les
-                images plutôt que de les refaire, ou pour que les films
-                répondent à des objectifs différents.
+                Nous commençons donc par une question que personne ne pose :
+                qu’est-ce qui se tourne ailleurs chez vous, et pour qui ?
+                Souvent, la réponse permet de partager des images plutôt que de
+                les refaire, ou d’orienter chaque film vers un objectif
+                distinct.
               </p>
               <p className={`mt-5 ${TYPO.corps}`}>
-                Chez un client, trois entités voulaient communiquer chacune de
-                son côté : le mobilier, l’aménagement, la structure et la
-                signalétique. Nous avons regroupé les tournages, chacune
-                prenant sa part du budget du même déplacement.{" "}
+                Pour un client dont trois entités communiquaient chacune de son
+                côté — mobilier, aménagement, structure et signalétique — nous
+                avons regroupé les tournages. Chacune a pris sa part du budget
+                du même déplacement.{" "}
                 <strong className="font-semibold">
-                  Plusieurs films, plusieurs besoins, un seul tournage.
+                  Trois films, trois objectifs, un seul tournage.
                 </strong>
               </p>
             </div>
@@ -563,7 +604,8 @@ export function CorpsAgence({  publique }: {  publique?: boolean }) {
                   vignetteUrl: "/media/anecdote-zones-grises.jpg",
                 }}
               />
-              <p className="mt-4 text-[14px] text-white/60">En vidéo — 1 min 17</p>
+              <div className="mt-4 text-[1.0625rem] font-bold leading-snug">Éliminer les zones grises</div>
+              <p className="mt-2 text-[14px] text-white/60">En vidéo — 1 min 17</p>
             </div>
           </div>
         </div>
@@ -572,13 +614,30 @@ export function CorpsAgence({  publique }: {  publique?: boolean }) {
       {/* ── LES CONVICTIONS ─────────────────────────────────────────────── */}
       <section className="mx-auto max-w-[1500px] px-8 py-24">
         <h2 className={`max-w-3xl ${TYPO.titre}`}>Ce sur quoi nous ne cédons pas</h2>
-        <ul className="mt-12 grid gap-8 md:grid-cols-3">
-          {CONVICTIONS.map(c => (
-            <li key={c} className="border-t-2 pt-6 text-[1.0625rem] leading-relaxed" style={{ borderColor: BLEU }}>
-              {c}
+        {/* ⭐ NUMÉROTÉES, demande de Giz : « mets des numéros sur les 3
+            engagements, un truc impactant ». Le chiffre fait deux choses qu'un
+            simple filet ne fait pas — il annonce qu'il y en a exactement trois
+            (donc que la liste est finie, pas un florilège), et il donne à
+            chacune le poids d'un article de contrat. */}
+        <ol className="mt-14 grid list-none gap-x-12 gap-y-14 p-0 md:grid-cols-3">
+          {CONVICTIONS.map((c, i) => (
+            <li key={c} className="relative pt-2">
+              <div
+                className="mb-5 font-bold leading-none tabular-nums"
+                style={{ fontSize: "clamp(3.4rem,6vw,4.6rem)", color: BLEU, opacity: 0.16 }}
+              >
+                0{i + 1}
+              </div>
+              <span
+                className="absolute left-0 top-0 block h-[3px] w-16 rounded-full"
+                style={{ background: BLEU }}
+              />
+              <p className="text-[1.125rem] font-medium leading-relaxed" style={{ maxWidth: "34ch" }}>
+                {c}
+              </p>
             </li>
           ))}
-        </ul>
+        </ol>
       </section>
 
       {/* ── TROIS HISTOIRES ──────────────────────────────────────────────
@@ -629,65 +688,42 @@ export function CorpsAgence({  publique }: {  publique?: boolean }) {
             <span className="inline-block h-[3px] w-12 rounded-full" style={{ background: BLEU }} />
             Nos moyens
           </div>
+          {/* ⛔ « UNE GRUE DE SIX MÈTRES » A ÉTÉ RETIRÉE. Giz : « c'est
+              ridicule ». Il a raison — annoncer la longueur d'une grue, c'est
+              parler comme un loueur de matériel, et six mètres n'impressionne
+              personne. Ce qui compte n'est pas la taille d'un bras mais ce que
+              le parc permet de faire SANS demander la permission à personne.
+              ⭐ Ce qui est cité vient des dossiers : la régie de direct part
+              en caisses sur les captations multicaméra, les casques servent en
+              réunion (UNESCO, Mont Aiguille), Unreal et Blender ont produit
+              les contenus WorldSkills et Expercité, et les caméras 360 ont
+              alimenté l'expérience VR de Dive into Heritage. */}
           <p className={TYPO.chapo}>
-            Une grue de six mètres et des drones, pour les mouvements que
-            l’épaule ne permet pas. Unreal Engine, Blender et Cinema 4D, parce
-            que la 3D et le temps réel se fabriquent ici. Notre propre parc de
-            casques, pour tester une expérience avant de vous la promettre.
+            Une régie de direct qui part en caisses, un parc de casques qu’on
+            emmène en réunion, des drones, des caméras 360, un studio fond vert
+            et les moteurs temps réel — Unreal Engine, Blender, Cinema 4D.
+          </p>
+          <p className={`mt-4 ${TYPO.corps}`}>
+            Tout est à nous, et c’est ce qui change la conversation : on ne
+            vous propose pas ce qu’il faudra louer, on vous propose ce qu’on
+            peut essayer dès la semaine prochaine.
           </p>
           <p className="mt-4 text-[1.0625rem] leading-relaxed opacity-70">
             <em>
-              (Oui, on les met sur la tête des clients en réunion. Ça raccourcit
-              beaucoup les débats.)
+              (Oui, on met les casques sur la tête des clients en réunion. Ça
+              raccourcit beaucoup les débats.)
             </em>
-          </p>
-          <p className={`mt-8 ${TYPO.corps}`}>
-            Ces moyens servent notre{" "}
-            <a href={publique ? "/studio-animation-3d-lyon/" : "/apercu/ville/studio-animation-3d-lyon"} className="font-semibold underline decoration-2 underline-offset-4" style={{ color: BLEU }}>
-              studio d’animation 3D à Lyon
-            </a>
-            , nos projections de{" "}
-            <a href={L.competence("video-mapping")} className="font-semibold underline decoration-2 underline-offset-4" style={{ color: BLEU }}>
-              vidéo mapping
-            </a>{" "}
-            et nos dispositifs de{" "}
-            <a href={L.competence("live-streaming-webtv")} className="font-semibold underline decoration-2 underline-offset-4" style={{ color: BLEU }}>
-              live streaming
-            </a>
-            .
           </p>
         </div>
       </section>
 
-      {/* ── LES RÉFÉRENCES ──────────────────────────────────────────────
-             ⚠️⚠️ EMPLACEMENT RÉSERVÉ, VOLONTAIREMENT VIDE.
-             Les noms (ONU, UNICEF, BBC, NHK, EDF, Vinci…) viennent du mémoire
-             Région AuRA. Les citer dans un marché public n'est PAS les
-             publier : la règle par défaut du cerveau est « on demande », et la
-             tâche Podio sur le droit de publication client n'est pas tranchée.
-             ⛔ Ne pas remplir ce bloc avant cet arbitrage.
-             ⚠️ Le titre reste à trouver : « Ils nous font confiance » est la
-             formule KabochArts, classée repoussoir. */}
-      <section className="mx-auto max-w-[1500px] px-8 py-24">
-        <div
-          className="rounded-md border-2 border-dashed px-8 py-10"
-          style={{ borderColor: `${BLEU}55` }}
-        >
-          <div className="text-[13px] font-bold uppercase tracking-[0.16em]" style={{ color: BLEU }}>
-            En attente d’arbitrage — ne pas mettre en ligne
-          </div>
-          <p className={`mt-4 ${TYPO.corps}`}>
-            Le bandeau de références clients. C’est le plus gros gisement non
-            exploité du site — une agence qui a produit pour des institutions
-            internationales et des chaînes nationales ne devrait pas le taire.
-          </p>
-          <p className="mt-4 text-[15px] leading-relaxed opacity-55">
-            Deux choses bloquent, et aucune n’est rédactionnelle : le droit de
-            publication n’est tranché pour aucun de ces clients (tâche Podio en
-            cours), et le titre de section reste à trouver.
-          </p>
-        </div>
-      </section>
+      {/* ⛔ LE BLOC « RÉFÉRENCES CLIENTS » A ÉTÉ RETIRÉ le 21/08. Il affichait
+          en clair « En attente d'arbitrage — ne pas mettre en ligne », c'est-à-dire
+          une note de chantier laissée sur une page publique à deux semaines de la
+          mise en ligne. Giz : « on ne les met pas ici de toute façon ».
+          📌 Le fond du sujet — droit de publication des noms clients — reste
+          ouvert dans Podio ; il ne se règle pas en laissant un emplacement vide
+          qui parle de lui-même. */}
 
       {/* ── LA CLÔTURE ──────────────────────────────────────────────────
              ⛔ Jamais un « contactez-nous ! » nu. Son marqueur depuis quinze
@@ -698,22 +734,28 @@ export function CorpsAgence({  publique }: {  publique?: boolean }) {
       <section style={{ background: CLAIR }} className="border-t border-black/10 py-24">
         <div className="mx-auto max-w-[900px] px-8">
           <h2 className={TYPO.titre}>
-            Voyons <span style={{ color: BLEU }}>ensemble</span> ce que votre
-            prochain projet doit faire.
+            Construisons <span style={{ color: BLEU }}>ensemble</span> le
+            projet qui sert votre vision.
           </h2>
+          {/* ⭐ ALIGNÉ SUR L'ACCUEIL, demande de Giz le 21/08. Deux pages qui
+              se terminent par deux appels à l'action différents donnent
+              l'impression de deux sites — et c'est celui de l'accueil qui a
+              été arbitré.
+              ⛔ `BoutonAppel` et pas un lien vers le contact : le numéro
+              n'apparaît qu'au clic, et il n'est pas dans le HTML avant. Un lien
+              `tel:` sur ordinateur ne fait rien, et le visiteur croit le bouton
+              cassé. */}
+          <p className="mt-6 max-w-xl text-lg opacity-65">
+            Parlons de vos objectifs avant de parler de format.
+          </p>
           <div className="mt-10 flex flex-wrap gap-4">
+            <BoutonAppel />
             <a
               href={L.contact}
-              className="rounded-md px-9 py-4 text-[16px] font-bold text-white transition hover:brightness-110"
-              style={{ background: BLEU }}
+              className="rounded-md border-2 border-black/15 px-9 py-4 text-[16px] font-semibold no-underline"
+              style={{ color: SOMBRE }}
             >
-              Un appel de 30 minutes ?
-            </a>
-            <a
-              href={L.contact}
-              className="rounded-md border border-black/20 px-9 py-4 text-[16px] font-semibold"
-            >
-              Ou envoyez-nous votre sujet — nous vous dirons ce que nous en ferions
+              Ou décrivez-nous votre projet en trois lignes
             </a>
           </div>
         </div>
