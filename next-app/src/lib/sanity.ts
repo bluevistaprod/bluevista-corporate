@@ -66,6 +66,8 @@ export type RealisationSanity = {
   image?: unknown;
   aRelire?: boolean;
   ancienneUrl?: string;
+  titreSeo?: string;
+  descriptionSeo?: string;
   casContexte?: string;
   casEnjeu?: string;
   casFait?: string;
@@ -88,11 +90,27 @@ export type RealisationSanity = {
  */
 export const DELAI_CACHE = process.env.NODE_ENV === "production" ? 60 : 0;
 
+/**
+ * ⭐ `titreSeo` / `descriptionSeo` REBRANCHÉS le 21/08/2026. Ils étaient
+ * volontairement absents tant que les 146 réalisations les avaient tous
+ * vides ; le showreel 2026 est la première à en porter un.
+ *
+ * ⛔⛔ ET LE COMMENTAIRE RESTE ICI, DEHORS DE LA REQUÊTE. GROQ ne connaît
+ * pas les commentaires à l'étoile : glissés dans la requête, ils la cassent
+ * au PARSING — donc à l'exécution. Les types passent, le build passe, et la
+ * page rend un 500. Une requête est une CHAÎNE pour JavaScript, pas du code :
+ * rien de ce qu'on écrit dedans n'est du commentaire.
+ *
+ * ⚠️ Et en corrigeant ça je viens de refaire l'autre faute jumelle : écrire
+ * une étoile suivie d'une barre oblique DANS un commentaire le termine en
+ * plein milieu. Les deux se sont produites à cinq minutes d'intervalle.
+ */
 const CHAMPS = `
   _id,
   "slug": slug.current,
   titre, client, clientUrl, metier, produit, video, intro, image, aRelire, ancienneUrl,
-  casContexte, casEnjeu, casFait, casResultat
+  casContexte, casEnjeu, casFait, casResultat,
+  titreSeo, descriptionSeo
 `;
 
 export async function lireRealisations(version: Version = "fr") {

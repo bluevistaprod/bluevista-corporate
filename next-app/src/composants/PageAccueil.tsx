@@ -461,9 +461,16 @@ export async function CorpsAccueil({ publique }: { publique?: boolean }) {
             {/* ⛔ C'ÉTAIT UN `<button>` SANS ACTION : il avait l'air cliquable
                 et ne faisait rien. Le pire état pour un appel à l'action —
                 le visiteur clique, rien ne bouge, et il en conclut que le site
-                est cassé. Il mène maintenant au showreel le plus récent. */}
+                est cassé. Il mène maintenant au showreel le plus récent.
+
+                ⚠️ CETTE ADRESSE EST ÉCRITE EN DUR, et c'est une dette : au
+                prochain showreel il faudra revenir ici, sinon le bouton
+                d'accueil montrera encore l'an dernier. Elle n'est pas
+                déductible — « la réalisation la plus récente de client
+                BLUEVISTA » attraperait aussi les bandes démo et les films
+                internes, qui portent le même client. */}
             <a
-              href={L.realisation("bluevista-showreel-2025")}
+              href={L.realisation("bluevista-showreel-2026")}
               className="flex items-center gap-3.5 rounded-md border border-white/35 py-[1.05rem] pl-3 pr-7 text-[16px] font-semibold text-white no-underline transition hover:bg-white/10"
             >
               <span className="flex h-9 w-9 items-center justify-center rounded-full bg-white text-sm" style={{ color: SOMBRE }}>▶</span>

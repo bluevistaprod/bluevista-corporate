@@ -76,9 +76,9 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
      titre est donc CONSTRUIT — client + titre du projet — en attendant que
      Giz reprenne les réalisations. Un titre construit vaut mieux que 146
      titres identiques ; il ne vaut pas un titre écrit.
-     📌 Les champs `titreSeo`/`descriptionSeo` existent dans le schéma mais ne
-     sont pas remontés par la requête : inutile de les lire tant qu'ils sont
-     vides partout. À rebrancher le jour où Giz les remplit. */
+     ⭐ REBRANCHÉS le 21/08/2026 : le showreel 2026 est la première réalisation
+     à porter un `titreSeo`. Le titre construit n'est plus qu'un REPLI — il
+     s'efface dès qu'un titre est écrit. */
   const nom: string = r.client && !r.titre.toLowerCase().includes(r.client.toLowerCase())
     ? `${r.client} — ${r.titre}`
     : r.titre;
@@ -87,8 +87,14 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
        Première tentative : `${nom} | Bluevista` — et les fiches sont sorties
        en « … | Bluevista | Bluevista ». Le même piège que je venais de
        corriger, refait dans le geste qui le corrigeait. */
-    title: nom,
-    description: r.intro ? String(r.intro).slice(0, 155) : undefined,
+    /* ⛔ `absolute` quand le titre est écrit : `titreSeo` porte déjà
+       « | Bluevista », et le gabarit du layout l'ajoute une seconde fois.
+       C'est exactement le piège décrit juste au-dessus — d'où la garde, qui
+       ne met `absolute` que si le suffixe est effectivement là. */
+    title: r.titreSeo
+      ? (/\|\s*Bluevista\s*$/i.test(r.titreSeo) ? { absolute: r.titreSeo } : r.titreSeo)
+      : nom,
+    description: r.descriptionSeo ?? (r.intro ? String(r.intro).slice(0, 155) : undefined),
     alternates: await alternatesDe(r._id, "realisation", "fr", r.slug),
   };
 }
