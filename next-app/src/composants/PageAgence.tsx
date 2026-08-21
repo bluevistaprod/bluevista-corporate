@@ -217,6 +217,15 @@ const HISTOIRES = [
  * dessous une image qui montre autre chose, c'est la faute que je viens de
  * corriger trois fois sur les actualités. On nomme ce qu'on montre.
  *
+ * ⭐ TROIS PHOTOS AJOUTÉES le 21/08 depuis le groupe WhatsApp de validation :
+ * le plateau, la régie de direct (elle remplace la précédente — l'opérateur y
+ * est de face, casque sur les oreilles, devant un mélangeur autrement plus
+ * imposant), et un tournage studio à deux.
+ * ⚠️ « Sur le plateau » ne dit PAS qui sont les trois personnes du canapé. Je
+ * n'en sais rien : ce sont peut-être nos équipes, peut-être les invités du
+ * format. Une légende qui l'affirmerait serait une supposition écrite au
+ * présent de l'indicatif.
+ *
  * ⚠️ ET J'AI FAILLI ME TROMPER SUR LA PREMIÈRE VERSION. Sur la planche de
  * contact j'avais lu « quelqu'un avec des manettes VR sur fond vert ». En
  * ouvrant la photo : c'est un DÉFROISSEUR. Une vignette de 180 pixels ne se
@@ -234,11 +243,12 @@ const HISTOIRES = [
 const AU_TRAVAIL: [string, string][] = [
   ["/media/coulisses-reperage.jpg", "En repérage"],
   ["/media/coulisses-interview.jpg", "En tournage"],
-  ["/media/coulisses-installation.jpg", "En installation"],
+  ["/media/coulisses-plateau.jpg", "Sur le plateau"],
   ["/media/coulisses-regie-direct.jpg", "En régie"],
+  ["/media/coulisses-installation.jpg", "En installation"],
+  ["/media/coulisses-studio-deux.jpg", "En studio"],
   ["/media/coulisses-multicamera.jpg", "Avant l’ouverture des portes"],
   ["/media/coulisses-console-son.jpg", "À la console son"],
-  ["/media/coulisses-studio-interview.jpg", "En studio"],
   ["/media/coulisses-fond-vert.jpg", "Sur fond vert"],
 ];
 
@@ -454,12 +464,7 @@ export function CorpsAgence({  publique }: {  publique?: boolean }) {
           Un seul interlocuteur, parce que les quatre métiers sont dans la
           maison.
         </h2>
-        <p className={`mt-6 max-w-2xl ${TYPO.chapo}`}>
-          Vidéo, son, infographie, développement. Concepteurs, réalisateurs,
-          infographistes, cadreurs, monteurs, développeurs : les mêmes
-          personnes suivent votre projet du premier rendez-vous à la mise en
-          ligne.
-        </p>
+
         {/* ⭐ CE PARAGRAPHE VIENT DE L'AUDIO DE GIZ (« anecdotes », 5-réactivité),
             et c'est le seul endroit de la page qui explique COMMENT la promesse
             tient un mois d'août. Sans lui, « un seul interlocuteur » est un
@@ -471,9 +476,24 @@ export function CorpsAgence({  publique }: {  publique?: boolean }) {
             alors qu'à côté elle occupe la colonne que le texte laisse vide.
             ⚠️ Le texte de la vidéo passe SOUS la vidéo, pas à côté : c'est sa
             légende, elle doit rester attachée à elle. */}
-        <div className="mt-8 grid items-start gap-12 md:grid-cols-[1fr_minmax(0,250px)]">
-          <div>
-            <p className={`max-w-2xl ${TYPO.corps}`}>
+        {/* ⛔ LE CHAPÔ EST DESCENDU DANS LA COLONNE DE GAUCHE. Il était
+            au-dessus de la grille, et il ne restait qu'un paragraphe face à une
+            vidéo verticale de 440 px de haut : un trou blanc de la moitié de
+            l'écran sous le texte. Giz, capture à l'appui : « change ces
+            alignements ».
+            👉 La règle qui s'en dégage : une colonne étroite et HAUTE (un 9/16)
+            ne se met pas à côté de trois lignes. Soit on lui donne assez de
+            texte en face, soit on la met ailleurs. Ici il y avait le texte, il
+            était juste au mauvais endroit. */}
+        <div className="mt-8 grid items-center gap-14 md:grid-cols-[1fr_minmax(0,210px)]">
+          <div className="max-w-2xl">
+            <p className={TYPO.chapo}>
+              Vidéo, son, infographie, développement. Concepteurs, réalisateurs,
+              infographistes, cadreurs, monteurs, développeurs : les mêmes
+              personnes suivent votre projet du premier rendez-vous à la mise
+              en ligne.
+            </p>
+            <p className={`mt-6 ${TYPO.corps}`}>
               Tout le monde travaille sur les mêmes logiciels, avec la même
               méthode et la même nomenclature. C’est ce qui fait qu’une demande
               de modification n’attend pas le retour de la personne qui était
@@ -510,13 +530,20 @@ export function CorpsAgence({  publique }: {  publique?: boolean }) {
       </section>
 
       {/* ── L'HISTOIRE ───────────────────────────────────────────────────── */}
+      {/* ⛔ CETTE SECTION ÉTAIT EN `max-w-[900px]` QUAND TOUT LE RESTE EST EN
+          1500. Centrée, elle démarrait 300 px plus à droite que la section
+          d'au-dessus : en faisant défiler, le texte sautait vers la droite sans
+          raison. C'est le décalage que Giz a entouré.
+          ⚠️ La largeur de LECTURE reste courte — c'est `max-w-3xl` sur le
+          paragraphe qui s'en charge, pas le conteneur. Les deux ne font pas le
+          même travail : l'un cadre la page, l'autre la ligne. */}
       <section style={{ background: SOMBRE, color: "#fff" }}>
-        <div className="mx-auto max-w-[900px] px-8 py-24">
+        <div className="mx-auto max-w-[1500px] px-8 py-24">
           <div className={`mb-7 flex items-center gap-4 ${TYPO.surTitre}`} style={{ color: BLEU_CLAIR }}>
             <span className="inline-block h-[3px] w-12 rounded-full" style={{ background: BLEU_CLAIR }} />
             Notre histoire
           </div>
-          <p className="text-[1.35rem] leading-relaxed">
+          <p className="max-w-3xl text-[1.35rem] leading-relaxed">
             <strong>Agence de création de contenus née à Lyon en 2004</strong>,
             Bluevista travaille aujourd’hui à Lyon, Paris et Genève. Les outils ont
             changé, des premiers casques Oculus aux plateformes web 3D. La
@@ -569,7 +596,11 @@ export function CorpsAgence({  publique }: {  publique?: boolean }) {
               ⚠️ Et la mise en page : la vidéo tombait en bas à droite avec du
               vide sous le texte. Les deux colonnes commencent maintenant en
               haut, et la légende est sous la vidéo. */}
-          <div className="mt-12 grid items-start gap-14 lg:grid-cols-[1fr_minmax(0,260px)]">
+          {/* ⚠️ `items-center` : le texte fait trois paragraphes, la vidéo
+              verticale un peu plus haut. Alignés en haut, l'écart tombait
+              entièrement sous le texte ; centrés, il se répartit et ne se
+              remarque plus. */}
+          <div className="mt-12 grid items-center gap-14 lg:grid-cols-[1fr_minmax(0,240px)]">
             <div className="max-w-3xl">
               <p className={TYPO.chapo}>
                 Dans une entreprise qui grandit, plusieurs services commandent
@@ -683,7 +714,11 @@ export function CorpsAgence({  publique }: {  publique?: boolean }) {
              🔗 C'est ici que la page distribue vers les pages qui portent le
              référencement, AVEC LES BONS MOTS EN ANCRE. */}
       <section style={{ background: CLAIR_SOUTENU }}>
-        <div className="mx-auto max-w-[900px] px-8 py-24">
+        {/* ⛔ 1500 px comme les autres. Toute section en 900 démarrait 300 px
+            plus à droite : en faisant défiler, le texte sautait de gauche à
+            droite d'une section à l'autre. La largeur de LECTURE se règle sur
+            le paragraphe (`max-w-3xl`), pas sur le conteneur de page. */}
+        <div className="mx-auto max-w-[1500px] px-8 py-24">
           <div className={`mb-7 flex items-center gap-4 ${TYPO.surTitre}`} style={{ color: BLEU }}>
             <span className="inline-block h-[3px] w-12 rounded-full" style={{ background: BLEU }} />
             Nos moyens
@@ -698,12 +733,12 @@ export function CorpsAgence({  publique }: {  publique?: boolean }) {
               réunion (UNESCO, Mont Aiguille), Unreal et Blender ont produit
               les contenus WorldSkills et Expercité, et les caméras 360 ont
               alimenté l'expérience VR de Dive into Heritage. */}
-          <p className={TYPO.chapo}>
+          <p className={`max-w-3xl ${TYPO.chapo}`}>
             Une régie de direct qui part en caisses, un parc de casques qu’on
             emmène en réunion, des drones, des caméras 360, un studio fond vert
             et les moteurs temps réel — Unreal Engine, Blender, Cinema 4D.
           </p>
-          <p className={`mt-4 ${TYPO.corps}`}>
+          <p className={`mt-4 max-w-3xl ${TYPO.corps}`}>
             Tout est à nous, et c’est ce qui change la conversation : on ne
             vous propose pas ce qu’il faudra louer, on vous propose ce qu’on
             peut essayer dès la semaine prochaine.
@@ -732,8 +767,8 @@ export function CorpsAgence({  publique }: {  publique?: boolean }) {
              ⛔ Fond clair : le pied de page est sombre, et deux bandes sombres
              collées se lisaient comme deux pieds de page. */}
       <section style={{ background: CLAIR }} className="border-t border-black/10 py-24">
-        <div className="mx-auto max-w-[900px] px-8">
-          <h2 className={TYPO.titre}>
+        <div className="mx-auto max-w-[1500px] px-8">
+          <h2 className={`max-w-3xl ${TYPO.titre}`}>
             Construisons <span style={{ color: BLEU }}>ensemble</span> le
             projet qui sert votre vision.
           </h2>

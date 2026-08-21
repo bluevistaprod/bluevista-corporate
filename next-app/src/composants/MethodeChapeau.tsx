@@ -242,8 +242,14 @@ export function MethodeChapeau({ publique }: { publique?: boolean }) {
             <a
               key={m.cle}
               href={m.url}
-              className="font-semibold underline decoration-2 underline-offset-4 transition hover:opacity-70"
-              style={{ color: BLEU }}
+              /* ⛔ PASTILLE, PAS SOULIGNEMENT — règle validée le 12/08 et que
+                 j'avais appliquée partout SAUF ici. Giz l'a vue sur la capture :
+                 « les liens ici sont soulignés alors qu'en mise en page on a
+                 validé un surlignage ». Une règle de style ne vaut que si on la
+                 cherche dans tous les composants, pas seulement celui qu'on est
+                 en train de modifier. */
+              className="rounded-[5px] font-semibold no-underline transition hover:opacity-80"
+              style={{ background: BLEU, color: "#fff", padding: ".12em .45em", boxDecorationBreak: "clone" }}
             >
               {m.nom}
             </a>
