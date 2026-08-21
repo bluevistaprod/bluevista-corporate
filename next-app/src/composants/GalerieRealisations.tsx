@@ -22,8 +22,17 @@ import { liens } from "../shared/liens";
  * projet, la page le dit au lieu de faire semblant.
  *
  * ⛔ Les réalisations dont l'adresse ne dit pas ce qu'elles montrent ne sont
- * PAS rangées d'office : elles apparaissent sous « à classer ». Un projet mal
- * classé serait pire — il s'afficherait devant le mauvais prospect.
+ * PAS rangées d'office : un projet mal classé serait pire, il s'afficherait
+ * devant le mauvais prospect.
+ *
+ * ⛔⛔ MAIS « À CLASSER » N'EXISTE PAS, et ce commentaire a affirmé le
+ * contraire pendant des jours. Un `nonClassees` était bien calculé — et jamais
+ * affiché nulle part. Résultat réel : une réalisation sans `metier` apparaît
+ * dans « Toutes » et dans AUCUN filtre de métier. Elle n'est pas signalée,
+ * elle est simplement absente des filtres.
+ * ⚠️ Le compteur mort a été retiré. Si le bucket « à classer » doit exister,
+ * il reste à écrire — c'est une décision de Giz, pas un oubli à combler en
+ * douce. Le showreel 2026 est aujourd'hui dans ce cas.
  */
 
 const TOUS_PRODUITS = OFFRES.flatMap(o =>
@@ -73,7 +82,6 @@ export function GalerieRealisations({
     [metier, produit]
   );
 
-  const nonClassees = resultats.filter(r => !r.metier).length;
 
   return (
     /* ⛔ TRI À GAUCHE, demande de Giz : « je préfère un tri à gauche qu'un
