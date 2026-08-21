@@ -390,11 +390,26 @@ export function CorpsAgence({  publique }: {  publique?: boolean }) {
             <span className="inline-block h-[3px] w-12 rounded-full" style={{ background: BLEU }} />
             Notre méthode
           </div>
-          <h2 className={`max-w-4xl ${TYPO.titre}`}>
-            Six étapes simples et une boucle d’amélioration.
-          </h2>
-
-          <p className={`mt-8 max-w-3xl ${TYPO.chapo}`}>
+          {/* ⛔⛔ DEUX COLONNES POUR UNE SECTION SANS IMAGE — et c'est une
+              faute que j'ai CRÉÉE en corrigeant la précédente. Giz avait
+              signalé que le texte sautait de 300 px vers la droite d'une
+              section à l'autre : j'ai donc aligné tous les conteneurs à gauche
+              sur 1500 px. Résultat, un bloc de texte seul se retrouvait plaqué
+              contre le bord gauche avec la moitié droite vide. Giz : « pourquoi
+              le texte est collé à gauche ?? »
+              👉 Recentrer ramènerait le saut. La sortie est de DONNER UNE
+              COLONNE : sur-titre et titre à gauche, corps à droite. Le bord
+              gauche ne bouge plus d'une section à l'autre, et la largeur est
+              occupée. C'est aussi une hiérarchie de lecture qu'un bloc plein
+              cadre n'a pas.
+              ⚠️ Une colonne s'écroule sous 1024 px (`lg:`) : sur téléphone le
+              titre repasse simplement au-dessus du texte. */}
+          <div className="grid gap-x-16 gap-y-8 lg:grid-cols-[minmax(0,26rem)_1fr]">
+            <h2 className={TYPO.titre}>
+              Six étapes simples et une boucle d’amélioration.
+            </h2>
+            <div>
+          <p className={`max-w-3xl ${TYPO.chapo}`}>
             Avant toute production, nous analysons vos communications existantes
             et leurs résultats.
           </p>
@@ -431,6 +446,17 @@ export function CorpsAgence({  publique }: {  publique?: boolean }) {
             .
           </p>
 
+            </div>
+          </div>
+
+          {/* ⛔ LA ROUE SORT DE LA GRILLE À DEUX COLONNES. Mes deux fermetures
+              s'étaient glissées À L'INTÉRIEUR du `mt-16` préexistant : les
+              balises s'équilibraient, donc TypeScript ne disait rien, mais la
+              roue se retrouvait emboîtée dans la colonne de texte et sortait à
+              170 px au lieu de 420. Le texte des étapes se superposait aux
+              pastilles.
+              👉 Un compilateur qui accepte ne garantit pas une STRUCTURE
+              juste : seul le rendu le dit. */}
           <div className="mt-16">
             <MethodeChapeau publique={publique} />
           </div>
@@ -533,6 +559,23 @@ export function CorpsAgence({  publique }: {  publique?: boolean }) {
             <span className="inline-block h-[3px] w-12 rounded-full" style={{ background: BLEU_CLAIR }} />
             Notre histoire
           </div>
+          {/* ⛔⛔ DEUX COLONNES POUR UNE SECTION SANS IMAGE — et c'est une
+              faute que j'ai CRÉÉE en corrigeant la précédente. Giz avait
+              signalé que le texte sautait de 300 px vers la droite d'une
+              section à l'autre : j'ai donc aligné tous les conteneurs à gauche
+              sur 1500 px. Résultat, un bloc de texte seul se retrouvait plaqué
+              contre le bord gauche avec la moitié droite vide. Giz : « pourquoi
+              le texte est collé à gauche ?? »
+              👉 Recentrer ramènerait le saut. La sortie est de DONNER UNE
+              COLONNE : sur-titre et titre à gauche, corps à droite. Le bord
+              gauche ne bouge plus d'une section à l'autre, et la largeur est
+              occupée. C'est aussi une hiérarchie de lecture qu'un bloc plein
+              cadre n'a pas.
+              ⚠️ Une colonne s'écroule sous 1024 px (`lg:`) : sur téléphone le
+              titre repasse simplement au-dessus du texte. */}
+          <div className="grid gap-x-16 gap-y-8 lg:grid-cols-[minmax(0,26rem)_1fr]">
+            <h2 className={TYPO.titre}>Vingt ans, et la même première question.</h2>
+            <div>
           <p className="max-w-3xl text-[1.35rem] leading-relaxed">
             <strong>Agence de création de contenus née à Lyon en 2004</strong>,
             Bluevista travaille aujourd’hui à Lyon, Paris et Genève. Les outils ont
@@ -552,6 +595,8 @@ export function CorpsAgence({  publique }: {  publique?: boolean }) {
             Plus de 2 000 projets
           </p>
           <p className="mt-3 text-white/55">réalisés depuis 2004.</p>
+            </div>
+          </div>
         </div>
       </section>
 
@@ -728,6 +773,23 @@ export function CorpsAgence({  publique }: {  publique?: boolean }) {
               réunion (UNESCO, Mont Aiguille), Unreal et Blender ont produit
               les contenus WorldSkills et Expercité, et les caméras 360 ont
               alimenté l'expérience VR de Dive into Heritage. */}
+          {/* ⛔⛔ DEUX COLONNES POUR UNE SECTION SANS IMAGE — et c'est une
+              faute que j'ai CRÉÉE en corrigeant la précédente. Giz avait
+              signalé que le texte sautait de 300 px vers la droite d'une
+              section à l'autre : j'ai donc aligné tous les conteneurs à gauche
+              sur 1500 px. Résultat, un bloc de texte seul se retrouvait plaqué
+              contre le bord gauche avec la moitié droite vide. Giz : « pourquoi
+              le texte est collé à gauche ?? »
+              👉 Recentrer ramènerait le saut. La sortie est de DONNER UNE
+              COLONNE : sur-titre et titre à gauche, corps à droite. Le bord
+              gauche ne bouge plus d'une section à l'autre, et la largeur est
+              occupée. C'est aussi une hiérarchie de lecture qu'un bloc plein
+              cadre n'a pas.
+              ⚠️ Une colonne s'écroule sous 1024 px (`lg:`) : sur téléphone le
+              titre repasse simplement au-dessus du texte. */}
+          <div className="grid gap-x-16 gap-y-8 lg:grid-cols-[minmax(0,26rem)_1fr]">
+            <h2 className={TYPO.titre}>Le matériel est à nous.</h2>
+            <div>
           <p className={`max-w-3xl ${TYPO.chapo}`}>
             Une régie de direct qui part en caisses, un parc de casques qu’on
             emmène en réunion, des drones, des caméras 360, un studio fond vert
@@ -744,6 +806,8 @@ export function CorpsAgence({  publique }: {  publique?: boolean }) {
               raccourcit beaucoup les débats.)
             </em>
           </p>
+            </div>
+          </div>
         </div>
       </section>
 
@@ -762,8 +826,14 @@ export function CorpsAgence({  publique }: {  publique?: boolean }) {
              ⛔ Fond clair : le pied de page est sombre, et deux bandes sombres
              collées se lisaient comme deux pieds de page. */}
       <section style={{ background: CLAIR }} className="border-t border-black/10 py-24">
-        <div className="mx-auto max-w-[1500px] px-8">
-          <h2 className={`max-w-3xl ${TYPO.titre}`}>
+        {/* ⭐ CENTRÉE, comme la clôture de l'accueil — demande de Giz le
+            21/08. C'est le seul bloc de la page qui a le droit de l'être : une
+            clôture ne se lit pas, elle se regarde, et deux pages qui se
+            terminent différemment donnent l'impression de deux sites.
+            ⚠️ Elle échappe donc à la règle de l'alignement à gauche posée
+            partout ailleurs — l'exception est assumée, pas oubliée. */}
+        <div className="mx-auto max-w-[900px] px-8 text-center">
+          <h2 className={TYPO.titre}>
             Construisons <span style={{ color: BLEU }}>ensemble</span> le
             projet qui sert votre vision.
           </h2>
@@ -775,10 +845,10 @@ export function CorpsAgence({  publique }: {  publique?: boolean }) {
               n'apparaît qu'au clic, et il n'est pas dans le HTML avant. Un lien
               `tel:` sur ordinateur ne fait rien, et le visiteur croit le bouton
               cassé. */}
-          <p className="mt-6 max-w-xl text-lg opacity-65">
+          <p className="mx-auto mt-6 max-w-xl text-lg opacity-65">
             Parlons de vos objectifs avant de parler de format.
           </p>
-          <div className="mt-10 flex flex-wrap gap-4">
+          <div className="mt-10 flex flex-wrap justify-center gap-4">
             <BoutonAppel />
             <a
               href={L.contact}
