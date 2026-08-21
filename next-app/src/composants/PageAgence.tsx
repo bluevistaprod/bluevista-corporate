@@ -1,4 +1,6 @@
 import { EnTete } from "./EnTete";
+import { CarrouselHistoires } from "./CarrouselHistoires";
+import { LecteurVideo } from "./LecteurVideo";
 import { PiedDePage } from "./PiedDePage";
 import { MethodeChapeau } from "./MethodeChapeau";
 import { BLEU, BLEU_CLAIR, CLAIR, CLAIR_SOUTENU, NOIR, SOMBRE, TYPO } from "./palette";
@@ -162,15 +164,26 @@ const CONVICTIONS = [
  * ⚠️ FOOH : Giz dit « Foreign Out of Home ». Le terme du métier est « Fake
  * Out Of Home ». On écrit la version juste, et on lui signale.
  */
+/* ⭐ L'AFFICHE DE « BARILS » N'EST PAS UN PLAN DE PAROLE. Celle que Livid
+   avait choisie tombait sur un mouvement de bouche — Giz : « la miniature est
+   très moche ». On a pris l'image à 34 s : les barils qui roulent sur la place
+   Bellecour, Fourvière sur la colline. Une affiche doit montrer le TRAVAIL,
+   pas quelqu'un qui en parle. */
 const HISTOIRES = [
   {
     titre: "Le montage suivait le car",
+    video: "https://livid.com/watch/PJp_0DaZq5C2",
+    affiche: "/media/anecdote-malte.jpg",
+    duree: "1 min 15",
     texte:
       "Un séminaire de mille collaborateurs à Malte, sur plusieurs lieux — plage, hôtel, bateau, soirée. Une équipe de trois : deux à la caméra, un au montage. Le monteur montait pendant les trajets, dans le car. La dernière séquence a été tournée cinq minutes avant la diffusion : deux participants se remémorant leur journée.",
     chute: "Le film de la journée a été projeté le soir même, dans la soirée.",
   },
   {
     titre: "La demande arrivée le premier jour",
+    video: "https://livid.com/watch/8bFaVBE38-A_",
+    affiche: "/media/anecdote-cannes.jpg",
+    duree: "1 min 07",
     texte:
       "Une convention à Cannes, environ deux mille personnes. Le dispositif était calé : captation, films diffusés pendant la convention, aftermovie. En installant le matériel, le client propose d’interviewer ses collaborateurs devant le Palais des Festivals, pour les faire patienter à l’entrée de la salle.",
     chute:
@@ -178,6 +191,9 @@ const HISTOIRES = [
   },
   {
     titre: "Des barils qui traversent Lyon",
+    video: "https://livid.com/watch/6xYf4WRlTlm8",
+    affiche: "/media/anecdote-berliet.jpg",
+    duree: "1 min 13",
     texte:
       "Un client fêtait un anniversaire avec un nouveau visuel de barils d’huile, et voulait de la visibilité. Plutôt qu’un film de présentation envoyé sur les réseaux — ce qui n’y marche pas — nous avons proposé un FOOH : des barils géants qui traversent la ville, filmés comme une scène de rue.",
     chute:
@@ -401,6 +417,33 @@ export function CorpsAgence({  publique }: {  publique?: boolean }) {
           quelqu’un d’autre ouvre le projet et le reprend.
         </p>
 
+        {/* ⭐ LA VIDÉO PROUVE LE PARAGRAPHE AU-DESSUS. C'est le seul endroit de
+            la page où l'on peut vérifier une promesse d'organisation : « un
+            seul interlocuteur » est une phrase que toute agence peut écrire,
+            la nomenclature commune est un fait qu'on peut entendre expliquer.
+            ⚠️ Colonne étroite : la vidéo est en 9/16. */}
+        <div className="mt-12 grid items-start gap-10 md:grid-cols-[minmax(0,260px)_1fr]">
+          <LecteurVideo
+            format="portrait"
+            sansLegende
+            video={{
+              url: "https://livid.com/watch/xWoXOR2H7RcC",
+              titre: "Pourquoi une modification n’attend pas",
+              vignetteUrl: "/media/anecdote-reactivite.jpg",
+            }}
+          />
+          <div className="max-w-xl">
+            <div className={TYPO.sousTitre}>Pourquoi une modification n’attend pas</div>
+            <p className={`mt-3 ${TYPO.corps}`}>
+              Plus il y a de clients, plus il est difficile de rester réactif.
+              La réponse n’est pas d’embaucher : c’est que chacun travaille de
+              la même façon, pour que n’importe qui puisse reprendre le projet
+              d’un autre.
+            </p>
+            <p className="mt-3 text-[15px] opacity-60">En vidéo — 1 min</p>
+          </div>
+        </div>
+
         <div className="mt-14 grid gap-10 md:grid-cols-2 lg:grid-cols-4">
           {POLES.map((p, i) => (
             <div key={p.nom} className="border-t-2 pt-6" style={{ borderColor: BLEU }}>
@@ -463,6 +506,69 @@ export function CorpsAgence({  publique }: {  publique?: boolean }) {
         </div>
       </section>
 
+      {/* ── LES ZONES GRISES ─────────────────────────────────────────────
+             ⭐ POURQUOI CETTE SECTION EXISTE. C'est, de toutes les anecdotes
+             enregistrées par Giz, la seule qui décrive un problème que le
+             client ne sait pas encore qu'il a — et donc la seule qui ne
+             pourrait pas être signée par une autre agence. Les frustrations
+             plus haut nomment ce qu'il subit ; celle-ci nomme ce qu'il paie
+             deux fois sans le voir.
+
+             ⛔ AUCUN NOM DE CLIENT. Giz dit « un salon » et « une autre
+             société » sans les nommer, et le nom du salon n'apparaît que dans
+             le nom de fichier de la vidéo. Ce qui n'a pas été dit à voix haute
+             ne se déduit pas d'un nom de fichier. */}
+      <section style={{ background: SOMBRE, color: "#fff" }}>
+        <div className="mx-auto max-w-[1500px] px-8 py-24">
+          <div className={`mb-7 flex items-center gap-4 ${TYPO.surTitre}`} style={{ color: BLEU_CLAIR }}>
+            <span className="inline-block h-[3px] w-12 rounded-full" style={{ background: BLEU_CLAIR }} />
+            Ce qu’on regarde et que personne ne regarde
+          </div>
+          <h2 className={`max-w-4xl ${TYPO.titre}`}>
+            Vous payez peut-être deux fois la même vidéo.
+          </h2>
+
+          <div className="mt-12 grid items-start gap-14 lg:grid-cols-[1fr_minmax(0,300px)]">
+            <div className="max-w-3xl">
+              <p className={TYPO.chapo}>
+                Sur un salon, nous avons failli tourner le même film que le
+                prestataire du service communication du même client — l’un
+                commandé par l’organisateur, l’autre par la marque, sans que
+                les deux services se soient parlé.
+              </p>
+              <p className={`mt-5 ${TYPO.corps}`}>
+                Ce n’est pas un accident, c’est ce qui arrive quand une
+                entreprise grandit. Nous cherchons donc systématiquement à
+                savoir ce qui se tourne ailleurs chez vous — pour partager les
+                images plutôt que de les refaire, ou pour que les films
+                répondent à des objectifs différents.
+              </p>
+              <p className={`mt-5 ${TYPO.corps}`}>
+                Chez un client, trois entités voulaient communiquer chacune de
+                son côté : le mobilier, l’aménagement, la structure et la
+                signalétique. Nous avons regroupé les tournages, chacune
+                prenant sa part du budget du même déplacement.{" "}
+                <strong className="font-semibold">
+                  Plusieurs films, plusieurs besoins, un seul tournage.
+                </strong>
+              </p>
+            </div>
+            <div>
+              <LecteurVideo
+                format="portrait"
+                sansLegende
+                video={{
+                  url: "https://livid.com/watch/_ydksVk_4_t3",
+                  titre: "Éliminer les zones grises",
+                  vignetteUrl: "/media/anecdote-zones-grises.jpg",
+                }}
+              />
+              <p className="mt-4 text-[14px] text-white/60">En vidéo — 1 min 17</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* ── LES CONVICTIONS ─────────────────────────────────────────────── */}
       <section className="mx-auto max-w-[1500px] px-8 py-24">
         <h2 className={`max-w-3xl ${TYPO.titre}`}>Ce sur quoi nous ne cédons pas</h2>
@@ -508,16 +614,8 @@ export function CorpsAgence({  publique }: {  publique?: boolean }) {
             Ce que ça donne quand ça se passe bien.
           </h2>
 
-          <div className="mt-14 grid gap-x-14 gap-y-12 md:grid-cols-3">
-            {HISTOIRES.map(h => (
-              <div key={h.titre} className="border-t-2 pt-6" style={{ borderColor: BLEU_CLAIR }}>
-                <div className="text-[1.25rem] font-bold leading-snug">{h.titre}</div>
-                <p className="mt-4 text-[1.0625rem] leading-relaxed text-white/70">{h.texte}</p>
-                <p className="mt-4 text-[1.0625rem] font-semibold leading-snug" style={{ color: BLEU_CLAIR }}>
-                  {h.chute}
-                </p>
-              </div>
-            ))}
+          <div className="mt-14">
+            <CarrouselHistoires histoires={HISTOIRES} />
           </div>
         </div>
       </section>

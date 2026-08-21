@@ -61,7 +61,26 @@ function adresseIntegration(url: string): string {
 
 export type VideoDePage = { url: string; titre: string; vignetteUrl?: string };
 
-export function LecteurVideo({ video }: { video: VideoDePage }) {
+/**
+ * ⭐ `format` ET `sansLegende`, ajoutés le 21/08/2026 pour les vidéos verticales
+ * des anecdotes. Le lecteur était figé en 16/9 : une vidéo tournée en 9/16 y
+ * apparaissait en timbre-poste entre deux bandes noires.
+ * ⛔ ON N'A PAS ÉCRIT UN SECOND LECTEUR. Celui-ci porte un comportement qui a
+ * coûté cher — le chargement de l'iframe AU SURVOL, qui supprime le double
+ * clic — et le dupliquer garantissait de le perdre d'un côté ou de l'autre.
+ * ⚠️ `sansLegende` : la légende est écrite en couleur SOMBRE. Sur une section
+ * à fond sombre elle disparaît. Là où l'appelant écrit déjà le texte à côté,
+ * il la coupe plutôt que de la rendre illisible.
+ */
+export function LecteurVideo({
+  video,
+  format = "paysage",
+  sansLegende = false,
+}: {
+  video: VideoDePage;
+  format?: "paysage" | "portrait";
+  sansLegende?: boolean;
+}) {
   const [lance, setLance] = useState(false);
   /* ⛔⛔ DEUX CLICS POUR LANCER UNE VIDÉO — Giz : « une fois ça charge le
      player livid, une 2e fois sur le play de livid ».
@@ -85,8 +104,8 @@ export function LecteurVideo({ video }: { video: VideoDePage }) {
   return (
     <figure className="m-0">
       <div
-        className="relative aspect-video overflow-hidden rounded-md"
-        style={{ background: SOMBRE }}
+        className={`relative overflow-hidden rounded-md ${format === "portrait" ? "" : "aspect-video"}`}
+        style={{ background: SOMBRE, ...(format === "portrait" ? { aspectRatio: "9 / 16" } : {}) }}
         onMouseEnter={prepare}
         onTouchStart={prepare}
         onFocus={prepare}
@@ -137,9 +156,11 @@ export function LecteurVideo({ video }: { video: VideoDePage }) {
           </button>
         )}
       </div>
-      <figcaption className="mt-4 text-[15px] font-bold leading-snug" style={{ color: SOMBRE }}>
-        {video.titre}
-      </figcaption>
+      {!sansLegende && (
+        <figcaption className="mt-4 text-[15px] font-bold leading-snug" style={{ color: SOMBRE }}>
+          {video.titre}
+        </figcaption>
+      )}
     </figure>
   );
 }
