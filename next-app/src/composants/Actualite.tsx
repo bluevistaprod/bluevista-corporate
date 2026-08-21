@@ -4,6 +4,9 @@ import { BLEU, BLEU_CLAIR, CLAIR_SOUTENU, NOIR, SOMBRE } from "./palette";
 import { LecteurVideo } from "./LecteurVideo";
 import { TexteRiche } from "./TexteRiche";
 import { Apparait } from "./Apparait";
+import { EnTete } from "./EnTete";
+import { PiedDePage } from "./PiedDePage";
+import { Carrousel } from "./Carrousel";
 
 /**
  * LE RENDU D'UNE ACTUALITÉ — maquette validée par Giz le 18/08/2026.
@@ -115,9 +118,25 @@ function UnBloc({ bloc, rang, publique }: { bloc: BlocActualite; rang: number; p
     </div>
   );
 
+  /* ── LE CARROUSEL ──────────────────────────────────────────────────────
+     Demande de Giz, 21/08 : plusieurs images dans une section défilent au
+     lieu de s'empiler. C'est posé ICI, dans le gabarit de bloc, donc ça vaut
+     pour les 63 actualités sans qu'aucune n'ait à être retouchée.
+
+     ⛔ LES VIDÉOS SONT MISES À PART, et l'ordre du bloc est conservé : les
+     vidéos d'abord, puis les images. Une vidéo emportée par un défilement
+     automatique au bout de trois secondes serait illisible.
+     ⚠️ Une seule image = pas de carrousel. Un « diaporama » d'une vue, avec
+     sa pastille unique, ne serait qu'un ornement mensonger. */
+  const videos = medias.filter(m => m.videoUrl);
+  const images = medias.filter(m => !m.videoUrl && m.image);
+
   const colonneMedias = medias.length ? (
     <div className="flex flex-col gap-8">
-      {medias.map((m, i) => <Media key={m._key ?? i} media={m} />)}
+      {videos.map((m, i) => <Media key={m._key ?? `v${i}`} media={m} />)}
+      {images.length > 1
+        ? <Carrousel medias={images} />
+        : images.map((m, i) => <Media key={m._key ?? `i${i}`} media={m} />)}
     </div>
   ) : null;
 
@@ -166,7 +185,25 @@ export function Actualite({
     : null;
 
   return (
-    <>
+    /* ⛔⛔ LE MENU ET LE PIED DE PAGE MANQUAIENT SUR LES 63 ACTUALITÉS.
+       Toutes les autres pages du site portent leur chrome dans leur propre
+       composant ; celui-ci ne le faisait pas, et personne ne s'en apercevait
+       parce que la page a SON PROPRE `<header>` — la bannière de l'article.
+       Un contrôle qui compte les balises `<header>` répondait donc « il y en
+       a un » sur une page qui n'avait aucun menu.
+       👉 Vérifier la NAVIGATION (les liens du menu), pas la balise.
+
+       ⚠️ Conséquence réelle : c'est le plus gros groupe de pages du site, et
+       celui où l'on arrive le plus souvent depuis Google. Un visiteur y
+       atterrissait sans aucun moyen d'entrer dans le site.
+
+       ⭐ En-tête TRANSPARENT (pas `opaque`) : la bannière est sombre et
+       pleine largeur, comme celle de l'accueil. Le `pt-[11rem]` qui suit
+       réserve d'ailleurs exactement la hauteur de la barre fixe — la
+       maquette l'attendait en surimpression depuis le début. */
+    <main>
+      <EnTete publique={publique} />
+
       {/* ── ① L'EN-TÊTE ────────────────────────────────────────────────
           ⚠️ L'image est facultative : 21 des 63 actualités n'en ont aucune,
           et l'en-tête doit tenir debout sans elle plutôt que d'en réclamer
@@ -273,7 +310,13 @@ export function Actualite({
                     />
                     <div className="p-5 text-[.95rem] font-bold leading-snug">{s.titre}</div>
                     <div className="px-5 pb-5 text-[.82rem] font-normal opacity-55">
-                      {new Date(s.datePublication).toLocaleDateString("fr-FR", { day: "numeric", month: "long", year: "numeric" })}
+                      {/* ⛔ `new Date(undefined)` affiche « 1 janvier 1970 » avec
+                          aplomb — la faute a déjà été publiée une fois sur cette
+                          page. Aucune actualité n'est sans date aujourd'hui ;
+                          c'est justement pour ça qu'il faut la garde. */}
+                      {s.datePublication
+                        ? new Date(s.datePublication).toLocaleDateString("fr-FR", { day: "numeric", month: "long", year: "numeric" })
+                        : null}
                     </div>
                   </Link>
                 ))}
@@ -285,6 +328,7 @@ export function Actualite({
           </Apparait>
         </section>
       )}
-    </>
+      <PiedDePage publique={publique} />
+    </main>
   );
 }

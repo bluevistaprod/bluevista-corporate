@@ -51,6 +51,9 @@ try {
   execFileSync(CHROME, [
     "--headless", "--disable-gpu", "--hide-scrollbars",
     "--window-size=1280,1000", "--virtual-time-budget=15000",
+    /* ⚠️ Drapeaux supplémentaires, p.ex. `--force-prefers-reduced-motion`
+       pour contrôler ce que voit quelqu'un qui a désactivé les animations. */
+    ...(process.env.DRAPEAUX ? process.env.DRAPEAUX.split(" ") : []),
     `--screenshot=${SORTIE}`, url,
   ], { stdio: "ignore" });
   console.log(`✅ ${SORTIE} — ${chemin}${ancre ? ` @ « ${ancre} »` : ""}`);

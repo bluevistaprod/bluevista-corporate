@@ -63,9 +63,8 @@ export default async function Page({ params }: { params: Promise<{ lang: string;
 
   const suite = (await lireActualites(lang as "fr", 4)).filter(x => x.slug !== slug).slice(0, 3);
 
-  return (
-    <main>
-      <Actualite actualite={a} suite={suite} publique />
-    </main>
-  );
+  /* ⚠️ Pas de `<main>` ici : c'est le composant qui le pose, comme sur toutes
+     les autres pages. En doubler un mettrait le menu et le pied de page à
+     l'intérieur du contenu principal. */
+  return <Actualite actualite={a} suite={suite} publique />;
 }
