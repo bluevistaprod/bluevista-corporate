@@ -87,6 +87,9 @@ const VILLES = [
 const BAS = [
   { nom: "L’agence", cle: "agence" as const },
   { nom: "Réalisations", cle: "realisations" as const },
+  /* ⛔ Absentes du menu ET du pied de page : soixante-trois actualités que
+     rien ne reliait au reste du site. */
+  { nom: "Actualités", cle: "actualites" as const },
   { nom: "Contact", cle: "contact" as const },
 ];
 

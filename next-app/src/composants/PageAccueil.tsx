@@ -2,9 +2,11 @@ import { EnTete } from "./EnTete";
 import { PiedDePage } from "./PiedDePage";
 import { MethodeChapeau } from "./MethodeChapeau";
 import { Temoignages } from "./Temoignages";
+import { BoutonAppel } from "./BoutonAppel";
 import { BLEU, BLEU_CLAIR, CLAIR, CLAIR_SOUTENU, NOIR, SOMBRE, SOMBRE_PROFOND, TYPO } from "./palette";
 import { OFFRES as CATALOGUE } from "./offres";
 import { liens } from "../shared/liens";
+import { lireDernieresRealisations, imageUrl } from "../lib/sanity";
 
 /**
  * V5 — la V4 retravaillée à partir des retours de Giz.
@@ -113,7 +115,11 @@ const PILIERS = [
       "Des films et des contenus courts pensés pour vos canaux, avec la stratégie de diffusion qui va avec et l’analyse de ce que chacun a rapporté.",
     issue: "Vos interlocuteurs vous prennent au sérieux avant le premier rendez-vous.",
     cta: "Voir nos projets de communication",
-    image: "/media/px-pilier-communication.jpg",
+    /* ⭐ Notre studio fond vert, pris sur le Cloud Store. L'image de gabarit
+       qu'elle remplace commençait par « px- » : le préfixe des visuels
+       provisoires, qui sont autant de promesses non tenues sur une page
+       d'accueil. */
+    image: "/media/pilier-communication-fond-vert.jpg",
   },
   {
     metier: "evenement" as const,
@@ -123,7 +129,10 @@ const PILIERS = [
       "Des contenus scénographiés pour votre salle, et une diffusion pensée avant l’événement : ce qui sera filmé, pour qui, et sur quels canaux.",
     issue: "Vos participants repartent avec quelque chose à raconter — et ils le racontent.",
     cta: "Voir nos projets événementiels",
-    image: "/media/px-pilier-evenementiel.jpg",
+    /* ⭐ L'inauguration de l'InterContinental : le public qui filme au téléphone
+       le mapping du dôme. Elle montre l'ÉVÉNEMENT, pas seulement la
+       projection — c'est ce que le pilier vend. */
+    image: "/media/pilier-evenementiel-mapping-intercontinental.jpg",
   },
   {
     metier: "immersion" as const,
@@ -138,7 +147,18 @@ const PILIERS = [
       "Des expériences conçues à partir de ce que le visiteur doit comprendre, pas à partir du matériel disponible — dans un casque, dans une salle ou depuis un navigateur.",
     issue: "Vos prospects essaient avant d’acheter, chez vous comme à l’autre bout du monde.",
     cta: "Voir nos projets immersifs",
-    image: "/media/px-pilier-immersion.jpg",
+    /* ⭐ PNR du Vercors — l'expérience HoloLens du Mont Aiguille (2023), image
+       extraite du film de présentation livré au client.
+       ⚠️ RIEN D'UTILISABLE N'EXISTAIT AILLEURS : le seul fichier « casque »
+       du Cloud Store faisait 433 px, et tous les projets « immersion » du
+       catalogue sont des films 360 — aucun ne montre quelqu'un portant un
+       casque. Le film tuto du même projet en montre, mais chacune de ses
+       images porte une incrustation de mode d'emploi.
+       ⭐ PERSONNE IDENTIFIABLE, ET C'EST VÉRIFIÉ : Giz, 20/08/2026 — « elle
+       est majeure et elle est publique sur le site du client ». La question
+       se posait parce qu'un film livré à un parc naturel et une page d'accueil
+       commerciale ne sont pas le même usage du droit à l'image. */
+    image: "/media/pilier-immersion-hololens-mont-aiguille.jpg",
   },
 ];
 
@@ -158,24 +178,37 @@ const PILIERS = [
  */
 const CAS = [
   {
-    client: "Huiles Berliet",
+    client: "Eiffage Expercité",
     pilier: "Communication & marketing",
-    contexte: "FOOH · film social 3D",
-    image: "/media/ref-berliet.jpg",
+    contexte: "Timelapse, animation 3D et motion design",
+    image: "/media/cas-eiffage-expercite.jpg",
+    lien: "/actualites/eiffage-expercite-rendre-visible-une-ville-connectee/",
     /**
-     * ⚠️ À MESURER, pas à estimer. Giz veut comparer l'engagement de ce post
-     * FOOH à celui des autres publications du compte. C'est le bon chiffre :
-     * il compare la marque à elle-même, ce qu'aucun client ne peut contester.
-     * Source : Instagram du client. Podio : V05384 (février) puis V05554.
+     * ⛔⛔ CE CHIFFRE A FAILLI ÊTRE FAUX. Giz a dit « expliquer un concept
+     * ultra complexe en 2 minutes ». Le film dure **1 min 21** — vérifié sur
+     * Livid ET sur le master Dropbox (80 s). « 2 minutes » n'aurait choqué
+     * personne et aurait été faux sur la page la plus vue du site.
+     *
+     * ⭐ ET C'EST UN CHIFFRE HONNÊTE, au sens où il ne prétend pas mesurer ce
+     * qu'on ne mesure pas. Aucune donnée n'existe sur l'audience du film ni
+     * sur les affaires signées : le seul fait vérifiable est sa DURÉE, et ce
+     * qu'elle permet. La preuve du résultat est dans l'actualité — un second
+     * film commandé pour un autre pan de l'offre.
      */
-    chiffre: "",
-    unite: "",
+    /* ⚠️ ARRONDI ASSUMÉ, ET DANS LE BON SENS. Le film fait 1 min 21 ; Giz a
+       tranché pour « 1 min 30 » — « ça ira, cet arrondi ». L'arrondi va CONTRE
+       nous : on annonce un film plus long qu'il n'est, donc rien n'est
+       survendu. C'est ce qui le rend acceptable ; l'inverse ne l'aurait pas
+       été. ⛔ Et il doit rester le même ici et dans l'actualité. */
+    chiffre: "1 min 30",
+    unite: "pour comprendre une ville pilotée",
   },
   {
     client: "WorldSkills",
     pilier: "Événementiel",
-    contexte: "Espace immersif · Eurexpo Lyon, pour GL Events Live",
-    image: "/media/px-cas-worldskills.jpg",
+    contexte: "Espace immersif · Pavillon France, Eurexpo Lyon, pour GL Events Live",
+    image: "/media/cas-worldskills-pavillon-france.jpg",
+    lien: "/actualites/worldskills-pavillon-france-un-espace-immersif-a-eurexpo/",
     /**
      * ⚠️ PIÈGE — le même que « 145 films ». WorldSkills Lyon 2024 a accueilli
      * 250 000 visiteurs, chiffre public et largement repris. Ce n'est PAS le
@@ -188,8 +221,24 @@ const CAS = [
      * (vente V05097), pas « mapping ». À vérifier avant d'écrire quoi que ce
      * soit sur la nature de la prestation.
      */
-    chiffre: "",
-    unite: "",
+    /* ⛔⛔ « 250 000 VISITEURS » EST LE PIÈGE, ET IL RESTE OUVERT.
+       C'est la fréquentation de WorldSkills Lyon 2024 ENTIER, sur tout
+       Eurexpo — pas celle du Pavillon France, encore moins de l'espace qu'on
+       a scénographié. L'écrire serait s'attribuer l'audience d'un salon :
+       exactement la faute de « 145 films ». Ne pas le remettre.
+
+       ⭐ LE CHIFFRE AFFICHÉ EST CELUI DE LA PRESTATION, et il est vérifié
+       TROIS FOIS dans le devis V03 du 07/05/2024, par trois lignes qui ne
+       dépendent pas l'une de l'autre :
+         • « Vidéo-projection sur chaque table (x10) »
+         • « 10 x vidéo-projecteurs 3400 lumens + players »
+         • « 10 x centres de tables »
+       C'est ce qu'on a fait, pas ce qui est passé devant.
+       ⚠️ Un devis reste une proposition — mais les photos du montage
+       montrent bien des tables rondes équipées une à une, et aucune pièce du
+       dossier ne contredit le nombre. */
+    chiffre: "10 tables",
+    unite: "transformées en écran",
   },
   {
     client: "UNESCO",
@@ -297,8 +346,11 @@ function SurTitre({ children, sombre = false }: { children: string; sombre?: boo
  * pouvoir les facturer.
  */
 
-export function CorpsAccueil({  publique }: {  publique?: boolean }) {
+export async function CorpsAccueil({ publique }: { publique?: boolean }) {
   const L = liens(publique);
+  /* ⛔ `[0...4]` APRÈS le filtre, jamais avant : trancher d'abord puis filtrer
+     renverrait moins de quatre cartes dès qu'un de nos films est dans le lot. */
+  const dernieres = await lireDernieresRealisations(4);
   return (
     <main style={{ background: CLAIR, color: SOMBRE }}>
       <EnTete publique={publique} />
@@ -387,7 +439,12 @@ export function CorpsAccueil({  publique }: {  publique?: boolean }) {
             className="apparition-hero mt-8 max-w-2xl text-xl leading-relaxed text-white/85"
             style={{ "--retard": "1400ms" } as React.CSSProperties}
           >
-            Agence vidéo, événementiel et immersion. Lyon, Paris et Genève,
+            {/* ⛔ LA FORMULE EST CELLE DE GIZ, mot pour mot (19/08/2026) :
+                « on n'est pas une agence de communication ». Elle était
+                corrigée au pied de page et dans les balises, mais pas ici —
+                cette page vivait encore sous /apercu/v7 ce jour-là. */}
+            Agence de création de contenus — communication &amp; marketing,
+            événementiel et immersion. Lyon, Paris et Genève,
             depuis 2004.
           </p>
           <div
@@ -401,10 +458,17 @@ export function CorpsAccueil({  publique }: {  publique?: boolean }) {
             >
               Contactez-nous
             </a>
-            <button className="flex items-center gap-3.5 rounded-md border border-white/35 py-[1.05rem] pl-3 pr-7 text-[16px] font-semibold text-white transition hover:bg-white/10">
+            {/* ⛔ C'ÉTAIT UN `<button>` SANS ACTION : il avait l'air cliquable
+                et ne faisait rien. Le pire état pour un appel à l'action —
+                le visiteur clique, rien ne bouge, et il en conclut que le site
+                est cassé. Il mène maintenant au showreel le plus récent. */}
+            <a
+              href={L.realisation("bluevista-showreel-2025")}
+              className="flex items-center gap-3.5 rounded-md border border-white/35 py-[1.05rem] pl-3 pr-7 text-[16px] font-semibold text-white no-underline transition hover:bg-white/10"
+            >
               <span className="flex h-9 w-9 items-center justify-center rounded-full bg-white text-sm" style={{ color: SOMBRE }}>▶</span>
               Voir le showreel
-            </button>
+            </a>
           </div>
         </div>
 
@@ -484,10 +548,10 @@ export function CorpsAccueil({  publique }: {  publique?: boolean }) {
           situation, puis les cas concrets qui la rendent reconnaissable. */}
       <section style={{ background: NOIR, color: "#fff", borderTop: "1px solid rgba(255,255,255,.08)" }}>
         <div className="mx-auto max-w-[1500px] px-8 py-24">
-          <SurTitre sombre>Par où l’on commence</SurTitre>
+          <SurTitre sombre>Un seul point de départ</SurTitre>
           <h2 className={`max-w-3xl ${TYPO.titre}`}>
-            La première question n’a pas changé depuis 2004 : qu’est-ce que ce
-            projet doit produire ?
+            La première question n’a pas changé depuis 2004 : quels objectifs
+            ce projet doit-il atteindre ?
           </h2>
 
           <div className="mt-14 grid gap-x-12 gap-y-10 md:grid-cols-3">
@@ -544,7 +608,12 @@ export function CorpsAccueil({  publique }: {  publique?: boolean }) {
 
         <div className="mt-14 space-y-px">
           {CAS.map((c, i) => (
+            /* ⭐ Un cas qui porte un lien devient cliquable en entier : le
+               visiteur qui s'arrête sur un chiffre veut l'histoire derrière. */
             <article key={c.client} className="relative h-[62vh] min-h-[400px] overflow-hidden">
+              {c.lien && (
+                <a href={c.lien} className="absolute inset-0 z-10" aria-label={`${c.client} — lire le cas client`} />
+              )}
               <div
                 role="img"
                 aria-label={`${c.client} — ${c.contexte}`}
@@ -713,7 +782,7 @@ export function CorpsAccueil({  publique }: {  publique?: boolean }) {
             Une méthode. Trois métiers.
           </h2>
           <p className={`mt-6 max-w-2xl ${TYPO.chapo}`}>
-            Six étapes, et elle recommence : le débriefing d’un projet ouvre
+            Six étapes, et on recommence : le débriefing d’un projet ouvre
             l’analyse du suivant. Le premier et le dernier mot sont les mêmes
             pour un film, un événement ou un dispositif immersif — seul le
             milieu change de vocabulaire.
@@ -742,6 +811,23 @@ export function CorpsAccueil({  publique }: {  publique?: boolean }) {
           _Temoignages.tsx. La maquette Manus contenait un faux témoignage
           signé du nom d'un collaborateur de Bluevista.
       */}
+      {/* ⛔⛔ SECTION EN PAUSE — Giz, 20/08/2026 : « je ne serai pas prêt à la
+          sortir en septembre ». Elle n'est pas supprimée : retirer ce
+          commentaire la rallume telle quelle.
+
+          POURQUOI ELLE NE POUVAIT PAS SORTIR : les trois témoignages étaient
+          des ÉBAUCHES écrites par moi, sous des portraits de banque d'images.
+          Un faux témoignage client sur une page d'accueil n'est pas un
+          brouillon qu'on affine — c'est une affirmation fausse au nom de
+          clients réels.
+
+          Le contenu exact est recopié dans la tâche Podio qui la reprendra :
+          les trois textes, le titre, le sous-titre, et les trois conditions
+          pour la remettre (accord écrit, propos recueillis, vrais portraits).
+          ⚠️ Le sous-titre promet « filmés chez eux, sans script » : si on
+          publie un jour du TEXTE, cette phrase devient fausse et doit changer
+          dans le même geste.
+
       <section style={{ background: SOMBRE, color: "#fff" }}>
         <div className="mx-auto max-w-[1500px] px-8 py-28">
           <SurTitre sombre>Sans filtre</SurTitre>
@@ -757,6 +843,7 @@ export function CorpsAccueil({  publique }: {  publique?: boolean }) {
           </div>
         </div>
       </section>
+      */}
 
       {/* ⑧ CLAIR SOUTENU — les clients, en logos gris ───────────────────
           ⛔ PLUS DE CLASSEMENT PAR FAMILLES. Correction de Giz : ranger ses
@@ -774,9 +861,9 @@ export function CorpsAccueil({  publique }: {  publique?: boolean }) {
       */}
       <section style={{ background: CLAIR_SOUTENU }}>
         <div className="mx-auto max-w-[1500px] px-8 py-24">
-          <SurTitre>Depuis 2004</SurTitre>
+          <SurTitre>Une confiance sur la durée</SurTitre>
           <h2 className={`max-w-4xl ${TYPO.titre}`}>
-            Des institutions, des médias, des industriels.
+            Des institutions, des médias, des industriels et bien d’autres…
           </h2>
 
           <div className="mt-16 grid grid-cols-2 items-center gap-x-12 gap-y-14 sm:grid-cols-3 lg:grid-cols-6">
@@ -785,16 +872,18 @@ export function CorpsAccueil({  publique }: {  publique?: boolean }) {
                 key={i}
                 src={`/media/logos/client-${String(i + 1).padStart(2, "0")}.png`}
                 alt=""
-                className="mx-auto h-9 w-auto max-w-full opacity-45 transition duration-300 hover:opacity-80"
+                className="mx-auto h-14 w-auto max-w-full opacity-45 transition duration-300 hover:opacity-80"
               />
             ))}
           </div>
 
-          <p className="mt-14 max-w-3xl leading-relaxed opacity-55">
-            Et aussi&nbsp;: ONU-OHCHR, UNICEF, UNECE, UIT, BBC, France 3, M6,
-            NHK, Musée des Confluences, Ville de Lyon, ABB, Cisco, EDF, Enedis,
-            Procter&nbsp;&amp; Gamble, Sodexo, Vinci Construction.
-          </p>
+          {/* ⛔ LA LISTE « ET AUSSI » EST RETIRÉE — Giz, 20/08/2026. Elle
+              nommait ONU-OHCHR, UNICEF, BBC, NHK… en clair, alors que le droit
+              de publication de ces références N'EST PAS TRANCHÉ : c'est une
+              tâche Podio ouverte, et les citer dans un marché public n'est pas
+              les publier. Le titre « et bien d'autres… » dit la même chose sans
+              engager personne. */
+          }
         </div>
       </section>
 
@@ -823,25 +912,38 @@ export function CorpsAccueil({  publique }: {  publique?: boolean }) {
           </a>
         </div>
 
+        {/* ⭐ LES QUATRE DERNIÈRES RÉALISATIONS, PLUS UNE LISTE ÉCRITE À LA MAIN.
+            Avant, quatre projets figés dans le code avec des images de
+            gabarit : la page d'accueil montrait donc toujours les mêmes, et
+            vieillissait toute seule. Elle suit maintenant le portfolio.
+
+            ⛔ NOS PROPRES FILMS SONT EXCLUS — showreels, bandes démo,
+            « Bluevista Creative ». Le critère est `client != "BLUEVISTA"`,
+            qui en écarte quatorze. Une vitrine qui s'ouvre sur notre showreel
+            ne prouve rien : c'est la faute qu'on a corrigée trois fois cette
+            semaine sur les pages de savoir-faire.
+
+            ⚠️ CE QUE « LES QUATRE DERNIÈRES » VEUT DIRE AUJOURD'HUI, ET C'EST
+            UNE LIMITE : les réalisations n'ont PAS de champ de date. Le tri se
+            fait donc sur la date de création dans Sanity — or les 145 fiches
+            ont été importées le même jour. Concrètement : les prochaines
+            fiches créées remonteront correctement, mais l'ordre entre les
+            anciennes est arbitraire. Un vrai champ « date du projet » le
+            réglerait, et c'est à décider quand Giz reprendra les réalisations. */}
         <div className="mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-          {[
-            ["/media/ref-clasquin.jpg", "Clasquin", "Événementiel"],
-            ["/media/px-mapping.jpg", "Cémoi", "Immersion 360°"],
-            ["/media/ref-ssp.jpg", "SSP", "Film corporate"],
-            ["/media/ref-berliet.jpg", "Berliet", "Film social 3D"],
-          ].map(([src, client, type]) => (
-            <figure key={client} className="group">
+          {dernieres.map(r => (
+            <a key={r.slug} href={L.realisation(r.slug)} className="group no-underline" style={{ color: "inherit" }}>
               <div
                 role="img"
-                aria-label={`${client} — ${type}`}
+                aria-label={`${r.client ?? r.titre} — ${r.titre}`}
                 className="aspect-[4/3] overflow-hidden rounded-md bg-cover bg-center transition duration-700 group-hover:brightness-110"
-                style={{ backgroundImage: `url('${src}')` }}
+                style={{ backgroundImage: `url('${imageUrl(r.image, 700, 525) ?? ""}')`, backgroundColor: CLAIR_SOUTENU }}
               />
-              <figcaption className="mt-4">
-                <div className="font-bold">{client}</div>
-                <div className="text-sm opacity-55">{type}</div>
-              </figcaption>
-            </figure>
+              <div className="mt-4">
+                <div className="font-bold">{r.client ?? "—"}</div>
+                <div className="text-sm opacity-55">{r.titre}</div>
+              </div>
+            </a>
           ))}
         </div>
       </section>
@@ -870,20 +972,14 @@ export function CorpsAccueil({  publique }: {  publique?: boolean }) {
             📌 Et la clôture PROPOSE des options au lieu de demander — son
             marqueur depuis quinze ans, avec `ensemble` comme mot de fin. */}
         <h2 className={`mx-auto max-w-3xl px-8 ${TYPO.titre}`}>
-          Voyons <span style={{ color: BLEU }}>ensemble</span> ce que votre
-          projet doit changer.
+          Construisons <span style={{ color: BLEU }}>ensemble</span> le projet
+          qui sert votre vision.
         </h2>
         <p className="mx-auto mt-6 max-w-xl px-8 text-lg opacity-65">
           Parlons de vos objectifs avant de parler de format.
         </p>
         <div className="mt-10 flex flex-wrap justify-center gap-4 px-8">
-          <a
-            href={L.contact}
-            className="rounded-md px-9 py-4 text-[16px] font-bold text-white transition hover:brightness-110"
-            style={{ background: BLEU }}
-          >
-            Un appel de 30 minutes ?
-          </a>
+          <BoutonAppel />
           <a href={L.contact} className="rounded-md border-2 border-black/15 px-9 py-4 text-[16px] font-semibold">
             Ou décrivez-nous votre projet en trois lignes
           </a>

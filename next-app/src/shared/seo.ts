@@ -37,7 +37,16 @@ export function metadonnees(opts: {
   languages["x-default"] = base + cheminNu;
 
   return {
-    title: opts.titre,
+    /* ⛔⛔ LE SUFFIXE SE DOUBLAIT. Le gabarit du layout est « %s | Bluevista ».
+       Un titre venu de Sanity porte souvent DÉJÀ « | Bluevista » — le résultat
+       sortait en « … | Bluevista | Bluevista ». Invisible à l'écran, visible
+       dans l'onglet et dans les résultats de recherche.
+       👉 On détecte le suffixe et on rend le titre absolu dans ce cas. Corriger
+       les titres un par un dans Sanity aurait marché aussi, mais le défaut
+       serait revenu au premier titre saisi avec le suffixe. */
+    title: /\|\s*Bluevista\s*$/i.test(opts.titre)
+      ? { absolute: opts.titre }
+      : opts.titre,
     description: opts.description,
     alternates: {
       canonical: base + pathForLang(cheminNu, opts.lang),

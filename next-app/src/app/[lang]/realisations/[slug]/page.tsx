@@ -64,7 +64,33 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const { slug } = await params;
   const r = await lireRealisation(slug);
   if (!r) return {};
-  return { alternates: await alternatesDe(r._id, "realisation", "fr", r.slug) };
+  /* ⛔⛔ LES 146 FICHES SORTAIENT SANS TITRE NI DESCRIPTION. Elles héritaient
+     donc du titre par défaut du site — « Bluevista — Agence vidéo,
+     événementiel et immersion » — TOUTES LES 146. Google voyait 146 pages au
+     titre identique sur le plus gros actif de contenu du site, celui que
+     141 redirections visent.
+     Aucune erreur, aucune page cassée : juste `generateMetadata` qui ne
+     renvoyait que le hreflang.
+
+     ⚠️ AUCUNE FICHE N'A DE `titreSeo` RENSEIGNÉ (vérifié : 0 sur 146). Le
+     titre est donc CONSTRUIT — client + titre du projet — en attendant que
+     Giz reprenne les réalisations. Un titre construit vaut mieux que 146
+     titres identiques ; il ne vaut pas un titre écrit.
+     📌 Les champs `titreSeo`/`descriptionSeo` existent dans le schéma mais ne
+     sont pas remontés par la requête : inutile de les lire tant qu'ils sont
+     vides partout. À rebrancher le jour où Giz les remplit. */
+  const nom: string = r.client && !r.titre.toLowerCase().includes(r.client.toLowerCase())
+    ? `${r.client} — ${r.titre}`
+    : r.titre;
+  return {
+    /* ⚠️ ON NE REMET PAS « | Bluevista » ICI : le gabarit du layout l'ajoute.
+       Première tentative : `${nom} | Bluevista` — et les fiches sont sorties
+       en « … | Bluevista | Bluevista ». Le même piège que je venais de
+       corriger, refait dans le geste qui le corrigeait. */
+    title: nom,
+    description: r.intro ? String(r.intro).slice(0, 155) : undefined,
+    alternates: await alternatesDe(r._id, "realisation", "fr", r.slug),
+  };
 }
 
 const BLOCS = [

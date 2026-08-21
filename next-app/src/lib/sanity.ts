@@ -294,6 +294,34 @@ export async function lireActualites(version: Version = "fr", limite = 12) {
  * ⚠️ GROQ rend les documents dans son ordre à lui : on réordonne ici, sinon
  * le choix de l'éditeur serait respecté sur le contenu et ignoré sur la suite.
  */
+
+/**
+ * LES DERNIÈRES RÉALISATIONS, POUR LA PAGE D'ACCUEIL.
+ *
+ * ⛔ NOS PROPRES FILMS SONT ÉCARTÉS. Showreels, bandes démo, « Bluevista
+ * Creative » : quatorze fiches portent `client == "BLUEVISTA"`. Une vitrine
+ * qui s'ouvre sur notre showreel ne prouve rien — c'est la faute corrigée
+ * trois fois cette semaine sur les pages de savoir-faire, où ces mêmes films
+ * occupaient jusqu'à trois places sur six.
+ *
+ * ⚠️ LE TRI SE FAIT SUR `_createdAt`, FAUTE DE MIEUX. Les réalisations n'ont
+ * pas de champ de date de projet, et les 145 fiches ont été importées le même
+ * jour : l'ordre entre elles est donc arbitraire. Les fiches créées ENSUITE
+ * remontent correctement. Un vrai champ « date » réglerait ça, et c'est à
+ * décider quand Giz reprendra les réalisations.
+ *
+ * ⛔ Et le `[0...n]` vient APRÈS le filtre : trancher avant filtrer renverrait
+ * moins de cartes que demandé dès qu'un de nos films tombe dans le lot.
+ */
+export async function lireDernieresRealisations(combien = 4, version: Version = "fr") {
+  return sanity.fetch<RealisationSanity[]>(
+    `*[_type == "realisation" && language == $v && client != "BLUEVISTA" && defined(image)]
+       | order(_createdAt desc) [0...$n] { ${CHAMPS} }`,
+    { v: version, n: combien },
+    { next: { revalidate: DELAI_CACHE } }
+  );
+}
+
 export async function lireRealisationsParSlugs(slugs: string[], version: Version = "fr") {
   const r = await sanity.fetch<RealisationSanity[]>(
     `*[_type == "realisation" && language == $v && slug.current in $s] { ${CHAMPS} }`,

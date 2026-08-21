@@ -15,9 +15,19 @@ import { BLEU, BLEU_CLAIR, NOIR } from "./palette";
  * lit : écrire quelque part ne prouve pas qu'on l'affiche. Le seul contrôle
  * qui vaut est de regarder la page.
  *
- * ⚠️ Ce composant reste volontairement pauvre — liens, intertitres, rien
- * d'autre. Le gras et l'italique n'ont pas leur place dans le corps d'une page
- * de vente : ils signalent qu'on n'a pas su hiérarchiser en écrivant.
+ * ⛔⛔ LE GRAS ÉTAIT ÉCRIT ET JAMAIS AFFICHÉ. Le schéma Sanity l'autorise —
+ * il n'y a pas de `decorators` déclarés, donc ce sont ceux par défaut, gras
+ * et italique compris. Le rendu, lui, les jetait. Un rédacteur pouvait donc
+ * mettre un mot en gras dans le studio, l'y voir en gras, et le voir
+ * disparaître en ligne. Giz : « es-tu sûr que le rich text passe ? ».
+ *
+ * ⚠️ MON COMMENTAIRE PRÉCÉDENT DÉFENDAIT CE TROU, ET IL AVAIT TORT DE LE
+ * FAIRE. Il disait que « le gras n'a pas sa place dans le corps d'une page de
+ * vente ». C'est une règle d'ÉCRITURE — vraie sur une page d'offre, fausse
+ * dans un article ou un cas client, où le gras sert à retrouver un chiffre en
+ * balayant. Et surtout : une règle d'écriture ne s'applique pas en supprimant
+ * silencieusement ce que l'auteur a écrit. Si le gras est de trop, on le
+ * retire du TEXTE, pas du rendu.
  *
  * ⛔⛔ LES INTERTITRES, EUX, ÉTAIENT PERDUS — ET C'EST DU RÉFÉRENCEMENT.
  * Tout arrivait dans un `<p>`, quel que soit le `style` du bloc. Cinq `h3`
@@ -59,9 +69,18 @@ export function TexteRiche({
             style={estTitre ? { marginTop: "1.75rem", opacity: 1 } : undefined}
           >
             {(bloc.children ?? []).map((sp, j) => {
-              const cle = (sp as { marks?: string[] }).marks?.find(m => liens.has(m));
+              const marques = (sp as { marks?: string[] }).marks ?? [];
+              const cle = marques.find(m => liens.has(m));
               const href = cle ? liens.get(cle) : undefined;
-              if (!href) return <span key={j}>{sp.text}</span>;
+              /* Le gras reprend la couleur du texte : la couleur veut dire
+                 cliquable, règle posée le 12/08. Un gras coloré ferait cliquer
+                 dans le vide. */
+              if (!href) {
+                const contenu = marques.includes("em") ? <em>{sp.text}</em> : sp.text;
+                return marques.includes("strong")
+                  ? <strong key={j} className="font-semibold" style={{ opacity: 1 }}>{contenu}</strong>
+                  : <span key={j}>{contenu}</span>;
+              }
               /* ⭐ Le lien interne sert deux choses à la fois : le lecteur qui
                  veut voir le projet, et le maillage — une page de savoir-faire
                  bien classée transmet son autorité aux réalisations qu'elle

@@ -36,6 +36,13 @@ import { liens, type JeuDeLiens } from "../shared/liens";
 const menuDe = (L: JeuDeLiens) => [
   { nom: "L’agence", href: L.agence },
   { nom: "Réalisations", href: L.realisations },
+  /* ⛔ LES ACTUALITÉS N'ÉTAIENT NULLE PART DANS LE MENU. Soixante-trois pages
+     migrées, éditorialisées, avec leurs vidéos sur Livid et leurs affiches —
+     et aucun moyen d'y arriver depuis le site. Elles n'existaient que pour qui
+     connaissait l'adresse ou arrivait par Google.
+     ⚠️ C'est aussi du maillage perdu : une section entière qu'aucun lien
+     interne ne nourrissait. */
+  { nom: "Actualités", href: L.actualites },
 ];
 
 /**

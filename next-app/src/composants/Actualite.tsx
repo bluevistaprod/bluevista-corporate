@@ -154,9 +154,16 @@ export function Actualite({
 }) {
   const racine = publique ? "" : "/apercu";
   const versActualite = (s: string) => (publique ? `/actualites/${s}/` : `/apercu/actualite/${s}`);
-  const date = new Date(a.datePublication).toLocaleDateString("fr-FR", {
-    day: "numeric", month: "long", year: "numeric",
-  });
+  /* ⛔⛔ UNE DATE ABSENTE S'AFFICHAIT « 1 janvier 1970 ». `new Date(undefined)`
+     ne lève pas d'erreur : il rend l'époque Unix, et la page publie une date
+     fausse avec aplomb. C'est la famille de défauts qui ne casse rien et ne
+     prévient pas — on ne la découvre qu'en regardant la page.
+     👉 Sans date, on n'écrit pas de date. */
+  const date = a.datePublication
+    ? new Date(a.datePublication).toLocaleDateString("fr-FR", {
+        day: "numeric", month: "long", year: "numeric",
+      })
+    : null;
 
   return (
     <>
@@ -197,7 +204,7 @@ export function Actualite({
             style={{ borderColor: "#ffffff2b", color: "#ffffffb3" }}
           >
             {a.client && <div>Client : <b style={{ color: BLEU_CLAIR }}>{a.client}</b></div>}
-            <div>Publié le <b style={{ color: BLEU_CLAIR }}>{date}</b></div>
+            {date && <div>Publié le <b style={{ color: BLEU_CLAIR }}>{date}</b></div>}
             {a.repere && <div><b style={{ color: BLEU_CLAIR }}>{a.repere}</b></div>}
           </div>
         </div>
