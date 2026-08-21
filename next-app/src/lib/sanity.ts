@@ -113,9 +113,29 @@ const CHAMPS = `
   titreSeo, descriptionSeo
 `;
 
+/**
+ * LA GALERIE, LA PLUS RÉCENTE EN TÊTE — demande de Giz, 21/08/2026.
+ *
+ * ⛔⛔ LE TRI ALPHABÉTIQUE ENTERRAIT LE TRAVAIL RÉCENT, et d'une façon que
+ * personne ne pouvait deviner : il DISTINGUE LES MAJUSCULES. Presque tous les
+ * titres sont en capitales (« ABB - … », « HUILES BERLIET ») ; les rares en
+ * minuscules — dont « bluevista | Showreel 2026 » — se retrouvaient donc
+ * APRÈS toutes les autres. Le showreel sortait en 145ᵉ position sur 147.
+ * Giz : « je ne le vois pas dans la liste ». Il y était, tout en bas.
+ *
+ * ⚠️ ON TRIE SUR `_createdAt`, ET CE N'EST PAS UNE DATE DE PROJET. Le schéma
+ * n'a AUCUN champ de date : `_createdAt` est l'horodatage d'import. Il fait
+ * l'affaire parce que l'import a parcouru l'ancien site du plus ancien au plus
+ * récent — les showreels 2019 → 2025 s'y succèdent dans l'ordre, ce qui le
+ * vérifie. C'est déjà la règle des « 4 dernières » de l'accueil.
+ * 👉 CE QUE ÇA NE FAIT PAS : refléter la vraie chronologie des tournages. Deux
+ * projets importés dans la même seconde sortent dans un ordre arbitraire. Le
+ * jour où l'ordre comptera vraiment, il faudra un champ de date rempli à la
+ * main — ce tri-ci est une approximation, pas une vérité.
+ */
 export async function lireRealisations(version: Version = "fr") {
   return sanity.fetch<RealisationSanity[]>(
-    `*[_type == "realisation" && language == $v] | order(titre asc) { ${CHAMPS} }`,
+    `*[_type == "realisation" && language == $v] | order(_createdAt desc) { ${CHAMPS} }`,
     { v: version },
     /* Les pages sont regénérées au plus toutes les 60 s : une correction
        dans le studio se voit sans reconstruire le site entier. */
