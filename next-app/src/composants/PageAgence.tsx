@@ -253,7 +253,7 @@ const HISTOIRES = [
 const AU_TRAVAIL: [string, string][] = [
   ["/media/coulisses-reperage.jpg", "En repérage"],
   ["/media/coulisses-interview.jpg", "En tournage"],
-  ["/media/coulisses-plateau.jpg", "Sur le plateau"],
+  ["/media/coulisses-chantier.jpg", "Sur un chantier"],
   ["/media/coulisses-regie-direct.jpg", "En régie"],
   ["/media/coulisses-montage.jpg", "En montage"],
   ["/media/coulisses-installation.jpg", "En installation"],
@@ -312,9 +312,19 @@ export function CorpsAgence({  publique }: {  publique?: boolean }) {
               bizarre sur celle-là ». Un visage figé par le hasard d'un
               déclenchement devient, en héros, la première chose que voit un
               visiteur. Aucun cadrage ne rattrape ça.
-            · quatre personnes sur un toit, casques de chantier et gilets,
-              autour d'un drone, la ville derrière. C'est ce que fait
-              l'agence, fait par l'agence — et personne n'y est en gros plan.
+            · un toit, un drone, des casques de chantier — proposée par moi,
+              puis remplacée.
+            · le plateau de « La Boîte à Questions », trois personnes en train
+              de rire. CHOISIE PAR GIZ, qui me l'a désignée par son nom de
+              fichier après m'avoir dit : « tu tâtonnes ».
+          👉 Il avait raison. Je cherchais l'image la plus impressionnante,
+          puis la plus juste ; lui a pris la plus ACCUEILLANTE. Sur une page
+          dont la première phrase est « vous nous confiez un sujet, pas un
+          dossier », le héros doit donner envie de pousser la porte — pas
+          prouver qu'on a du matériel. Trois personnes qui rient font ça mieux
+          qu'une grue.
+          ⚠️ Quand quelqu'un connaît son sujet mieux que moi, lui demander de
+          désigner coûte moins cher que de lui soumettre des candidates.
           👉 Une image de héros ne doit pas être la plus impressionnante, elle
           doit être la plus JUSTE. Une salle comble raconte le client ; une
           régie raconte celui qui la tient.
@@ -328,7 +338,14 @@ export function CorpsAgence({  publique }: {  publique?: boolean }) {
         />
         <div
           className="absolute inset-0"
-          style={{ background: "linear-gradient(100deg, rgba(4,7,10,.94) 0%, rgba(4,7,10,.82) 46%, rgba(4,7,10,.55) 100%)" }}
+          /* ⚠️ VOILE ALLÉGÉ pour cette photo-ci. Le précédent (94 % à gauche,
+             55 % à droite) était calibré sur une foule à contre-jour : sur le
+             plateau il effaçait la troisième personne et l'enseigne du décor,
+             c'est-à-dire ce qui donne son sens à l'image.
+             👉 Un dégradé se règle par photo, pas une fois pour toutes. Assez
+             sombre à gauche pour que le blanc tienne, assez clair à droite
+             pour qu'on voie ce qu'on montre. */
+          style={{ background: "linear-gradient(100deg, rgba(4,7,10,.93) 0%, rgba(4,7,10,.68) 42%, rgba(4,7,10,.24) 100%)" }}
         />
         <div className="relative mx-auto max-w-[1500px] px-8 pb-20 pt-44">
           <div className={`mb-6 flex items-center gap-4 ${TYPO.surTitre}`} style={{ color: BLEU_CLAIR }}>
