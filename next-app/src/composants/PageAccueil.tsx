@@ -244,21 +244,23 @@ const CAS = [
     client: "UNESCO",
     pilier: "Immersion",
     contexte: "Expérience VR · exposition Dive into Heritage, Paris",
-    /**
-     * ⛔⛔ CETTE IMAGE EST UNE PHOTO DE BANQUE D'IMAGES, ET ELLE MENT.
-     * `px-` = Pexels. On y voit une galerie d'archéologie quelconque : ni
-     * l'exposition Dive into Heritage, ni notre travail, ni rien qui nous
-     * appartienne — sous un libellé qui annonce « UNESCO · Expérience VR ».
-     *
-     * ⚠️ ELLE RESTE ICI FAUTE DE MIEUX, ET C'EST SIGNALÉ À GIZ. Je n'ai
-     * trouvé AUCUN visuel du projet : le dossier client Dropbox ne contient
-     * que deux plannings, Livid n'a rien sous « unesco » ni « heritage »,
-     * aucun lien Replay ne circule dans le corpus de Giz, et le Cloud Store
-     * n'est pas monté. Mettre l'image d'un autre projet serait la même faute
-     * en pire.
-     * ⛔ NE PAS METTRE EN LIGNE LE 4 SEPTEMBRE AVEC CETTE IMAGE.
-     */
-    image: "/media/px-cas-unesco.jpg",
+    /* ⭐ ENFIN UNE VRAIE IMAGE, le 21/08/2026. Ce qu'il y avait avant était
+       une photo de BANQUE D'IMAGES — une galerie d'archéologie quelconque —
+       affichée sous le libellé « UNESCO · Expérience VR ». Vincent a fourni
+       les photos du montage, et celle-ci montre le poste VR avant l'ouverture :
+       les deux casques sur leur socle, l'écran « A digital dive into heritage »,
+       et le décor imprimé de Qasr Ibrahim.
+
+       ⛔ ELLE EST RECADRÉE, PAS RETOUCHÉE. Un technicien accroupi câblait dans
+       l'angle droit ; Giz : « soit tu la retouches en faisant disparaître le
+       technicien accroupi, soit on la change ». Effacer quelqu'un au pinceau
+       sur une photo documentaire en fait un document faux — le cadre, lui, ne
+       ment pas : il choisit ce qu'on montre, il n'invente rien. On a donc
+       coupé à gauche du poteau d'enceinte.
+       ⚠️ Une autre photo montre un visiteur casque sur la tête — plus forte,
+       mais son visage est parfaitement reconnaissable. Elle attend l'accord
+       de Giz plutôt que de partir toute seule. */
+    image: "/media/cas-unesco-poste-vr.jpg",
     lien: "/actualites/unesco-dive-into-heritage-photos-360-et-interface-tactile/",
     /**
      * Vérifié dans Podio (V05498, via Decorama — GL Events) : exposition
@@ -272,15 +274,17 @@ const CAS = [
      * ⚠️ Fréquentation à demander : l'expo n'avait que deux casques VR, la
      * mesure est donc un nombre de sessions, pas de visiteurs.
      */
-    /* ⚠️ LE CHIFFRE EST LE PLUS FAIBLE DES TROIS, et je le dis plutôt que de
-       le maquiller. « 1 min 30 » et « 10 tables » disent ce qu'on a fait ;
-       « 11 jours » dit combien de temps l'exposition est restée ouverte
-       (6 → 16 juillet 2025, dates du brief UNESCO). C'est vérifiable, ce
-       n'est pas notre travail.
-       ⭐ Ce qu'il faudrait à la place : le nombre de visiteurs passés sur les
-       deux dispositifs. Decorama ou l'UNESCO doivent l'avoir. */
-    chiffre: "11 jours",
-    unite: "d’exposition à Paris",
+    /* ⭐ LE CHIFFRE VIENT DE NOTRE PROPRE BUILD UNITY, et il remplace un
+       « 11 jours d'exposition » qui ne parlait que de la durée de l'expo.
+       Les noms d'assets de l'application tactile portent la liste, codée par
+       pays : 01BH_Dilmun, 02BH_Qalat, 04EG_Memphis, 05LB_Baalbek,
+       06LB_Byblos, 08LY_Leptis, 10OM_Bahla, plus l'arc de Timgad (Algérie).
+       Huit sites, sept pays.
+       ⚠️ LES MODÈLES 3D SONT FOURNIS PAR L'UNESCO — c'est écrit au cahier des
+       charges. Ce qui est de nous, c'est l'interface qui les rend explorables.
+       Le chiffre dit donc « explorables au doigt », pas « modélisés ». */
+    chiffre: "8 sites",
+    unite: "explorables au doigt",
   },
 ];
 
