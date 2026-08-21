@@ -213,9 +213,9 @@ fr;réalisation;/nos-realisations/cera-fr/;/realisations/site-internet-cera-moti
 fr;réalisation;/nos-realisations/sgs-making-of/;/realisations/sgs-reportage-making-of/;301;0;apparié sur le titre — sûr
 fr;réalisation;/nos-realisations/we-see-big/;/realisations/gfms-video-publicitaire-3d-we-see-big/;301;0;apparié sur le titre — sûr
 fr;réalisation;/nos-realisations/abb-snk-3d-solaire/;/realisations/abb-snk-animation-3d-produit-solaire/;301;0;apparié sur le titre — sûr
-fr;page;/merci-demande-stage/;;410;0;page de remerciement, disparaît
-fr;page;/merci-demande-recrutement/;;410;0;page de remerciement, disparaît
-fr;page;/merci-demande/;;410;0;page de remerciement, disparaît
+fr;page;/merci-demande-stage/;—;410;0;"page de remerciement d'un formulaire : personne n'y arrive depuis Google (0 clic sur 16 mois). Un 410 dit à Google de l'oublier ; un 301 vers /contact/ ferait croire à une page déplacée."
+fr;page;/merci-demande-recrutement/;—;410;0;"page de remerciement d'un formulaire : personne n'y arrive depuis Google (0 clic sur 16 mois). Un 410 dit à Google de l'oublier ; un 301 vers /contact/ ferait croire à une page déplacée."
+fr;page;/merci-demande/;—;410;0;"page de remerciement d'un formulaire : personne n'y arrive depuis Google (0 clic sur 16 mois). Un 410 dit à Google de l'oublier ; un 301 vers /contact/ ferait croire à une page déplacée."
 fr;page;/realisation-film-automotive/;/offres/film/;301;0;page de secteur → pilier
 fr;page;/realisation-film-construction-immobiliere/;/offres/film/;301;0;page de secteur → pilier
 fr;page;/realisation-film-immobilier-real-estate/;/offres/film/;301;0;page de secteur → pilier
