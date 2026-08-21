@@ -128,6 +128,44 @@ const CONVICTIONS = [
   "Vous nous exposez un problème, nous vous proposons une solution — et quand nous ne sommes pas d’accord, nous le disons.",
 ];
 
+/**
+ * TROIS HISTOIRES — transcrites des vidéos « anecdotes » de Giz (15/10/2025).
+ *
+ * ⛔ LES CHIFFRES SONT LES SIENS, mot pour mot : « ils étaient à peu près
+ * 2000 » (Cannes), « ses 1000 collaborateurs » (Malte), « à peu près x10 sur
+ * leur compte » (Berliet). Aucun n'est arrondi vers le haut, aucun n'est
+ * déduit. Si l'un doit bouger, c'est lui qui le corrige.
+ *
+ * ⚠️ « x10 » EST UN RAPPORT, PAS UN VOLUME. Giz précise « par rapport à leur
+ * vue habituelle et par rapport à leur like habituel ». Écrire « 10 fois plus
+ * de vues » sans ce repère laisserait croire à un chiffre absolu.
+ *
+ * ⚠️ FOOH : Giz dit « Foreign Out of Home ». Le terme du métier est « Fake
+ * Out Of Home ». On écrit la version juste, et on lui signale.
+ */
+const HISTOIRES = [
+  {
+    titre: "Le montage suivait le car",
+    texte:
+      "Un séminaire de mille collaborateurs à Malte, sur plusieurs lieux — plage, hôtel, bateau, soirée. Une équipe de trois : deux à la caméra, un au montage. Le monteur montait pendant les trajets, dans le car. La dernière séquence a été tournée cinq minutes avant la diffusion : deux participants se remémorant leur journée.",
+    chute: "Le film de la journée a été projeté le soir même, dans la soirée.",
+  },
+  {
+    titre: "La demande arrivée le premier jour",
+    texte:
+      "Une convention à Cannes, environ deux mille personnes. Le dispositif était calé : captation, films diffusés pendant la convention, aftermovie. En installant le matériel, le client propose d’interviewer ses collaborateurs devant le Palais des Festivals, pour les faire patienter à l’entrée de la salle.",
+    chute:
+      "On a déclenché le monteur plus tôt et décalé l’aftermovie. Les interviews ont été diffusées le jour même.",
+  },
+  {
+    titre: "Des barils qui traversent Lyon",
+    texte:
+      "Un client fêtait un anniversaire avec un nouveau visuel de barils d’huile, et voulait de la visibilité. Plutôt qu’un film de présentation envoyé sur les réseaux — ce qui n’y marche pas — nous avons proposé un FOOH : des barils géants qui traversent la ville, filmés comme une scène de rue.",
+    chute:
+      "Le post a fait environ dix fois leurs vues et leurs likes habituels.",
+  },
+];
+
 /** ⚠️ Photos AU TRAVAIL. Jamais un groupe posé, jamais de tête à compter. */
 const AU_TRAVAIL = [
   ["/media/coulisses-interview.jpg", "En tournage"],
@@ -277,13 +315,39 @@ export function CorpsAgence({  publique }: {  publique?: boolean }) {
           <span className="inline-block h-[3px] w-12 rounded-full" style={{ background: BLEU }} />
           En interne
         </div>
+        {/* ⭐⭐ POURQUOI LES QUATRE PÔLES RESTENT, ALORS QUE LE SITE VEND TROIS
+            MÉTIERS. Question de Giz le 21/08 : « est-ce cohérent avec notre
+            nouveau positionnement ? ». Oui — parce que les deux listes ne
+            répondent pas à la même question.
+              · Communication & marketing / événementiel / immersion, c'est ce
+                qu'on ACHÈTE. C'est la porte d'entrée du client.
+              · Vidéo / son / infographie / développement, c'est ce qu'on A.
+                C'est de la production, et ça n'a rien à faire dans une vitrine.
+            ⛔ MAIS LA LISTE SEULE POSITIONNERAIT UNE MAISON DE PRODUCTION,
+            exactement ce qui avait fait retirer « 145 films » de l'accueil.
+            Elle ne tient donc ici qu'à une condition : servir de PREUVE à la
+            promesse « un seul interlocuteur ». D'où le titre reformulé — ce
+            n'est plus un catalogue de compétences, c'est la réponse à
+            « pourquoi vous n'aurez pas quatre prestataires ». */}
         <h2 className={`max-w-3xl ${TYPO.titre}`}>
-          Quatre pôles : production vidéo, son, infographie, développement.
+          Un seul interlocuteur, parce que les quatre métiers sont dans la
+          maison.
         </h2>
         <p className={`mt-6 max-w-2xl ${TYPO.chapo}`}>
-          Concepteurs, réalisateurs, infographistes, cadreurs, monteurs,
-          développeurs. Les mêmes personnes suivent votre projet du premier
-          rendez-vous à la mise en ligne.
+          Vidéo, son, infographie, développement. Concepteurs, réalisateurs,
+          infographistes, cadreurs, monteurs, développeurs : les mêmes
+          personnes suivent votre projet du premier rendez-vous à la mise en
+          ligne.
+        </p>
+        {/* ⭐ CE PARAGRAPHE VIENT DE L'AUDIO DE GIZ (« anecdotes », 5-réactivité),
+            et c'est le seul endroit de la page qui explique COMMENT la promesse
+            tient un mois d'août. Sans lui, « un seul interlocuteur » est un
+            argument que n'importe qui peut écrire. */}
+        <p className={`mt-5 max-w-2xl ${TYPO.corps}`}>
+          Tout le monde travaille sur les mêmes logiciels, avec la même méthode
+          et la même nomenclature. C’est ce qui fait qu’une demande de
+          modification n’attend pas le retour de la personne qui était dessus :
+          quelqu’un d’autre ouvre le projet et le reprend.
         </p>
 
         <div className="mt-14 grid gap-10 md:grid-cols-2 lg:grid-cols-4">
@@ -358,6 +422,53 @@ export function CorpsAgence({  publique }: {  publique?: boolean }) {
             </li>
           ))}
         </ul>
+      </section>
+
+      {/* ── TROIS HISTOIRES ──────────────────────────────────────────────
+             ⭐ D'OÙ ELLES VIENNENT : les vidéos « anecdotes » enregistrées par
+             Giz le 15/10/2025 et transcrites le 21/08/2026. Ce ne sont pas des
+             exemples reconstitués — c'est lui qui raconte, et les faits (mille
+             collaborateurs à Malte, deux mille à Cannes, le ×10 de Berliet)
+             sortent de sa bouche.
+
+             ⛔⛔ POURQUOI UNE SECTION À PART PLUTÔT QUE DES ANECDOTES FONDUES.
+             La page affirmait beaucoup et ne montrait rien : quatre
+             frustrations, trois convictions, une méthode — pas un seul fait
+             vérifiable. Une conviction sans récit reste une valeur déguisée.
+             Fondues dans les sections, ces histoires auraient été des
+             illustrations ; groupées, elles deviennent la preuve.
+
+             ⚠️ AUCUN NOM DE CLIENT ICI, sauf là où le projet est déjà public
+             sur le site (Berliet est en réalisation). Un séminaire d'entreprise
+             ne se raconte pas avec le nom de l'entreprise sans son accord.
+
+             ⛔ ET AUCUN EFFECTIF. L'audio dit « cinq salariés et cinq à dix
+             intermittents » — la page s'interdit depuis le 10/08 de donner
+             l'effectif ou de quoi le déduire. « Une équipe de trois » décrit
+             UN TOURNAGE, pas l'entreprise : c'est la seule forme admise, et la
+             règle attend l'arbitrage de Giz. */}
+      <section style={{ background: SOMBRE, color: "#fff" }}>
+        <div className="mx-auto max-w-[1500px] px-8 py-24">
+          <div className={`mb-7 flex items-center gap-4 ${TYPO.surTitre}`} style={{ color: BLEU_CLAIR }}>
+            <span className="inline-block h-[3px] w-12 rounded-full" style={{ background: BLEU_CLAIR }} />
+            Trois histoires
+          </div>
+          <h2 className={`max-w-4xl ${TYPO.titre}`}>
+            Ce que ça donne quand ça se passe bien.
+          </h2>
+
+          <div className="mt-14 grid gap-x-14 gap-y-12 md:grid-cols-3">
+            {HISTOIRES.map(h => (
+              <div key={h.titre} className="border-t-2 pt-6" style={{ borderColor: BLEU_CLAIR }}>
+                <div className="text-[1.25rem] font-bold leading-snug">{h.titre}</div>
+                <p className="mt-4 text-[1.0625rem] leading-relaxed text-white/70">{h.texte}</p>
+                <p className="mt-4 text-[1.0625rem] font-semibold leading-snug" style={{ color: BLEU_CLAIR }}>
+                  {h.chute}
+                </p>
+              </div>
+            ))}
+          </div>
+        </div>
       </section>
 
       {/* ── LES MOYENS ───────────────────────────────────────────────────
