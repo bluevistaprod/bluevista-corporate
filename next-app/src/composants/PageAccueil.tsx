@@ -244,7 +244,22 @@ const CAS = [
     client: "UNESCO",
     pilier: "Immersion",
     contexte: "Expérience VR · exposition Dive into Heritage, Paris",
+    /**
+     * ⛔⛔ CETTE IMAGE EST UNE PHOTO DE BANQUE D'IMAGES, ET ELLE MENT.
+     * `px-` = Pexels. On y voit une galerie d'archéologie quelconque : ni
+     * l'exposition Dive into Heritage, ni notre travail, ni rien qui nous
+     * appartienne — sous un libellé qui annonce « UNESCO · Expérience VR ».
+     *
+     * ⚠️ ELLE RESTE ICI FAUTE DE MIEUX, ET C'EST SIGNALÉ À GIZ. Je n'ai
+     * trouvé AUCUN visuel du projet : le dossier client Dropbox ne contient
+     * que deux plannings, Livid n'a rien sous « unesco » ni « heritage »,
+     * aucun lien Replay ne circule dans le corpus de Giz, et le Cloud Store
+     * n'est pas monté. Mettre l'image d'un autre projet serait la même faute
+     * en pire.
+     * ⛔ NE PAS METTRE EN LIGNE LE 4 SEPTEMBRE AVEC CETTE IMAGE.
+     */
     image: "/media/px-cas-unesco.jpg",
+    lien: "/actualites/unesco-dive-into-heritage-photos-360-et-interface-tactile/",
     /**
      * Vérifié dans Podio (V05498, via Decorama — GL Events) : exposition
      * organisée en marge de la 47e session du Comité du patrimoine mondial,
@@ -257,8 +272,15 @@ const CAS = [
      * ⚠️ Fréquentation à demander : l'expo n'avait que deux casques VR, la
      * mesure est donc un nombre de sessions, pas de visiteurs.
      */
-    chiffre: "",
-    unite: "",
+    /* ⚠️ LE CHIFFRE EST LE PLUS FAIBLE DES TROIS, et je le dis plutôt que de
+       le maquiller. « 1 min 30 » et « 10 tables » disent ce qu'on a fait ;
+       « 11 jours » dit combien de temps l'exposition est restée ouverte
+       (6 → 16 juillet 2025, dates du brief UNESCO). C'est vérifiable, ce
+       n'est pas notre travail.
+       ⭐ Ce qu'il faudrait à la place : le nombre de visiteurs passés sur les
+       deux dispositifs. Decorama ou l'UNESCO doivent l'avoir. */
+    chiffre: "11 jours",
+    unite: "d’exposition à Paris",
   },
 ];
 
