@@ -73,7 +73,7 @@ const PARCOURS: Record<Metier, Etape[]> = {
       detail:
         "Quel message, quelle cible, quelles références, cohérence ou disruption. Puis un ou plusieurs concepts — retenus seulement si le message est clair, s’il parle à la cible, et si nous sommes fiers de le produire.",
       livrable: "Concept général · narratif et graphique · chiffré",
-      photo: "/media/px-methode-1.jpg",
+      photo: "/media/coulisses-reperage.jpg",
     },
     {
       titre: "Pré-production",
@@ -81,7 +81,7 @@ const PARCOURS: Record<Metier, Etape[]> = {
       detail:
         "Écriture du scénario, note d’intention, storyboard, devis, plan de travail, casting, logistique, droits musicaux et droit à l’image, autorisations de tournage et de survol drone.",
       livrable: "Scénario · note d’intention · storyboard · planning",
-      photo: "/media/px-methode-2.jpg",
+      photo: "/media/coulisses-chantier.jpg",
     },
     {
       titre: "Production",
@@ -98,7 +98,7 @@ const PARCOURS: Record<Metier, Etape[]> = {
       detail:
         "Tri et sélection des images, montage, animation des éléments graphiques, création sonore. Une première version complète livrée sur notre plateforme de visionnage, où vous annotez au timecode près. Deux à trois points d’étape : le premier pour le fond, les suivants pour les détails.",
       livrable: "Film complet — version 1, annotable en ligne",
-      photo: "/media/px-methode-4.jpg",
+      photo: "/media/coulisses-multicamera.jpg",
     },
     {
       titre: "Diffusion",
@@ -107,7 +107,7 @@ const PARCOURS: Record<Metier, Etape[]> = {
       detail:
         "Harmonisation des couleurs, sous-titrage pour l’accessibilité, fichiers à tous les formats utiles — site, réseaux, écrans internes, salon. Puis la mise en ligne elle-même : un projet qui reste sur un serveur n’a encore rien produit.",
       livrable: "Fichiers finaux · sous-titres · formats réseaux · mise en ligne",
-      photo: "/media/px-methode-5.jpg",
+      photo: "/media/coulisses-console-son.jpg",
     },
     {
       titre: "Débriefing",
@@ -115,7 +115,7 @@ const PARCOURS: Record<Metier, Etape[]> = {
       detail:
         "On suit la vie du film avec vous : ce qui a marché, à quel moment les spectateurs décrochent, où et quand il a été posté. Ce qu’on en tire nourrit l’analyse du projet suivant.",
       livrable: "Analyse de diffusion · leçons pour le projet suivant",
-      photo: "/media/px-methode-6.jpg",
+      photo: "/media/equipe-jour-j.jpg",
     },
   ],
 
@@ -132,7 +132,7 @@ const PARCOURS: Record<Metier, Etape[]> = {
       detail:
         "Qui vient, pourquoi, et qu’est-ce qu’ils doivent emporter en repartant. On écarte les dispositifs qui flattent l’organisateur sans marquer le public. Puis un parti pris de mise en scène, chiffré.",
       livrable: "Concept d’événement · parti pris scénographique · budget",
-      photo: "/media/px-methode-1.jpg",
+      photo: "/media/coulisses-reperage.jpg",
     },
     {
       titre: "Planification",
@@ -140,7 +140,7 @@ const PARCOURS: Record<Metier, Etape[]> = {
       detail:
         "Rétroplanning, repérages sur site, plans de scénographie, besoins techniques, coordination des prestataires, autorisations. C’est ici que se joue la date : elle ne bouge pas, donc tout le reste doit être prêt avant.",
       livrable: "Rétroplanning · plans · plan de charge technique",
-      photo: "/media/px-methode-2.jpg",
+      photo: "/media/coulisses-chantier.jpg",
     },
     {
       titre: "Production des contenus",
@@ -156,7 +156,7 @@ const PARCOURS: Record<Metier, Etape[]> = {
       detail:
         "Montage, calage de la régie, contenus testés sur les écrans réels et dans la vraie lumière, filages avec les intervenants. Tout est en place, le public n’est pas encore là — c’est le seul moment où une erreur ne coûte rien.",
       livrable: "Répétition générale · calage régie · validation sur site",
-      photo: "/media/px-methode-4.jpg",
+      photo: "/media/coulisses-multicamera.jpg",
     },
     {
       titre: "Le jour J",
@@ -164,7 +164,7 @@ const PARCOURS: Record<Metier, Etape[]> = {
       detail:
         "Conduite et régie pendant l’événement, captation multi-caméra, exploitation des dispositifs. Puis l’aftermovie, monté pendant que le souvenir est frais, et ses déclinaisons courtes pour les réseaux : un événement produit largement de quoi communiquer jusqu’au suivant.",
       livrable: "Régie · captation · aftermovie · formats réseaux",
-      photo: "/media/px-pilier-evenementiel.jpg",
+      photo: "/media/coulisses-regie-direct.jpg",
     },
     {
       titre: "Débriefing",
@@ -172,7 +172,7 @@ const PARCOURS: Record<Metier, Etape[]> = {
       detail:
         "Fréquentation, temps passé sur les dispositifs, retombées des contenus diffusés après coup. Ce qu’on en tire nourrit la conception de l’édition suivante.",
       livrable: "Bilan de fréquentation · retombées · leçons",
-      photo: "/media/px-methode-6.jpg",
+      photo: "/media/equipe-jour-j.jpg",
     },
   ],
 
@@ -184,7 +184,7 @@ const PARCOURS: Record<Metier, Etape[]> = {
       detail:
         "Ce que le visiteur doit comprendre ou ressentir, en combien de temps, dans quelles conditions. Le casque, le mapping ou la 3D temps réel découlent de cette réponse — jamais l’inverse.",
       livrable: "Intention d’expérience · scénario d’usage · budget",
-      photo: "/media/px-methode-1.jpg",
+      photo: "/media/coulisses-reperage.jpg",
     },
     {
       titre: "Conception technique",
@@ -192,7 +192,7 @@ const PARCOURS: Record<Metier, Etape[]> = {
       detail:
         "Parcours du visiteur, durée d’une session, contraintes de la salle, matériel, flux de visiteurs. Prototype testé tôt : une expérience immersive ne se juge pas sur un document.",
       livrable: "Parcours · prototype · besoins matériels",
-      photo: "/media/px-methode-2.jpg",
+      photo: "/media/coulisses-chantier.jpg",
     },
     {
       titre: "Développement",
@@ -200,7 +200,7 @@ const PARCOURS: Record<Metier, Etape[]> = {
       detail:
         "Modélisation et animation 3D, captation 360°, développement de l’application, intégration des contenus. Nos développeurs sont dans l’équipe : ce qui est conçu et ce qui est codé ne se découvrent pas à la livraison.",
       livrable: "Application · contenus 3D · intégration",
-      photo: "/media/px-pilier-immersion.jpg",
+      photo: "/media/coulisses-montage.jpg",
     },
     {
       titre: "Avant-première",
@@ -208,7 +208,7 @@ const PARCOURS: Record<Metier, Etape[]> = {
       detail:
         "Recette technique, confort, durée réelle d’une session, ergonomie pour quelqu’un qui n’a jamais mis un casque. C’est l’étape que l’on saute le moins volontiers : elle décide de tout le reste.",
       livrable: "Recette · corrections · protocole d’accueil",
-      photo: "/media/px-methode-4.jpg",
+      photo: "/media/coulisses-multicamera.jpg",
     },
     {
       titre: "Ouverture au public",
@@ -216,7 +216,7 @@ const PARCOURS: Record<Metier, Etape[]> = {
       detail:
         "Installation sur site, réglages en conditions réelles, formation des équipes d’accueil, exploitation pendant toute la durée. Un dispositif immersif sans personne pour l’accompagner reste inutilisé.",
       livrable: "Installation · formation · exploitation",
-      photo: "/media/px-mapping.jpg",
+      photo: "/media/produit-interactivite-salle.jpg",
     },
     {
       titre: "Débriefing",
@@ -224,7 +224,7 @@ const PARCOURS: Record<Metier, Etape[]> = {
       detail:
         "Nombre de sessions, temps passé, points de décrochage, retours des visiteurs et des équipes d’accueil. Ce qu’on en tire nourrit la conception du dispositif suivant.",
       livrable: "Statistiques de session · retours · leçons",
-      photo: "/media/px-methode-6.jpg",
+      photo: "/media/equipe-jour-j.jpg",
     },
   ],
 };

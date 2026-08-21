@@ -70,7 +70,7 @@ export async function CorpsVille({ slug, publique }: { slug: string; publique?: 
       <section className="relative flex min-h-[58vh] flex-col justify-end overflow-hidden">
         <div
           className="absolute inset-0 bg-cover bg-center"
-          style={{ backgroundImage: `url('${page.image ? imageUrl(page.image, 1800, 1000) : (c?.image ?? "/media/px-pilier-communication.jpg")}')` }}
+          style={{ backgroundImage: `url('${page.image ? imageUrl(page.image, 1800, 1000) : (c?.image ?? "/media/pilier-communication-fond-vert.jpg")}')` }}
           role="img"
           aria-label={v.titre}
         />

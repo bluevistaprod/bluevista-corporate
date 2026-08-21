@@ -111,7 +111,7 @@ export const OFFRES: Offre[] = [
       { nom: "Jingles", slug: "jingle" },
       { nom: "Optimisation pour les réseaux", slug: "optimisation-rs" },
     ],
-    image: "/media/px-methode-4.jpg",
+    image: "/media/coulisses-montage.jpg",
   },
   {
     id: "film-com-interne",
@@ -149,7 +149,7 @@ export const OFFRES: Offre[] = [
       { nom: "Capsules interviews", slug: "interview" },
       { nom: "Podcasts", slug: "podcast" },
     ],
-    image: "/media/px-methode-5.jpg",
+    image: "/media/produit-podcast.jpg",
   },
 
   // ── ÉVÉNEMENTIEL ─────────────────────────────────────────────────────
@@ -169,7 +169,7 @@ export const OFFRES: Offre[] = [
       { nom: "Application de salon", slug: "appli-salon" },
       { nom: "Interactivité en salle", slug: "interactivite" },
     ],
-    image: "/media/px-cas-worldskills.jpg",
+    image: "/media/produit-interactivite-salle.jpg",
   },
   {
     id: "diffusion-visibilite",
@@ -198,7 +198,7 @@ export const OFFRES: Offre[] = [
       { nom: "Aftermovie", slug: "aftermovie", page: "aftermovie-captation-evenementielle" },
       { nom: "Événement hybride", slug: "hybride" },
     ],
-    image: "/media/px-pilier-evenementiel.jpg",
+    image: "/media/coulisses-regie-direct.jpg",
   },
   {
     id: "videomapping",
@@ -213,7 +213,7 @@ export const OFFRES: Offre[] = [
       { nom: "Mapping architectural", slug: "mapping-architectural", page: "video-mapping" },
       { nom: "Mapping sur table", slug: "mapping-table", page: "video-mapping" },
     ],
-    image: "/media/px-mapping.jpg",
+    image: "/media/produit-mapping-table.jpg",
   },
 
   // ── IMMERSION ────────────────────────────────────────────────────────
@@ -232,7 +232,7 @@ export const OFFRES: Offre[] = [
       { nom: "Expérience gamifiée", slug: "gamification" },
       { nom: "Métavers personnalisé", slug: "metavers" },
     ],
-    image: "/media/px-pilier-immersion.jpg",
+    image: "/media/pilier-immersion-hololens-mont-aiguille.jpg",
   },
   {
     id: "salle-immersive",
@@ -247,7 +247,7 @@ export const OFFRES: Offre[] = [
       { nom: "Salle immersive", slug: "salle-immersive" },
       { nom: "Showroom mixte", slug: "showroom-mixte" },
     ],
-    image: "/media/px-cas-unesco.jpg",
+    image: "/media/produit-showroom-mixte.jpg",
     /* Aucune page de compétence existante : c'est une offre nouvelle, donc
        une page à créer de zéro — sans historique de référencement à protéger,
        mais aussi sans rien pour démarrer. */
@@ -265,7 +265,7 @@ export const OFFRES: Offre[] = [
       { nom: "Visite virtuelle", slug: "visite-virtuelle" },
       { nom: "Showroom virtuel", slug: "showroom-virtuel" },
     ],
-    image: "/media/px-methode-6.jpg",
+    image: "/media/produit-showroom-virtuel.jpg",
   },
 ];
 

@@ -52,7 +52,16 @@ const CONTENU: Record<
       "Film d’entreprise, motion design, podcast, contenus sociaux. Ce qu’on fabrique dépend de ce que vous devez obtenir — pas l’inverse.",
     chapo:
       "Vous avez un message, mais il se perd dans le bruit. Votre audience ne vous trouve pas, ne vous comprend pas, ou ne passe pas à l’action.",
-    image: "/media/px-pilier-communication.jpg",
+    /* ⛔ LES TROIS HÉROS ÉTAIENT DES PHOTOS DE BANQUE D'IMAGES (préfixe `px-`)
+       jusqu'au 21/08. Sur les trois pages COMMERCIALES du site — celles qui
+       présentent ce qu'on vend — c'était l'endroit le moins défendable.
+       ⭐ Ce sont maintenant les MÊMES images que les trois piliers de
+       l'accueil. Ce n'est pas de l'économie : quelqu'un qui clique sur le
+       pilier « Communication & marketing » doit retrouver l'image qu'il vient
+       de voir, sinon il doute d'être au bon endroit.
+       ⚠️ Ce n'est qu'un REPLI : si la page Sanity porte une image, c'est elle
+       qui gagne (voir plus bas). Aucune des trois n'en a aujourd'hui. */
+    image: "/media/pilier-communication-fond-vert.jpg",
   },
   evenement: {
     cleMethode: "evenementiel",
@@ -63,7 +72,7 @@ const CONTENU: Record<
       "Conception, contenus, scénographie, régie, captation. Un événement se prépare pendant des mois pour tenir quelques heures — c’est toute la difficulté du métier.",
     chapo:
       "Un événement réussi ne s’improvise pas le jour même : il se joue dans les semaines qui précèdent, quand plus rien ne doit être en cours de fabrication.",
-    image: "/media/px-pilier-evenementiel.jpg",
+    image: "/media/pilier-evenementiel-mapping-intercontinental.jpg",
   },
   immersion: {
     cleMethode: "immersion",
@@ -74,7 +83,7 @@ const CONTENU: Record<
       "Réalité virtuelle, 3D temps réel, mapping, 360°. La technologie découle de ce que votre public doit ressentir — elle ne le précède jamais.",
     chapo:
       "Vos publics veulent des expériences, pas seulement des contenus. Mais la réalité virtuelle paraît complexe, coûteuse, et son intérêt reste flou tant qu’on ne l’a pas essayée.",
-    image: "/media/px-pilier-immersion.jpg",
+    image: "/media/pilier-immersion-hololens-mont-aiguille.jpg",
   },
 };
 

@@ -146,7 +146,7 @@ export const COMPETENCES: Competence[] = [
       "Notre travail ne se limite pas à concevoir et diffuser. Nous sommes régulièrement amenés à gérer plusieurs aspects d’un même événement — comme pour le Printemps de Lyon, où nous avons assuré à la fois la captation de l’événement, la réalisation du mapping et la captation de celui-ci, sans revoir aucune de ces prestations à la baisse.",
       "Grâce aux jeux de lumière et aux animations 2D et 3D, transformez vos bâtiments en œuvre d’art. Un vidéo mapping se conçoit pour un bâtiment précis : ses reliefs, ses ouvertures, l’endroit d’où le public le regarde. Deux façades ne reçoivent jamais la même projection.",
     ],
-    image: "/media/px-mapping.jpg",
+    image: "/media/produit-mapping-table.jpg",
     ancienneUrl: "/nos-competences/video-mapping/",
     clics: 96,
   },
@@ -165,7 +165,7 @@ export const COMPETENCES: Competence[] = [
       "Interaction avec le public à distance",
       "Rediffusion et extraits",
     ],
-    image: "/media/px-pilier-evenementiel.jpg",
+    image: "/media/pilier-evenementiel-mapping-intercontinental.jpg",
     texte: [
       "Via une simple connexion ADSL / 3G / 4G ou par satellite, nous diffusons en direct votre évènement vers nos serveurs de streaming vidéo dédiés. Notre plateforme webtv vous assure une diffusion accessible au plus grand nombre et un suivi précis de votre audience. Grâce à du matériel léger et mobile, nous pouvons intervenir depuis (presque) n’importe où dans le monde pour une diffusion vidéo haute résolution H.264. De la conférence privée à plusieurs milliers d’internautes connectés en même temps, nous vous accompagnons sur toutes les étapes de votre diffusion d’évènement en direct ou VOD sur internet.",
     ],
@@ -176,7 +176,7 @@ export const COMPETENCES: Competence[] = [
           "Quelqu’un qui suit votre événement depuis son bureau n’a pas la salle autour de lui : ni les voisins, ni l’écran géant, ni la pause café. Il a un onglet parmi douze. Tout ce qui est approximatif — un son qui souffle, un plan fixe qui dure, un intervenant hors cadre — lui donne une raison de fermer.",
           "C’est pour ça qu’un direct se réalise comme une émission, pas comme une captation. Plusieurs caméras, une régie qui choisit le bon plan au bon moment, un habillage graphique qui rappelle où l’on est et qui parle. Le spectacle est le même que dans la salle ; c’est la mise en scène qui change.",
         ],
-        image: "/media/px-pilier-evenementiel.jpg",
+        image: "/media/pilier-evenementiel-mapping-intercontinental.jpg",
       },
       {
         titre: "Ce qu’on installe, et ce que ça suppose de votre côté",
@@ -230,7 +230,7 @@ export const COMPETENCES: Competence[] = [
       "Pour ABB, nous avons réalisé un film 3D avec des personnages animés, pour présenter les composants de leurs disjoncteurs industriels de manière humoristique. Notre studio a marié la voix de nos comédiens aux mouvements labiaux des personnages.",
       "Depuis sa création en 2004, notre studio s’est toujours orienté vers les nouvelles technologies, et notamment la 3D. Tout a commencé avec 3DS Max, Maya et Cinema 4D — à une époque où il fallait s’armer de patience et travailler en fil de fer.",
     ],
-    image: "/media/px-pilier-communication.jpg",
+    image: "/media/pilier-communication-fond-vert.jpg",
     ancienneUrl: "/nos-competences/animation-3d/",
     clics: 24,
   },
@@ -249,7 +249,7 @@ export const COMPETENCES: Competence[] = [
       "Voix off et sous-titrage",
       "Formats courts pour les réseaux",
     ],
-    image: "/media/px-methode-4.jpg",
+    image: "/media/coulisses-montage.jpg",
     texte: [
       "Du crayon à la 3D, passant par l’animation 2D, nous maîtrisons les outils vous permettant de mettre en images le fruit de nos idées. Cette technique d’animation est au cœur de nos créations audiovisuelles depuis plusieurs années et nous permet de retranscrire la spécificité de chacun de vos projets. D’un style retro à une animation ultra moderne, notre agence de motion design s’adapte à chaque demande.",
       "Le motion traduit l’idée de créer un dialogue entre le sens et l’attention du spectateur. Tout l’intérêt du motion design réside dans le fait de capter l’attention et de guider le regard.",
@@ -275,7 +275,7 @@ export const COMPETENCES: Competence[] = [
       "Formats courts et verticaux",
       "Photothèque de l’événement",
     ],
-    image: "/media/px-cas-worldskills.jpg",
+    image: "/media/produit-interactivite-salle.jpg",
     texte: [
       "Chez Bluevista, nous accompagnons une multitude d’entreprise dans leur communication vidéo. Grâce à notre savoir-faire en captation et montage, nous sommes capables de délivrer rapidement des films. Ces films sont alors forts en émotions et synthétisent toute l’ambiance de l’événement. Nous maitrisons toute la chaîne de production et sommes à même d’organiser efficacement la captation de tout événement en France ou partout dans le monde! Découvrez un court exemple de nos captations précédentes avec le Printemps :",
       "Chaque événement étant totalement différent, nous nous adaptons à chaque projet! Que ce soit en petite équipe ou sur des conventions à plusieurs milliers de personnes. Les mots ont leurs limites, découvrez plutôt quelques exemples de clients et événements que nous avons pu couvrir récemment !",
@@ -301,7 +301,7 @@ export const COMPETENCES: Competence[] = [
       "Installation, casques et exploitation",
       "Statistiques de session",
     ],
-    image: "/media/px-pilier-immersion.jpg",
+    image: "/media/pilier-immersion-hololens-mont-aiguille.jpg",
     texte: [
       "Filmez et diffusez vos contenus en 360° pour présenter votre entreprise. Faites découvrir des lieux uniques ou sensibiliser votre audiences! Les sujets et applications sont infinis.",
       "Les projets uniques et sur mesure font parti de nos plus belles créations. Découvrez plus bas toutes ces possibilités mêlant 3D, photos et/ou installations techniques.",
@@ -316,7 +316,7 @@ export const COMPETENCES: Competence[] = [
           "La bonne question n’est pas « faut-il faire de la VR ». Elle est : que doit comprendre ou ressentir votre public, en combien de temps, et dans quelles conditions. Le casque, la 3D temps réel ou la 360° découlent de cette réponse — jamais l’inverse.",
           "Certains sujets ne gagnent rien à être immersifs. D’autres ne peuvent pas exister autrement : un lieu inaccessible, un geste technique dangereux, une machine qu’on ne peut pas déplacer sur un salon.",
         ],
-        image: "/media/px-pilier-immersion.jpg",
+        image: "/media/pilier-immersion-hololens-mont-aiguille.jpg",
       },
       {
         titre: "Ce qui décide de la réussite : la durée d’une session",
@@ -417,7 +417,7 @@ export const COMPETENCES: Competence[] = [
       "Intérieur au drone léger",
       "Photogrammétrie et modèles 3D",
     ],
-    image: "/media/px-methode-2.jpg",
+    image: "/media/coulisses-chantier.jpg",
     texte: [
       "BLUEVISTA réalise des prises de vue vidéo aériennes par drone en intérieur et extérieur, et partout en France que ce soit en agglomération ( Paris, Lyon, Genève, etc) ou en zone rurale. Pour mettre en valeur vos sujets que ce soit votre entreprise, une inauguration ou une convention, la prise de vue en drone saura donner une nouvelle dimension à vos films.",
       "Voici une photographie en drone de l’entreprise Koesio (ex C’PRO) sur leur nouveau site Eole.",
@@ -432,7 +432,7 @@ export const COMPETENCES: Competence[] = [
           "Un site industriel, un chantier, un domaine viticole ou un événement en plein air ne se comprennent qu’à condition d’en voir l’étendue. Au sol, on montre un bâtiment ; à trente mètres, on montre une implantation. C’est souvent la différence entre « ils ont un atelier » et « ils ont un outil industriel ».",
           "Le drone sert aussi à l’intérieur, avec un appareil léger : traverser une ligne de production d’un bout à l’autre en un seul plan raconte l’enchaînement des étapes mieux que dix plans de coupe.",
         ],
-        image: "/media/px-methode-2.jpg",
+        image: "/media/coulisses-chantier.jpg",
       },
       {
         titre: "Le cadre légal, et pourquoi il vous concerne",
@@ -480,7 +480,7 @@ export const COMPETENCES: Competence[] = [
       "Montage, habillage, sous-titres",
       "Déclinaisons courtes",
     ],
-    image: "/media/px-methode-5.jpg",
+    image: "/media/produit-podcast.jpg",
     texte: [
       "Bluevista met tout en œuvre pour donner à cette réalisation classique le piment qui fera la différence! N’hésitez pas à découvrir un de nos exemples de réalisations avec le film d’entreprise de notre client Carso : Toutes nos réalisations sont disponibles sur nos réseaux sociaux :",
       "Fort de plus de 20 ans d’expérience, nous avons maintenant une large panoplie d’expériences qui vous permettront de trouver le ton et l’axe pour transmettre, vos idées et représentés vos produits, vos services, votre entreprise et vos projets! Nos agences de Lyon, Paris et Genève vous assurent une proximité pour la réalisation de votre vidéo corporate.",
@@ -493,7 +493,7 @@ export const COMPETENCES: Competence[] = [
           "On nous demande « une vidéo de présentation ». Neuf fois sur dix, personne n’a tranché à qui elle parle. Un film qui s’adresse à la fois aux clients, aux candidats, aux banques et aux équipes ne parle à personne — et c’est le seul défaut qu’aucun budget de tournage ne rattrape.",
           "La première étape de notre méthode existe pour ça : on challenge le brief avant d’y répondre. Un concept n’est retenu que si le message est clair, s’il parle à une cible identifiée, et si nous sommes fiers de le produire.",
         ],
-        image: "/media/px-methode-5.jpg",
+        image: "/media/produit-podcast.jpg",
       },
       {
         titre: "Ce qu’on maîtrise de bout en bout",
