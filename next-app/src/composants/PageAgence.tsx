@@ -579,30 +579,23 @@ export function CorpsAgence({  publique }: {  publique?: boolean }) {
              ne se déduit pas d'un nom de fichier. */}
       <section style={{ background: SOMBRE, color: "#fff" }}>
         <div className="mx-auto max-w-[1500px] px-8 py-24">
-          <div className={`mb-7 flex items-center gap-4 ${TYPO.surTitre}`} style={{ color: BLEU_CLAIR }}>
-            <span className="inline-block h-[3px] w-12 rounded-full" style={{ background: BLEU_CLAIR }} />
-            Ce qu’on regarde et que personne ne regarde
-          </div>
-          <h2 className={`max-w-4xl ${TYPO.titre}`}>
-            Vous payez peut-être deux fois la même vidéo.
-          </h2>
-
-          {/* ⛔ LE PREMIER JET RACONTAIT LA FAUTE — « on a failli tourner le
-              même film que… ». Giz : « un peu trop niais, sois plus
-              professionnel, parle positif de ce qu'on a évité ». Il a raison
-              sur le fond : un cas où l'on s'est rattrapé de justesse met en
-              scène le risque, pas la compétence. Ce qui se vend, c'est ce
-              qu'on a économisé au client — pas l'accident qu'on a esquivé.
-              ⚠️ Et la mise en page : la vidéo tombait en bas à droite avec du
-              vide sous le texte. Les deux colonnes commencent maintenant en
-              haut, et la légende est sous la vidéo. */}
-          {/* ⚠️ `items-center` : le texte fait trois paragraphes, la vidéo
-              verticale un peu plus haut. Alignés en haut, l'écart tombait
-              entièrement sous le texte ; centrés, il se répartit et ne se
-              remarque plus. */}
-          <div className="mt-12 grid items-center gap-14 lg:grid-cols-[1fr_minmax(0,240px)]">
+          {/* ⛔ LA GRILLE COMMENCE AU SUR-TITRE, pas après le H2. Deux essais
+              ont échoué avant : aligné en haut, tout l'écart tombait sous le
+              texte ; centré, il se glissait ENTRE le titre et le premier
+              paragraphe — pire, parce qu'un titre détaché de son texte se lit
+              comme une erreur. En remontant le titre dans la colonne, celle-ci
+              devient plus haute que la vidéo et il n'y a plus d'écart à
+              placer. */}
+          <div className="grid items-start gap-14 lg:grid-cols-[1fr_minmax(0,240px)]">
             <div className="max-w-3xl">
-              <p className={TYPO.chapo}>
+              <div className={`mb-7 flex items-center gap-4 ${TYPO.surTitre}`} style={{ color: BLEU_CLAIR }}>
+                <span className="inline-block h-[3px] w-12 rounded-full" style={{ background: BLEU_CLAIR }} />
+                Ce qu’on regarde et que personne ne regarde
+              </div>
+              <h2 className={`max-w-4xl ${TYPO.titre}`}>
+                Vous payez peut-être deux fois la même vidéo.
+              </h2>
+              <p className={`mt-10 ${TYPO.chapo}`}>
                 Dans une entreprise qui grandit, plusieurs services commandent
                 des vidéos sans se coordonner. Le même salon, le même site, la
                 même usine se retrouvent tournés deux fois, à quelques semaines
