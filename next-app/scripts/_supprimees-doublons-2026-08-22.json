@@ -1,0 +1,345 @@
+[
+ {
+  "_createdAt": "2026-08-02T13:59:53Z",
+  "_id": "realisation-abb-snk-animation-3d-fiction-marine",
+  "_rev": "LPc3Jmv1ULU5uXF5HOWCov",
+  "_type": "realisation",
+  "_updatedAt": "2026-08-22T12:22:58Z",
+  "aRelire": false,
+  "client": "TE",
+  "clientUrl": "https://www.te.com/",
+  "datePublication": "2018-07-17",
+  "descriptionSeo": "Web-série entièrement en animation 3D pour le bloc de jonction Entrelec SNK : script, concept graphique et animations réalisés par notre studio.",
+  "detail": [
+   {
+    "_key": "b0",
+    "_type": "block",
+    "children": [
+     {
+      "_key": "s0",
+      "_type": "span",
+      "text": "Cette réalisation en animation 3D a été conçue avec les équipes TE connectivity. Tout cela sur une base de scripts originaux proposés par notre studio de création.Cette web série entièrement en 3D pour la promotion produit met en avant les avantages du SNK bloc de jonction entrelec.Nos équipes créatives ont écrit le script, adapté le concept graphique à la charte du client et nous avons réalisé l’ensemble des animations 3D et direction de voix des comédiens."
+     }
+    ],
+    "style": "normal"
+   },
+   {
+    "_key": "b1",
+    "_type": "block",
+    "children": [
+     {
+      "_key": "s1",
+      "_type": "span",
+      "text": "Dans ce troisième épisode, l’avantage produit mis en avant est la compatibilité des accessoires entre les différents blocs de jonction ainsi que la résistance en milieu marin."
+     }
+    ],
+    "style": "normal"
+   }
+  ],
+  "image": {
+   "_type": "image",
+   "asset": {
+    "_ref": "image-22ae13a12cbd60a0665f1057d2f8e4cb56a469c1-1920x1080-jpg",
+    "_type": "reference"
+   }
+  },
+  "intro": "Film publicitaire en animation 3D pour promouvoir les avantages du produit SNK bloc de jonction entrelec de TE connectivity. Episode 3 – le produit dans la marine.",
+  "language": "fr",
+  "marches": [
+   "fr"
+  ],
+  "metier": "evenement",
+  "produit": "streaming",
+  "slug": {
+   "_type": "slug",
+   "current": "abb-snk-animation-3d-fiction-marine"
+  },
+  "titre": "ABB – SNK animation 3D fiction « Marine »",
+  "titreSeo": "SNK — la web-série 3D d’Entrelec, épisode marine | Bluevista",
+  "video": "https://livid.com/watch/Y2DwDQrgsuvH"
+ },
+ {
+  "_createdAt": "2026-08-02T13:55:36Z",
+  "_id": "realisation-aravi-saison-2022-2023-reportages-video",
+  "_rev": "LPc3Jmv1ULU5uXF5HOWCov",
+  "_type": "realisation",
+  "_updatedAt": "2026-08-22T12:22:58Z",
+  "aRelire": true,
+  "client": "ARAVI RACING",
+  "clientUrl": "https://aravi-racing.com/",
+  "datePublication": "2023-11-08",
+  "descriptionSeo": "Une vidéo filmée et montée pour chaque jour de course des Grands Prix 2022-2023 d’Aravi Racing, en format court de 2 min 30 pour les réseaux.",
+  "detail": [
+   {
+    "_key": "b0",
+    "_type": "block",
+    "children": [
+     {
+      "_key": "s0",
+      "_type": "span",
+      "text": "Nous avons filmé et monté une vidéo pour chaque jour de course des Grands Prix 2022/2023. Une vidéo courte de 2m30 destinée aux réseaux sociaux. Un reportage sur le terrain comme nous en faisons régulièrement !"
+     }
+    ],
+    "style": "normal"
+   }
+  ],
+  "image": {
+   "_type": "image",
+   "asset": {
+    "_ref": "image-e91d4aec426f921520c690cbf340f9aefa889f05-1920x1080-jpg",
+    "_type": "reference"
+   }
+  },
+  "intro": "Découvrez les vidéos highlights des différents courses de la Saison 2022/2023 d’Aravi Racing.",
+  "language": "fr",
+  "marches": [
+   "fr"
+  ],
+  "metier": "film",
+  "produit": "corporate",
+  "slug": {
+   "_type": "slug",
+   "current": "aravi-saison-2022-2023-reportages-video"
+  },
+  "titre": "ARAVI – Saison 2022/2023 - reportages video",
+  "titreSeo": "Aravi Racing — les Grands Prix 2022-2023 en vidéo | Bluevista",
+  "video": "https://livid.com/watch/FKr8OT9jrcsz"
+ },
+ {
+  "_createdAt": "2026-08-02T13:56:08Z",
+  "_id": "realisation-c-pro-voeux-en-video-2017",
+  "_rev": "LPc3Jmv1ULU5uXF5HOWCov",
+  "_type": "realisation",
+  "_updatedAt": "2026-08-22T12:22:58Z",
+  "aRelire": false,
+  "client": "KOESIO",
+  "clientUrl": "https://www.koesio.com",
+  "datePublication": "2018-11-26",
+  "descriptionSeo": "Vidéo de vœux tournée au ralenti et habillée d’animation 2D/3D, conçue avec les équipes de C’PRO, devenu Koesio, et jouée par ses collaborateurs.",
+  "detail": [
+   {
+    "_key": "b0",
+    "_type": "block",
+    "children": [
+     {
+      "_key": "s0",
+      "_type": "span",
+      "text": "Koesio (anciennement C'PRO) est un acteur majeur de la transformation numérique des entreprises !Impression &amp; Dématérialisation, Sécurité &amp; Maintenance Informatique, Opérateur &amp; Téléphonie Cette vidéo a été réalisée en tournage \"slow motion\" et animation 2D/3D. Le concept a été élaboré en collaboration avec les équipes C’PRO pour produire leur carte de vœux vidéo de fin d’année.Ce film a nécessité l'implication des collaborateurs de l’entreprise qui se sont prêtés au jeu lors du tournage."
+     }
+    ],
+    "style": "normal"
+   },
+   {
+    "_key": "b1",
+    "_type": "block",
+    "children": [
+     {
+      "_key": "s1",
+      "_type": "span",
+      "text": "Nos équipes ont écrit le script et adapté le graphisme à la charte du client. Et nous avons réalisé l’ensemble des images et animations de cette vidéo carte de vœux."
+     }
+    ],
+    "style": "normal"
+   }
+  ],
+  "image": {
+   "_type": "image",
+   "asset": {
+    "_ref": "image-654ef64f598ce66a8da5c6419ca98abc9344b883-1920x1080-jpg",
+    "_type": "reference"
+   }
+  },
+  "intro": "Vidéo au ralenti/ animation 3D carte de vœux en vidéo C’PRO.",
+  "language": "fr",
+  "marches": [
+   "fr"
+  ],
+  "metier": "film",
+  "produit": "voeux",
+  "slug": {
+   "_type": "slug",
+   "current": "c-pro-voeux-en-video-2017"
+  },
+  "titre": "C’PRO – Voeux en vidéo 2017",
+  "titreSeo": "C’PRO — les vœux vidéo 2017 au ralenti | Bluevista",
+  "video": "https://livid.com/watch/hAppFv17-WaB"
+ },
+ {
+  "_createdAt": "2026-08-02T13:57:31Z",
+  "_id": "realisation-elistair-orion-video-produit-animation-3d",
+  "_rev": "LPc3Jmv1ULU5uXF5HOWCov",
+  "_type": "realisation",
+  "_updatedAt": "2026-08-22T12:22:58Z",
+  "aRelire": false,
+  "client": "ELISTAIR",
+  "clientUrl": "https://elistair.com",
+  "datePublication": "2018-06-20",
+  "descriptionSeo": "Présentation du drone filaire de surveillance Orion, conçue avec les équipes Elistair : animation 3D, motion design et images de banque.",
+  "detail": [
+   {
+    "_key": "b0",
+    "_type": "block",
+    "children": [
+     {
+      "_key": "s0",
+      "_type": "span",
+      "text": "Drone Filaire pour la Surveillance, Spécialement conçus pour les environnements exigeants. Assurez la sécurité grâce à une vision globale de la situation. Utilisés dans 30 pays, il est déployable en 10 minutes. Autonomie Illimitée. 100% Automatisé. Opérations Sécurisées. Cette réalisation en animation 3D, motion design et images de banque a été conçue avec les équipes Elistair pour la présentation du drone Orion.Nos équipes ont challengé le scénario du client, adapté le concept graphique à la charte du client, et réalisé l’ensemble des images et animations de ce film produit."
+     }
+    ],
+    "style": "normal"
+   }
+  ],
+  "image": {
+   "_type": "image",
+   "asset": {
+    "_ref": "image-09a1eac8da3b88685cd40eee945fb343fbae0879-1200x675-jpg",
+    "_type": "reference"
+   }
+  },
+  "intro": "Découvrez le film en animation 3D / motion design de présentation du drone Orion.",
+  "language": "fr",
+  "marches": [
+   "fr"
+  ],
+  "metier": "film",
+  "produit": "drone",
+  "slug": {
+   "_type": "slug",
+   "current": "elistair-orion-video-produit-animation-3d"
+  },
+  "titre": "Elistair – Orion - vidéo produit animation 3D",
+  "titreSeo": "Elistair Orion — le film produit en animation 3D | Bluevista",
+  "video": "https://www.youtube.com/watch?v=tLn3mxyoyYE"
+ },
+ {
+  "_createdAt": "2026-08-02T14:00:24Z",
+  "_id": "realisation-videomapping-les-aventures-de-toky-animation-3d",
+  "_rev": "LPc3Jmv1ULU5uXF5HOWCov",
+  "_type": "realisation",
+  "_updatedAt": "2026-08-22T12:22:58Z",
+  "aRelire": false,
+  "client": "GL EVENTS",
+  "clientUrl": "https://www.gl-events.com/",
+  "datePublication": "2018-07-18",
+  "descriptionSeo": "Les péripéties d’une toque de cuisinier humanisée, animées en 3D et projetées sur un écran mural en relief lors de la soirée de gala des Bocuse d’Or.",
+  "detail": [
+   {
+    "_key": "b0",
+    "_type": "block",
+    "children": [
+     {
+      "_key": "s0",
+      "_type": "span",
+      "text": "Cette vidéo projection a été réalisée en animation 3D avec un personnage de toque de cuisinier \"humaine\". Elle est diffusée au format vidéo mapping sur un écran mural en relief.Nos scénaristes réalisent le script pour rendre le spectacle burlesque. Un soin tout particulier a été apporté à l'esthétique de l'image et au fameux effet Wahou pour une vidéo amusante et légère diffusée lors de la soirée de gala."
+     }
+    ],
+    "style": "normal"
+   }
+  ],
+  "image": {
+   "_type": "image",
+   "asset": {
+    "_ref": "image-382e6353a2529747e9b0cb37b42586e7fb14bef1-1280x720-jpg",
+    "_type": "reference"
+   }
+  },
+  "intro": "Videomapping des péripéties d’une toque en animation 3D Cartoon pour la soirée de gala des bocuse d’or 2013",
+  "language": "fr",
+  "marches": [
+   "fr"
+  ],
+  "metier": "evenement",
+  "produit": "mapping-architectural",
+  "slug": {
+   "_type": "slug",
+   "current": "videomapping-les-aventures-de-toky-animation-3d"
+  },
+  "titre": "Vidéomapping - Les aventures de Toky animation 3D",
+  "titreSeo": "Les aventures de Toky — vidéomapping en 3D | Bluevista",
+  "video": "https://livid.com/watch/MG_FcoNgu54b"
+ },
+ {
+  "_createdAt": "2026-08-02T13:59:11Z",
+  "_id": "realisation-wallmapping-les-mesaventures-de-toky-animation-3d",
+  "_rev": "OBCDQJ8hm7FfwOrWo9fadO",
+  "_type": "realisation",
+  "_updatedAt": "2026-08-22T11:35:13Z",
+  "aRelire": false,
+  "ancienneUrl": "/nos-realisations/wall-mapping-les-mesaventures-de-toky/",
+  "client": "GL EVENTS",
+  "clientUrl": "https://www.gl-events.com/",
+  "datePublication": "2018-05-21",
+  "descriptionSeo": "Un personnage de toque humanisé, animé en 3D et projeté en wallmapping sur écran en relief pendant le repas de gala des Bocuse d’Or 2013.",
+  "detail": [
+   {
+    "_key": "rmt4aa62j1758",
+    "_type": "block",
+    "children": [
+     {
+      "_key": "rmt4aa62j1754",
+      "_type": "span",
+      "marks": [],
+      "text": "Cette réalisation est en "
+     },
+     {
+      "_key": "rmt4aa62j1756",
+      "_type": "span",
+      "marks": [
+       "rmt4aa62j1755"
+      ],
+      "text": "animation 3D"
+     },
+     {
+      "_key": "rmt4aa62j1757",
+      "_type": "span",
+      "marks": [],
+      "text": " avec un personnage de toque humanisé. Elle s’adapte au format vidéo mapping sur un écran en relief."
+     }
+    ],
+    "markDefs": [
+     {
+      "_key": "rmt4aa62j1755",
+      "_type": "link",
+      "href": "/savoir-faire/animation-3d/"
+     }
+    ],
+    "style": "normal"
+   },
+   {
+    "_key": "rmt4aa62j1760",
+    "_type": "block",
+    "children": [
+     {
+      "_key": "rmt4aa62j1759",
+      "_type": "span",
+      "marks": [],
+      "text": "Nos équipes travaille le scénario pour rendre le spectacle burlesque. Un soin particulier a été apporté à l’esthétisme et l’effet Wahou pour une production amusante et légère diffusée lors du repas."
+     }
+    ],
+    "markDefs": [],
+    "style": "normal"
+   }
+  ],
+  "image": {
+   "_type": "image",
+   "asset": {
+    "_ref": "image-382e6353a2529747e9b0cb37b42586e7fb14bef1-1280x720-jpg",
+    "_type": "reference"
+   }
+  },
+  "intro": "Videomapping des aventures d’une toque Cartoon pour la soirée de gala des bocuse d’or 2013",
+  "language": "fr",
+  "marches": [
+   "fr"
+  ],
+  "metier": "evenement",
+  "produit": "mapping-architectural",
+  "slug": {
+   "_type": "slug",
+   "current": "wallmapping-les-mesaventures-de-toky-animation-3d"
+  },
+  "titre": "Wallmapping - Les Mesaventures de Toky animation 3D",
+  "titreSeo": "Wallmapping — les mésaventures de Toky en 3D | Bluevista",
+  "video": "https://livid.com/watch/MG_FcoNgu54b"
+ }
+]
