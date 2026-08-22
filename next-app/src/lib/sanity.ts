@@ -135,18 +135,54 @@ const CHAMPS = `
  * Giz : « je ne le vois pas dans la liste ». Il y était, tout en bas.
  *
  * ⚠️ ON TRIE SUR `_createdAt`, ET CE N'EST PAS UNE DATE DE PROJET. Le schéma
- * n'a AUCUN champ de date : `_createdAt` est l'horodatage d'import. Il fait
- * l'affaire parce que l'import a parcouru l'ancien site du plus ancien au plus
- * récent — les showreels 2019 → 2025 s'y succèdent dans l'ordre, ce qui le
- * vérifie. C'est déjà la règle des « 4 dernières » de l'accueil.
- * 👉 CE QUE ÇA NE FAIT PAS : refléter la vraie chronologie des tournages. Deux
- * projets importés dans la même seconde sortent dans un ordre arbitraire. Le
- * jour où l'ordre comptera vraiment, il faudra un champ de date rempli à la
- * main — ce tri-ci est une approximation, pas une vérité.
+ * n'avait AUCUN champ de date : on triait sur `_createdAt`, l'horodatage
+ * d'import, faute de mieux.
+ *
+ * ⭐ DEPUIS LE 22/08/2026, ON TRIE SUR LA VRAIE DATE. `datePublication` porte
+ * le `datePublished` que l'ancien site inscrit dans son JSON-LD au moment de
+ * la mise en ligne. 143 réalisations sur 147 en ont une.
+ *
+ * ⛔ CE N'EST PAS LA DATE DE « DERNIÈRE MODIFICATION », ET C'EST TOUT L'ENJEU.
+ * L'ancien site expose les deux. La date de modification vaut janvier 2024
+ * pour presque tout le catalogue, parce que le site a été repris en bloc à ce
+ * moment-là : trier là-dessus rangerait le film LPA de 2019 parmi les
+ * nouveautés. Un ordre faux qui a l'air juste est pire qu'un ordre avoué
+ * approximatif.
+ *
+ * ⚠️ CE QUE ÇA NE FAIT TOUJOURS PAS. 55 réalisations portent le 18/07/2018,
+ * jour de mise en ligne de l'ancien site : tout ce qui existait avant y a été
+ * publié d'un coup. Pour ce fond de catalogue, la vraie date de tournage n'est
+ * écrite nulle part. Elles descendent donc ensemble en bas de la galerie —
+ * ce qui est juste — mais leur ordre ENTRE ELLES reste arbitraire.
+ *
+ * ⛔⛔ ET LE REPLI NE PEUT PAS ÊTRE `_createdAt` TOUT SEUL. C'est l'erreur que
+ * j'ai faite et vue à l'écran : la galerie s'ouvrait sur Ensto et le showreel
+ * 2022 comme si c'étaient les deux derniers projets de l'agence. Or 140 des
+ * 147 réalisations portent le MÊME `_createdAt` — 02/08/2026 14 h 00, la
+ * seconde de l'import en bloc. Pour celles-là, `_createdAt` ne dit pas quand
+ * le projet a été fait, il dit quand la migration a tourné : s'en servir
+ * comme date, c'est présenter le fond de catalogue comme des nouveautés.
+ * 👉 `_createdAt` ne sert de repli QU'APRÈS l'import — là, il veut vraiment
+ * dire « créée dans le studio ce jour-là ». Avant, on retombe sur la date de
+ * mise en ligne de l'ancien site : dire « je ne sais pas » range en bas, et
+ * c'est le bon sens de l'erreur. Une réalisation sans date connue ne doit
+ * jamais se faire passer pour la dernière.
+ * ⛔ PAS DE COMMENTAIRE DANS LA REQUÊTE : GROQ n'en accepte pas, et un
+ * commentaire de style C glissé là casse la page à l'exécution alors que les
+ * types et le build passent. Les explications restent ici, au-dessus.
+ * ⛔⛔ ET ON N'ÉCRIT PAS LE MARQUEUR DE FIN DE BLOC DANS UN BLOC. Je venais de
+ * mettre la paire d'astérisques en toutes lettres dans l'avertissement
+ * ci-dessus : elle a refermé ce commentaire au milieu d'une phrase, et le
+ * fichier entier est devenu du code invalide. La page rendait 500 pour une
+ * raison qui n'avait rien à voir avec la requête que je testais.
  */
+const IMPORT_EN_BLOC = "2026-08-03";
+const MISE_EN_LIGNE_ANCIEN_SITE = "2018-07-18";
+const TRI_REALISATIONS =
+  `coalesce(datePublication, select(_createdAt > "${IMPORT_EN_BLOC}" => string::split(_createdAt, "T")[0]), "${MISE_EN_LIGNE_ANCIEN_SITE}") desc`;
 export async function lireRealisations(version: Version = "fr") {
   return sanity.fetch<RealisationSanity[]>(
-    `*[_type == "realisation" && language == $v] | order(_createdAt desc) { ${CHAMPS} }`,
+    `*[_type == "realisation" && language == $v] | order(${TRI_REALISATIONS}) { ${CHAMPS} }`,
     { v: version },
     /* Les pages sont regénérées au plus toutes les 60 s : une correction
        dans le studio se voit sans reconstruire le site entier. */
@@ -343,7 +379,7 @@ export async function lireHerosIndex(genre: "actualite" | "realisation", version
      pareil : une actualité a une date de publication, une réalisation n'en a
      pas (on retombe sur `_createdAt`, l'ordre d'import). */
   const champImage = genre === "actualite" ? "imageEntete" : "image";
-  const tri = genre === "actualite" ? "datePublication desc" : "_createdAt desc";
+  const tri = genre === "actualite" ? "datePublication desc" : TRI_REALISATIONS;
   /* ⛔ Sur les réalisations, on écarte NOS films — showreels et bandes démo.
      Une galerie de travaux clients qui s'ouvre sur notre propre bande démo
      annonce l'inverse de ce qu'elle contient. C'est le même filtre que les
@@ -408,7 +444,7 @@ export async function lireActualites(version: Version = "fr", limite = 12) {
 export async function lireDernieresRealisations(combien = 4, version: Version = "fr") {
   return sanity.fetch<RealisationSanity[]>(
     `*[_type == "realisation" && language == $v && client != "BLUEVISTA" && defined(image)]
-       | order(_createdAt desc) [0...$n] { ${CHAMPS} }`,
+       | order(${TRI_REALISATIONS}) [0...$n] { ${CHAMPS} }`,
     { v: version, n: combien },
     { next: { revalidate: DELAI_CACHE } }
   );

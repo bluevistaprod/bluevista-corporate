@@ -184,6 +184,16 @@ export const realisation = defineType({
       description: "La vidéo prouve le résultat, les photos prouvent la fabrication.",
     }),
 
+    defineField({
+      name: "datePublication",
+      title: "Date de publication d’origine",
+      type: "date",
+      group: "classement",
+      readOnly: true,
+      description:
+        "⛔ Ne s’affiche PAS sur le site. Elle ne sert qu’à ranger les réalisations de la plus récente à la plus ancienne. Reprise de l’ancien site, où elle est la vraie date de mise en ligne — à ne pas confondre avec la date de modification, qui vaut 2024 pour des films de 2019 parce que le site a été retouché en bloc.",
+    }),
+
     // ── Référencement ─────────────────────────────────────────────────
     defineField({
       name: "ancienneUrl",
