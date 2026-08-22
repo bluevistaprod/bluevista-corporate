@@ -70,13 +70,51 @@ async function pageAncienne(chemin) {
   return t;
 }
 
+/**
+ * ⛔⛔ ON DÉCODE TOUTES LES ENTITÉS, PAS UNE LISTE. Ma version précédente
+ * énumérait les entités rencontrées — et `&#8211;` (le tiret demi-cadratin)
+ * n'y était pas : VINGT-SEPT réalisations publiaient « SANTOS &#8211; I-GRIND »
+ * en toutes lettres sur la page. Une liste d'entités est toujours en retard
+ * d'un caractère sur le contenu réel ; la table numérique, elle, les couvre
+ * toutes d'un coup.
+ * ⚠️ L'ordre compte : `&amp;` se décode EN DERNIER. Sinon `&amp;#8211;`
+ * devient `&#8211;` puis un tiret, alors que le texte voulait afficher
+ * l'entité elle-même.
+ */
+const NOMMEES = {
+  nbsp: " ", rsquo: "’", lsquo: "‘", ldquo: "“", rdquo: "”", hellip: "…",
+  quot: '"', laquo: "«", raquo: "»", ndash: "–", mdash: "—", eacute: "é",
+  egrave: "è", agrave: "à", ccedil: "ç", ecirc: "ê", ocirc: "ô", icirc: "î",
+  ugrave: "ù", ucirc: "û", euml: "ë", iuml: "ï", deg: "°", euro: "€",
+  lt: "<", gt: ">", apos: "’",
+};
 const sansBalises = s =>
   s.replace(/<[^>]+>/g, "")
-   .replace(/&nbsp;/g, " ").replace(/&amp;/g, "&").replace(/&#8217;|&rsquo;/g, "’")
-   .replace(/&#8230;/g, "…").replace(/&quot;/g, '"').replace(/&laquo;/g, "«").replace(/&raquo;/g, "»")
-   .replace(/&eacute;/g, "é").replace(/&egrave;/g, "è").replace(/&agrave;/g, "à")
-   .replace(/&ccedil;/g, "ç").replace(/&ecirc;/g, "ê").replace(/&lt;/g, "<").replace(/&gt;/g, ">")
+   .replace(/&#(\d+);/g, (_, n) => String.fromCodePoint(+n))
+   .replace(/&#x([0-9a-f]+);/gi, (_, n) => String.fromCodePoint(parseInt(n, 16)))
+   .replace(/&([a-z]+);/gi, (m, n) => (n.toLowerCase() in NOMMEES ? NOMMEES[n.toLowerCase()] : m))
+   .replace(/&amp;/g, "&")
    .replace(/\s+/g, " ").trim();
+
+/**
+ * ⛔⛔ LA MÊME CHOSE, MAIS SANS COUPER LES BORDS — et c'est tout le sujet.
+ * `sansBalises` finit par `.trim()`. Or `enBloc` découpe le paragraphe autour
+ * de chaque lien et passe CHAQUE morceau à la moulinette : l'espace qui
+ * séparait le mot du lien vivait justement sur un bord, et disparaissait.
+ * Résultat sur la page publiée : « Une vidéo entièrement enanimation 3Dpour
+ * présenter… », « Lefilm produitouvidéo promotionnelle ». Le texte était bon,
+ * les liens étaient bons, et la phrase était illisible — sur toutes les
+ * réalisations qui contiennent un lien, c'est-à-dire la majorité.
+ * 👉 À l'intérieur d'un paragraphe, on normalise les espaces sans rogner les
+ * bords ; le rognage n'a lieu qu'une fois, sur le bloc assemblé.
+ */
+const garderBords = s =>
+  s.replace(/<[^>]+>/g, "")
+   .replace(/&#(\d+);/g, (_, n) => String.fromCodePoint(+n))
+   .replace(/&#x([0-9a-f]+);/gi, (_, n) => String.fromCodePoint(parseInt(n, 16)))
+   .replace(/&([a-z]+);/gi, (m, n) => (n.toLowerCase() in NOMMEES ? NOMMEES[n.toLowerCase()] : m))
+   .replace(/&amp;/g, "&")
+   .replace(/\s+/g, " ");
 
 /**
  * ⛔ LES REBUTS DU GABARIT — et la leçon vient d'un essai à blanc regardé.
@@ -141,27 +179,49 @@ const cle = () => `r${Date.now().toString(36)}${++n}`;
 function enBloc(html) {
   const enfants = [];
   const markDefs = [];
+  /* Ce qui déborde d'un morceau sur le suivant : l'espace collé au bord. */
+  let enAttente = "";
+  const poser = (text, marks) => {
+    if (!text) return;
+    enfants.push({ _type: "span", _key: cle(), text, marks });
+  };
   const morceaux = html.split(/(<a\b[^>]*>.*?<\/a>)/gs);
   for (const m of morceaux) {
     const lien = m.match(/^<a\b[^>]*href="([^"]+)"[^>]*>(.*?)<\/a>$/s);
     if (lien) {
-      const texte = sansBalises(lien[2]);
-      if (!texte) continue;
+      const brut = garderBords(lien[2]);
+      const texte = brut.trim();
+      if (!texte) { if (/\s/.test(brut)) enAttente = " "; continue; }
+      /* ⚠️ L'ESPACE SORT DU LIEN. Le style validé habille les liens d'une
+         pastille de couleur : un espace resté À L'INTÉRIEUR se retrouve
+         colorié avec, et la pastille déborde d'un blanc à gauche ou à droite.
+         On le déplace donc dans le texte voisin — même phrase à l'écran,
+         mais le lien ne mord plus sur ce qui l'entoure. */
+      poser(enAttente + (/^\s/.test(brut) ? " " : ""), []);
+      enAttente = /\s$/.test(brut) ? " " : "";
       const href = adresseNeuve(lien[1]);
       if (href) {
         const k = cle();
         markDefs.push({ _key: k, _type: "link", href });
-        enfants.push({ _type: "span", _key: cle(), text: texte, marks: [k] });
+        poser(texte, [k]);
       } else {
-        enfants.push({ _type: "span", _key: cle(), text: texte, marks: [] });
+        poser(texte, []);
       }
     } else {
-      const t = sansBalises(m);
-      if (t) enfants.push({ _type: "span", _key: cle(), text: t, marks: [] });
+      const t = garderBords(m);
+      if (!t) continue;
+      poser(enAttente + t, []);
+      enAttente = "";
     }
   }
   if (!enfants.length) return null;
-  return { _type: "block", _key: cle(), style: "normal", markDefs, children: enfants };
+  /* Le rognage, une seule fois, sur les bords du bloc assemblé. */
+  enfants[0] = { ...enfants[0], text: enfants[0].text.replace(/^\s+/, "") };
+  const d = enfants.length - 1;
+  enfants[d] = { ...enfants[d], text: enfants[d].text.replace(/\s+$/, "") };
+  const nets = enfants.filter(e => e.text);
+  if (!nets.length) return null;
+  return { _type: "block", _key: cle(), style: "normal", markDefs, children: nets };
 }
 
 /**
@@ -237,6 +297,7 @@ for (const f of fiches) {
      restait l'espace. En ne gardant que lettres et chiffres, il ne reste plus
      rien qui puisse différer sans que le texte diffère vraiment. */
   const lettres = x => (x || "").toLowerCase().normalize("NFD").replace(/[^a-z0-9]/g, "");
+  const titreNu = lettres(f.titre);
   const commencePar = (t, i) =>
     i && t.length > i.length + 20 && lettres(t).startsWith(lettres(i).slice(0, 60));
   const corps = [];
@@ -244,6 +305,15 @@ for (const f of fiches) {
     const t = b.children.map(c => c.text).join("").trim();
     if (!t) continue;
     if (t === intro) continue;
+    /* ⛔ UN PARAGRAPHE QUI RÉPÈTE LE TITRE N'APPORTE RIEN. L'ancien gabarit
+       réaffichait le nom de la réalisation juste sous le `<h1>` : sur la
+       nouvelle page, où le titre est déjà en gros au-dessus, ça donne un
+       texte qui commence en se répétant.
+       ⚠️ On n'écarte que l'ÉGALITÉ exacte, sur la forme réduite aux lettres.
+       Un simple préfixe ne suffit pas : « STANN. L'application de gestion
+       d'entreprise » commence par le nom du client et reste un vrai
+       sous-titre, qu'il faut garder. */
+    if (titreNu && lettres(t) === titreNu) continue;
     if (commencePar(t, intro)) {
       /* On retire le préfixe déjà porté par l'intro, sans casser les liens :
          le premier span est raccourci, les suivants sont intacts. */
@@ -274,11 +344,26 @@ for (const f of fiches) {
       /* ⚠️ ON NETTOIE LE TEXTE ÉCRIT, pas seulement la variable de contrôle.
          Je retirais la ponctuation de tête sur `reste`, qui ne servait qu'au
          test de longueur — le span conservé, lui, gardait le point final de
-         l'intro et le corps commençait par « . Une vidéo FOOH… ». */
-      if (enfants.length) {
+         l'intro et le corps commençait par « . Une vidéo FOOH… ».
+
+         ⛔⛔ ET UN MORCEAU VIDE NE CONDAMNE PAS LE PARAGRAPHE. Ma version
+         précédente nettoyait le PREMIER morceau, et si le nettoyage ne
+         laissait rien, elle jetait tout le bloc. Or c'est le cas le plus
+         fréquent : la coupe tombe pile sur une frontière de lien, le premier
+         morceau restant vaut « . » à lui seul, et le paragraphe entier
+         disparaît. Sur Stann, l'ancien site dit « Cette vidéo permet de
+         présenter le logiciel STANN App et son application sur le terrain » —
+         cette phrase a été perdue en silence, et la fiche est ressortie avec
+         son seul sous-titre. Giz ne l'aurait vu qu'en ligne.
+         👉 On retire les morceaux qui se vident, un par un, et on garde la
+         suite. Un début vide veut dire « commence plus loin », jamais
+         « il n'y a rien ». */
+      while (enfants.length) {
         enfants[0] = { ...enfants[0], text: enfants[0].text.replace(/^[\s.,;:—–-]+/, "") };
-        if (enfants[0].text) corps.push({ ...b, children: enfants });
+        if (enfants[0].text) break;
+        enfants.shift();
       }
+      if (enfants.length) corps.push({ ...b, children: enfants });
       continue;
     }
     if (intro && t.slice(0, 60) === intro.slice(0, 60)) continue;
