@@ -1,7 +1,7 @@
 import { notFound } from "next/navigation";
 import { isLanguage } from "@/shared/urls";
 import { metadonnees } from "@/shared/seo";
-import { lireRealisations } from "../../../lib/sanity";
+import { lireRealisations, lireHerosIndex, imageUrl } from "../../../lib/sanity";
 import { GalerieRealisations } from "../../../composants/GalerieRealisations";
 import { BLEU_CLAIR, CLAIR, NOIR, SOMBRE, TYPO } from "../../../composants/palette";
 import { EnTete } from "../../../composants/EnTete";
@@ -58,6 +58,9 @@ export default async function Page({
   if (!isLanguage(lang)) notFound();
   const { produit } = await searchParams;
   const realisations = await lireRealisations(lang as "fr");
+  /* ⭐ Le héros suit la dernière réalisation client publiée — voir
+     `lireHerosIndex`. Nos propres films en sont écartés. */
+  const heros = await lireHerosIndex("realisation", lang as "fr");
 
   return (
     <>
@@ -65,8 +68,25 @@ export default async function Page({
           sans logo, sans menu et sans pied de page. */}
       <EnTete opaque publique />
     <main style={{ background: CLAIR, color: SOMBRE }}>
+      {/* ⭐ UNE IMAGE DE HÉROS QUI SE MET À JOUR SEULE : celle de la dernière
+          réalisation client mise en ligne. La galerie annonce ainsi ce qu'elle
+          contient, et elle reste vivante sans intervention. */}
       <section className="relative overflow-hidden" style={{ background: NOIR, color: "#fff" }}>
-        <div className="mx-auto max-w-[1500px] px-8 pb-20 pt-44">
+        {heros?.image ? (
+          <>
+            <div
+              className="absolute inset-0 bg-cover bg-center"
+              style={{ backgroundImage: `url('${imageUrl(heros.image, 2000, 1100)}')` }}
+              role="img"
+              aria-label={heros.titre}
+            />
+            <div
+              className="absolute inset-0"
+              style={{ background: "linear-gradient(100deg, rgba(4,7,10,.93) 0%, rgba(4,7,10,.74) 44%, rgba(4,7,10,.34) 100%)" }}
+            />
+          </>
+        ) : null}
+        <div className="relative z-10 mx-auto max-w-[1500px] px-8 pb-20 pt-44">
           <div className={`mb-6 flex items-center gap-4 ${TYPO.surTitre}`} style={{ color: BLEU_CLAIR }}>
             <span className="inline-block h-[3px] w-12 rounded-full" style={{ background: BLEU_CLAIR }} />
             Depuis 2004
@@ -75,8 +95,8 @@ export default async function Page({
             Ce qu’on a fait pour eux
           </h1>
           <p className="mt-6 max-w-2xl text-[1.15rem] leading-relaxed text-white/75">
-            Filtrez par métier ou par type de projet. Chaque produit annoncé sur
-            nos pages d’offres doit se retrouver ici — sinon il n’a rien à y faire.
+            Laissez-vous guider par votre curiosité et découvrez certaines de nos
+            précédentes réalisations. Bon visionnage !
           </p>
           <div className="mt-9 border-t border-white/20 pt-7 text-[.95rem] text-white/70">
             <b style={{ color: BLEU_CLAIR }}>{realisations.length} réalisations</b> en ligne

@@ -2,7 +2,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { isLanguage, basePath, type Language } from "@/shared/urls";
 import { metadonnees } from "@/shared/seo";
-import { lireActualites, imageUrl } from "../../../lib/sanity";
+import { lireActualites, lireHerosIndex, imageUrl } from "../../../lib/sanity";
 import { BLEU, BLEU_CLAIR, CLAIR_SOUTENU, NOIR } from "../../../composants/palette";
 import { Apparait } from "../../../composants/Apparait";
 import { EnTete } from "../../../composants/EnTete";
@@ -46,6 +46,8 @@ export default async function Page({ params }: { params: Promise<{ lang: string 
   /* ⚠️ 100 et non la valeur par défaut : il y en a 63, et une limite trop
      basse retirerait des pages sans le moindre message. */
   const actualites = await lireActualites(lang as "fr", 100);
+  /* ⭐ Le héros suit la dernière actualité publiée — voir `lireHerosIndex`. */
+  const heros = await lireHerosIndex("actualite", lang as "fr");
 
   return (
     <>
@@ -53,7 +55,27 @@ export default async function Page({ params }: { params: Promise<{ lang: string 
           sans logo, sans menu et sans pied de page. */}
       <EnTete opaque publique />
     <main>
+      {/* ⭐ UNE IMAGE DE HÉROS, ET ELLE SE MET À JOUR SEULE. C'est celle de la
+          dernière actualité publiée : la page reste vivante sans que personne
+          n'ait à y penser, et elle annonce ce qu'elle contient au lieu d'un
+          aplat noir.
+          ⚠️ Le voile est lourd à gauche parce que le texte blanc s'y pose ;
+          il s'éclaircit à droite pour qu'on voie de quoi il s'agit. */}
       <header className="relative overflow-hidden pb-[4.5rem] pt-[11rem] text-white" style={{ background: NOIR }}>
+        {heros?.image ? (
+          <>
+            <div
+              className="absolute inset-0 bg-cover bg-center"
+              style={{ backgroundImage: `url('${imageUrl(heros.image, 2000, 1100)}')` }}
+              role="img"
+              aria-label={heros.titre}
+            />
+            <div
+              className="absolute inset-0"
+              style={{ background: "linear-gradient(100deg, rgba(4,7,10,.93) 0%, rgba(4,7,10,.74) 44%, rgba(4,7,10,.34) 100%)" }}
+            />
+          </>
+        ) : null}
         <div className={`relative z-10 ${LARGE}`}>
           <div
             className="mb-6 flex items-center gap-4 font-bold uppercase"
@@ -70,7 +92,7 @@ export default async function Page({ params }: { params: Promise<{ lang: string 
           </h1>
           <p className="mt-7 text-[1.25rem] leading-[1.6]" style={{ color: "#ffffffdb", maxWidth: "52ch" }}>
             Ce qu’il fallait montrer, comment on l’a filmé, et ce que ça a donné.
-            Un projet par page, avec ses images et ses films.
+            2 minutes de lecture pour comprendre les coulisses de notre métier.
           </p>
           <div className="mt-9 border-t pt-7 text-[.95rem]" style={{ borderColor: "#ffffff2b", color: "#ffffffb3" }}>
             <b style={{ color: BLEU_CLAIR }}>{actualites.length} projets</b> depuis 2004

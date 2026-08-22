@@ -304,6 +304,49 @@ export type ActualiteSanity = {
   descriptionSeo?: string;
 };
 
+/**
+ * L'IMAGE DE HÉROS D'UNE PAGE D'INDEX — la dernière publiée, 22/08/2026.
+ *
+ * ⭐ POURQUOI AUTOMATIQUE, alors que mon premier réflexe était de déconseiller.
+ * Giz : « tu peux faire en sorte qu'elle s'autochange à chaque nouvelle
+ * actu ? si c'est une bonne idée ? ». J'allais répondre non — le héros est
+ * l'image la plus visible du site, et la laisser dépendre du dernier
+ * publié, c'est ne découvrir un mauvais choix qu'APRÈS coup.
+ * 👉 Les chiffres m'ont fait changer d'avis : sur 147 réalisations, AUCUNE
+ * image n'est trop étroite pour un héros ; sur 66 actualités, une seule est
+ * en portrait. Le risque que je redoutais est mesurable, et il est minuscule.
+ *
+ * ⛔ LA GARDE EST DANS LA REQUÊTE, PAS DANS UNE CONSIGNE. On ne prend que les
+ * images en PAYSAGE (ratio > 1,2). Sans elle, la seule actualité en portrait
+ * du site — la dernière publiée, justement — serait passée en héros dès
+ * aujourd'hui, étirée sur toute la largeur. Une règle qu'il faut se rappeler
+ * d'appliquer n'en est pas une.
+ *
+ * ⚠️ CE QUE ÇA NE GARANTIT PAS : que l'image soit BELLE. Le format se
+ * vérifie, le goût non. Si un jour une image faible passe en héros, la
+ * réponse n'est pas de retirer l'automatisme mais d'ajouter au studio une
+ * case « convient en héros » — et de filtrer dessus.
+ */
+export async function lireHerosIndex(genre: "actualite" | "realisation", version: Version = "fr") {
+  /* ⚠️ Les deux types ne nomment pas leur image pareil, et ne se trient pas
+     pareil : une actualité a une date de publication, une réalisation n'en a
+     pas (on retombe sur `_createdAt`, l'ordre d'import). */
+  const champImage = genre === "actualite" ? "imageEntete" : "image";
+  const tri = genre === "actualite" ? "datePublication desc" : "_createdAt desc";
+  /* ⛔ Sur les réalisations, on écarte NOS films — showreels et bandes démo.
+     Une galerie de travaux clients qui s'ouvre sur notre propre bande démo
+     annonce l'inverse de ce qu'elle contient. C'est le même filtre que les
+     « 4 dernières » de l'accueil. */
+  const filtre = genre === "realisation" ? ' && client != "BLUEVISTA"' : "";
+  return sanity.fetch<{ image: unknown; titre: string; slug: string } | null>(
+    `*[_type == $g && language == $v && defined(${champImage})${filtre}
+       && ${champImage}.asset->metadata.dimensions.aspectRatio > 1.2]
+     | order(${tri})[0]{ "image": ${champImage}, titre, "slug": slug.current }`,
+    { g: genre, v: version },
+    { next: { revalidate: DELAI_CACHE } }
+  );
+}
+
 const CHAMPS_ACTUALITE = `
   _id, "slug": slug.current, titre, chapo, imageEntete, client, clientUrl,
   datePublication, repere, blocs, projets, titreSeo, descriptionSeo
