@@ -23,6 +23,8 @@ import { alternatesDe } from "../../../../lib/hreflang";
 import { COMPETENCES, METIERS } from "../../../../composants/plan-du-site";
 import { OFFRES } from "../../../../composants/offres";
 import { BLEU, BLEU_CLAIR, CLAIR, CLAIR_SOUTENU, NOIR, SOMBRE, TYPO } from "../../../../composants/palette";
+import { LecteurVideo } from "../../../../composants/LecteurVideo";
+import { TexteRiche } from "../../../../composants/TexteRiche";
 
 /**
  * LE GABARIT DE RÉALISATION — 140 pages sortiront de ce fichier.
@@ -158,127 +160,152 @@ export default async function PageRealisation({
           sur les 146 fiches. */}
       <EnTete opaque publique />
 
-      <section style={{ background: NOIR, color: "#fff" }}>
-        <div className="mx-auto max-w-[1500px] px-8 pb-16 pt-44">
-          <nav className="mb-6 text-[14px] text-white/55">
-            <a href="/realisations/" className="hover:text-white">
-              Réalisations
-            </a>
+      {/* ── LA BANNIÈRE ────────────────────────────────────────────────
+          ⭐ AVEC L'IMAGE DU PROJET, depuis le 22/08. Elle était un aplat noir
+          alors que l'image existait dans Sanity — elle ne servait que d'affiche
+          au faux lecteur. Sur un site d'agence d'image, ouvrir une fiche de
+          projet sur un rectangle noir est le pire endroit possible.
+          ⚠️ Le voile est lourd à gauche pour que le texte blanc tienne, et
+          s'éclaircit à droite pour qu'on voie de quoi il s'agit. */}
+      <section className="relative overflow-hidden" style={{ background: NOIR, color: "#fff" }}>
+        {r.image ? (
+          <>
+            <div
+              className="absolute inset-0 bg-cover bg-center"
+              style={{ backgroundImage: `url('${imageUrl(r.image, 2000, 1100)}')` }}
+              role="img"
+              aria-label={r.titre}
+            />
+            <div
+              className="absolute inset-0"
+              style={{ background: "linear-gradient(100deg, rgba(4,7,10,.93) 0%, rgba(4,7,10,.72) 44%, rgba(4,7,10,.3) 100%)" }}
+            />
+          </>
+        ) : null}
+        <div className="relative z-10 mx-auto max-w-[1500px] px-8 pb-16 pt-44">
+          <nav className="mb-6 text-[14px] text-white/60">
+            <a href="/realisations/" className="hover:text-white">Réalisations</a>
             {metier && (
               <>
                 <span className="mx-2">·</span>
-                <a href={`/${metier.slug}/`} className="hover:text-white">
-                  {metier.nom}
-                </a>
+                <a href={`/${metier.slug}/`} className="hover:text-white">{metier.nom}</a>
               </>
             )}
           </nav>
           <h1 className="max-w-[24ch] text-[clamp(2rem,4.2vw,3.4rem)] font-bold leading-[1.05] tracking-[-0.02em]">
             {r.titre}
           </h1>
-        </div>
-      </section>
-
-      {/* ── L'accroche, puis la vidéo ───────────────────────────────────
-          L'accroche AVANT le film, et pas après : elle dit ce qu'il faut y
-          chercher. Sans elle, on lance une vidéo sans savoir ce qu'on
-          regarde — et on l'arrête au bout de vingt secondes. */}
-      <section className="mx-auto max-w-[1200px] px-8 pt-16">
-        {r.intro && (
-          <p className="mb-10 max-w-[24ch] text-[clamp(1.5rem,2.8vw,2.25rem)] font-bold leading-[1.15] tracking-[-0.01em]">
-            {r.intro}
-          </p>
-        )}
-        {/* ⚠️ LES VIDÉOS SONT SUR VIMEO AUJOURD'HUI — 144 sur 145. Elles
-            doivent être repointées vers LIVID avant la bascule (décision de
-            Giz). L'iframe n'est donc pas montée ici : poser un lecteur Vimeo
-            reviendrait à câbler ce qu'on va défaire, et à déclencher au
-            passage la bannière de consentement qu'on cherche à éviter. */}
-        <div
-          className="relative flex aspect-video items-center justify-center overflow-hidden rounded-md"
-          style={{
-            background: r.image ? `url('${imageUrl(r.image, 1200, 675)}') center/cover` : CLAIR_SOUTENU,
-          }}
-        >
-          {Boolean(r.image) && <span className="absolute inset-0" style={{ background: `${NOIR}66` }} />}
-          <span
-            className="relative flex h-20 w-20 items-center justify-center rounded-full"
-            style={{ background: BLEU_CLAIR }}
-          >
-            <svg viewBox="0 0 24 24" className="ml-1 h-8 w-8" fill={NOIR} aria-hidden>
-              <path d="M8 5v14l11-7z" />
-            </svg>
-          </span>
-          {r.video && (
-            <span className="absolute bottom-3 right-4 text-[11px] text-white/60">
-              {String(r.video).includes("vimeo") ? "Vimeo — à migrer vers Livid" : String(r.video)}
-            </span>
+          {r.client && (
+            <p className="mt-5 text-[1.05rem] text-white/70">{r.client}</p>
           )}
         </div>
       </section>
 
-      {/* ── Les photos de fabrication ───────────────────────────────────
-          La vidéo prouve le résultat, les photos prouvent la fabrication.
-          Une agence de production a besoin des deux — c'est ce qui
-          distingue une fiche de projet d'une simple mise en ligne de film. */}
-      {cas?.photos && (
-        <section className="mx-auto max-w-[1200px] px-8 pt-8">
-          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-            {/* ⛔ PAS DE LÉGENDE SOUS LES PHOTOS. Décision de Giz : « on
-                n'arrivera pas à les tenir ». C'est le bon réflexe et il vaut
-                au-delà de ce bloc — un champ qu'on ne remplira pas sur 140
-                fiches finit vide, et un vide répété se voit plus qu'une
-                absence assumée. Les photos, elles, restent. */}
-            {Array.from({ length: cas.photos }, (_, i) => (
-              <div
-                key={i}
-                className="flex aspect-[4/3] items-center justify-center rounded-md"
-                style={{ background: CLAIR_SOUTENU }}
-              >
-                <span className="text-[11px] uppercase tracking-[0.16em] opacity-30">
-                  photo
-                </span>
-              </div>
-            ))}
+      {/* ── LE CHAPÔ, PUIS LE FILM ─────────────────────────────────────
+          ⛔ L'ACCROCHE ÉTAIT COMPOSÉE COMME UN TITRE — clamp jusqu'à 2,25 rem
+          en gras, sur 24 caractères de large. Sur LPA elle tombait en quatre
+          lignes courtes et se lisait comme un second titre concurrent du H1.
+          Elle redevient ce qu'elle est : un chapô.
+          ⭐ Elle reste AVANT le film, et c'est délibéré : elle dit ce qu'il
+          faut y chercher. Sans elle, on lance une vidéo sans savoir ce qu'on
+          regarde, et on l'arrête au bout de vingt secondes. */}
+      <section className="mx-auto max-w-[1200px] px-8 pt-16">
+        {r.intro && (
+          <p className="mb-10 max-w-[62ch] text-[clamp(1.15rem,1.7vw,1.4rem)] leading-[1.6] opacity-75">
+            {r.intro}
+          </p>
+        )}
+
+        {/* ⛔⛔ IL N'Y AVAIT AUCUN LECTEUR — un faux bouton play posé sur
+            l'image, et l'adresse de la vidéo écrite en petit dans un coin.
+            Le commentaire disait « les vidéos sont sur Vimeo, à migrer vers
+            Livid » : c'était vrai en juillet, ce ne l'est plus. Mesuré le
+            22/08 — 142 réalisations sur 147 sont sur LIVID, ZÉRO sur Vimeo.
+            👉 Un garde-fou écrit dans un commentaire ne se périme pas tout
+            seul : il faut le vérifier, sinon il finit par interdire ce qu'il
+            protégeait. 147 pages ont eu un lecteur décoratif pour ça. */}
+        {r.video ? (
+          <LecteurVideo
+            video={{
+              url: String(r.video),
+              titre: r.titre,
+              vignetteUrl: r.image ? imageUrl(r.image, 1200, 675) ?? undefined : undefined,
+            }}
+            sansLegende
+          />
+        ) : null}
+      </section>
+
+      {/* ── LE TEXTE DU PROJET, ET LA FICHE DE FAITS ───────────────────
+          ⛔⛔ CE TEXTE N'ÉTAIT AFFICHÉ NULLE PART. Le champ `detail` porte la
+          description reprise de l'ancien site sur 146 réalisations sur 147 —
+          et le gabarit ne le lisait pas. Il attendait quatre champs de cas
+          client (contexte / enjeu / ce qu'on a fait / résultat) remplis sur
+          ZÉRO fiche, et affichait à la place quatre paragraphes d'aide en
+          gris. Le fond du projet était donc invisible partout.
+          ⭐ Décision de Giz le 22/08 : on abandonne les quatre champs au
+          profit d'un TEXTE LIBRE en rich text, formaté quand ça s'y prête. */}
+      {(r.detail || r.clientUrl) && (
+        <section className="mx-auto max-w-[1200px] px-8 pb-4 pt-16">
+          <div className="grid items-start gap-14 lg:grid-cols-[1fr_minmax(0,280px)]">
+            <div>
+              {r.detail ? (
+                <TexteRiche blocs={r.detail} publique className="max-w-[68ch] text-[1.0625rem] leading-[1.75] opacity-[.82]" />
+              ) : null}
+            </div>
+
+            {/* ── LES FAITS ─────────────────────────────────────────────
+                ⚠️ Une colonne de faits, pas une carte d'identité : on n'y met
+                que ce qui est renseigné. Un intitulé suivi d'un tiret sur 147
+                pages se remarque plus qu'une ligne absente. */}
+            <aside className="rounded-md border p-7" style={{ borderColor: "rgba(0,0,0,.12)", background: "#fff" }}>
+              <div className={`mb-5 ${TYPO.surTitre}`} style={{ color: BLEU }}>Le projet</div>
+              <dl className="grid gap-4 text-[15px]">
+                {r.client && (
+                  <div>
+                    <dt className="opacity-45">Client</dt>
+                    <dd className="mt-0.5 font-semibold">{r.client}</dd>
+                  </div>
+                )}
+                {metier && (
+                  <div>
+                    <dt className="opacity-45">Métier</dt>
+                    <dd className="mt-0.5 font-semibold">{metier.nom}</dd>
+                  </div>
+                )}
+                {offre && (
+                  <div>
+                    <dt className="opacity-45">Offre</dt>
+                    <dd className="mt-0.5 font-semibold">{offre.nom}</dd>
+                  </div>
+                )}
+                {competence && (
+                  <div>
+                    <dt className="opacity-45">Savoir-faire</dt>
+                    <dd className="mt-0.5 font-semibold">
+                      <a href={`/savoir-faire/${competence.slug}/`} className="no-underline" style={{ color: BLEU }}>
+                        {competence.nom}
+                      </a>
+                    </dd>
+                  </div>
+                )}
+              </dl>
+              {r.clientUrl && (
+                <a
+                  href={r.clientUrl}
+                  target="_blank"
+                  rel="noopener"
+                  className="mt-7 block rounded-md px-5 py-3 text-center text-[15px] font-bold text-white no-underline transition hover:brightness-110"
+                  style={{ background: BLEU }}
+                >
+                  Voir le site de {r.client} ↗
+                </a>
+              )}
+            </aside>
           </div>
         </section>
       )}
 
-      {/* ── LE CONTENU RÉEL, repris de l'export du site ─────────────────
-          145 fiches ont deux descriptions écrites par Bluevista. Elles
-          s'affichent telles quelles : il n'y a pas de gabarit vide à
-          remplir, il y a du texte à relire. */}
-      {/* ── Les quatre blocs du cas ───────────────────────────────────── */}
-      <section className="mx-auto max-w-[900px] px-8 pb-20 pt-20">
-        <div className="space-y-10">
-          {(cas ? BLOCS : []).map((b, i) => {
-            const texte = cas ? [cas.contexte, cas.enjeu, cas.ceQuOnAFait, cas.resultat][i] : null;
-            return (
-              <div key={b.titre} className="border-t pt-7" style={{ borderColor: "rgba(0,0,0,.12)" }}>
-                <div className="flex items-baseline gap-4">
-                  <span className="text-sm font-bold tabular-nums" style={{ color: BLEU }}>
-                    0{i + 1}
-                  </span>
-                  <h2 className={TYPO.sousTitre}>{b.titre}</h2>
-                </div>
-                {texte ? (
-                  <p className={`mt-4 pl-9 ${TYPO.corps}`}>{texte}</p>
-                ) : (
-                  /* Le bloc vide dit ce qu'il attend, et pourquoi. Un gabarit
-                     rempli de faux texte donne l'illusion d'un site fini. */
-                  <p className="mt-4 pl-9 text-[15px] leading-relaxed opacity-45">{b.aide}</p>
-                )}
-              </div>
-            );
-          })}
-        </div>
-
-        {cas?.credits && (
-          <p className="mt-12 border-t pt-6 text-[15px] opacity-50" style={{ borderColor: "rgba(0,0,0,.12)" }}>
-            {cas.credits}
-          </p>
-        )}
-      </section>
 
       {/* ── Le maillage : c'est ce qui fait travailler ces 140 pages ──── */}
       {(offre || competence) && (

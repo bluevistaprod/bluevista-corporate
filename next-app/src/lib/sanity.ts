@@ -68,6 +68,16 @@ export type RealisationSanity = {
   ancienneUrl?: string;
   titreSeo?: string;
   descriptionSeo?: string;
+  /* ⛔⛔ `detail` N'ÉTAIT NI DANS LA PROJECTION NI DANS LE TYPE — ajouté le
+     22/08/2026. C'est la description du projet, reprise de l'ancien site sur
+     146 réalisations sur 147, et elle n'a JAMAIS pu s'afficher : le gabarit
+     ne pouvait pas lire un champ que la requête ne demandait pas.
+     👉 Un champ absent de la projection ne provoque aucune erreur. Il rend
+     `undefined`, le composant n'affiche rien, et la page a l'air finie. */
+  /* ⚠️ Typé comme les autres textes riches du site, pas `unknown` : le
+     composant qui l'affiche attend des blocs, et un `unknown` l'obligerait à
+     un cast — c'est-à-dire à affirmer sans vérifier. */
+  detail?: BlocTexte[];
   casContexte?: string;
   casEnjeu?: string;
   casFait?: string;
@@ -110,7 +120,8 @@ const CHAMPS = `
   "slug": slug.current,
   titre, client, clientUrl, metier, produit, video, intro, image, aRelire, ancienneUrl,
   casContexte, casEnjeu, casFait, casResultat,
-  titreSeo, descriptionSeo
+  titreSeo, descriptionSeo,
+  detail
 `;
 
 /**
