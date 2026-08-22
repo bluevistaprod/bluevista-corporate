@@ -22,6 +22,7 @@ import { lireRealisation, lireRealisations, lireVoisines, imageUrl } from "../..
 import { alternatesDe } from "../../../../lib/hreflang";
 import { COMPETENCES, METIERS } from "../../../../composants/plan-du-site";
 import { OFFRES } from "../../../../composants/offres";
+import { liens } from "../../../../shared/liens";
 import { BLEU, BLEU_CLAIR, CLAIR, CLAIR_SOUTENU, NOIR, SOMBRE, TYPO } from "../../../../composants/palette";
 import { LecteurVideo } from "../../../../composants/LecteurVideo";
 import { TexteRiche } from "../../../../composants/TexteRiche";
@@ -130,6 +131,18 @@ export default async function PageRealisation({
   if (!r) return notFound();
   const voisines = await lireVoisines(slug, r.produit, r.metier);
 
+  /* ⛔⛔ LES ADRESSES VIENNENT DE LA TABLE, PLUS DE LA MAIN. Deux liens de
+     cette page étaient fabriqués en `/${metier.slug}/` — soit `/film/`, qui
+     n'existe pas : la vraie adresse est `/offres/film/`. Le fil d'Ariane ET
+     la carte d'offre pointaient donc dans le vide, sur les 147 fiches.
+     👉 Réponse à la question de Giz — « comment ne pas avoir le souci ? » :
+     ne jamais écrire une adresse à la main. `liens.ts` existe pour ça, et il
+     documente précisément que « metier » devient « offres » dans l'URL. Une
+     adresse écrite à la main est une supposition ; la table est la source.
+     ⚠️ Et pour une page qui n'existerait pas ENCORE : on n'affiche pas le
+     lien. Un lien mort coûte plus qu'un lien absent — au visiteur comme à
+     Google. */
+  const L = liens(true);
   const metier = METIERS.find(m => m.cle === r.metier);
   const offre = OFFRES.find(o => o.produits.some(p => p.slug === r.produit));
   /* La page du produit, quand ce produit en a une. `competences` n'existe
@@ -188,14 +201,18 @@ export default async function PageRealisation({
             {metier && (
               <>
                 <span className="mx-2">·</span>
-                <a href={`/${metier.slug}/`} className="hover:text-white">{metier.nom}</a>
+                <a href={L.metier(metier.slug)} className="hover:text-white">{metier.nom}</a>
               </>
             )}
           </nav>
           <h1 className="max-w-[24ch] text-[clamp(2rem,4.2vw,3.4rem)] font-bold leading-[1.05] tracking-[-0.02em]">
             {r.titre}
           </h1>
-          {r.client && (
+          {/* ⚠️ LE CLIENT NE SE RÉPÈTE PAS. « LPA : 50ans vidéo anniversaire »
+              porte déjà le nom — l'écrire une ligne plus bas fait bégayer le
+              titre. On ne l'ajoute que s'il manque, ce qui arrive sur les
+              fiches dont le titre ne nomme que le projet. */}
+          {r.client && !r.titre.toLowerCase().includes(r.client.toLowerCase()) && (
             <p className="mt-5 text-[1.05rem] text-white/70">{r.client}</p>
           )}
         </div>
@@ -273,17 +290,21 @@ export default async function PageRealisation({
                     <dd className="mt-0.5 font-semibold">{metier.nom}</dd>
                   </div>
                 )}
-                {offre && (
+                {offre && metier && (
                   <div>
                     <dt className="opacity-45">Offre</dt>
-                    <dd className="mt-0.5 font-semibold">{offre.nom}</dd>
+                    <dd className="mt-0.5 font-semibold">
+                      <a href={L.metier(metier.slug)} className="no-underline" style={{ color: BLEU }}>
+                        {offre.nom}
+                      </a>
+                    </dd>
                   </div>
                 )}
                 {competence && (
                   <div>
                     <dt className="opacity-45">Savoir-faire</dt>
                     <dd className="mt-0.5 font-semibold">
-                      <a href={`/savoir-faire/${competence.slug}/`} className="no-underline" style={{ color: BLEU }}>
+                      <a href={L.competence(competence.slug)} className="no-underline" style={{ color: BLEU }}>
                         {competence.nom}
                       </a>
                     </dd>
@@ -307,67 +328,24 @@ export default async function PageRealisation({
       )}
 
 
-      {/* ── Le maillage : c'est ce qui fait travailler ces 140 pages ──── */}
-      {(offre || competence) && (
-        <section style={{ background: CLAIR_SOUTENU }}>
-          <div className="mx-auto max-w-[1500px] px-8 py-20">
-            <div className={`mb-7 flex items-center gap-4 ${TYPO.surTitre}`} style={{ color: BLEU }}>
-              <span className="inline-block h-[3px] w-12 rounded-full" style={{ background: BLEU }} />
-              Ce projet relève de
-            </div>
-            <div className="flex flex-wrap gap-4">
-              {offre && (
-                <a
-                  href={`/${metier?.slug ?? "film"}/`}
-                  className="rounded-md border-2 px-7 py-5 transition hover:shadow-md"
-                  style={{ borderColor: `${BLEU}33`, background: "#fff" }}
-                >
-                  <div className="text-[12px] font-bold uppercase tracking-[0.14em] opacity-40">
-                    Offre
-                  </div>
-                  <div className="mt-1.5 font-bold" style={{ color: BLEU }}>
-                    {offre.nom}
-                  </div>
-                </a>
-              )}
-              {competence && (
-                <a
-                  href={`/savoir-faire/${competence.slug}/`}
-                  className="rounded-md border-2 px-7 py-5 transition hover:shadow-md"
-                  style={{ borderColor: `${BLEU}33`, background: "#fff" }}
-                >
-                  <div className="text-[12px] font-bold uppercase tracking-[0.14em] opacity-40">
-                    Savoir-faire
-                  </div>
-                  <div className="mt-1.5 font-bold" style={{ color: BLEU }}>
-                    {competence.nom}
-                  </div>
-                </a>
-              )}
-            </div>
-          </div>
-        </section>
-      )}
+      {/* ⛔ LA SECTION « CE PROJET RELÈVE DE » A ÉTÉ RETIRÉE le 22/08.
+          Giz, capture à l'appui : « ce bloc est en désordre total ». Il
+          l'était : une carte seule flottant à gauche d'une bande de 300 px de
+          haut, et elle répétait mot pour mot l'offre déjà présente dans la
+          colonne de faits, trois écrans plus haut.
+          ⭐ CE QU'ELLE PORTAIT DE VRAI — le maillage vers les pages offre et
+          savoir-faire — n'est pas perdu : les deux entrées de la colonne de
+          faits sont désormais des LIENS. L'offre n'y était que du texte.
+          👉 Supprimer un bloc ne doit jamais supprimer sa raison d'être : on
+          déplace d'abord, on retire ensuite. */}
 
-      {/* ── LE SITE DU CLIENT ────────────────────────────────────────────
-          Le seul lien sortant naturel du site, et sa valeur n'est pas
-          d'abord référentielle : il PROUVE que le client existe. Une
-          référence vérifiable en un clic vaut mieux qu'un logo posé sur
-          une page. `rel="noopener"` par sécurité, pas de `nofollow` —
-          on assume de citer nos clients. */}
-      {r.clientUrl && (
-        <section className="mx-auto max-w-[900px] px-8 pb-16">
-          <a
-            href={r.clientUrl}
-            target="_blank"
-            rel="noopener"
-            className="inline-flex items-center gap-3 rounded-md border-2 px-6 py-4 text-[15px] font-semibold transition hover:shadow-md"
-            style={{ borderColor: `${BLEU}33`, color: BLEU }}
-          >
-            Voir le site de {r.client ?? "ce client"} ↗
-          </a>
-        </section>
-      )}
+      {/* ⛔ LA SECTION « LE SITE DU CLIENT » A ÉTÉ RETIRÉE le 22/08. Le lien
+          vers le site du client vit désormais dans la colonne de faits, au
+          niveau du texte : le laisser AUSSI en bas produisait un second
+          bouton « Voir le site de LPA » flottant seul dans une bande vide.
+          📌 Ce que le commentaire d'origine disait reste vrai et vaut d'être
+          gardé : ce lien PROUVE que le client existe, une référence
+          vérifiable en un clic vaut mieux qu'un logo posé sur une page. */}
 
       {/* ── LES PROJETS VOISINS ──────────────────────────────────────────
           ⛔ CORRECTIF DU POINT FAIBLE DU MAILLAGE, mesuré avant d'agir :
