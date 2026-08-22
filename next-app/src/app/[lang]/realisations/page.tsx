@@ -97,11 +97,8 @@ export default async function Page({
               📌 Ces DEUX index sont donc désormais d'accord entre eux, mais
               différents de l'agence, des offres et de l'accueil qui utilisent
               tous `TYPO.surTitre`. Harmonisation à trancher. */}
-          <div
-            className="mb-6 flex items-center gap-4 font-bold uppercase"
-            style={{ color: BLEU_CLAIR, fontSize: "clamp(13px,1.15vw,18px)", letterSpacing: "0.16em" }}
-          >
-            <span className="inline-block h-[3px] rounded-full" style={{ background: BLEU_CLAIR, width: "clamp(3rem,4vw,4.5rem)" }} />
+          <div className={`mb-6 flex items-center gap-4 ${TYPO.surTitre}`} style={{ color: BLEU_CLAIR }}>
+            <span className="inline-block h-[3px] w-12 rounded-full" style={{ background: BLEU_CLAIR }} />
             Réalisations
           </div>
           <h1 className="max-w-[18ch] text-[clamp(2.2rem,5vw,4rem)] font-bold leading-[1.02] tracking-[-0.02em]">

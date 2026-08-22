@@ -3,7 +3,7 @@ import { notFound } from "next/navigation";
 import { isLanguage, basePath, type Language } from "@/shared/urls";
 import { metadonnees } from "@/shared/seo";
 import { lireActualites, lireHerosIndex, imageUrl } from "../../../lib/sanity";
-import { BLEU, BLEU_CLAIR, CLAIR_SOUTENU, NOIR } from "../../../composants/palette";
+import { BLEU, BLEU_CLAIR, CLAIR_SOUTENU, NOIR, TYPO } from "../../../composants/palette";
 import { Apparait } from "../../../composants/Apparait";
 import { EnTete } from "../../../composants/EnTete";
 import { PiedDePage } from "../../../composants/PiedDePage";
@@ -77,11 +77,8 @@ export default async function Page({ params }: { params: Promise<{ lang: string 
           </>
         ) : null}
         <div className={`relative z-10 ${LARGE}`}>
-          <div
-            className="mb-6 flex items-center gap-4 font-bold uppercase"
-            style={{ color: BLEU_CLAIR, fontSize: "clamp(13px,1.15vw,18px)", letterSpacing: "0.16em" }}
-          >
-            <span className="inline-block h-[3px] rounded-full" style={{ background: BLEU_CLAIR, width: "clamp(3rem,4vw,4.5rem)" }} />
+          <div className={`mb-6 flex items-center gap-4 ${TYPO.surTitre}`} style={{ color: BLEU_CLAIR }}>
+            <span className="inline-block h-[3px] w-12 rounded-full" style={{ background: BLEU_CLAIR }} />
             Actualités
           </div>
           <h1

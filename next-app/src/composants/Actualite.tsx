@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { imageUrl, type ActualiteSanity, type BlocActualite, type MediaActualite } from "../lib/sanity";
-import { BLEU, BLEU_CLAIR, CLAIR_SOUTENU, NOIR, SOMBRE } from "./palette";
+import { BLEU, BLEU_CLAIR, CLAIR_SOUTENU, NOIR, SOMBRE, TYPO } from "./palette";
 import { LecteurVideo } from "./LecteurVideo";
 import { TexteRiche } from "./TexteRiche";
 import { Apparait } from "./Apparait";
@@ -46,11 +46,16 @@ function lien(href: string, publique?: boolean) {
 function SurTitre({ enfant, sombre }: { enfant: string; sombre?: boolean }) {
   const c = sombre ? BLEU_CLAIR : BLEU;
   return (
-    <div
-      className="mb-6 flex items-center gap-4 font-bold uppercase"
-      style={{ color: c, fontSize: "clamp(13px,1.15vw,18px)", letterSpacing: "0.16em" }}
-    >
-      <span className="inline-block h-[3px] rounded-full" style={{ background: c, width: "clamp(3rem,4vw,4.5rem)" }} />
+    /* ⭐ HARMONISÉ le 22/08/2026 sur `TYPO.surTitre` — 13 px fixes. Quatre
+   endroits portaient leur propre sur-titre en `clamp(13px, 1.15vw, 18px)`
+   avec un filet variable, pendant que l'agence, les offres, l'accueil, le
+   contact et les villes utilisaient tous la constante. Sur un grand écran
+   l'écart se voyait : Giz l'a repéré en comparant deux index.
+   ⛔ Une valeur de style recopiée à quatre endroits n'est pas une valeur,
+   c'est quatre valeurs qui vont diverger. Elles avaient déjà divergé sur
+   l'interlettrage (0,16 contre 0,18 em). */
+    <div className={`mb-6 flex items-center gap-4 ${TYPO.surTitre}`} style={{ color: c }}>
+      <span className="inline-block h-[3px] w-12 rounded-full" style={{ background: c }} />
       {enfant}
     </div>
   );
