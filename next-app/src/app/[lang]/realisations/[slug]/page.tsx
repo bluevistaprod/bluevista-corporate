@@ -284,20 +284,29 @@ export default async function PageRealisation({
                     <dd className="mt-0.5 font-semibold">{r.client}</dd>
                   </div>
                 )}
+                {/* ⛔ LE LIEN ÉTAIT SUR LA MAUVAISE LIGNE, et Giz l'a vu : « je ne
+                    vois pas de lien sur métier mais un sur offre qui lui envoie sur
+                    la page métier ». Exact — j'avais inversé les deux.
+                    La taxonomie a TROIS niveaux et un seul n'a pas de page :
+                      · MÉTIER            → /offres/film/            ✅ existe
+                      · OFFRE             → aucune page
+                      · SAVOIR-FAIRE      → /savoir-faire/<slug>/    ✅ existe
+                    Une offre est un regroupement interne au catalogue, pas une
+                    destination. Elle reste donc du texte. */}
                 {metier && (
                   <div>
                     <dt className="opacity-45">Métier</dt>
-                    <dd className="mt-0.5 font-semibold">{metier.nom}</dd>
-                  </div>
-                )}
-                {offre && metier && (
-                  <div>
-                    <dt className="opacity-45">Offre</dt>
                     <dd className="mt-0.5 font-semibold">
                       <a href={L.metier(metier.slug)} className="no-underline" style={{ color: BLEU }}>
-                        {offre.nom}
+                        {metier.nom}
                       </a>
                     </dd>
+                  </div>
+                )}
+                {offre && (
+                  <div>
+                    <dt className="opacity-45">Offre</dt>
+                    <dd className="mt-0.5 font-semibold">{offre.nom}</dd>
                   </div>
                 )}
                 {competence && (
