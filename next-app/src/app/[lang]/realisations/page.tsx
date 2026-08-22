@@ -87,9 +87,22 @@ export default async function Page({
           </>
         ) : null}
         <div className="relative z-10 mx-auto max-w-[1500px] px-8 pb-20 pt-44">
-          <div className={`mb-6 flex items-center gap-4 ${TYPO.surTitre}`} style={{ color: BLEU_CLAIR }}>
-            <span className="inline-block h-[3px] w-12 rounded-full" style={{ background: BLEU_CLAIR }} />
-            Depuis 2004
+          {/* ⛔ « DEPUIS 2004 » NE NOMMAIT PAS LA SECTION. Un sur-titre annonce
+              où l'on est ; celui-ci donnait l'âge de l'agence, information déjà
+              portée trois lignes plus bas par « 147 réalisations en ligne » et
+              par l'index des actualités. Giz : « je vois une incohérence ».
+              ⚠️ La taille est calée sur celle de l'index actualités, à sa
+              demande — un corps qui grandit avec l'écran (13 → 18 px), là où
+              `TYPO.surTitre` reste à 13 px fixes.
+              📌 Ces DEUX index sont donc désormais d'accord entre eux, mais
+              différents de l'agence, des offres et de l'accueil qui utilisent
+              tous `TYPO.surTitre`. Harmonisation à trancher. */}
+          <div
+            className="mb-6 flex items-center gap-4 font-bold uppercase"
+            style={{ color: BLEU_CLAIR, fontSize: "clamp(13px,1.15vw,18px)", letterSpacing: "0.16em" }}
+          >
+            <span className="inline-block h-[3px] rounded-full" style={{ background: BLEU_CLAIR, width: "clamp(3rem,4vw,4.5rem)" }} />
+            Réalisations
           </div>
           <h1 className="max-w-[18ch] text-[clamp(2.2rem,5vw,4rem)] font-bold leading-[1.02] tracking-[-0.02em]">
             Ce qu’on a fait pour eux
